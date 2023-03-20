@@ -1,4 +1,4 @@
-const auth_base_url = "http://localhost:5000/api";
+const auth_base_url = "https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1";
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
 
 export default {
