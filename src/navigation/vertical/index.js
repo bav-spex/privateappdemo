@@ -20,7 +20,28 @@ const navigation = () => {
           path: '/home/batch/create'
         }
       ] */
-    }
+    },
+    // {
+    //   title: 'Framework',
+    //   path: 'home/framework/list',
+    //   icon: 'mdi:home-outline',
+    // },
+    {
+      title: 'Framework',
+      path: '/home/framework/list',
+      icon: 'mdi:grid',
+
+      /* children: [
+        {
+          title: 'List',
+          path: '/home/batch/list'
+        },
+        {
+          title: 'Create',
+          path: '/home/batch/create'
+        }
+      ] */
+    },
   ]
 }
 
