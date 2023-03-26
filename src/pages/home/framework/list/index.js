@@ -9,31 +9,25 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Icon from 'src/@core/components/icon'
 import IconButton from '@mui/material/IconButton'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import CardHeader from '@mui/material/CardHeader'
+import Link from 'next/link'
 
-// function createData(
-//   name: string,
-//   calories: number,
-//   fat: number,
-//   carbs: number,
-//   protein: number,
-// ) {
-//   return { name, calories, fat, carbs, protein };
-// }
+// ** MUI Imports
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import Card from '@mui/material/Card'
+import Menu from '@mui/material/Menu'
+import Grid from '@mui/material/Grid'
+import Divider from '@mui/material/Divider'
+import { DataGrid } from '@mui/x-data-grid'
+import { styled } from '@mui/material/styles'
+import MenuItem from '@mui/material/MenuItem'
+
+
+
+import InputLabel from '@mui/material/InputLabel'
+
+import CardContent from '@mui/material/CardContent'
+import Select from '@mui/material/Select'
 
 
 const style = {
@@ -57,8 +51,55 @@ export default function TransitionsModal() {
 
     return (
         <div>
-            <Button onClick={ addModal }>Add Modal</Button>
-            <Button onClick={ editModal }>Edit modal</Button>
+            {/* <Button onClick={ addModal }>Add Modal</Button> */}
+            {/* <Button onClick={ editModal }>Edit modal</Button> */}
+
+            <Card>
+          <CardHeader title='Batches' />
+          <CardContent>
+          <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' ,margin: '0 0 30px' }}>
+                <Button size='medium' variant='contained'  onClick={ addModal }>
+                  Create Batch
+                </Button>
+              </Grid>
+              <Divider />
+            <Grid container direction="column" sx={{margin: '30px 0 0'}}>
+              <Grid item>
+              <div className='data_table'>
+                <table>
+                    <tr>
+                        <th>Id</th>
+                        <th>Framework Name</th>
+                        <th>Parent Framework</th>
+                        <th>Framework Description</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Name</td>
+                        <td>Name</td>
+                        <td>Name</td>
+                        <td>
+                        <IconButton onClick={ editModal } sx={ { color: '#db4437' } }>
+                            <Icon icon='mdi:edit' />
+                        </IconButton>
+                        <IconButton  sx={ { color: '#db4437' } }>
+                            <Icon icon='mdi:delete' />
+                        </IconButton>
+                        </td>
+                        
+                    </tr>
+                    </table>
+            </div>
+              </Grid>
+             
+            </Grid>
+          </CardContent>
+      
+          
+         
+        </Card>
+
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
