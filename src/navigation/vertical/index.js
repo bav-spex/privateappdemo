@@ -5,43 +5,73 @@ const navigation = () => {
       path: '/home',
       icon: 'mdi:home-outline',
     },
-    {
-      title: 'Batches',
-      path: '/home/batch/list',
-      icon: 'mdi:grid',
-
-      /* children: [
-        {
-          title: 'List',
-          path: '/home/batch/list'
-        },
-        {
-          title: 'Create',
-          path: '/home/batch/create'
-        }
-      ] */
-    },
     // {
     //   title: 'Framework',
     //   path: 'home/framework/list',
     //   icon: 'mdi:home-outline',
     // },
     {
-      title: 'Framework',
+      title: 'Governance',
       path: '/home/framework/list',
-      icon: 'mdi:grid',
+      icon: 'mdi:bank',
 
-      /* children: [
+       children: [
         {
-          title: 'List',
-          path: '/home/batch/list'
+          title: 'Frameworks',
+          path: '/home/framework/list'
         },
         {
-          title: 'Create',
-          path: '/home/batch/create'
+          title: 'Controls',
+          path: '/home/governance/controls'
+        },
+        {
+          title: 'Documents',
+          path: '/home/governance/documents'
         }
-      ] */
+      ] 
     },
+    {
+      title: 'Risk Management',
+      path: '/home/risk',
+      icon: 'mdi:progress-alert',
+      children: [
+        {
+          title: 'Risks',
+          path: '/home/risk'
+        }
+      ]
+    }
+    ,
+    {
+      title: 'Complaince',
+      path: '/home/complaince',
+      icon: 'mdi:license',
+      children: [
+        {
+          title: 'Tests',
+          path: '/home/complaince/test'
+        }
+      ]
+    },
+    {
+      title: 'Settings',
+      path: '/home/Settings',
+      icon: 'mdi:cog',
+      children: [
+        {
+          title: 'Lookups',
+          path: '/home/common/lookups'
+        },
+        {
+          title: 'Users',
+          path: '/users/list'
+        },
+        {
+          title: 'Roles',
+          path: '/users/roles'
+        }
+      ]
+    }
   ]
 }
 
