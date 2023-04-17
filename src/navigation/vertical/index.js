@@ -10,38 +10,26 @@ const navigation = () => {
       path: '/home/batch/list',
       icon: 'mdi:grid',
 
-      /* children: [
-        {
-          title: 'List',
-          path: '/home/batch/list'
-        },
-        {
-          title: 'Create',
-          path: '/home/batch/create'
-        }
-      ] */
+     
     },
-    // {
-    //   title: 'Framework',
-    //   path: 'home/framework/list',
-    //   icon: 'mdi:home-outline',
-    // },
     {
-      title: 'Framework',
-      path: '/home/framework/list',
-      icon: 'mdi:grid',
-
-      /* children: [
-        {
-          title: 'List',
-          path: '/home/batch/list'
-        },
-        {
-          title: 'Create',
-          path: '/home/batch/create'
-        }
-      ] */
+      title: 'Risk',
+      path: '/home/risk',
+      icon: 'mdi:error-outline'
     },
+    {
+      title: 'framework',
+      path: '/home/frameworks',
+      icon: 'mdi:grid'
+    },
+    {
+      title: 'Documents',
+      path: '/home/Document',
+      icon: 'mdi:files'
+    }
+
+    
+
   ]
 }
 
