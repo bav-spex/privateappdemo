@@ -3,7 +3,7 @@ const navigation = () => {
     {
       title: 'Home',
       path: '/home',
-      icon: 'mdi:home-outline',
+      icon: 'mdi:home-outline'
     },
     // {
     //   title: 'Framework',
@@ -15,7 +15,7 @@ const navigation = () => {
       path: '/home/framework/list',
       icon: 'mdi:bank',
 
-       children: [
+      children: [
         {
           title: 'Frameworks',
           path: '/home/framework/list'
@@ -28,7 +28,7 @@ const navigation = () => {
           title: 'Documents',
           path: '/home/governance/documents'
         }
-      ] 
+      ]
     },
     {
       title: 'Risk Management',
@@ -40,8 +40,7 @@ const navigation = () => {
           path: '/home/risk'
         }
       ]
-    }
-    ,
+    },
     {
       title: 'Complaince',
       path: '/home/complaince',

@@ -11,7 +11,7 @@ const Affected_Assets_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const technology_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
-const saveMitigation_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
+const savemitigation_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
 const frameWorks_url_ID = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io`
 const frameWorkAll_url = `https://governance-dev-rakshitah.azurewebsites.net/`
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
@@ -23,6 +23,7 @@ const control_dropdown_url='https://common-dev-rakshitah.azurewebsites.net/looku
 const test_list_url="https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/get"
 const category_list_url= "https://common-dev-rakshitah.azurewebsites.net/categories/v1/get"
 const display_lookup_url= "https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category"
+const managmentReview_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
 
 export default {
   meEndpoint: '/auth/me',
@@ -62,5 +63,7 @@ export default {
   test_list: `${test_list_url}`,
   category_list: category_list_url,
   display_lookup: display_lookup_url
+  SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
+  getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`
 }
 
