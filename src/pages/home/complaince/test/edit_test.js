@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const AddTest = () => {
+const EditTest = () => {
 
     const router = useRouter();
 
@@ -76,9 +76,25 @@ const AddTest = () => {
         })
         const data= await res.json();
         console.log("add test is", data);
-        toast.success("Test added successfully");
+        toast("Test edited successfully");
         // router.push('/home/complaince/test');
+        
       }
+
+
+      const fetch_test_details= async()=>{
+
+        // const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users`, {
+        // method:"GET",
+        //   headers:{
+        //       "Content-Type": "application/json"
+        //   }
+        // })
+        // const data= await res.json();
+        // set_tester_list(data.data.users)
+        // console.log("dropdown data is", data);
+      }
+
 
       const fetch_testers= async()=>{
 
@@ -102,14 +118,15 @@ const AddTest = () => {
           }
         })
         const data= await res.json();
-        set_teams_list(data.data.users)
+        set_teams_list(data.data.users);
         console.log("teams data is", data);
       }
 
 
 
       useEffect(() => {
-       
+        
+        fetch_test_details();
         fetch_testers();
         fetch_teams();
       }, [])
@@ -119,9 +136,9 @@ const AddTest = () => {
   return (
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
-    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>Add Test</h1>
-    
+    <div>
+    <h1>Edit Test</h1>
+    </div>
     <ToastContainer />
     <Grid
               item
@@ -150,8 +167,6 @@ const AddTest = () => {
               </Button>
             </Grid>
 
-            </div>
-
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
       <FormControl fullWidth>
@@ -160,13 +175,11 @@ const AddTest = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Tester</InputLabel>
+        <InputLabel id="demo-simple-select-label">Tester</InputLabel>
         <Select
         multiple
         value={testers}
         onChange={add_testers}
-        labelId="demo-simple-select-label"
-        label="Tester"
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -183,13 +196,11 @@ const AddTest = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <div style={{width: '40%'}}>
     <FormControl fullWidth>
-    <InputLabel id="demo-simple-select-label">Additional Stakeholders</InputLabel>
+        <InputLabel id="demo-simple-select-label">Additional Stakeholders</InputLabel>
         <Select
         multiple
         value={additional_stakeholders}
         onChange={add_stakeholders}
-        labelId="demo-simple-select-label"
-        label="Additional Stakeholders"
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -203,13 +214,11 @@ const AddTest = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Teams</InputLabel>
+        <InputLabel id="demo-simple-select-label">Teams</InputLabel>
         <Select
         multiple
         value={teams}
         onChange={add_teams}
-        labelId="demo-simple-select-label"
-        label="Teams"
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -226,12 +235,12 @@ const AddTest = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <div style={{width: '40%'}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Test Frequency" variant="outlined" type='number'  value={test_frequency} onChange={(e)=> set_test_frequency(e.target.value)}/>
+      <TextField id="outlined-basic" label="Test Frequency" variant="outlined"  value={test_frequency} onChange={(e)=> set_test_frequency(e.target.value)}/>
       </FormControl>
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" type='date' label="date"  value={last_test_date} onChange={(e)=> set_last_test_date(e.target.value)}/>
+      <TextField id="outlined-basic" variant="outlined" type='date'  value={last_test_date} onChange={(e)=> set_last_test_date(e.target.value)}/>
       </FormControl>
       </div>
     </div>
@@ -273,4 +282,4 @@ const AddTest = () => {
   )
 }
 
-export default AddTest
+export default EditTest
