@@ -18,7 +18,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import auth from 'src/configs/auth';
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Grid from '@mui/material/Grid'
 import { Button } from '@mui/material';
@@ -54,6 +58,9 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
 
+  const router = useRouter();
+
+
   const [audit_data, set_audit_data]= useState([]);
 
   const open_dropdown = async(para)=>{
@@ -72,6 +79,66 @@ function Row(props) {
       console.log(data);
     }
     setOpen(!open)
+  }
+
+  const handleEditTest= (id)=>{
+
+    router.push({
+      pathname: '/home/complaince/test/edit_test',
+      query: { keyword: id },
+  });
+  }
+
+  const handleAddAudit= async(id)=>{
+
+
+    const res = await fetch(`https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+          test_id: id
+        })
+      });
+      const data = await res.json();
+      console.log("add audit result is");
+      console.log(data);
+      open_dropdown(id);
+      toast.success("Audit added successfully");
+  //   router.push({
+  //     pathname: '/home/complaince/test/add_audit',
+  //     query: { keyword: id },
+  // });
+  }
+
+  const handleEditAudit= async(id)=>{
+
+
+    router.push({
+      pathname: '/home/complaince/test/edit_audit',
+      query: { keyword: id },
+  });
+  }
+
+  const handleAddRisk= async(id)=>{
+
+
+    router.push({
+      pathname: '/home/complaince/test/add_risk',
+      query: { keyword: id },
+  });
+  }
+
+
+  const handleAddComments= async(id)=>{
+
+
+    router.push({
+      pathname: '/home/complaince/test/add_comment',
+      query: { keyword: id },
+  });
   }
 
   return (
@@ -98,22 +165,25 @@ function Row(props) {
         <TableCell align="right">{row.next_test_date}</TableCell>
         <TableCell align="right">{row.approximatetime}</TableCell>
         <TableCell align="right">
-        <IconButton onClick={()=> handleEditClick(r.testid)} sx={{ color: 'green' }}>
-          <EditIcon />
+        <IconButton onClick={()=> handleEditTest(row.testid)} sx={{ color: 'green' }}>
+          <EditIcon titleAccess='Edit Test' />
         </IconButton>
         <IconButton onClick={()=> handleEditClick(r.testid)} sx={{ color: 'red' }}>
-        <DeleteIcon />
+        <DeleteIcon titleAccess='Delete Test'/>
+      </IconButton>
+      <IconButton onClick={()=> handleAddAudit(row.testid)} sx={{ color: 'blue' }}>
+        <AddIcon titleAccess='Add Audits'/>
       </IconButton>
       </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Audits
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size='medium' aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Audit Id</TableCell>
@@ -122,6 +192,7 @@ function Row(props) {
                     <TableCell align="right">Test Name</TableCell>
                     <TableCell align="right">Teams</TableCell>
                     <TableCell align="right">Test Date</TableCell>
+                    <TableCell align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -135,6 +206,17 @@ function Row(props) {
                       <TableCell align="right">{item.testname}</TableCell>
                       <TableCell align="right">{item.teams[0]}</TableCell>
                       <TableCell align="right">{item.testdate}</TableCell>
+                      <TableCell align="right">
+                      <IconButton sx={{ color: 'green' }}>
+                        <EditIcon titleAccess='Edit Audit' onClick={()=> handleEditAudit(item.auditid)}/>
+                      </IconButton>
+                      <IconButton sx={{ color: 'blue' }}>
+                        <AddCommentIcon titleAccess='Add comment' onClick={()=> handleAddComments(item.auditid)}/>
+                      </IconButton>
+                      <IconButton sx={{ color: 'green' }}>
+                        <AddIcon titleAccess='Add Risk' onClick={()=> handleAddRisk(item.auditid)}/>
+                      </IconButton>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -207,22 +289,65 @@ export default function CollapsibleTable() {
 
     <Card>
           <Typography sx={{display: 'inline', fontSize: '1.5em', marginTop: '10px', marginBottom: '10px'}}>Tests</Typography>
+          <ToastContainer />
           <Button variant='contained' onClick={addTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>Add Test</Button>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell />
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Test Name</TableCell>
-            <TableCell align="right">Tester</TableCell>
-            <TableCell align="right">Additional Stakeholders</TableCell>
-            <TableCell align="right">Tags</TableCell>
-            <TableCell align="right">Test Frequency</TableCell>
-            <TableCell align="right">Last Test Date</TableCell>
-            <TableCell align="right">Next Test Date</TableCell>
-            <TableCell align="right">Approximate Time</TableCell>
-            <TableCell align="right">Action</TableCell>
+            <TableCell sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}/>
+            <TableCell sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>ID</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Test Name</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Tester</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Additional Stakeholders</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Tags</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Test Frequency</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Last Test Date</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Next Test Date</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Approximate Time</TableCell>
+            <TableCell align="right"
+            sx={{
+              borderLeft: '0px solid black',
+              borderRight: '0px solid black'
+            }}>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

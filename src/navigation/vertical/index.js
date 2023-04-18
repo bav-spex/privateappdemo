@@ -5,27 +5,11 @@ const navigation = () => {
       path: '/home',
       icon: 'mdi:home-outline'
     },
-
-    {
-      title: 'Batches',
-      path: '/home/batch/list',
-      icon: 'mdi:grid'
-    },
-    {
-      title: 'Risk',
-      path: '/home/risk',
-      icon: 'mdi:error-outline'
-    },
-    {
-      title: 'framework',
-      path: '/home/frameworks',
-      icon: 'mdi:grid'
-    },
-    {
-      title: 'Documents',
-      path: '/home/Document',
-      icon: 'mdi:files'
-    },
+    // {
+    //   title: 'Framework',
+    //   path: 'home/framework/list',
+    //   icon: 'mdi:home-outline',
+    // },
     {
       title: 'Governance',
       path: '/home/framework/list',
