@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const auth_base_url = 'https://iac-dev-rakshitah.azurewebsites.net'
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
 const risk_base_url = ' https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
@@ -12,12 +11,13 @@ const Affected_Assets_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const technology_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
-const saveMitigation_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
+const savemitigation_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
 const frameWorks_url_ID = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io`
 const frameWorkAll_url = `https://governance-dev-rakshitah.azurewebsites.net/`
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
+const managmentReview_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
 
 export default {
   meEndpoint: '/auth/me',
@@ -50,35 +50,6 @@ export default {
   saveAllDocs: `${saveDocument_url}governance/v1/documents/update/1456`,
   mitigation: `${mitigation_url}rmf/v1/risks/1/mitigation`,
   saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
-  saveAllMitigation: `${saveMitigation_url}rmf/risk/1/mitigation/update/51`
+  SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
+  getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`
 }
-=======
-const auth_base_url = "https://iac-dev-rakshitah.azurewebsites.net";
-const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
-const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
-const control_by_id_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/id'
-const control_dropdown_url='https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
-const test_list_url="https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/get"
-
-export default {
-    meEndpoint: '/auth/me',
-    loginEndpoint: `${auth_base_url}/api/Authenticate/login`,
-    loginMockEndpoint: 'jwt/login',
-    otpEndpoint: `${auth_base_url}/users/v1/user/validateOTP`,
-    registerEndpoint: '/jwt/register',
-    storageTokenKeyName: 'accessToken',
-    onTokenExpiration: 'refreshToken', // logout | refreshToken
-    courseEndpoint: "/courses",
-    trainingLocationEndpoint: "/training-locations",
-    getAllEmployees : `${batch_base_url}/users/v1?role=Employee`,
-    getAllTeachers : `${batch_base_url}/users/v1?role=Teacher`,
-    submitBatch : `${batch_base_url}/cohorts/v1/cohorts/`,
-    batchList : `${batch_base_url}/cohorts/v1/`,
-    controlList:`${control_url}/v1/controls`,
-    control_by_id: `${control_by_id_url}`,
-    control_dropdown: `${control_dropdown_url}`,
-    test_list: `${test_list_url}`
-}
-
-
->>>>>>> ab0d86ee047853754f3c3638bc706913fec2cc50

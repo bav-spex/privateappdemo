@@ -3,15 +3,13 @@ const navigation = () => {
     {
       title: 'Home',
       path: '/home',
-      icon: 'mdi:home-outline',
+      icon: 'mdi:home-outline'
     },
-<<<<<<< HEAD
+
     {
       title: 'Batches',
       path: '/home/batch/list',
-      icon: 'mdi:grid',
-
-     
+      icon: 'mdi:grid'
     },
     {
       title: 'Risk',
@@ -27,22 +25,13 @@ const navigation = () => {
       title: 'Documents',
       path: '/home/Document',
       icon: 'mdi:files'
-    }
-
-    
-
-=======
-    // {
-    //   title: 'Framework',
-    //   path: 'home/framework/list',
-    //   icon: 'mdi:home-outline',
-    // },
+    },
     {
       title: 'Governance',
       path: '/home/framework/list',
       icon: 'mdi:bank',
 
-       children: [
+      children: [
         {
           title: 'Frameworks',
           path: '/home/framework/list'
@@ -55,7 +44,7 @@ const navigation = () => {
           title: 'Documents',
           path: '/home/governance/documents'
         }
-      ] 
+      ]
     },
     {
       title: 'Risk Management',
@@ -67,8 +56,7 @@ const navigation = () => {
           path: '/home/risk'
         }
       ]
-    }
-    ,
+    },
     {
       title: 'Complaince',
       path: '/home/complaince',
@@ -99,7 +87,6 @@ const navigation = () => {
         }
       ]
     }
->>>>>>> ab0d86ee047853754f3c3638bc706913fec2cc50
   ]
 }
 

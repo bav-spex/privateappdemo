@@ -114,7 +114,7 @@ const RiskList = () => {
             <IconButton onClick={openMitigation} sx={{ color: 'green' }}>
               <ContactSupportIcon />
             </IconButton>
-            <IconButton onClick={handleCreateClick} sx={{ color: 'red' }}>
+            <IconButton onClick={openPreview} sx={{ color: 'red' }}>
               <PreviewIcon />
             </IconButton>
           </>
@@ -131,7 +131,7 @@ const RiskList = () => {
 
   const handleCreateClick = () => {
     console.log('into handle create')
-    router.push('/home/risk/EditRisk')
+    router.push('/home/risk/newRisk')
     // dispatch(reviewRisk(data))
   }
 
@@ -140,6 +140,10 @@ const RiskList = () => {
   }
   const openMitigation = () => {
     router.push('/home/mitigation/mitigation')
+  }
+
+  const openPreview = () => {
+    router.push('/home/risk/LastReview')
   }
   const handleFilter = useCallback(val => {
     setValue(val)

@@ -171,3 +171,17 @@ export const allRisk = (errorCallback, successCallback) => {
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
+
+export const allReview = (errorCallback, successCallback) => {
+  axios
+    .get(authConfig.getmanagmentReview)
+    .then(res => {
+      if (res.data.error.msg != '') {
+        console.log('error:', res.data)
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        successCallback(res.data)
+      }
+    })
+    .catch(err => (errorCallback ? errorCallback(err) : null))
+}
