@@ -70,6 +70,11 @@ const navigation = () => {
           path: '/users/roles'
         }
       ]
+    },
+    {
+      title: 'PieCharts',
+      path: '/home/PieCharts',
+      icon: 'mdi:files'
     }
   ]
 }
