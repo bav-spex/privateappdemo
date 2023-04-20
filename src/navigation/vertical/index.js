@@ -42,6 +42,11 @@ const navigation = () => {
         }
       ] */
     },
+    {
+      title: 'Charts',
+      path: '/home/charts',
+      icon: 'mdi:grid',
+    },
   ]
 }
 
