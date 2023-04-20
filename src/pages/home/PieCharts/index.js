@@ -5,10 +5,10 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
 // // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
+// import Box from '@mui/material/Box'
+// import Card from '@mui/material/Card'
 import Menu from '@mui/material/Menu'
-import Grid from '@mui/material/Grid'
+// import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -28,7 +28,7 @@ const TotakRisk = () => {
               {/* <Dough /> */}
             </Card>
           </Grid>
-          <Grid item xs={12} md={4} style={{ marginLeft: '15%' }}>
+          {/* <Grid item xs={12} md={4} style={{ marginLeft: '15%' }}>
             <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
               <h1>Category</h1>
               <Category />
@@ -57,7 +57,7 @@ const TotakRisk = () => {
               <h1>SiteLocation</h1>
               <Category />
             </Card>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </>
