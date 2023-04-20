@@ -3,55 +3,50 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
-// ** Config
-import authConfig from 'src/configs/auth'
-
-// ** Fetch Employees
-export const fetchEmployees = createAsyncThunk('appUsers/fetchEmployees', async params => {
-  const response = await axios.get(authConfig.getAllEmployees, {
+// ** Fetch Users
+export const fetchData = createAsyncThunk('appUsers/fetchData', async params => {
+  const response = await axios.get('https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/dummyusers', {
     params
   })
-  console.log('Employees list', response.data.items)
 
   return response.data
 })
 
-// ** Fetch Teachers
-export const fetchTeachers = createAsyncThunk('appUsers/fetchTeachers', async params => {
-  const response = await axios.get(authConfig.getAllTeachers, {
-    params
+// ** Add User
+export const addUser = createAsyncThunk('appUsers/addUser', async (data, { getState, dispatch }) => {
+  const response = await axios.post('/apps/users/add-user', {
+    data
   })
-  console.log('Teachers list', response.data)
+  dispatch(fetchData(getState().user.params))
 
   return response.data
 })
 
+// ** Delete User
+export const deleteUser = createAsyncThunk('appUsers/deleteUser', async (id, { getState, dispatch }) => {
+  const response = await axios.delete('/apps/users/delete', {
+    data: id
+  })
+  dispatch(fetchData(getState().user.params))
+
+  return response.data
+})
 
 export const appUsersSlice = createSlice({
   name: 'appUsers',
   initialState: {
-    teacherList: [],
-    employeesList: [],
-    totalTeachers : 1,
-    totalEmployees: 1,
-    emp_params: {},
-    teacher_params: {},
-    allTeacherData: [],
-    AllEmployeeData : []
+    data: [],
+    total: 1,
+    params: {},
+    allData: []
   },
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchEmployees.fulfilled, (state, action) => {
-      state.employeesList = action.payload.items
-      state.totalEmployees = action.payload.medata.totalCount
-      state.emp_params = action.payload.medata.pageable
-      state.AllEmployeeData = action.payload.medata.totalCount
-    }),
-    builder.addCase(fetchTeachers.fulfilled, (state, action) => {
-      state.teacherList = action.payload.items
-      state.totalTeachers =  action.payload.medata.totalCount
-      state.teacher_params =  action.payload.medata.pageable
-      state.allTeacherData =  action.payload.medata.totalCount
+    builder.addCase(fetchData.fulfilled, (state, action) => {
+      state.data = action.payload.users
+      state.total = action.payload.total
+      state.params = action.payload.params
+      state.allData = action.payload.allData
     })
   }
 })
