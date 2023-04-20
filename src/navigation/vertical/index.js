@@ -31,6 +31,11 @@ const navigation = () => {
       ]
     },
     {
+      title: 'Charts',
+      path: '/home/charts',
+      icon: 'mdi:grid',
+    },
+    {
       title: 'Risk Management',
       path: '/home/risk',
       icon: 'mdi:progress-alert',
@@ -70,6 +75,11 @@ const navigation = () => {
           path: '/users/roles'
         }
       ]
+    },
+    {
+      title: 'PieCharts',
+      path: '/home/PieCharts',
+      icon: 'mdi:files'
     }
   ]
 }
