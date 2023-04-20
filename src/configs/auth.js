@@ -56,13 +56,13 @@ export default {
   saveAllDocs: `${saveDocument_url}governance/v1/documents/update/1456`,
   mitigation: `${mitigation_url}rmf/v1/risks/1/mitigation`,
   saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
-  saveAllMitigation: `${saveMitigation_url}rmf/risk/1/mitigation/update/51`,
+  saveAllMitigation: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
   controlList:`${control_url}/v1/controls`,
   control_by_id: `${control_by_id_url}`,
   control_dropdown: `${control_dropdown_url}`,
   test_list: `${test_list_url}`,
   category_list: category_list_url,
-  display_lookup: display_lookup_url
+  display_lookup: display_lookup_url,
   SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
   getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`
 }
