@@ -46,7 +46,7 @@ import { Button, ToggleButtonGroup } from '@mui/material'
 import { useRouter } from 'next/router'
 
 // //*axios import
-import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
+import { allFrameWorks, fwa } from 'src/pages/home/framework/frameworkService'
 // console.log('allFrameworks:', allFrameWorks)
 
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'

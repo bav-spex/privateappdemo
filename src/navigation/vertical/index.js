@@ -2,23 +2,18 @@ const navigation = () => {
   return [
     {
       title: 'Home',
-      path: '/home',
+      path: '/home/PieCharts',
       icon: 'mdi:home-outline'
     },
-    // {
-    //   title: 'Framework',
-    //   path: 'home/framework/list',
-    //   icon: 'mdi:home-outline',
-    // },
     {
       title: 'Governance',
-      path: '/home/framework/list',
+      path: '/home/framework',
       icon: 'mdi:bank',
 
       children: [
         {
           title: 'Frameworks',
-          path: '/home/framework/list'
+          path: '/home/framework'
         },
         {
           title: 'Controls',
@@ -26,15 +21,10 @@ const navigation = () => {
         },
         {
           title: 'Documents',
-          path: '/home/governance/documents'
+          path: '/home/Document'
         }
       ]
-    },
-    {
-      title: 'Charts',
-      path: '/home/charts',
-      icon: 'mdi:grid',
-    },
+    },    
     {
       title: 'Risk Management',
       path: '/home/risk',
@@ -75,12 +65,7 @@ const navigation = () => {
           path: '/users/roles'
         }
       ]
-    },
-    {
-      title: 'PieCharts',
-      path: '/home/PieCharts',
-      icon: 'mdi:files'
-    }
+    }   
   ]
 }
 
