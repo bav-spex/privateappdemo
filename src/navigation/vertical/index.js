@@ -16,9 +16,13 @@ const navigation = () => {
       icon: 'mdi:bank',
 
       children: [
+        // {
+        //   title: 'Frameworks',
+        //   path: '/home/framework/list'
+        // },
         {
           title: 'Frameworks',
-          path: '/home/framework/list'
+          path: '/home/framework'
         },
         {
           title: 'Controls',

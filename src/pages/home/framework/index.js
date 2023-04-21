@@ -46,7 +46,8 @@ import { Button, ToggleButtonGroup } from '@mui/material'
 import { useRouter } from 'next/router'
 
 // //*axios import
-import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
+// import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
+import { allFrameWorks, fwa } from './frameworkService'
 // console.log('allFrameworks:', allFrameWorks)
 
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
@@ -84,11 +85,11 @@ const FrameWorkList = () => {
   console.log('allf:', all)
 
   const handleCreateClick = () => {
-    router.push('/home/frameworks/edit')
+    router.push('/home/framework/edit')
   }
 
   const createNew = () => {
-    router.push(`/home/frameworks/CreateFrameWork`)
+    router.push(`/home/framework/CreateFrameWork`)
   }
 
   const [open, setOpen] = useState(true)

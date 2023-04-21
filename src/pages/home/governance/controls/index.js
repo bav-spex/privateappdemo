@@ -340,8 +340,8 @@ const columns = [
           },
     })
     const data= await res.json();
-    setControlList(data.data.controls);
     console.log("control data is", data);
+    setControlList(data.data.controls);
   }
 
 
