@@ -56,7 +56,6 @@ export default {
   saveAllDocs: `${saveDocument_url}governance/v1/documents/update/1456`,
   mitigation: `${mitigation_url}rmf/v1/risks/1/mitigation`,
   saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
-  // saveAllMitigation: `${saveMitigation_url}rmf/risk/1/mitigation/update/51`,
   saveAllMitigation: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
   controlList:`${control_url}/v1/controls`,
   control_by_id: `${control_by_id_url}`,
