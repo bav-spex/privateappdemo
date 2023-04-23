@@ -7,7 +7,7 @@ import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
 // import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { allFrameWorks, fwa } from './frameworkService'
+import { freameworkDetails, fwa } from './frameworkService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
@@ -15,42 +15,34 @@ const EditFrame = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
 
+  
+
+  const [fwDetails, setFwDetails] = useState([])
   useEffect(() => {
-    fwa(() => {}, setAll)
+    freameworkDetails(() => {}, setFwDetails)
+    console.log('fwDetails:', fwDetails)
   }, [])
 
-  const [all, setAll] = useState([])
-  console.log('allf:', all)
-
-  const frameWorksArray = all
-  console.log('Frameworks:', frameWorksArray)
-
+const [fwList, setFwList] = useState([])
   //!  to feth Parent fw
   useEffect(() => {
-    allFrameWorks(() => {}, setFwList)
+    fwa(() =>  {}, setFwList)
     console.log('allframeaworks:', fwList)
   }, [])
 
-  useEffect(() => {
-    fwa(() => {}, setAll)
-  }, [])
+  const frameWorksArray = fwList
+  const frameWorksDetails = fwDetails
+  console.log('Frameworks:', frameWorksArray)
+  console.log('Frameworks Details:', frameWorksDetails)
 
-  // const [frame, setFrame] = useState({
-  //   frameWork: '',
-  //   ParentFrameWork: '',
-  //   frameWorkDescription: ''
-  // })
-
-  // const handleChange = e => {
-  //   const { frameWork, value } = e
-  //   setFrame({ ...frame, [frameWork]: value })
-  // }
+  
+  
   // !button methods
   const gotoCancel = () => {
-    router.push(`/home/frameworks`)
+    router.push(`/home/framework`)
   }
   //!states
-  const [fwList, setFwList] = useState([])
+ 
   const [cat, setCat] = useState({})
 
   // ** Hooks
@@ -64,8 +56,8 @@ const EditFrame = () => {
     formState: { errors }
   } = useForm({
     defaultValues: useMemo(() => {
-      return data
-    }, [data])
+      return frameWorksDetails
+    }, [frameWorksDetails])
   })
 
   return (
@@ -87,10 +79,10 @@ const EditFrame = () => {
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
         >
           <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-            cancel
+            Cancel
           </Button>
           <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }}>
-            Edit FrameWork
+            Save
           </Button>
         </Grid>
       </div>
@@ -99,21 +91,21 @@ const EditFrame = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
           <h5>FrameWork Name</h5>
-          <TextField label='FrameWork' fullWidth value={all.framework_Name} />
+          <TextField label='FrameWork' fullWidth value={frameWorksDetails.framework_Name} />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
           <h5>parent FrameWork</h5>
           <Controller
             name='ParentFrameWork'
             control={control}
-            rules={{ required: true }}
-            defaultValue={data}
+            rules={{ required: true }}            
             render={({ field: { value, onChange } }) => (
               <Select
                 value={value}
+                
                 // defaultValue={'Management'}
                 fullWidth
-                label={'ParentFrameWork'}
+                label={'Parent FrameWork'}
                 onChange={e => {
                   // setSelectedRisk(e.target.value)
                   // onChange(e)
@@ -126,7 +118,7 @@ const EditFrame = () => {
               >
                 {Array.isArray(frameWorksArray) &&
                   frameWorksArray.map((f, i) => {
-                    return <MenuItem value={f.framework_Parent}>{f.framework_Parent}</MenuItem>
+                    return <MenuItem value={f.id}>{f.framework_Name}</MenuItem>
                   })}
               </Select>
             )}
@@ -140,6 +132,7 @@ const EditFrame = () => {
             placeholder=''
             style={{ width: '100%' }}
             fullWidth
+            value={frameWorksDetails.framework_Details}
           />
         </Grid>
       </Grid>

@@ -2,17 +2,18 @@
 import axios from 'axios'
 //.config
 import authConfig from 'src/configs/auth'
-export const allFrameWorks = (errorCallback, successCallback) => {
+export const freameworkDetails = (errorCallback, successCallback) => {
+  console.log(authConfig.frameWorkbyId)
   axios
-    .get(authConfig.frameWorkAllID)
+    .get(authConfig.frameWorkbyId)
     .then(res => {
-      console.log('frameWorkAll:', res)
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
+      console.log('frameWork details:', res.data)
+      if (res.data) {
         successCallback(res.data)
-        console.log('allframeWork:', res.data)
+        console.log('frameWork details object:', res.data)        
+      } else {
+        console.log('error:', res.error.msg)
+        if (errorCallback) errorCallback(res.data.error)
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))

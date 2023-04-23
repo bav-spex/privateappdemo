@@ -22,7 +22,7 @@ const PieCharts = () => {
   useEffect(() => {
     const getStatus = []
     const getRisk = async () => {
-      const reqData = await fetch('https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io//rmf/v1/risks')
+      const reqData = await fetch('https://9d9560c9-7f96-4865-9747-d5a8232c9a70.dummmy.mock.pstmn.io//rmf/v1/risks')
       const resData = await reqData.json()
       console.log(resData)
       // for (let i = 0; i < resData.length - 1; i) {
