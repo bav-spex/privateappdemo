@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import { useRouter } from 'next/router'
+import authConfig from 'src/configs/auth'
 import {
   saveRisk,
   fetchRisk,
@@ -14,7 +15,8 @@ import {
   currentlikehood,
   currentImpacts,
   fetchAssets,
-  fetchTechnology
+  fetchTechnology,
+  fetchOwner
 } from 'src/pages/home/risk/RiskService'
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
@@ -29,6 +31,111 @@ const RiskList = () => {
   const data = useSelector(state => state.riskList)
 
   const dispatch = useDispatch()
+
+
+  const fetch_owner_list= async()=>{
+
+    const res= await fetch(`${authConfig.owner_list}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          }
+        });
+        const data= await res.json();
+        console.log("owner dropdown list is", data);
+        setOwnerList(data.data.users);
+  }
+
+  const fetch_team_list= async()=>{
+
+    const res= await fetch(`${authConfig.team_list}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          }
+        });
+        const data= await res.json();
+        console.log("team dropdown list is", data);
+        setTeamList(data.data.users);
+  }
+
+  const fetch_risk_dropdown= async()=>{
+
+    const res= await fetch(`${authConfig.risk_mapping_list}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          }
+        });
+        const data= await res.json();
+        console.log("risk dropdown list is", data);
+        set_risk_dropdown(data);
+  }
+
+  const fetch_threat_dropdown= async()=>{
+
+    const res= await fetch(`${authConfig.threat_mapping_list}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          }
+        });
+        const data= await res.json();
+        console.log("threat dropdown list is", data);
+        set_threat_dropdown(data);
+  }
+
+  const fetch_regulation_dropdown= async()=>{
+
+    const res= await fetch(`${authConfig.regulation_dropdown}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          }
+        });
+        const data= await res.json();
+        console.log("regulation dropdown list is", data);
+        set_regulation_dropdown(data);
+  }
+
+  const submit_risk= async()=>{
+
+    const res= await fetch(`${authConfig.saveAllRisk}`, {
+        method:"POST",
+          headers:{
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            
+            subject: subject,
+            riskmapping: risk_mapping,
+            threatmapping: threat_mapping,
+            reference_id: reference_id,
+            regulation: regulation,
+            control_number: control_number,
+            source: rs,
+            category: category_,
+            owner: owner,
+            manager: manager,
+            assessment: assessment,
+            additionalnotes: additional_notes,
+            location: location,
+            riskscoringmethod: score,
+            currentlikelihood: current_likelihood,
+            currentimpact: current_impact,
+            affectedassets: aassets,
+            technology: tech,
+            supportingdocumentation: "yes",
+            team: team,
+            additionalstakeholders: additional_stakeholders,
+            tag: tag
+
+        })
+        });
+        const data= await res.json();
+        console.log("save risk is", data);
+        toast.success('Submitted Risk')
+  }
 
   useEffect(() => {
     fetchRisk(1234, () => {}, setAllRisk)
@@ -77,6 +184,18 @@ const RiskList = () => {
     fetchTechnology(() => {}, setTechList)
     console.log('setTech:', tech)
   }, [])
+
+  //to fetch owners and additional stakeholders
+  useEffect(() => {
+    
+    fetch_owner_list();
+    fetch_team_list();
+    fetch_risk_dropdown();
+    fetch_threat_dropdown();
+    fetch_regulation_dropdown();
+  }, [])
+
+
   //! to select categories
   const setCatRisk = value => {
     let category = catList.filter(item => item.id == value)
@@ -157,16 +276,44 @@ const RiskList = () => {
   const [risk, setRisk] = useState([])
   const [slList, setSlList] = useState([])
   const [location, setlocation] = useState({})
-  const [score, setScore] = useState({})
+  const [score, setScore] = useState(50)
   const [scoreList, setScoreList] = useState([])
   const [current, setCurrent] = useState({})
   const [currentList, setCurrentList] = useState([])
   const [impacts, setImpacts] = useState({})
   const [impactList, setImpactList] = useState([])
-  const [aassets, setAssets] = useState({})
+  const [aassets, setAssets] = useState([])
   const [assetsList, setAssetsList] = useState([])
-  const [tech, setTech] = useState({})
-  const [techList, setTechList] = useState([])
+  const [tech, setTech] = useState([])
+  const [techList, setTechList] = useState([]);
+
+  const [ownerList, setOwnerList] = useState([])
+  const [teamList, setTeamList] = useState([]);
+
+  const [team, setTeam] = useState([]);
+  const [additional_stakeholders, set_additional_stakeholders] = useState([]);
+
+  const [subject, set_subject]= useState('');
+
+  const [reference_id, set_refernce_id]= useState('');
+  const [regulation, set_regulation]= useState('');
+  const [control_number, set_control_number]= useState('');
+  const [owner, setOwner]= useState('');
+  const [manager, setManager]= useState('');
+  const [assessment, set_assessment]= useState('');
+  const [tag, setTag]= useState('');
+  const [additional_notes, set_additional_notes]= useState('');
+  const [category_ ,set_category]= useState('');
+  const [current_impact ,set_current_impact]= useState('');
+  const [current_likelihood ,set_current_likelihood]= useState('');
+
+  const [risk_dropdown ,set_risk_dropdown]= useState([]);
+  const [risk_mapping ,set_risk_mapping]= useState([]);
+
+  const [threat_dropdown ,set_threat_dropdown]= useState([]);
+  const [threat_mapping ,set_threat_mapping]= useState([]);
+
+  const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
 
   // console.log('allrisk :', allRisk)
   const setSelectedRisk = value => {
@@ -245,8 +392,9 @@ const RiskList = () => {
               size='medium'
               variant='contained'
               style={{ marginLeft: '10px' }}
-              onClick={SubmitRisk}
-              onSubmit={handleSubmit(onSubmit)}
+              // onClick={SubmitRisk}
+              // onSubmit={handleSubmit(onSubmit)}
+              onClick={submit_risk}
             >
               SubmitRisk
             </Button>
@@ -326,12 +474,15 @@ const RiskList = () => {
               /> */}
               <TextField
                 id='outlined-basic'
-                sx={{ p: 1.5 }}
+                // sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
                 name='suject'
                 label='Subject'
-                value={allRisk?.data?.suject}
+                // value={allRisk?.data?.suject}
+                value={subject}
+                onChange={(e)=> set_subject(e.target.value)}
+                //ends
                 placeholder='select a subject or start typing search ...'
               />
               {errors.msg && (
@@ -354,11 +505,14 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={risk_mapping}
+                    multiple
                     fullWidth
                     label={'Training Course'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
+                      set_risk_mapping(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -366,9 +520,14 @@ const RiskList = () => {
                     aria-describedby='validation-basic-select'
                   >
                     <MenuItem value=''>None</MenuItem>
-                    {allRisk.data?.riskmapping?.map((item, i) => (
+                    {/* {allRisk.data?.riskmapping?.map((item, i) => (
                       <MenuItem value={item} key={i}>
                         {item}
+                      </MenuItem>
+                    ))} */}
+                    {risk_dropdown.map((item, i) => (
+                      <MenuItem value={item.lookupId} key={i}>
+                        {item.lookupName}
                       </MenuItem>
                     ))}
                   </Select>
@@ -394,11 +553,14 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={threat_mapping}
+                    multiple
                     fullWidth
                     label={'Threat Mapping'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
+                      set_threat_mapping(e.target.value);
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -406,9 +568,14 @@ const RiskList = () => {
                     aria-describedby='validation-basic-select'
                   >
                     <MenuItem value=''>None</MenuItem>
-                    {allRisk.data?.threatmapping?.map((item, i) => (
+                    {/* {allRisk.data?.threatmapping?.map((item, i) => (
                       <MenuItem value={item} key={i}>
                         {item}
+                      </MenuItem>
+                    ))} */}
+                    {threat_dropdown.map((item, i) => (
+                      <MenuItem value={item.lookupId} key={i}>
+                        {item.lookupName}
                       </MenuItem>
                     ))}
                   </Select>
@@ -451,6 +618,7 @@ const RiskList = () => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
                       setCatRisk(e.target.value)
+                      set_category(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -550,6 +718,7 @@ const RiskList = () => {
                           {c.lookupName}
                         </MenuItem>
                       ))}
+                      <MenuItem value='1'>All Sites</MenuItem>
                   </Select>
                 )}
               />
@@ -577,10 +746,12 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={score}
                     // defaultValue={'Management'}
                     fullWidth
                     label={'riskScore'}
+                    disabled={true}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
@@ -622,11 +793,13 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={reference_id}
                     fullWidth
                     label={'External Refrence id'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
+                      set_refernce_id(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -668,6 +841,7 @@ const RiskList = () => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
                       selectCurrent(e.target.value)
+                      set_current_likelihood(e.target.value);
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -675,7 +849,7 @@ const RiskList = () => {
                     aria-describedby='validation-basic-select'
                   >
                     {Array.isArray(currentList) &&
-                      catList.map((c, i) => (
+                      currentList.map((c, i) => (
                         <MenuItem key={c + i} value={c.lookupId}>
                           {c.lookupName}
                         </MenuItem>
@@ -704,19 +878,27 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={regulation}
                     fullWidth
                     label={'control regulation'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
+                      set_regulation(e.target.value);
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
                   >
-                    <MenuItem value=''>None </MenuItem>
-                    <MenuItem value={allRisk.data?.controlregulation}>{allRisk.data?.controlregulation}</MenuItem>
+                    {/* <MenuItem value=''>None </MenuItem>
+                    <MenuItem value={allRisk.data?.controlregulation}>{allRisk.data?.controlregulation}</MenuItem> */}
+                    {Array.isArray(regulation_dropdown) &&
+                      regulation_dropdown.map((c, i) => (
+                        <MenuItem value={c.id}>
+                          {c.framework_Name}
+                        </MenuItem>
+                      ))}
                   </Select>
                 )}
               />
@@ -748,6 +930,7 @@ const RiskList = () => {
                     label={'ccurrentImpacts'}
                     onChange={e => {
                       setImpactss(e.target.value)
+                      set_current_impact(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -806,7 +989,7 @@ const RiskList = () => {
                   Control Number
                 </FormHelperText>
               )} */}
-              <TextField type='text' variant='outlined' label='Control Number' />
+              <TextField type='text' variant='outlined' label='Control Number' value={control_number} onChange={(e)=> set_control_number(e.target.value)} />
             </FormControl>
           </Grid>
           {/* end of Control Number  */}
@@ -846,7 +1029,7 @@ const RiskList = () => {
 
               {/* //DropDown Fetch */}
 
-              <TextField type='text' variant='outlined' label='Risk Assessment' />
+              <TextField type='text' variant='outlined' label='Risk Assessment' value={assessment} onChange={(e)=> set_assessment(e.target.value)}/>
             </FormControl>
           </Grid>
           {/* end of risk assesment */}
@@ -863,14 +1046,17 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={aassets}
+                    multiple
                     // defaultValue={'Management'}
                     fullWidth
                     label={'affectedAssets'}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
-                      selectAssets(e.target.value)
+                      // selectAssets(e.target.value)
+                      setAssets(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -940,7 +1126,7 @@ const RiskList = () => {
                 select an assets or assets Group you can create a new Assets by adding its name to the list
                 <br />
               </h6> */}
-              <TextField type='text' variant='outlined' label='Additional Notes' />
+              <TextField type='text' variant='outlined' label='Additional Notes' value={additional_notes} onChange={(e)=> set_additional_notes(e.target.value)}/>
             </FormControl>
           </Grid>
           {/* // end of additionalNotes */}
@@ -956,13 +1142,17 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={tech}
                     // defaultValue={'Management'}
+                    multiple
                     fullWidth
                     label={'ccurrentImpacts'}
                     onChange={e => {
                       selectTechno(e.target.value)
                       onChange(e)
+                      //added mine
+                      setTech(e.target.value)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
@@ -1039,21 +1229,30 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                  multiple
+                    // value={value}
+                    value={team}
                     fullWidth
                     label={'technology'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
+                      //adding my
+                      setTeam(e.target.value);
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
                   >
-                    <MenuItem value=''>None</MenuItem>
+                    {/* <MenuItem value=''>None</MenuItem>
                     {allRisk.data?.team?.map((item, i) => (
                       <MenuItem value={item} key={i}>
                         {item}
+                      </MenuItem>
+                    ))} */}
+                    {teamList.map((item, i) => (
+                      <MenuItem value={item.id}>
+                        {item.name}
                       </MenuItem>
                     ))}
                   </Select>
@@ -1079,21 +1278,25 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                  multiple
+                    // value={value}
+                    value={additional_stakeholders}
                     fullWidth
                     label={'technology'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
+                      //adding my
+                      set_additional_stakeholders(e.target.value);
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
                   >
-                    <MenuItem value=''>None</MenuItem>
-                    {allRisk.data?.additionalstakeholders?.map((item, i) => (
-                      <MenuItem value={item} key={i}>
-                        {item}
+                    {/* <MenuItem value=''>None</MenuItem> */}
+                    {ownerList.map((item, i) => (
+                      <MenuItem value={item.id}>
+                        {item.name}
                       </MenuItem>
                     ))}
                   </Select>
@@ -1119,19 +1322,26 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={owner}
                     fullWidth
                     label={'owner'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
+                      setOwner(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
                   >
-                    <MenuItem value=''>None</MenuItem>
-                    <MenuItem value={allRisk.data?.owner}>{allRisk.data?.owner}</MenuItem>
+                    {/* <MenuItem value=''>None</MenuItem>
+                    <MenuItem value={allRisk.data?.owner}>{allRisk.data?.owner}</MenuItem> */}
+                    {ownerList.map((item, i) => (
+                      <MenuItem value={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
                   </Select>
                 )}
               />
@@ -1156,19 +1366,26 @@ const RiskList = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={manager}
                     fullWidth
                     label={'owner'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
+                      setManager(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
                   >
-                    <MenuItem value=''>None</MenuItem>
-                    <MenuItem value={allRisk.data?.ownermanager}>{allRisk.data?.ownermanager}</MenuItem>
+                    {/* <MenuItem value=''>None</MenuItem>
+                    <MenuItem value={allRisk.data?.ownermanager}>{allRisk.data?.ownermanager}</MenuItem> */}
+                    {ownerList.map((item, i) => (
+                      <MenuItem value={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
                   </Select>
                 )}
               />
@@ -1181,7 +1398,7 @@ const RiskList = () => {
           </Grid>
           <Grid container xs={12}>
             <h3>Tags</h3>
-            <TextField type='text' fullWidth placeholder='Select/AddTag' />
+            <TextField type='text' fullWidth placeholder='Select/AddTag' value={tag} onChange={(e)=> setTag(e.target.value)}/>
           </Grid>
 
           {/* <Grid item xs={12} style={{ padding: 4, display: 'flex' }}>

@@ -11,7 +11,7 @@ export const fetchRisk = (params, errorCallback, successCallback) => {
         console.log('error : ', res.data.error)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        console.log('success : ', res.data)
+        console.log('successing : ', res.data)
         successCallback(res.data)
       }
     })
@@ -141,6 +141,18 @@ export const fetchTechnology = (errorCallback, successCallback) => {
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
+
+export const fetchOwner = (errorCallback, successCallback) => {
+  axios
+    .get(authConfig.owner_list)
+    .then(res => {
+      console.log('owner list:', res.data)
+      successCallback(res.data.users);
+    })
+    .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
+
 export const saveRisk = (params, errorCallback, successCallback) => {
   console.log('params:', params)
   axios

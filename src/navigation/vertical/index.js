@@ -2,7 +2,7 @@ const navigation = () => {
   return [
     {
       title: 'Home',
-      path: '/home/PieCharts',
+      path: '/home/charts',
       icon: 'mdi:home-outline'
     },
     {

@@ -23,6 +23,7 @@ import Select from '@mui/material/Select'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import PreviewIcon from '@mui/icons-material/Preview'
+import EditIcon from '@mui/icons-material/Edit';
 
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -106,8 +107,8 @@ const RiskList = () => {
             {Array.isArray(risksArray) &&
               risksArray.map((r, i) =>
                 i == 0 ? (
-                  <IconButton onClick={handleCreateClick} sx={{ color: 'blue' }}>
-                    <VisibilityIcon />
+                  <IconButton onClick={()=>handleCreateClick(r.id)} sx={{ color: 'blue' }}>
+                    <EditIcon />
                   </IconButton>
                 ) : null
               )}
@@ -129,9 +130,14 @@ const RiskList = () => {
 
   const [value, setValue] = useState('')
 
-  const handleCreateClick = () => {
+  const handleCreateClick = (id) => {
     console.log('into handle create')
-    router.push('/home/risk/newRisk')
+    console.log('editing id is', id);
+    // router.push('/home/risk/EditRisk')
+    router.push({
+      pathname: '/home/risk/EditRisk2',
+      query: { keyword: id },
+    });
     // dispatch(reviewRisk(data))
   }
 

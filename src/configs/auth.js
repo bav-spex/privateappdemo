@@ -9,6 +9,12 @@ const current_Impact_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const risk_scoring_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const Affected_Assets_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const technology_url = 'https://common-dev-rakshitah.azurewebsites.net/'
+const owner_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users'
+const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
+const risk_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/28'
+const threat_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/2'
+const regulation_dropdown_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/getAll'
+const edit_risk_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks/update'
 const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const savemitigation_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
@@ -39,15 +45,24 @@ export default {
   getAllTeachers: `${batch_base_url}/users/v1?role=Teacher`,
   submitBatch: `${batch_base_url}/cohorts/v1/cohorts/`,
   batchList: `${batch_base_url}/cohorts/v1/`,
-  riskListEndPoint: `${risk_base_url}/rmf/v1/risks/id/`,
+  // riskListEndPoint: `${risk_base_url}/rmf/v1/risks/id/`,
+  riskListEndPoint: `${risk_base_url}rmf/v1/risks/id`,
   riskCategory: `${risk_category_url}lookup/v1/category/12`,
-  riskSource: `${risk_source_url}lookup/v1/category/12`,
-  siteLocation: `${site_location_url}lookup/v1/category/13`,
+  // riskSource: `${risk_source_url}lookup/v1/category/12`,
+  riskSource: `${risk_source_url}lookup/v1/category/13`,
+  siteLocation: `${site_location_url}lookup/v1/category/14`,
   scoreRisk: `${risk_scoring_url}lookup/v1/category/15`,
+  // currentLike: `${current_likelihood_url}lookup/v1/category/16`,
   currentLike: `${current_likelihood_url}lookup/v1/category/16`,
+  edit_risk: `${edit_risk_url}`,
   currentImpact: `${current_Impact_url}lookup/v1/category/17`,
   affectedAssets: `${Affected_Assets_url}lookup/v1/category/18`,
   technlogy: `${technology_url}lookup/v1/category/19`,
+  owner_list: `${owner_url}`,
+  team_list: `${team_list_url}`,
+  risk_mapping_list: `${risk_mapping_list_url}`,
+  threat_mapping_list: `${threat_mapping_list_url}`,
+  regulation_dropdown: `${regulation_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks`,
   frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
   frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
