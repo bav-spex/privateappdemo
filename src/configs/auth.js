@@ -18,8 +18,7 @@ const edit_risk_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io
 const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const savemitigation_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
-const frameWorks_url_ID = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io`
-const frameWorkAll_url = `https://governance-dev-rakshitah.azurewebsites.net/`
+const frameWork_src_url = `https://governance-dev-rakshitah.azurewebsites.net/`
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
@@ -65,7 +64,12 @@ export default {
   regulation_dropdown: `${regulation_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks`,
   frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
-  frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
+  // frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
+  // riskAll: `${risk_base_url}/rmf/v1/risks`,  
+  frameWorkAll: `${frameWork_src_url}governance/v1/frameworks/getAll`,
+  frameWorkbyId: `${frameWork_src_url}governance/v1/frameworks/get/1`,
+  frameWork_new: `${frameWork_src_url}governance/v1/frameworks/new/`,
+  frameWork_update: `${frameWork_src_url}governance/v1/frameworks/update/`,
   Document: `${getDocument_url}governance/v1/documents/get`,
   editDoc: `${editDocument_url}governance/v1/documents/id/56`,
   saveAllDocs: `${saveDocument_url}governance/v1/documents/update/1456`,

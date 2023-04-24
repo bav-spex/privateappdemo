@@ -25,7 +25,7 @@ const AddFrame = () => {
 
   // !button methods
   const gotoCancel = () => {
-    router.push(`/home/frameworks`)
+    router.push(`/home/framework`)
   }
   //!states
   const [fwList, setFwList] = useState([])
@@ -79,7 +79,7 @@ const AddFrame = () => {
             style={{ marginLeft: '10px' }}
             onClick={CreateFrames}
           >
-            Create FrameWork
+            Save
           </Button>
         </Grid>
       </div>
@@ -114,7 +114,7 @@ const AddFrame = () => {
                 {/* <MenuItem value={frameWorksArray?.framework_Name}>{frameWorksArray?.framework_Name}</MenuItem> */}
                 {Array.isArray(frameWorksArray) &&
                   frameWorksArray.map((f, i) => {
-                    return <MenuItem value={f.framework_Parent}>{f.framework_Parent}</MenuItem>
+                    return <MenuItem value={f.id}>{f.framework_Name}</MenuItem>
                   })}
               </Select>
             )}

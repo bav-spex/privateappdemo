@@ -84,8 +84,12 @@ const FrameWorkList = () => {
   const [all, setAll] = useState([])
   console.log('allf:', all)
 
-  const handleCreateClick = () => {
-    router.push('/home/framework/edit')
+  const handleCreateClick = async(id) => {
+    console.log('editing framework :', id)
+    router.push({
+      pathname: '/home/framework/edit',
+      query: { keyword: id },
+    });
   }
 
   const createNew = () => {
@@ -111,7 +115,7 @@ const FrameWorkList = () => {
     { flex: 0.5, width: 80, field: 'framework_Details', headerName: 'FrameWorkDescription' },
 
     {
-      field: 'action',
+      field: 'id',
       headerName: 'Action',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
@@ -123,7 +127,7 @@ const FrameWorkList = () => {
             {Array.isArray(frameWorksArray) &&
               frameWorksArray.map((r, i) =>
                 i == 0 ? (
-                  <IconButton sx={{ color: 'blue' }} onClick={handleCreateClick}>
+                  <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(value)}>
                     <ModeEditIcon />
                   </IconButton>
                 ) : null
