@@ -24,6 +24,7 @@ import Google_Chart from './google_chart'
 import Line_Chart from './line_chart'
 import Doughnut_Chart from './doughnut_chart'
 import Speedometer from './speedometer'
+import styles from '../../../../styles/charts.module.css'
 
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -58,21 +59,21 @@ const BatchList = () => {
     </Chart>
         </div>
         </div> */}
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-        <div style={{width: '45%'}}>
-        <Google_Chart />
+        <div className={styles.row}>
+        <div className={styles.chart_div}>
+        <Speedometer />
         </div>
-        <div style={{width: '45%'}}>
-        <Line_Chart />
+        <div className={styles.chart_div}>
+        <Google_Chart />
         </div>
         </div>
 
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center',  marginTop: '10vh'}}>
-        <div style={{width: '45%'}}>
+        <div className={styles.row}>
+        <div className={styles.chart_div}>
         <Doughnut_Chart />
         </div>
-        <div style={{width: '45%'}}>
-        <Speedometer />
+        <div className={styles.chart_div}>
+        <Line_Chart />
         </div>
         </div>
         </div>

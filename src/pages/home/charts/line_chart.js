@@ -13,6 +13,7 @@ const options = {
   title: "Company Performance",
   curveType: "function",
   legend: { position: "bottom" },
+  backgroundColor: "transparent",
 };
 
 const Line_Chart= ()=> {

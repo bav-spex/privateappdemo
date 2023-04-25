@@ -24,6 +24,7 @@ const Google_Chart = () => {
  const options = {
     title: "Popularity of Types of Pizza",
     sliceVisibilityThreshold: 0.2, // 20%
+    backgroundColor: "transparent",
   };
   
    

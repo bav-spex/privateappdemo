@@ -63,7 +63,7 @@ export default {
   threat_mapping_list: `${threat_mapping_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks`,
-  frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
+  // frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
   // frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
   // riskAll: `${risk_base_url}/rmf/v1/risks`,  
   frameWorkAll: `${frameWork_src_url}governance/v1/frameworks/getAll`,
