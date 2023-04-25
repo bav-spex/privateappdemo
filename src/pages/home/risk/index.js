@@ -107,14 +107,19 @@ const RiskList = () => {
             {Array.isArray(risksArray) &&
               risksArray.map((r, i) =>
                 i == 0 ? (
+                  <>
                   <IconButton onClick={()=>handleCreateClick(r.id)} sx={{ color: 'blue' }}>
                     <EditIcon />
                   </IconButton>
+                  <IconButton onClick={()=>openMitigation(r.id)} sx={{ color: 'green' }}>
+                  <ContactSupportIcon />
+                </IconButton>
+                  </>
                 ) : null
               )}
-            <IconButton onClick={openMitigation} sx={{ color: 'green' }}>
+            {/* <IconButton onClick={openMitigation(r.id)} sx={{ color: 'green' }}>
               <ContactSupportIcon />
-            </IconButton>
+            </IconButton> */}
             <IconButton onClick={openPreview} sx={{ color: 'red' }}>
               <PreviewIcon />
             </IconButton>
@@ -144,8 +149,11 @@ const RiskList = () => {
   const openNewForm = () => {
     router.push('/home/risk/newRisk-form')
   }
-  const openMitigation = () => {
-    router.push('/home/mitigation/mitigation')
+  const openMitigation = (id) => {
+    router.push({
+      pathname: '/home/mitigation/mitigation',
+      query: { keyword: id },
+    });
   }
 
   const openPreview = () => {

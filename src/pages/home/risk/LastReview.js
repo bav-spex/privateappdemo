@@ -10,14 +10,50 @@ import { useRouter } from 'next/router'
 import { allReview } from 'src/pages/home/risk/RiskService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
+import authConfig from 'src/configs/auth'
 
 const review = () => {
   const router = useRouter()
-  const data = useSelector(state => state.riskList)
+  const data = useSelector(state => state.riskList);
 
+
+  const [review_date, set_review_date]= useState('');
+  const [review, set_review]= useState('');
+  const [next_review_date, set_next_review_date]= useState('');
+  const [reviewer, set_reviewer]= useState('');
+  const [next_step, set_next_step]= useState('');
+  const [comments, set_comments]= useState('');
+
+
+  const fetch_review= async()=>{
+
+    const res= await fetch(`${authConfig.getmanagmentReview}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          },
+    })
+    const data= await res.json();
+    console.log("review is", data);
+    set_review_date(data.data.reviewdate);
+    set_review(data.data.review);
+    set_next_review_date(data.data.nextreviewdate);
+    set_reviewer(data.data.reviewer);
+    set_next_step(data.data.nextstep);
+    set_comments(data.data.comment);
+    // set_team_dropdown(data.data.users);
+  }
+
+  
   useEffect(() => {
     allReview(() => {}, setAll)
   }, [])
+
+  useEffect(() => {
+    
+    fetch_review();
+  }, [])
+
 
   const [all, setAll] = useState([])
   console.log('allr:', all)
@@ -102,7 +138,7 @@ const review = () => {
             {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
               ReviewDate
             </InputLabel> */}
-            <TextField type='text' variant='outlined' label='ReviewDate' value={all?.data?.reviewdate} />
+            <TextField type='text' variant='outlined' id="outlined-basic" label='ReviewDate' value={review_date} />
           </FormControl>
         </Grid>
         <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
@@ -110,7 +146,10 @@ const review = () => {
             {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
               Reviewer
             </InputLabel> */}
-            <TextField type='text' variant='outlined' label='Reviewer' value={all?.data?.reviewer} />
+            <TextField type='text' variant='outlined' label='Reviewer'
+            //  value={all?.data?.reviewer}
+            value={reviewer}
+              />
           </FormControl>
         </Grid>
         <Grid item sx={{ width: '40%' }}>
@@ -118,7 +157,10 @@ const review = () => {
             {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
               Review
             </InputLabel> */}
-            <TextField type='text' variant='outlined' label='Review' value={all?.data?.review} />
+            <TextField type='text' variant='outlined' label='Review'
+            //  value={all?.data?.review}
+            value={review}
+              />
           </FormControl>
         </Grid>
         <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
@@ -126,7 +168,10 @@ const review = () => {
             {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
               NextStep
             </InputLabel> */}
-            <TextField type='text' variant='outlined' label='NextStep' value={all?.data?.nextstep} />
+            <TextField type='text' variant='outlined' label='NextStep'
+            //  value={all?.data?.nextstep}
+            value={next_step}
+              />
           </FormControl>
         </Grid>
         <Grid item sx={{ width: '40%' }}>
@@ -134,7 +179,10 @@ const review = () => {
             {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
               NextReviewDate
             </InputLabel> */}
-            <TextField type='text' variant='outlined' label='NextReviewDate' value={all?.data?.nextreviewdate} />
+            <TextField type='text' variant='outlined' label='NextReviewDate'
+            //  value={all?.data?.nextreviewdate} 
+            value={next_review_date} 
+             />
           </FormControl>
         </Grid>
         <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
@@ -142,7 +190,7 @@ const review = () => {
             {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
               comments
             </InputLabel> */}
-            <TextField type='text' label='comments' />
+            <TextField type='text' label='comments'  value={comments}/>
           </FormControl>
         </Grid>
       </Grid>

@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux'
 // import { addMits } from 'src/store/apps/mitigation'
 import { saveMitigation } from 'src/pages/home/mitigation/mit_service'
 import toast from 'react-hot-toast'
+import authConfig from 'src/configs/auth'
+import { comment } from 'stylis'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -58,6 +60,116 @@ const Mitigation = () => {
     fetchMit(() => {}, setAllMit)
   }, [])
 
+  const [submission_date, set_submission_date]= useState('');
+  const [planned_date, set_planned_date]= useState('');
+  const [planning_strategy, set_planning_strategy]= useState('');
+  const [effort, set_effort]= useState('');
+  const [cost, set_cost]= useState('');
+  const [percent, set_percent]= useState('');
+  const [current_solution, set_current_solution]= useState('');
+  const [security_requirements, set_security_requirements]= useState('');
+  const [security_recommendations, set_security_recommendations]= useState('');
+  const [owner, set_owner]= useState('');
+  const [team, set_team]= useState([]);
+  const [controls, set_controls]= useState([]);
+
+  const [effort_dropdown, set_effort_dropdown]= useState([]);
+  const [strategy_dropdown, set_strategy_dropdown]= useState([]);
+  const [owner_dropdown, set_owner_dropdown]= useState([]);
+  const [team_dropdown, set_team_dropdown]= useState([]);
+
+
+  const fetch_efforts= async()=>{
+
+    const res= await fetch(`${authConfig.mitigation_effort}`, {
+        method:"GET",
+          headers:{
+              "Content-Type": "application/json"
+          },
+    })
+    const data= await res.json();
+    console.log("mitgation efforts list is", data);
+    set_effort_dropdown(data);
+}
+
+const fetch_strategy= async()=>{
+
+  const res= await fetch(`${authConfig.planning_strategy}`, {
+      method:"GET",
+        headers:{
+            "Content-Type": "application/json"
+        },
+  })
+  const data= await res.json();
+  console.log("strategy list is", data);
+  set_strategy_dropdown(data);
+}
+
+const fetch_owner= async()=>{
+
+  const res= await fetch(`${authConfig.owner_list}`, {
+      method:"GET",
+        headers:{
+            "Content-Type": "application/json"
+        },
+  })
+  const data= await res.json();
+  console.log("owner list is", data);
+  set_owner_dropdown(data.data.users);
+}
+
+const fetch_team= async()=>{
+
+  const res= await fetch(`${authConfig.team_list}`, {
+      method:"GET",
+        headers:{
+            "Content-Type": "application/json"
+        },
+  })
+  const data= await res.json();
+  console.log("team list is", data);
+  set_team_dropdown(data.data.users);
+}
+
+
+  const fetch_mitigation= async()=>{
+
+      const res= await fetch(`${authConfig.mitigation}/${router.query.keyword}/mitigation`, {
+          method:"GET",
+            headers:{
+                "Content-Type": "application/json"
+            },
+      })
+      const data= await res.json();
+      console.log("specified mitgation data is", data);
+      set_submission_date("01-02-2023");
+      set_planned_date(data.data.plannedmitigationdate);
+      set_planning_strategy(data.data.planningstrategy);
+      set_effort(data.data.mitigationeffort);
+      set_cost(data.data.mitigationcost);
+      set_percent(data.data.mitigationpercent);
+      set_current_solution(data.data.currentsolution);
+      set_security_requirements(data.data.securityrequirements);
+      set_security_recommendations(data.data.securityrecommendations);
+      set_owner(data.data.mitigationowner);
+      set_team(data.data.mitigationteam);
+      set_controls(data.data.mitigationcontrols);
+  }
+
+
+  useEffect(() => {
+
+    fetch_mitigation();
+
+    fetch_efforts();
+
+    fetch_strategy();
+
+    fetch_owner();
+
+    fetch_team();
+  }, [])
+
   // useEffect(() => {}, [])
   // const [saveMit, setSavemit] = useState([])
 
@@ -98,6 +210,36 @@ const Mitigation = () => {
     toast.success('Saved Mitigation')
   }
 
+  const save_mitigation= async()=>{
+
+    const res= await fetch(`https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update/51`, {
+      method:"POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+
+          mitigationsubmissiondate: submission_date,
+          currentsolution: current_solution,
+          plannedmitigationdate: planned_date,
+          securityrequirements: security_requirements,
+          securityrecommendations: security_recommendations,
+          planningstrategy: planning_strategy,
+          mitigationeffort: effort,
+          mitigationcost: cost,
+          mitigationowner: owner,
+          mitigationteam: team,
+          mitigationpercent: percent,
+          mitigationcontrols: controls,
+          supportingdocumentation: "yes",
+          comments : "some comment"
+      })
+  })
+  const data= await res.json();
+  console.log("mitigation is saved", data);
+  toast.success('Saved Mitigation')
+  }
+
   const saveMitigations = values => {
     console.log('values:', values)
     // SaveAllM(values, () => {}, setSave)
@@ -121,7 +263,7 @@ const Mitigation = () => {
       {/* {JSON.stringify(data)} */}
       <form onSubmit={handleSubmit(saveMitigations)}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3>Mitegation</h3>
+          <h3>Mitigation</h3>
           <Grid
             item
             sx={{
@@ -145,7 +287,8 @@ const Mitigation = () => {
               style={{ marginLeft: '10px' }}
               // onClick={SubmitRisk}
               // onSubmit={handleSubmit(onSubmit)}
-              onClick={SubmitMiti}
+              // onClick={SubmitMiti}
+              onClick={save_mitigation}
               onSubmit={handleSubmit(saveMitigations)}
             >
               save
@@ -158,6 +301,7 @@ const Mitigation = () => {
             item
             sx={{
               width: '40%',
+              marginTop: 8,
               '@media screen and (max-width:600px)': {
                 flexDirection: 'row',
                 marginLeft: 0
@@ -165,49 +309,57 @@ const Mitigation = () => {
             }}
           >
             <FormControl fullWidth>
-              <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+              {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Mitigation submission.date
-              </InputLabel>
+              </InputLabel> */}
               <TextField
-                type='text'
+                type='date'
                 variant='outlined'
-                value={allMit?.data?.mitigationsubmissiondate}
-                sx={{ p: 3.5 }}
+                // value={allMit?.data?.mitigationsubmissiondate}
+                label='Mitigation submission.date'
+                value={submission_date}
+                disabled={true}
               />
             </FormControl>
           </Grid>
           {/* submisiion date */}
-          <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginLeft: 'auto', marginTop: 8 }}>
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                <h5>Current solution:</h5>
-                <TextField type='text' />
+                {/* <h5>Current solution:</h5> */}
+                <TextField type='text' style={{ width: '100%' }} label='Current solution' value={current_solution} onChange={(e)=> set_current_solution(e.target.value)}/>
               </div>
             </FormControl>
           </Grid>
           {/* current solution  */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
-              <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+              {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 planned mitigation Date
-              </InputLabel>
-              <TextField variant='filled' type='text' value={allMit?.data?.plannedmitigationdate} sx={{ p: 2.5 }} />
+              </InputLabel> */}
+              <TextField variant='outlined' 
+              type='date' 
+              // value={allMit?.data?.plannedmitigationdate} 
+              label='planned mitigation Date'
+              value={planned_date}
+              onChange={(e)=> set_planned_date(e.target.value)}
+             />
             </FormControl>
           </Grid>
           {/* planned mitigation date */}
 
-          <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginLeft: 'auto', marginTop: 8 }}>
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                <h5>Security Requirments:</h5>
+                {/* <h5>Security Requirments:</h5> */}
 
-                <TextField type='text' />
+                <TextField type='text' label='Security Requirments' style={{ width: '100%' }} value={security_requirements} onChange={(e)=> set_security_requirements(e.target.value)}/>
               </div>
             </FormControl>
           </Grid>
           {/* end of security Requirments */}
 
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Planning stratergy
@@ -219,7 +371,8 @@ const Mitigation = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={planning_strategy}
                     fullWidth
                     label={'site location'}
                     error={Boolean(errors?.msg)}
@@ -227,11 +380,16 @@ const Mitigation = () => {
                     aria-describedby='validation-basic-select'
                     onChange={e => {
                       setMit(e.target.value)
+                      set_planning_strategy(e.target.value)
                       onChange(e)
                     }}
                   >
-                    <MenuItem value=''>None is Selected</MenuItem>
-                    <MenuItem value={allMit?.data?.planningstrategy}>{allMit?.data?.planningstrategy}</MenuItem>
+                    {/* <MenuItem value=''>None is Selected</MenuItem>
+                    <MenuItem value={allMit?.data?.planningstrategy}>{allMit?.data?.planningstrategy}</MenuItem> */}
+
+                    {strategy_dropdown.map((item) => (item !== null ?
+                      <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
+                      ))}
                   </Select>
                 )}
               />
@@ -244,7 +402,7 @@ const Mitigation = () => {
           </Grid>
           {/* end of Planing stratergy  */}
 
-          <Grid item sx={{ width: '42%', marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginLeft: 'auto', marginTop: 8 }}>
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                 <InputLabel
@@ -252,13 +410,13 @@ const Mitigation = () => {
                   error={Boolean(errors.msg)}
                   htmlFor='validation-basic-select'
                 ></InputLabel>
-                <h5 style={{ marginLeft: '20px' }}>Security Reccomendations:</h5>
-                <TextField type='text' style={{ width: '65%' }} />
+                {/* <h5 style={{ marginLeft: '20px' }}>Security Reccomendations:</h5> */}
+                <TextField type='text' style={{ width: '100%' }} label='Security Reccomendations' value={security_recommendations} onChange={(e)=> set_security_recommendations(e.target.value)}/>
               </div>
             </FormControl>
           </Grid>
           {/* //end of externalreferenceid */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginTop: 8}}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Mitigation Effort:
@@ -270,19 +428,25 @@ const Mitigation = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={effort}
                     fullWidth
                     label={'Mitigation Effort'}
                     onChange={e => {
                       setMit(e.target.value)
+                      set_effort(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
                   >
-                    <MenuItem value=''>None is Selected</MenuItem>
-                    <MenuItem value={allMit?.data?.mitigationeffort}>{allMit?.data?.mitigationeffort}</MenuItem>
+                    {/* <MenuItem value=''>None is Selected</MenuItem>
+                    <MenuItem value={allMit?.data?.mitigationeffort}>{allMit?.data?.mitigationeffort}</MenuItem> */}
+
+                    {effort_dropdown.map((item) => (item !== null ?
+                      <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
+                      ))}
                   </Select>
                 )}
               />
@@ -294,16 +458,16 @@ const Mitigation = () => {
             </FormControl>
           </Grid>
           {/* end of mitigation effort */}
-          <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginLeft: 'auto', marginTop: 8 }}>
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                <h5>Supporting Documentation:</h5>
-                <TextField type='file' />
+                {/* <h5>Supporting Documentation:</h5> */}
+                <TextField type='file' style={{ width: '100%' }}/>
               </div>
             </FormControl>
           </Grid>
           {/* / end of Document/ */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Mitigation Cost:
@@ -315,12 +479,14 @@ const Mitigation = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    value={value}
+                    // value={value}
+                    value={cost}
                     fullWidth
                     label={'Mitigation Cost'}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
+                      set_cost(e.target.value)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
@@ -344,11 +510,142 @@ const Mitigation = () => {
             {/* end of mitigation team */}
             <Grid item sx={{ width: '40%', marginTop: 8, marginLeft: 1 }}>
               <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Mitigation Percent:
-                </InputLabel>
+                </InputLabel> */}
 
-                <TextField type='number' variant='filled' sx={{ p: 2.5 }} value={allMit?.data?.mitigationpercent} />
+                <TextField type='number' 
+                variant='outlined'
+                // value={allMit?.data?.mitigationpercent}
+                label='Mitigation Percent'
+                value={percent}
+                onChange={(e)=> set_percent(e.target.value)}
+                 />
+                {errors.msg && (
+                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                    Mitigation Percent
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+
+            {/* new fields adding */}
+
+            <Grid item sx={{ width: '40%', marginTop: 8, marginLeft: 1 }}>
+              <FormControl fullWidth>
+                {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                  Mitigation Percent:
+                </InputLabel> */}
+                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                Mitigation Owner
+              </InputLabel>
+                <Controller
+                name='mitigation cost'
+                control={control}
+                rules={{ required: true }}
+                defaultValue={data}
+                render={({ field: { value, onChange } }) => (
+                  <Select
+                     
+                    value={owner}
+                    fullWidth
+                    label={'Mitigation Owner'}
+                    onChange={(e)=> set_owner(e.target.value)}
+                    error={Boolean(errors?.msg)}
+                    labelId='validation-basic-select'
+                    aria-describedby='validation-basic-select'
+                  >
+                    {/* <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
+                    <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem> */}
+
+                    {owner_dropdown.map((item) => (item !== null ?
+                      <MenuItem value={item.id}>{item.name}</MenuItem>: ""
+                      ))}
+                  </Select>
+                )}
+              />
+                {errors.msg && (
+                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                    Mitigation Percent
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+
+            <Grid item sx={{ width: '40%', marginTop: 8, marginLeft: 1 }}>
+              <FormControl fullWidth>
+                {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                  Mitigation Percent:
+                </InputLabel> */}
+
+                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                Mitigation Team
+              </InputLabel>
+                <Controller
+                name='mitigation cost'
+                control={control}
+                rules={{ required: true }}
+                defaultValue={data}
+                render={({ field: { value, onChange } }) => (
+                  <Select
+                     
+                    value={team}
+                    fullWidth
+                    multiple
+                    label={'Mitigation Team'}
+                    onChange={(e)=> set_team(e.target.value)}
+                    error={Boolean(errors?.msg)}
+                    labelId='validation-basic-select'
+                    aria-describedby='validation-basic-select'
+                  >
+                    {/* <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
+                    <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem> */}
+
+                    {team_dropdown.map((item) => (item !== null ?
+                      <MenuItem value={item.id}>{item.name}</MenuItem>: ""
+                      ))}
+                  </Select>
+                )}
+              />
+                {errors.msg && (
+                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                    Mitigation Percent
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+
+            <Grid item sx={{ width: '40%', marginTop: 8, marginLeft: 1 }}>
+              <FormControl fullWidth>
+                {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                  Mitigation Percent:
+                </InputLabel> */}
+
+                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
+                Mitigation Control
+              </InputLabel>
+                <Controller
+                name='mitigation cost'
+                control={control}
+                rules={{ required: true }}
+                defaultValue={data}
+                render={({ field: { value, onChange } }) => (
+                  <Select
+                     
+                    value={controls}
+                    multiple
+                    fullWidth
+                    label={'Mitigation Control'}
+                    onChange={(e)=> set_controls(e.target.value)}
+                    error={Boolean(errors?.msg)}
+                    labelId='validation-basic-select'
+                    aria-describedby='validation-basic-select'
+                  >
+                    <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
+                    <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem>
+                  </Select>
+                )}
+              />
                 {errors.msg && (
                   <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
                     Mitigation Percent
