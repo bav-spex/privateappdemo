@@ -31,6 +31,8 @@ const display_lookup_url= "https://common-dev-rakshitah.azurewebsites.net/lookup
 const managmentReview_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
 const mitigation_effort_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/22'
 const planning_strategy_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/21'
+const mitigation_update_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update'
+
 
 export default {
   meEndpoint: '/auth/me',
@@ -79,6 +81,7 @@ export default {
   mitigation: `${mitigation_url}rmf/v1/risks/`,
   mitigation_effort: `${mitigation_effort_url}`,
   planning_strategy: `${planning_strategy_url}`,
+  mitigation_update: `${mitigation_update_url}`,
   saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
   saveAllMitigation: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
   controlList:`${control_url}/v1/controls`,

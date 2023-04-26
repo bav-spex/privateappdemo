@@ -60,6 +60,8 @@ const Mitigation = () => {
     fetchMit(() => {}, setAllMit)
   }, [])
 
+
+  //creating useStates for different fields
   const [submission_date, set_submission_date]= useState('');
   const [planned_date, set_planned_date]= useState('');
   const [planning_strategy, set_planning_strategy]= useState('');
@@ -73,12 +75,16 @@ const Mitigation = () => {
   const [team, set_team]= useState([]);
   const [controls, set_controls]= useState([]);
 
+
+  //creating useStates for different dropdowns
   const [effort_dropdown, set_effort_dropdown]= useState([]);
   const [strategy_dropdown, set_strategy_dropdown]= useState([]);
   const [owner_dropdown, set_owner_dropdown]= useState([]);
   const [team_dropdown, set_team_dropdown]= useState([]);
+  const [control_dropdown, set_control_dropdown]= useState([]);
 
 
+  //api fetch to display efforts dropdown
   const fetch_efforts= async()=>{
 
     const res= await fetch(`${authConfig.mitigation_effort}`, {
@@ -92,6 +98,8 @@ const Mitigation = () => {
     set_effort_dropdown(data);
 }
 
+
+//api fetch to display startegy dropdown
 const fetch_strategy= async()=>{
 
   const res= await fetch(`${authConfig.planning_strategy}`, {
@@ -105,6 +113,8 @@ const fetch_strategy= async()=>{
   set_strategy_dropdown(data);
 }
 
+
+//api fetch to display owner dropdown
 const fetch_owner= async()=>{
 
   const res= await fetch(`${authConfig.owner_list}`, {
@@ -118,6 +128,8 @@ const fetch_owner= async()=>{
   set_owner_dropdown(data.data.users);
 }
 
+
+//api fetch to display team dropdown
 const fetch_team= async()=>{
 
   const res= await fetch(`${authConfig.team_list}`, {
@@ -131,7 +143,21 @@ const fetch_team= async()=>{
   set_team_dropdown(data.data.users);
 }
 
+//api fetch to display control dropdown
+const fetch_control= async()=>{
 
+  const res= await fetch(`${authConfig.control_dropdown}`, {
+      method:"GET",
+        headers:{
+            "Content-Type": "application/json"
+        },
+  })
+  const data= await res.json();
+  console.log("team list is", data);
+  set_control_dropdown(data);
+}
+
+//api fetch to prefill the fields in mitigation
   const fetch_mitigation= async()=>{
 
       const res= await fetch(`${authConfig.mitigation}/${router.query.keyword}/mitigation`, {
@@ -156,7 +182,7 @@ const fetch_team= async()=>{
       set_controls(data.data.mitigationcontrols);
   }
 
-
+//to call these functions when the page gets rendered
   useEffect(() => {
 
     fetch_mitigation();
@@ -210,9 +236,10 @@ const fetch_team= async()=>{
     toast.success('Saved Mitigation')
   }
 
+  //api to save the details of the mitigation
   const save_mitigation= async()=>{
 
-    const res= await fetch(`https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update/51`, {
+    const res= await fetch(`${authConfig.mitigation_update}/${router.query.keyword}`, {
       method:"POST",
         headers:{
             "Content-Type": "application/json"
