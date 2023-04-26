@@ -67,7 +67,6 @@ const BatchList = () => {
         <Google_Chart />
         </div>
         </div>
-
         <div className={styles.row}>
         <div className={styles.chart_div}>
         <Doughnut_Chart />
