@@ -23,17 +23,28 @@ const Google_Chart = () => {
     title: "Open Risks",
     sliceVisibilityThreshold: 0.2, // 20%
     backgroundColor: "transparent",
+    marginTop: 0,
+    paddingTop: 0,
+    height: 500,
+    titleTextStyle: {
+      fontSize: 16,
+      textAlign: "center",
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: '0px',
+      marginBottom: '0px',
+      // bold: true,
+    },
   };
   
    
   return (
     <>
+    {/* <h4 style={{textAlign: 'center', marginBottom : '0px', paddingBottom: '0px'}}>Open Risks</h4> */}
         <Chart
             chartType="PieChart"
             data={data3}
             options={options}
-            width={"100%"}
-            height={"400px"}
             />
     </>
   )

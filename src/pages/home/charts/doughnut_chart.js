@@ -15,6 +15,12 @@ const options = {
   pieHole: 0.5, 
   is3D: false,
   backgroundColor: "transparent",
+  height: 350,
+  titleTextStyle: {
+    fontSize: 16,
+    textAlign: "center",
+    // bold: true,
+  },
 };
 
 const Doughnut_Chart=()=> {
@@ -24,7 +30,7 @@ const Doughnut_Chart=()=> {
     <Chart
       chartType="PieChart"
       width="100%"
-      height="500px"
+      // height="700px"
       data={data}
       options={options}
     />

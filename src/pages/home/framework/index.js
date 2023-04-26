@@ -84,7 +84,7 @@ const FrameWorkList = () => {
   const [all, setAll] = useState([])
   console.log('allf:', all)
 
-  const handleCreateClick = async(id) => {
+  const handleCreateClick = (id) => {
     console.log('editing framework :', id)
     router.push({
       pathname: '/home/framework/edit',
@@ -102,7 +102,8 @@ const FrameWorkList = () => {
     setOpen(!open)
   }
 
-  const frameWorksArray = [...all]
+  const frameWorksArray = [...all];
+  console.log("frameWorksArray is", frameWorksArray);
 
   const columns = [
     {
@@ -121,22 +122,37 @@ const FrameWorkList = () => {
       sortable: false,
       // width: 300,
       flex: 0.15,
-      renderCell: ({ rows }) => {
+      renderCell: (params) => {
+
+        const id = params.row.id;
         return (
           <>
-            {Array.isArray(frameWorksArray) &&
-              frameWorksArray.map((r, i) =>
-                i == 0 ? (
-                  <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(r.id)}>
-                    <ModeEditIcon />
-                  </IconButton>
-                ) : null
-              )}
-            <IconButton sx={{ color: 'red' }} onClick={fdelete}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        )
+          <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(id)}>
+          <ModeEditIcon />
+        </IconButton>
+        <IconButton sx={{ color: 'red' }} onClick={fdelete}>
+           <DeleteIcon />
+       </IconButton>
+        </>
+        );
+        // return (
+        //   <>
+        //     {Array.isArray(frameWorksArray) &&
+        //       frameWorksArray.map((r, i) =>
+        //         i >= 0 ? (
+        //           <>
+        //           <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(r.id)}>
+        //             <ModeEditIcon />
+        //           </IconButton>
+        //           <h1>{r.id}</h1>
+        //           </>
+        //         ) : null
+        //       )}
+        //     <IconButton sx={{ color: 'red' }} onClick={fdelete}>
+        //       <DeleteIcon />
+        //     </IconButton>
+        //   </>
+        // )
       }
     }
   ]

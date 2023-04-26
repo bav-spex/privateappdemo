@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { freameworkDetails, fwa } from './frameworkService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
+import authConfig from 'src/configs/auth'
 
 const EditFrame = () => {
   const router = useRouter()
@@ -17,11 +18,36 @@ const EditFrame = () => {
 
   
 
-  const [fwDetails, setFwDetails] = useState([])
+  const [fwDetails, setFwDetails] = useState([]);
+  const [name, set_name]=useState('');
+  const [parent, set_parent]=useState('');
+  const [description, set_description]=useState('');
+
+  const fetch_framework_details =async()=>{
+
+    const res= await fetch(`${authConfig.frameWorkbyId}/${router.query.keyword}`, {
+      method:"GET",
+        headers:{
+            "Content-Type": "application/json"
+        },
+  })
+    const data= await res.json();
+    console.log("framework is", data);
+    setFwDetails(data);
+    set_name(data.framework_Name);
+    set_parent(data.framework_Parent);
+    set_description(data.framework_Details);
+  }
   useEffect(() => {
-    freameworkDetails(() => {}, setFwDetails)
-    console.log('fwDetails:', fwDetails)
+    
+    fetch_framework_details();
   }, [])
+
+
+  // useEffect(() => {
+  //   freameworkDetails(() => {}, setFwDetails)
+  //   console.log('fwDetails:', fwDetails)
+  // }, [])
 
 const [fwList, setFwList] = useState([])
   //!  to feth Parent fw
@@ -91,7 +117,10 @@ const [fwList, setFwList] = useState([])
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
           <h5>FrameWork Name</h5>
-          <TextField label='FrameWork' fullWidth value={frameWorksDetails.framework_Name} />
+          <TextField label='FrameWork' fullWidth
+          //  value={frameWorksDetails.framework_Name}
+          value={name}
+            />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
           <h5>parent FrameWork</h5>
@@ -101,7 +130,8 @@ const [fwList, setFwList] = useState([])
             rules={{ required: true }}            
             render={({ field: { value, onChange } }) => (
               <Select
-                value={value}
+                // value={value}
+                value={parent}
                 
                 // defaultValue={'Management'}
                 fullWidth
@@ -132,7 +162,8 @@ const [fwList, setFwList] = useState([])
             placeholder=''
             style={{ width: '100%' }}
             fullWidth
-            value={frameWorksDetails.framework_Details}
+            // value={frameWorksDetails.framework_Details}
+            value={description}
           />
         </Grid>
       </Grid>

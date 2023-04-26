@@ -299,31 +299,44 @@ const columns = [
       // width: 300,
       flex: 0.15,
       valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-      renderCell: ({ rows }) => {
+      renderCell: (params) => {
+
+        const id = params.row.id;
         return (
           <>
-            {Array.isArray(controlList) &&
-              controlList.map((r, i) =>
-                i == 0 ? (
-                    <>
-                  <IconButton onClick={()=> handleEditClick(r.id)} sx={{ color: 'green' }}>
+           <IconButton onClick={()=> handleEditClick(id)} sx={{ color: 'green' }}>
                     <EditIcon />
-                  </IconButton>
+          </IconButton>
 
-                  <IconButton  sx={{ color: 'red' }}>
-                    <DeleteIcon />
-                  </IconButton>
-                  </>
-                ) : null
-              )}
-            {/* <IconButton onClick={openMitigation} sx={{ color: 'green' }}>
-              <ContactSupportIcon />
-            </IconButton>
-            <IconButton onClick={handleCreateClick} sx={{ color: 'red' }}>
-              <PreviewIcon />
-            </IconButton> */}
-          </>
-        )
+          <IconButton  sx={{ color: 'red' }}>
+            <DeleteIcon />
+          </IconButton>
+        </>
+        );
+        // return (
+        //   <>
+        //     {Array.isArray(controlList) &&
+        //       controlList.map((r, i) =>
+        //         i == 0 ? (
+        //             <>
+        //           <IconButton onClick={()=> handleEditClick(r.id)} sx={{ color: 'green' }}>
+        //             <EditIcon />
+        //           </IconButton>
+
+        //           <IconButton  sx={{ color: 'red' }}>
+        //             <DeleteIcon />
+        //           </IconButton>
+        //           </>
+        //         ) : null
+        //       )}
+        //     {/* <IconButton onClick={openMitigation} sx={{ color: 'green' }}>
+        //       <ContactSupportIcon />
+        //     </IconButton>
+        //     <IconButton onClick={handleCreateClick} sx={{ color: 'red' }}>
+        //       <PreviewIcon />
+        //     </IconButton> */}
+        //   </>
+        // )
       }
     }
   ]

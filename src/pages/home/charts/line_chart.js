@@ -14,6 +14,12 @@ const options = {
   curveType: "function",
   legend: { position: "bottom" },
   backgroundColor: "transparent",
+  height: 350,
+  titleTextStyle: {
+    fontSize: 16,
+    textAlign: "center",
+    // bold: true,
+  },
 };
 
 const Line_Chart= ()=> {
@@ -21,7 +27,7 @@ const Line_Chart= ()=> {
     <Chart
       chartType="BarChart"
       width="100%"
-      height="400px"
+      // height="400px"
       data={data}
       options={options}
     />
