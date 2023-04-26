@@ -13,22 +13,19 @@ const Google_Chart = () => {
   
 
    const data3 = [
-    ["Pizza", "Popularity"],
-    ["Pepperoni", 33],
-    ["Hawaiian", 26],
-    ["Mushroom", 22],
-    ["Sausage", 10], // Below limit.
-    ["Anchovies", 9], // Below limit.
+    ["Risk", "Priority"],
+    ["High", 10],
+    ["Medium", 18],
+    ["Low", 8]
   ];
   
  const options = {
-    title: "Popularity of Types of Pizza",
+    title: "Open Risks",
     sliceVisibilityThreshold: 0.2, // 20%
     backgroundColor: "transparent",
   };
   
    
-
   return (
     <>
         <Chart

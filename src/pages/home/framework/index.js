@@ -127,7 +127,7 @@ const FrameWorkList = () => {
             {Array.isArray(frameWorksArray) &&
               frameWorksArray.map((r, i) =>
                 i == 0 ? (
-                  <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(value)}>
+                  <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(r.id)}>
                     <ModeEditIcon />
                   </IconButton>
                 ) : null

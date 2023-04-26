@@ -8,7 +8,7 @@ const Speedometer = ()=>{
     return(
         <>
         {/* <Paper style={{padding: 'auto'}}> */}
-        <h1 style={{textAlign: 'center'}}>Speedometer</h1>
+        <h4 style={{textAlign: 'center'}}>Risk Score</h4>
         <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center'}}>
             <ReactSpeedometer
                 maxValue={10}

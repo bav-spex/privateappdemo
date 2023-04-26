@@ -2,15 +2,15 @@ import React from "react";
 import { Chart } from "react-google-charts";
 
 const data = [
-  ["Year", "Sales", "Expenses"],
-  ["2004", 1000, 400],
-  ["2005", 1170, 460],
-  ["2006", 660, 1120],
-  ["2007", 1030, 540],
+  ["Complaince", "Total Findings", "Open Findings"],
+  ["Hippa", 1000, 400],
+  ["Cloud Security", 1170, 460],
+  ["PCI", 1120, 660 ],
+  ["ISO 27001", 1030, 540],
 ];
 
 const options = {
-  title: "Company Performance",
+  title: "Current Audit Status",
   curveType: "function",
   legend: { position: "bottom" },
   backgroundColor: "transparent",
