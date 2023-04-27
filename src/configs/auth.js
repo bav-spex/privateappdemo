@@ -32,6 +32,8 @@ const managmentReview_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.p
 const mitigation_effort_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/22'
 const planning_strategy_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/21'
 const mitigation_update_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update'
+const speedometer_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
+const open_risk_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
 
 
 export default {
@@ -92,6 +94,8 @@ export default {
   category_list: category_list_url,
   display_lookup: display_lookup_url,
   SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
-  getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`
+  getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`,
+  speedometer: `${speedometer_url}`,
+  open_risk: `${open_risk_url}`,
 }
 
