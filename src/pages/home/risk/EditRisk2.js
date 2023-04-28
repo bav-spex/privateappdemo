@@ -554,8 +554,9 @@ const EditRisk = () => {
           {/* subject end */}
           <Grid item sx={{ width: '100%' }}>
             <FormControl fullWidth>
-              <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                select a Risk mapping or start typing to search
+              <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'
+              style={{ paddingRight: '100px' }}>
+                Select a Risk mapping or start typing to search
               </InputLabel>
               <Controller
                 name='riskMapping'
@@ -568,7 +569,7 @@ const EditRisk = () => {
                     value={risk_mapping}
                     multiple
                     fullWidth
-                    label={'Training Course'}
+                    label={'Select a Risk mapping or start typing to search'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       set_risk_mapping(e.target.value)
@@ -616,7 +617,7 @@ const EditRisk = () => {
                     value={threat_mapping}
                     multiple
                     fullWidth
-                    label={'Threat Mapping'}
+                    label={'Select a Threat Mapping or start typing to search'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       set_threat_mapping(e.target.value);
