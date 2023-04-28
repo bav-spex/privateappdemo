@@ -305,11 +305,11 @@ const columns = [
         return (
           <>
            <IconButton onClick={()=> handleEditClick(id)} sx={{ color: 'green' }}>
-                    <EditIcon />
+                    <EditIcon titleAccess='Edit Control'/>
           </IconButton>
 
           <IconButton  sx={{ color: 'red' }}>
-            <DeleteIcon />
+            <DeleteIcon titleAccess='Delete Control'/>
           </IconButton>
         </>
         );

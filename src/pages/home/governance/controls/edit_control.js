@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import auth from 'src/configs/auth';
 // import './edit_control.css'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material'
-
+import toast from 'react-hot-toast'
 
 const Edit_control = () => {
 
@@ -73,7 +73,7 @@ const Edit_control = () => {
   const data= await res.json();
   // setControlList(data.data.controls);
   console.log("post data is", data);
-
+  toast.success('Control Edited Successfully');
     router.push('/home/governance/controls');
   }
 

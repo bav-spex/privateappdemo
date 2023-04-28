@@ -35,6 +35,8 @@ const planning_strategy_url= 'https://common-dev-rakshitah.azurewebsites.net/loo
 const mitigation_update_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update'
 const speedometer_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
 const open_risk_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
+const edit_framework_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/update'
+const new_framework_url= 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/new'
 
 
 export default {
@@ -98,6 +100,8 @@ export default {
   getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`,
   speedometer: `${speedometer_url}`,
   open_risk: `${open_risk_url}`,
-  control_new: `${control_new_url},`
+  control_new: `${control_new_url},`,
+  edit_framework: `${edit_framework_url}`,
+  new_framework: `${new_framework_url}`,
 }
 

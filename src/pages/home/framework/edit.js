@@ -42,7 +42,7 @@ const EditFrame = () => {
 
   const edit_framework= async()=>{
 
-      const res= await fetch(`https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/update/${router.query.keyword}`, {
+      const res= await fetch(`${authConfig.edit_framework}/${router.query.keyword}`, {
           method:"PUT",
             headers:{
                 "Content-Type": "application/json"
@@ -59,7 +59,7 @@ const EditFrame = () => {
           const data= await res.json();
           console.log("edited framework is",  data);
           toast.success('FrameWork Edited');
-
+          router.push(`/home/framework`);
   }
 
 

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { allFrameWorks, fwa } from './frameworkService'
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
+import authConfig from 'src/configs/auth'
 
 //third part imports
 import toast from 'react-hot-toast'
@@ -35,7 +36,7 @@ const AddFrame = () => {
   const [fwList, setFwList] = useState([])
 
   const CreateFrames = async() => {
-    const res= await fetch(`https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/new`, {
+    const res= await fetch(`${authConfig.new_framework}`, {
         method:"POST",
           headers:{
               "Content-Type": "application/json"
@@ -52,6 +53,7 @@ const AddFrame = () => {
         const data= await res.json();
         console.log("save framework is",  data);
         toast.success('Created FrameWork');
+        router.push(`/home/framework`);
   }
 
   // ** Hooks

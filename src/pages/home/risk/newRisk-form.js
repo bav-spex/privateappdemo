@@ -137,11 +137,12 @@ const RiskList = () => {
         console.log("save risk is", data);
         toast.success('Submitted Risk');
 
-        // const formData = new FormData();
-        // formData.append("file", file);
-        // for (var key of formData.entries()) {
-        //   console.log(key[0] + ', ' + key[1])
-        // }
+        console.log("file is", file);
+        const formData = new FormData();
+        formData.append("file", file);
+        for (var key of formData.entries()) {
+          console.log(key[0] + ', ' + key[1])
+        }
         // const res2= await fetch(``, {
         //   method:"POST",
         //     body: formData
@@ -374,7 +375,7 @@ const RiskList = () => {
   }
 
 
-  const upload = async(e) => {
+  const upload = (e) => {
     // console.log("file uploaded is", e.target.files[0]);
     const selectedFile = e.target.files[0];
     set_file(selectedFile);

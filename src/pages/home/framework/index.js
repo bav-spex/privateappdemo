@@ -128,10 +128,10 @@ const FrameWorkList = () => {
         return (
           <>
           <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(id)}>
-          <ModeEditIcon />
+          <ModeEditIcon titleAccess='Edit Framework'/>
         </IconButton>
         <IconButton sx={{ color: 'red' }} onClick={fdelete}>
-           <DeleteIcon />
+           <DeleteIcon titleAccess='Delete Framework'/>
        </IconButton>
         </>
         );
@@ -183,7 +183,7 @@ const FrameWorkList = () => {
   }
   return (
     <>
-      <div style={{ height: 400 }}>
+      <div style={{ height: 500 }}>
         <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
         <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
           <Button size='medium' variant='contained' onClick={createNew}>
