@@ -184,7 +184,7 @@ const EditAudit = () => {
         value={audit_status}
         onChange={(e)=> set_audit_status(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Tester"
+        label="Audit Status"
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -204,7 +204,7 @@ const EditAudit = () => {
         value={test_results}
         onChange={(e)=> set_test_results(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Tester"
+        label="Test Results"
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -256,7 +256,7 @@ const EditAudit = () => {
         value={teams}
         onChange={(e)=> set_teams(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Tester"
+        label="Teams(s)"
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',

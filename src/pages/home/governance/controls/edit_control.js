@@ -467,7 +467,7 @@ const Edit_control = () => {
           multiple
           id="demo-simple-select"
           value={framework}
-          label="Control Owner"
+          label="Control Framework"
           onChange={(e)=> setFramework(e.target.value)}
         >
           {frameworkList.map((item) => (item !== null ?

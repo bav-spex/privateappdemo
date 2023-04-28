@@ -180,6 +180,7 @@ const EditTest = () => {
         multiple
         value={testers}
         onChange={add_testers}
+        label='Tester'
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -200,6 +201,7 @@ const EditTest = () => {
         <Select
         multiple
         value={additional_stakeholders}
+        label='Additional Stakeholders'
         onChange={add_stakeholders}
         inputProps={{
           name: 'selectedValues',
@@ -218,6 +220,7 @@ const EditTest = () => {
         <Select
         multiple
         value={teams}
+        label='Teams'
         onChange={add_teams}
         inputProps={{
           name: 'selectedValues',
