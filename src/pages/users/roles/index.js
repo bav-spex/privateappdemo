@@ -34,21 +34,19 @@ import Icon from 'src/@core/components/icon'
 const cardData = [
   { totalUsers: 4, title: 'Administrator', avatars: ['1.png', '2.png', '3.png', '4.png'] },
   { totalUsers: 7, title: 'Manager', avatars: ['5.png', '6.png', '7.png', '8.png', '1.png', '2.png', '3.png'] },
-  { totalUsers: 5, title: 'Users', avatars: ['4.png', '5.png', '6.png', '7.png', '8.png'] },
-  { totalUsers: 3, title: 'Support', avatars: ['1.png', '2.png', '3.png'] },
+  { totalUsers: 5, title: 'Auditor', avatars: ['4.png', '5.png', '6.png', '7.png', '8.png'] },
+  { totalUsers: 3, title: 'IT', avatars: ['1.png', '2.png', '3.png'] },  
   { totalUsers: 2, title: 'Restricted User', avatars: ['4.png', '5.png'] }
 ]
 
 const rolesArr = [
-  'User Management',
-  'Content Management',
-  'Disputes Management',
-  'Database Management',
-  'Financial Management',
-  'Reporting',
-  'API Control',
-  'Repository Management',
-  'Payroll'
+  'Governance',
+  'Risk Creation',
+  'Risk Review',
+  'Risk Mitigation',
+  'Complaince',
+  'Lookup',
+  'User Management'
 ]
 
 const RolesCards = () => {
