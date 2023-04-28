@@ -26,6 +26,7 @@ import { addRisk } from 'src/store/apps/Risks/index'
 
 //Third party imports
 import toast from 'react-hot-toast'
+import select from 'src/@core/theme/overrides/select'
 
 const RiskList = () => {
   const data = useSelector(state => state.riskList)
@@ -134,7 +135,18 @@ const RiskList = () => {
         });
         const data= await res.json();
         console.log("save risk is", data);
-        toast.success('Submitted Risk')
+        toast.success('Submitted Risk');
+
+        // const formData = new FormData();
+        // formData.append("file", file);
+        // for (var key of formData.entries()) {
+        //   console.log(key[0] + ', ' + key[1])
+        // }
+        // const res2= await fetch(``, {
+        //   method:"POST",
+        //     body: formData
+        //   });
+        // const data2= await res2.json();
   }
 
   useEffect(() => {
@@ -315,6 +327,8 @@ const RiskList = () => {
 
   const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
 
+  const [file, set_file]= useState();
+
   // console.log('allrisk :', allRisk)
   const setSelectedRisk = value => {
     let riskArray = allRisk.data?.riskmapping?.filter(item => item.id == value)
@@ -359,8 +373,11 @@ const RiskList = () => {
     router.push(`/home/risk`)
   }
 
-  const upload = e => {
-    console.log(e.target.files)
+
+  const upload = async(e) => {
+    // console.log("file uploaded is", e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    set_file(selectedFile);
   }
 
   return (

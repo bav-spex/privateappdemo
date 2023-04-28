@@ -24,6 +24,7 @@ const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstm
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
 const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
 const control_by_id_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/id'
+const control_new_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/new'
 const control_dropdown_url='https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
 const test_list_url="https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/get"
 const category_list_url= "https://common-dev-rakshitah.azurewebsites.net/categories/v1/get"
@@ -97,5 +98,6 @@ export default {
   getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`,
   speedometer: `${speedometer_url}`,
   open_risk: `${open_risk_url}`,
+  control_new: `${control_new_url},`
 }
 
