@@ -393,6 +393,11 @@ useEffect(() => {
 });
   }
 
+  const new_control= ()=>{
+
+    router.push('/home/governance/controls/new_control')
+  }
+
   const handleToggle = (event, newStatus) => {
     const tableData = batchList.filter(item => (item.status == newStatus || item.status == null))
     console.log("NUL Values ",batchList.filter(item => (item.status == null)))
@@ -410,8 +415,10 @@ useEffect(() => {
           <CardHeader title='Controls' />
           <CardContent>
             <Grid container spacing={6}>
-              <Grid item sm={4} xs={12}>
-                
+              <Grid item sm={12} xs={12}>
+              <div style={{display: 'flex', justifyContent: 'right'}}>
+                <Button variant='contained' onClick={new_control}>New Control</Button>
+                </div>
               </Grid>
               
             </Grid>

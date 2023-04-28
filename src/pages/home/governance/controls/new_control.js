@@ -5,7 +5,7 @@ import auth from 'src/configs/auth';
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material'
 
 
-const Edit_control = () => {
+const New_control = () => {
 
   const [class1, setClass1] = useState('');
   const [controlType, setControlType] = useState('');
@@ -75,32 +75,6 @@ const Edit_control = () => {
   console.log("post data is", data);
 
     router.push('/home/governance/controls');
-  }
-
-  const fetch_control_data_by_id= async()=>{
-
-    const res= await fetch(`${auth.control_by_id}/${router.query.keyword}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          },
-    })
-    const data= await res.json();
-    // setControlList(data.data.controls);
-    console.log("edit control data is", data);
-    setClass1(data.data.class);
-    setControlType(data.data.controltype);
-    setPhase(data.data.phase);
-    setCurrentMaturity(data.data.currentmaturity);
-    setDesiredMaturity(data.data.desiredmaturity);
-    setPriority(data.data.priority);
-    setFamily(data.data.family);
-    setStatus(data.data.status);
-    setShortname(data.data.shortname);
-    setDesc(data.data.desc);
-    setSuppementalguidance(data.data.suppementalguidance);
-    setOwner(data.data.owner);
-    setFramework(data.data.frameworkids);
   }
 
   const fetch_classList= async()=>{
@@ -223,7 +197,6 @@ const Edit_control = () => {
 
   useEffect(() => {
 
-    fetch_control_data_by_id();
     fetch_classList();
     fetch_phaseList();
     fetch_maturityList();
@@ -240,7 +213,7 @@ const Edit_control = () => {
     
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div>
-    <h1>Edit Control</h1>
+    <h1>New Control</h1>
     </div>
     <Grid
               item
@@ -483,4 +456,4 @@ const Edit_control = () => {
   )
 }
 
-export default Edit_control
+export default New_control

@@ -11,6 +11,7 @@ import { freameworkDetails, fwa } from './frameworkService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
+import toast from 'react-hot-toast'
 
 const EditFrame = () => {
   const router = useRouter()
@@ -38,6 +39,30 @@ const EditFrame = () => {
     set_parent(data.framework_Parent);
     set_description(data.framework_Details);
   }
+
+  const edit_framework= async()=>{
+
+      const res= await fetch(`https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/update/${router.query.keyword}`, {
+          method:"PUT",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              
+              id : router.query.keyword,
+              framework_Name: name,
+              framework_Details: description,
+              framework_Parent: parent,
+              framework_Status: 'active',
+            })
+          })
+          const data= await res.json();
+          console.log("edited framework is",  data);
+          toast.success('FrameWork Edited');
+
+  }
+
+
   useEffect(() => {
     
     fetch_framework_details();
@@ -107,7 +132,7 @@ const [fwList, setFwList] = useState([])
           <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
             Cancel
           </Button>
-          <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }}>
+          <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }} onClick={edit_framework}>
             Save
           </Button>
         </Grid>
@@ -120,6 +145,7 @@ const [fwList, setFwList] = useState([])
           <TextField label='FrameWork' fullWidth
           //  value={frameWorksDetails.framework_Name}
           value={name}
+          onChange={(e)=> set_name(e.target.value)}
             />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
@@ -132,15 +158,16 @@ const [fwList, setFwList] = useState([])
               <Select
                 // value={value}
                 value={parent}
-                
+                // onChange={(e)=> set_parent(e.target.value)}
                 // defaultValue={'Management'}
                 fullWidth
                 label={'Parent FrameWork'}
                 onChange={e => {
-                  // setSelectedRisk(e.target.value)
-                  // onChange(e)
-                  // setCatRisk(e.target.value)
-                  // onChange(e)
+                  setSelectedRisk(e.target.value)
+                  onChange(e)
+                  setCatRisk(e.target.value)
+                  onChange(e)
+                  set_parent(e.target.value)
                 }}
                 error={Boolean(errors?.msg)}
                 labelId='validation-basic-select'
@@ -164,6 +191,7 @@ const [fwList, setFwList] = useState([])
             fullWidth
             // value={frameWorksDetails.framework_Details}
             value={description}
+            onChange={(e)=> set_description(e.target.value)}
           />
         </Grid>
       </Grid>

@@ -401,8 +401,25 @@ const EditRisk = () => {
     router.push(`/home/risk`)
   }
 
-  const upload = e => {
-    console.log(e.target.files)
+  // const upload = e => {
+  //   console.log(e.target.files)
+  // }
+
+  const upload = async(e) => {
+    // console.log("file uploaded is", e.target.files[0]);
+    const selectedFile = e.target.files[0];
+  const formData = new FormData();
+  console.log("selected file is", selectedFile);
+  formData.append("file", selectedFile);
+  // console.log(formData); 
+  for (var key of formData.entries()) {
+    console.log(key[0] + ', ' + key[1])
+  }
+  // const res= await fetch(``, {
+  //   method:"POST",
+  //     body: formData
+  //   });
+  //   const data= await res.json();
   }
 
   return (
