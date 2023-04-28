@@ -24,6 +24,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import PreviewIcon from '@mui/icons-material/Preview'
 import EditIcon from '@mui/icons-material/Edit';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -112,7 +114,7 @@ const RiskList = () => {
                     <EditIcon />
                   </IconButton>
                   <IconButton onClick={()=>openMitigation(r.id)} sx={{ color: 'green' }}>
-                  <ContactSupportIcon />
+                  <ReportProblemIcon />
                 </IconButton>
                   </>
                 ) : null
@@ -121,7 +123,7 @@ const RiskList = () => {
               <ContactSupportIcon />
             </IconButton> */}
             <IconButton onClick={openPreview} sx={{ color: 'red' }}>
-              <PreviewIcon />
+              <AddCommentIcon />
             </IconButton>
           </>
         )

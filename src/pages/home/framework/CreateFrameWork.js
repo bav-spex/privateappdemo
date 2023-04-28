@@ -17,6 +17,10 @@ const AddFrame = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
 
+  const [name, set_name]=useState('');
+  const [parent, set_parent]=useState('');
+  const [description, set_description]=useState('');
+
   useEffect(() => {
     fwa(() => {}, setAll)
   }, [])
@@ -30,8 +34,24 @@ const AddFrame = () => {
   //!states
   const [fwList, setFwList] = useState([])
 
-  const CreateFrames = () => {
-    toast.success('Created FrameWork')
+  const CreateFrames = async() => {
+    const res= await fetch(`https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/new`, {
+        method:"POST",
+          headers:{
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            
+            id : null,
+            framework_Name: name,
+            framework_Details: description,
+            framework_Parent: parent,
+            framework_Status: 'active',
+          })
+        })
+        const data= await res.json();
+        console.log("save framework is",  data);
+        toast.success('Created FrameWork');
   }
 
   // ** Hooks
@@ -87,7 +107,9 @@ const AddFrame = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
           <h5>FrameWork Name</h5>
-          <TextField label='FrameWork' fullWidth />
+          <TextField label='FrameWork' fullWidth 
+          value={name}
+          onChange={(e)=> set_name(e.target.value)} />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
           <h5>parent FrameWork</h5>
@@ -98,13 +120,15 @@ const AddFrame = () => {
             defaultValue={data}
             render={({ field: { value, onChange } }) => (
               <Select
-                value={value}
+                // value={value}
+                value={parent}
                 defaultValue={''}
                 fullWidth
                 label={'ParentFrameWork'}
                 onChange={e => {
                   // setSelectedRisk(e.target.value)
-                  // onChange(e)
+                  onChange(e)
+                  set_parent(e.target.value)
                 }}
                 error={Boolean(errors?.msg)}
                 labelId='validation-basic-select'
@@ -128,6 +152,8 @@ const AddFrame = () => {
             placeholder=''
             style={{ width: '100%' }}
             fullWidth
+            value={description}
+            onChange={(e)=> set_description(e.target.value)}
           />
         </Grid>
       </Grid>
