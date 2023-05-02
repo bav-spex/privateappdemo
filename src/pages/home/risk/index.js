@@ -44,6 +44,7 @@ import { useRouter } from 'next/router'
 import { allRisk } from 'src/pages/home/risk/RiskService'
 
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
+import { date } from 'yup/lib/locale'
 
 const RiskList = () => {
   const dispatch = useDispatch()
@@ -73,28 +74,45 @@ const RiskList = () => {
     {
       field: 'submissiondate',
       headerName: 'SUbmission Date ',
-      type: 'number',
+      type: 'date',
+      flex: 0.14,
+      minWidth: 25,
+      sortComparator: (v1, v2, cellParams1, cellParams2) => {
+        const timestamp1 = new Date(v1).getTime();
+        const timestamp2 = new Date(v2).getTime();
+        if (timestamp1 < timestamp2) {
+          return -1;
+        }
+        if (timestamp1 > timestamp2) {
+          return 1;
+        }
+        return 0;
+      }
+    },
+    // {
+    //   field: 'mitigation',
+    //   headerName: 'mitigation ',
+    //   type: 'number',
+    //   flex: 0.1,
+    //   minWidth: 25,
+    //   textAlign: 'center'
+    // },
+    // {
+    //   field: 'managementreview',
+    //   headerName: 'managment review ',
+    //   type: 'number',
+    //   flex: 0.15,
+    //   minWidth: 25,
+    //   allignItems: 'center',
+    //   textAlign: 'center'
+    // },
+    {
+      field: 'framework',
+      headerName: 'Framework ',
+      type: 'text',
       flex: 0.14,
       minWidth: 25
     },
-    {
-      field: 'mitigation',
-      headerName: 'mitigation ',
-      type: 'number',
-      flex: 0.1,
-      minWidth: 25,
-      textAlign: 'center'
-    },
-    {
-      field: 'managementreview',
-      headerName: 'managment review ',
-      type: 'number',
-      flex: 0.15,
-      minWidth: 25,
-      allignItems: 'center',
-      textAlign: 'center'
-    },
-
     {
       field: 'action',
       headerName: 'Action',
@@ -134,6 +152,11 @@ const RiskList = () => {
   const rows = []
 
   Array.isArray(risksArray) && risksArray.map(r => rows.push(r))
+
+  const rows2 = rows.map(row => ({
+    ...row,
+    submissiondate: new Date(row.submissiondate)
+  }));
 
   const [value, setValue] = useState('')
 
@@ -180,7 +203,7 @@ const RiskList = () => {
         </CardContent>
         <Divider />
         {/* <TableHeader value={value} handleFilter={handleFilter} sx={{ textAlign: 'center' }} /> */}
-        <DataGrid rows={rows} columns={columns} rowsPerPageOptions={[10, 25, 50]} />
+        <DataGrid rows={rows2} columns={columns} rowsPerPageOptions={[10, 25, 50]} />
       </div>
     </>
   )

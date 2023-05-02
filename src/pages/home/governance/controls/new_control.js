@@ -54,20 +54,20 @@ const New_control = () => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          shortname: shortname,
-          number: controlNumber,
-          owner: owner,
-          priority: priority,
-          phase: phase,
+          short_name: shortname,
+          control_number: controlNumber,
+          control_owner: owner,
+          control_priority: priority,
+          control_phase: phase,
           family: family,
-          currentmaturity: currentMaturity,
-          desiredmaturity: desiredMaturity,
+          control_maturity: currentMaturity,
+          desired_maturity: desiredMaturity,
           controltype: controlType,
-          class: class1,
-          status: status,
-          desc: desc,
-          suppementalguidance: suppementalguidance,
-          frameworkids: framework,
+          control_class: class1,
+          control_status: status,
+          description: desc,
+          supplemental_guidance: suppementalguidance,
+          frameworks_id: framework,
       })
   })
   const data= await res.json();
