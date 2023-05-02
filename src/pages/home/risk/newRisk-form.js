@@ -1096,10 +1096,6 @@ const RiskList = () => {
                   Aasets are required
                 </FormHelperText>
               )}
-              <h6 style={{ color: 'red' }}>
-                select an assets or assets Group you can create a new Assets by adding its name to the list
-                <br />
-              </h6>
             </FormControl>
           </Grid>
           {/* end of selection assets  */}
