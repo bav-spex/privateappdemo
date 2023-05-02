@@ -39,6 +39,7 @@ import Dialog from '@mui/material/Dialog';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import { blue } from '@mui/material/colors';
+import authConfig from 'src/configs/auth'
 
 
 // ** Icon Imports
@@ -130,7 +131,7 @@ const AddRisk = () => {
       }
    
       const fetch_risk_list = async () => {
-        const res = await fetch(`https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/${router.query.keyword}/testresult/risks`, {
+        const res = await fetch(`${authConfig.risk_list}/${router.query.keyword}/testresult/risks`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -23,6 +23,7 @@ import auth from 'src/configs/auth';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import auth from 'src/configs/auth';
 
 import Grid from '@mui/material/Grid'
 import { Button } from '@mui/material';
@@ -67,7 +68,7 @@ function Row(props) {
 
     if(!open)
     {
-      const res = await fetch(`https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/audits/test/${para}`, {
+      const res = await fetch(`${auth.audit_data}/${para}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +93,7 @@ function Row(props) {
   const handleAddAudit= async(id)=>{
 
 
-    const res = await fetch(`https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new`, {
+    const res = await fetch(`${auth.add_audit}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

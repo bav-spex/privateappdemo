@@ -5,6 +5,7 @@ import auth from 'src/configs/auth';
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import authConfig from 'src/configs/auth'
 
 
 const EditAudit = () => {
@@ -33,7 +34,7 @@ const EditAudit = () => {
 
     const fetch_audit_by_id= async()=>{
 
-      const res= await fetch(`https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/${router.query.keyword}/testresult/get`, {
+      const res= await fetch(`${authConfig.fetch_audit}/${router.query.keyword}/testresult/get`, {
           method:"GET",
             headers:{
                 "Content-Type": "application/json"
@@ -55,7 +56,7 @@ const EditAudit = () => {
 
     const fetch_audit_status_list= async()=>{
 
-      const res= await fetch(`https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/26`, {
+      const res= await fetch(`${authConfig.audit_dropdown}/26`, {
           method:"GET",
             headers:{
                 "Content-Type": "application/json"
@@ -68,7 +69,7 @@ const EditAudit = () => {
 
     const fetch_test_result_list= async()=>{
 
-      const res= await fetch(`https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/27`, {
+      const res= await fetch(`${authConfig.audit_dropdown}/27`, {
           method:"GET",
             headers:{
                 "Content-Type": "application/json"
@@ -81,7 +82,7 @@ const EditAudit = () => {
 
     const fetch_tester_list= async()=>{
 
-      const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users`, {
+      const res= await fetch(`${authConfig.owner_list}`, {
           method:"GET",
             headers:{
                 "Content-Type": "application/json"
@@ -94,7 +95,7 @@ const EditAudit = () => {
 
     const fetch_teams_list= async()=>{
 
-      const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams`, {
+      const res= await fetch(`${authConfig.team_list}`, {
           method:"GET",
             headers:{
                 "Content-Type": "application/json"
@@ -108,7 +109,7 @@ const EditAudit = () => {
 
     const submit_edit_audit= async()=>{
 
-      const res= await fetch('https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/testresult/update', {
+      const res= await fetch(`${authConfig.edit_audit}`, {
         method:"POST",
           headers:{
               "Content-Type": "application/json"

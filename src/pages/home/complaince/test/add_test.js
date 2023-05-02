@@ -55,7 +55,7 @@ const AddTest = () => {
         console.log(teams);
         console.log(additional_stakeholders);
 
-        const res= await fetch(`https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/new`, {
+        const res= await fetch(`${auth.add_test}`, {
         method:"POST",
           headers:{
               "Content-Type": "application/json"
@@ -82,7 +82,7 @@ const AddTest = () => {
 
       const fetch_testers= async()=>{
 
-        const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users`, {
+        const res= await fetch(`${auth.owner_list}`, {
         method:"GET",
           headers:{
               "Content-Type": "application/json"
@@ -95,7 +95,7 @@ const AddTest = () => {
 
       const fetch_teams= async()=>{
 
-        const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams`, {
+        const res= await fetch(`${auth.team_list}`, {
         method:"GET",
           headers:{
               "Content-Type": "application/json"

@@ -19,6 +19,7 @@ import { useRouter } from 'next/router'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import authConfig from 'src/configs/auth'
 
 
 function SimpleDialog(props) {
@@ -36,7 +37,7 @@ function SimpleDialog(props) {
 
     const save_new_comment= async()=>{
 
-        const res= await fetch('https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/comments', {
+        const res= await fetch(`${authConfig.add_comment}`, {
         method:"POST",
           headers:{
               "Content-Type": "application/json"

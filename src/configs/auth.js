@@ -22,9 +22,12 @@ const frameWork_src_url = `https://governance-dev-rakshitah.azurewebsites.net/`
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
-const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
+// const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
+const control_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/getAllNewControl'
 const control_by_id_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/id'
-const control_new_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/new'
+// const control_new_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/new'
+const control_new_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/new'
+const control_update_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/update'
 const control_dropdown_url='https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
 const test_list_url="https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/get"
 const category_list_url= "https://common-dev-rakshitah.azurewebsites.net/categories/v1/get"
@@ -37,6 +40,17 @@ const speedometer_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.
 const open_risk_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
 const edit_framework_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/update'
 const new_framework_url= 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/new'
+const audit_dropdown_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
+const fetch_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
+const edit_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/testresult/update'
+const add_comment_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/comments'
+const comment_list_url ='https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
+const risk_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
+const add_test_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/new'
+const save_existing_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks'
+const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks'
+const audit_data_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/audits/test'
+const add_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new'
 
 
 export default {
@@ -90,7 +104,7 @@ export default {
   mitigation_update: `${mitigation_update_url}`,
   saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
   saveAllMitigation: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
-  controlList:`${control_url}/v1/controls`,
+  controlList:`${control_url}`,
   control_by_id: `${control_by_id_url}`,
   control_dropdown: `${control_dropdown_url}`,
   test_list: `${test_list_url}`,
@@ -100,8 +114,20 @@ export default {
   getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`,
   speedometer: `${speedometer_url}`,
   open_risk: `${open_risk_url}`,
-  control_new: `${control_new_url},`,
+  control_new: `${control_new_url}`,
   edit_framework: `${edit_framework_url}`,
   new_framework: `${new_framework_url}`,
+  audit_dropdown: `${audit_dropdown_url}`,
+  edit_audit: `${edit_audit_url}`,
+  fetch_audit: `${fetch_audit_url}`,
+  add_comment: `${add_comment_url}`,
+  comment_list: `${comment_list_url}`,
+  risk_list: `${risk_list_url}`,
+  add_test: `${add_test_url}`,
+  save_existing_list: `${save_existing_list_url}`,
+  fetch_existing_list: `${fetch_existing_list_url}`,
+  audit_data: `${audit_data_url}`,
+  add_audit: `${add_audit_url}`,
+  control_update: `${control_update_url}`
 }
 

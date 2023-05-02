@@ -1347,7 +1347,7 @@ const EditRisk = () => {
                     // value={value}
                     value={additional_stakeholders}
                     fullWidth
-                    label={'technology'}
+                    label={'Additional Stakeholders'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
@@ -1434,7 +1434,7 @@ const EditRisk = () => {
                     // value={value}
                     value={manager}
                     fullWidth
-                    label={'owner'}
+                    label={'Owners Manager'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       setManager(e.target.value)

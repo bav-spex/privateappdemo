@@ -14,6 +14,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
+import auth from 'src/configs/auth';
 
 import { useRouter } from 'next/router'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
@@ -40,7 +41,7 @@ function SimpleDialog(props) {
         console.log("selected list is");
         console.log(existing_risk_list);
 
-        const res= await fetch('https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks', {
+        const res= await fetch(`${auth.save_existing_list}`, {
         method:"POST",
           headers:{
               "Content-Type": "application/json"
@@ -59,7 +60,7 @@ function SimpleDialog(props) {
 
 
     const fetch_existing_risk_list = async () => {
-        const res = await fetch(`https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io//rmf/v1/risks`, {
+        const res = await fetch(`${auth.fetch_existing_list}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

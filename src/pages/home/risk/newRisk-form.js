@@ -514,7 +514,7 @@ const RiskList = () => {
           <Grid item sx={{ width: '100%' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                select a Risk mapping or start typing to search
+                Select a Risk mapping or start typing to search
               </InputLabel>
               <Controller
                 name='riskMapping'
@@ -527,7 +527,7 @@ const RiskList = () => {
                     value={risk_mapping}
                     multiple
                     fullWidth
-                    label={'Training Course'}
+                    label={'select a Risk mapping or start typing to search'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       set_risk_mapping(e.target.value)
@@ -575,7 +575,7 @@ const RiskList = () => {
                     value={threat_mapping}
                     multiple
                     fullWidth
-                    label={'Threat Mapping'}
+                    label={'Select a Threat Mapping or start typing to search'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       set_threat_mapping(e.target.value);
@@ -1300,7 +1300,7 @@ const RiskList = () => {
                     // value={value}
                     value={additional_stakeholders}
                     fullWidth
-                    label={'technology'}
+                    label={'Additional Stakeholders'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
@@ -1387,7 +1387,7 @@ const RiskList = () => {
                     // value={value}
                     value={manager}
                     fullWidth
-                    label={'owner'}
+                    label={'Owners Manager'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       setManager(e.target.value)

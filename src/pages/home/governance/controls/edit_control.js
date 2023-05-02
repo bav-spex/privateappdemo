@@ -48,7 +48,7 @@ const Edit_control = () => {
 
   const submitdetails= async()=>{
 
-    const res= await fetch(`${auth.control_new}`, {
+    const res= await fetch(`${auth.control_update}`, {
       method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -196,7 +196,7 @@ const Edit_control = () => {
 
   const fetch_ownerList= async()=>{
 
-    const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users`, {
+    const res= await fetch(`${auth.owner_list}`, {
         method:"GET",
           headers:{
               "Content-Type": "application/json"
