@@ -14,7 +14,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
-import auth from 'src/configs/auth';
 
 import { useRouter } from 'next/router'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
@@ -22,10 +21,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-function SimpleDialog(props) {
-    const { onClose, open, category_id } = props;
+function SimpleDialog2(props) {
+    const { onClose, open, category_id, row } = props;
 
-    const [new_lookup_name, set_new_lookup_name]= useState('');
+    const [new_lookup_name, set_new_lookup_name]= useState(props.row.lookupName);
   
     const handleClose = () => {
       onClose();
@@ -35,9 +34,9 @@ function SimpleDialog(props) {
       onClose(value);
     };
 
-    const save_new_lookup = async() => {
+    const save_edit_lookup = async() => {
         
-        const res= await fetch(`${auth.add_lookup}/${category_id}/new`, {
+        const res= await fetch(`https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/${category_id}/new`, {
             method:"POST",
               headers:{
                   "Content-Type": "application/json"
@@ -50,7 +49,7 @@ function SimpleDialog(props) {
             })
         })
         const data= await res.json();
-        console.log("new look up added is", data);
+        console.log("edit look up is", data);
         handleClose();
       };
 
@@ -66,7 +65,7 @@ function SimpleDialog(props) {
           },
         },
       }}>
-        <DialogTitle>Add New Lookup</DialogTitle>
+        <DialogTitle>Edit Lookup Details</DialogTitle>
 
         <FormControl fullWidth>
       <TextField id="outlined-flexible" label='Look Up Name' value={new_lookup_name} onChange={(e)=>set_new_lookup_name(e.target.value)}/>
@@ -95,7 +94,7 @@ function SimpleDialog(props) {
                 size='medium'
                 variant='contained'
                 style={{ marginLeft: '10px' }}
-                onClick={save_new_lookup}
+                onClick={save_edit_lookup}
               >
                 Save
               </Button>
@@ -105,10 +104,10 @@ function SimpleDialog(props) {
     );
   }
   
-  SimpleDialog.propTypes = {
+  SimpleDialog2.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     selectedValue: PropTypes.string.isRequired,
   };
 
-  export default SimpleDialog
+  export default SimpleDialog2

@@ -153,10 +153,18 @@ const RiskList = () => {
 
   Array.isArray(risksArray) && risksArray.map(r => rows.push(r))
 
-  const rows2 = rows.map(row => ({
-    ...row,
-    submissiondate: new Date(row.submissiondate)
-  }));
+  // const rows2 = rows.map(row => ({
+  //   ...row,
+  //   submissiondate: new Date(row.submissiondate)
+  // }));
+
+  const rows2 = rows.map(row => {
+    const [day, month, year] = row.submissiondate.split('-');
+    return {
+      ...row,
+      submissiondate: new Date(`${year}-${month}-${day}`)
+    };
+  });
 
   const [value, setValue] = useState('')
 

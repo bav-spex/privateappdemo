@@ -13,9 +13,12 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SimpleDialog from './add_lookup';
+import EditIcon from '@mui/icons-material/Edit';
+import SimpleDialog2 from './edit_lookup';
 
 
 
@@ -30,6 +33,7 @@ const LookUps = () => {
     const [look_ups_dropdown, set_look_ups_dropdown]= useState([]);
 
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,6 +41,15 @@ const LookUps = () => {
 
   const handleClose = (value) => {
     setOpen(false);
+  };
+
+  const handleClickOpen2 = (para) => {
+    setOpen2(para);
+    console.log("edit clicked");
+  };
+
+  const handleClose2 = (value) => {
+    setOpen2('');
   };
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -151,7 +164,20 @@ const LookUps = () => {
                 {row.lookupId}
               </StyledTableCell>
               <StyledTableCell align='center'>{row.lookupName}</StyledTableCell>
-              <StyledTableCell align='center'><DeleteIcon sx={{color: 'red'}}/></StyledTableCell>
+              <StyledTableCell align='center'>
+              <IconButton sx={{ color: 'green' }} onClick={()=> handleClickOpen2(row.lookupId)}>
+                    <EditIcon titleAccess='Edit Control'/>
+              </IconButton>
+              <SimpleDialog2
+                open={(row.lookupId==open2)}
+                onClose={handleClose2}
+                category_id= {look_ups}
+                row={row}
+              />
+              <IconButton  sx={{ color: 'red' }}>
+                <DeleteIcon titleAccess='Delete Control'/>
+              </IconButton>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
 
