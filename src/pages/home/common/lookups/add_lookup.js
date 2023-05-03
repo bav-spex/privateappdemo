@@ -18,7 +18,8 @@ import auth from 'src/configs/auth';
 
 import { useRouter } from 'next/router'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import toast from 'react-hot-toast'
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -51,6 +52,7 @@ function SimpleDialog(props) {
         })
         const data= await res.json();
         console.log("new look up added is", data);
+        toast.success('Look Up Added Successfully');
         handleClose();
       };
 
@@ -88,7 +90,7 @@ function SimpleDialog(props) {
               style={{display: 'flex', justifyContent: 'right'}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={handleClose}>
-                cancel
+                Cancel
               </Button>
               <Button
                 type='submit '

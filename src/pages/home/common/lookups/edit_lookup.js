@@ -17,12 +17,13 @@ import { blue } from '@mui/material/colors';
 
 import { useRouter } from 'next/router'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import toast from 'react-hot-toast'
 import 'react-toastify/dist/ReactToastify.css';
 
 
 function SimpleDialog2(props) {
-    const { onClose, open, category_id, row } = props;
+    const { onClose, open, category_id, row, fun } = props;
 
     const [new_lookup_name, set_new_lookup_name]= useState(props.row.lookupName);
   
@@ -36,8 +37,8 @@ function SimpleDialog2(props) {
 
     const save_edit_lookup = async() => {
         
-        const res= await fetch(`https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/${category_id}/new`, {
-            method:"POST",
+        const res= await fetch(`https://common-dev-rakshitah.azurewebsites.net/lookup/v1/update/${row.lookupId}`, {
+            method:"PUT",
               headers:{
                   "Content-Type": "application/json"
               },
@@ -50,6 +51,8 @@ function SimpleDialog2(props) {
         })
         const data= await res.json();
         console.log("edit look up is", data);
+        toast.success('Look Up Edited Successfully');
+        fun(category_id);
         handleClose();
       };
 
@@ -96,7 +99,7 @@ function SimpleDialog2(props) {
                 style={{ marginLeft: '10px' }}
                 onClick={save_edit_lookup}
               >
-                Save
+                Edit
               </Button>
             </Grid>
 

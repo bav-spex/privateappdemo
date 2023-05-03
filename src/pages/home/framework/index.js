@@ -76,6 +76,9 @@ const FrameWorkList = () => {
     })
   }
 
+  const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
+
   useEffect(() => {
     fwa(() => {}, setAll)
   }, [])
@@ -127,12 +130,18 @@ const FrameWorkList = () => {
         const id = params.row.id;
         return (
           <>
+           {
+            user_data.role=='admin'?
+            <>
           <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(id)}>
           <ModeEditIcon titleAccess='Edit Framework'/>
-        </IconButton>
-        <IconButton sx={{ color: 'red' }} onClick={fdelete}>
-           <DeleteIcon titleAccess='Delete Framework'/>
-       </IconButton>
+          </IconButton>
+            <IconButton sx={{ color: 'red' }} onClick={fdelete}>
+              <DeleteIcon titleAccess='Delete Framework'/>
+          </IconButton>
+       </> 
+       : ''
+           }
         </>
         );
         // return (
@@ -186,9 +195,13 @@ const FrameWorkList = () => {
       <div style={{ height: 500 }}>
         <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
         <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
+        {
+            user_data.role=='admin'?
           <Button size='medium' variant='contained' onClick={createNew}>
             Create framework
           </Button>
+          : ''
+        }
         </Grid>
         <Divider />
         <DataGrid

@@ -157,109 +157,11 @@ const BatchList = () => {
 
   const [controlList, setControlList] = useState([]);
 
+  const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
+
   const router = useRouter();
 
-  const gotoEditMode = (rowId) =>{
-    let rowItem = batchList.filter(item => item.batchId == rowId);
-    let batch = {...rowItem[0]};
-
-    if(batch.startDate){
-      batch.startDate = new Date(rowItem[0].startDate)
-    }
-    if(batch.endDate){
-      batch.endDate = new Date(rowItem[0].endDate)
-    }
-    console.log("BATCH",batch);
-    
-    // dispatch(updateBatch({...batch}))
-    // router.push('/home/batch/create');
-  }
-
-//   const columns = [
-//     {
-//       flex: 0.25,
-//       minWidth: 230,
-//       field: 'batchName',
-//       headerName: 'Batch Name',
-//       renderCell: ({ row }) => {
-//         const { batchName } = row;
-  
-//         return (
-//           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-//             <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-//               {batchName}
-//             </Box>
-//           </Box>
-//         )
-//       }
-//     },
-//     {
-//       flex: 0.15,
-//       minWidth: 250,
-//       field: 'venue',
-//       headerName: 'Venue',
-//       renderCell: ({ row }) => {
-//         return (
-//           <Typography noWrap variant='body2' sx={{ fontSize:'0.9rem'}}>
-//             {row.venue}
-//           </Typography>
-//         )
-//       }
-//     },
-//     {
-//       flex: 0.15,
-//       field: 'startDate',
-//       minWidth: 150,
-//       headerName: 'start Date',
-//       renderCell: ({ row }) => {
-//         return (
-//           <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3 } }}>
-//             <Typography noWrap sx={{ fontSize:'0.9rem', color: 'text.secondary', textTransform: 'capitalize' }}>
-//               {new Date(row.startDate).toLocaleDateString('en-US')}
-//             </Typography>
-//           </Box>
-//         )
-//       }
-//     },
-//     {
-//       flex: 0.15,
-//       minWidth: 120,
-//       headerName: 'Course Name',
-//       field: 'Course Name',
-//       renderCell: ({ row }) => {
-//         return (
-//           <Typography noWrap sx={{ textTransform: 'capitalize', fontSize:'0.9rem' }}>
-//             {row.course.courseName}
-//           </Typography>
-//         )
-//       }
-//     },
-//     {
-//       flex: 0.1,
-//       minWidth: 110,
-//       field: 'status',
-//       headerName: 'Status',
-//       renderCell: ({ row }) => {
-//         return (
-//           <CustomChip
-//             skin='light'
-//             size='small'
-//             label={row.status}
-//             color={userStatusObj[row.status]}
-//             sx={{ textTransform: 'capitalize', fontSize:'0.9rem' }}
-//           />
-//         )
-//       }
-//     },
-//     {
-//       flex: 0.1,
-//       minWidth: 90,
-//       sortable: false,
-//       field: 'actions',
-//       headerName: 'Actions',
-//       renderCell: ({ row }) => <RowOptions id={row.batchId} />
-//     }
-//   ];
 
 const columns = [
     { flex: 0.11, width: 50, field: 'name', headerName: 'Name' },
@@ -304,13 +206,19 @@ const columns = [
         const id = params.row.id;
         return (
           <>
+          {
+            user_data.role=='admin'?
+            <>
            <IconButton onClick={()=> handleEditClick(id)} sx={{ color: 'green' }}>
                     <EditIcon titleAccess='Edit Control'/>
           </IconButton>
 
-          <IconButton  sx={{ color: 'red' }}>
-            <DeleteIcon titleAccess='Delete Control'/>
-          </IconButton>
+            <IconButton  sx={{ color: 'red' }}>
+              <DeleteIcon titleAccess='Delete Control'/>
+            </IconButton>
+          </>
+          : ''
+          }
         </>
         );
         // return (
@@ -378,14 +286,6 @@ useEffect(() => {
    
   }, [])
 
-  const handleFilter = useCallback(val => {
-    setValue(val)
-  }, [])
-
-  const handleCreateClick = () => {
-    router.push('/home/batch/create')
-  }
-
   const handleEditClick = (id) => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push({
@@ -399,15 +299,6 @@ useEffect(() => {
     router.push('/home/governance/controls/new_control')
   }
 
-  const handleToggle = (event, newStatus) => {
-    const tableData = batchList.filter(item => (item.status == newStatus || item.status == null))
-    console.log("NUL Values ",batchList.filter(item => (item.status == null)))
-    setTableData(tableData);
-    setBatchStatus(newStatus)
-  }
-
-   
-
   return (
     <Grid container spacing={6}>
       { console.log("statusList",statusList)}
@@ -416,12 +307,15 @@ useEffect(() => {
           <CardHeader title='Controls' />
           <CardContent>
             <Grid container spacing={6}>
+            {
+            user_data.role=='admin'?
               <Grid item sm={12} xs={12}>
               <div style={{display: 'flex', justifyContent: 'right'}}>
                 <Button variant='contained' onClick={new_control}>New Control</Button>
                 </div>
               </Grid>
-              
+              : ''
+            }
             </Grid>
           </CardContent>
           <Divider />

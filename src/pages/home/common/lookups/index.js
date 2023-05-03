@@ -35,6 +35,9 @@ const LookUps = () => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
+    const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -88,8 +91,8 @@ const LookUps = () => {
   
       const display_look_up= async(e)=>{
 
-        set_look_ups(e.target.value);
-        const res= await fetch(`${auth.display_lookup}/${e.target.value}`, {
+        set_look_ups(e);
+        const res= await fetch(`${auth.display_lookup}/${e}`, {
             method:"GET",
               headers:{
                   "Content-Type": "application/json"
@@ -122,7 +125,7 @@ const LookUps = () => {
       <InputLabel id="demo-simple-select-label">Category</InputLabel>
         <Select
         value={look_ups}
-        onChange={(e)=> display_look_up(e)}
+        onChange={(e)=> display_look_up(e.target.value)}
         labelId="demo-simple-select-label"
         label="Category"
         inputProps={{
@@ -141,7 +144,11 @@ const LookUps = () => {
     </div>
             
     <div style={{display: 'flex', justifyContent: 'right', marginBottom: '5vh'}}>
-        <Button variant='contained' onClick={handleClickOpen}>Add Value</Button>
+          {
+            user_data.role=='admin'?
+        <Button variant='contained' onClick={()=> {handleClickOpen()}}>Add Value</Button>
+        : ''
+          }
         <SimpleDialog
         open={open}
         onClose={handleClose}
@@ -165,7 +172,10 @@ const LookUps = () => {
               </StyledTableCell>
               <StyledTableCell align='center'>{row.lookupName}</StyledTableCell>
               <StyledTableCell align='center'>
-              <IconButton sx={{ color: 'green' }} onClick={()=> handleClickOpen2(row.lookupId)}>
+              {
+                user_data.role=='admin'?
+                <>
+              <IconButton sx={{ color: 'blue' }} onClick={()=> handleClickOpen2(row.lookupId)}>
                     <EditIcon titleAccess='Edit Control'/>
               </IconButton>
               <SimpleDialog2
@@ -173,10 +183,14 @@ const LookUps = () => {
                 onClose={handleClose2}
                 category_id= {look_ups}
                 row={row}
+                fun={display_look_up}
               />
               <IconButton  sx={{ color: 'red' }}>
                 <DeleteIcon titleAccess='Delete Control'/>
               </IconButton>
+              </> 
+              : ''
+              }
               </StyledTableCell>
             </StyledTableRow>
           ))}

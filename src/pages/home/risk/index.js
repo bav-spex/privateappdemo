@@ -49,7 +49,10 @@ import { date } from 'yup/lib/locale'
 const RiskList = () => {
   const dispatch = useDispatch()
 
-  const data = useSelector(state => state.selectRisk)
+  const data = useSelector(state => state.selectRisk);
+
+  const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
 
   const reviewSubmit = values => {
     dispatch(reviewRisk(values))
@@ -124,6 +127,9 @@ const RiskList = () => {
       renderCell: ({ rows }) => {
         return (
           <>
+          {
+            user_data.role=='admin'?
+            <>
             {Array.isArray(risksArray) &&
               risksArray.map((r, i) =>
                 i == 0 ? (
@@ -143,6 +149,9 @@ const RiskList = () => {
             <IconButton onClick={openPreview} sx={{ color: 'red' }}>
               <AddCommentIcon />
             </IconButton>
+            </>
+            : ''
+          }
           </>
         )
       }
@@ -203,9 +212,13 @@ const RiskList = () => {
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}></Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
+            {
+            user_data.role=='admin'?
               <Button size='medium' variant='contained' onClick={openNewForm}>
                 Create Risk
               </Button>
+              : ''
+            }
             </Grid>
           </Grid>
         </CardContent>

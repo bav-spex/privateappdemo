@@ -42,6 +42,9 @@ import { getDocument } from 'src/pages/home/Document/DocService'
 const DocumentList = () => {
   const dispatch = useDispatch()
 
+  const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
+
   const fdelete = () => {
     Swal.fire({
       title: 'Are you sure?',
@@ -92,6 +95,9 @@ const DocumentList = () => {
       renderCell: ({ rows }) => {
         return (
           <>
+          {
+            user_data.role=='admin'?
+            <>
             {Array.isArray(documentArray) &&
               documentArray.map((r, i) =>
                 i == 0 ? (
@@ -103,6 +109,9 @@ const DocumentList = () => {
             <IconButton sx={{ color: 'red' }} onClick={fdelete}>
               <DeleteIcon />
             </IconButton>
+            </>
+            : ''
+          }
           </>
         )
       }
@@ -130,9 +139,13 @@ const DocumentList = () => {
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}></Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
+            {
+            user_data.role=='admin'?
               <Button size='medium' variant='contained' onClick={AddDoc}>
                 Create Document
               </Button>
+              : ''
+            }
             </Grid>
           </Grid>
         </CardContent>

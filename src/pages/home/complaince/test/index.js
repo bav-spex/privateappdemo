@@ -23,7 +23,7 @@ import auth from 'src/configs/auth';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import auth from 'src/configs/auth';
+// import auth from 'src/configs/auth';
 
 import Grid from '@mui/material/Grid'
 import { Button } from '@mui/material';
@@ -60,6 +60,9 @@ function Row(props) {
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
+
+  const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
 
 
   const [audit_data, set_audit_data]= useState([]);
@@ -166,15 +169,21 @@ function Row(props) {
         <TableCell align="right">{row.next_test_date}</TableCell>
         <TableCell align="right">{row.approximatetime}</TableCell>
         <TableCell align="right">
-        <IconButton onClick={()=> handleEditTest(row.testid)} sx={{ color: 'green' }}>
-          <EditIcon titleAccess='Edit Test' />
-        </IconButton>
-        <IconButton onClick={()=> handleEditClick(r.testid)} sx={{ color: 'red' }}>
-        <DeleteIcon titleAccess='Delete Test'/>
-      </IconButton>
-      <IconButton onClick={()=> handleAddAudit(row.testid)} sx={{ color: 'blue' }}>
-        <AddIcon titleAccess='Add Audits'/>
-      </IconButton>
+        {
+            user_data.role=='admin'?
+            <>
+            <IconButton onClick={()=> handleEditTest(row.testid)} sx={{ color: 'green' }}>
+              <EditIcon titleAccess='Edit Test' />
+            </IconButton>
+            <IconButton onClick={()=> handleEditClick(r.testid)} sx={{ color: 'red' }}>
+            <DeleteIcon titleAccess='Delete Test'/>
+          </IconButton>
+          <IconButton onClick={()=> handleAddAudit(row.testid)} sx={{ color: 'blue' }}>
+            <AddIcon titleAccess='Add Audits'/>
+          </IconButton>
+      </>
+      : ''
+        }
       </TableCell>
       </TableRow>
       <TableRow>
@@ -263,6 +272,9 @@ export default function CollapsibleTable() {
 
   const router = useRouter();
 
+  const user_data=JSON.parse(localStorage.getItem('userData'));
+  console.log("userdata is", user_data);
+
   const addTest = (id) => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push('/home/complaince/test/add_test');
@@ -291,7 +303,13 @@ export default function CollapsibleTable() {
     <Card>
           <Typography sx={{display: 'inline', fontSize: '1.5em', marginTop: '10px', marginBottom: '10px'}}>Tests</Typography>
           <ToastContainer />
-          <Button variant='contained' onClick={addTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>Add Test</Button>
+          {
+            user_data.role=='admin'?
+          <Button variant='contained' onClick={addTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>
+          Add Test
+          </Button>
+          : ''
+          }
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
