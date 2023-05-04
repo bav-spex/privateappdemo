@@ -294,6 +294,17 @@ useEffect(() => {
 });
   }
 
+  function handleRowClick(params) {
+    // The `params` argument contains information about the clicked row
+    const id = params.id;
+
+    // Redirect the user to the desired page
+    router.push({
+      pathname: '/home/governance/controls/edit_control/',
+      query: { keyword: id },
+  });
+  }
+
   const new_control= ()=>{
 
     router.push('/home/governance/controls/new_control')
@@ -332,6 +343,7 @@ useEffect(() => {
             disableSelectionOnClick
             rowsPerPageOptions={[10, 25, 50]}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}
+            onRowClick={handleRowClick}
           />
         </Card>
       </Grid>

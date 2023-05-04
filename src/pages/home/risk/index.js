@@ -188,6 +188,17 @@ const RiskList = () => {
     // dispatch(reviewRisk(data))
   }
 
+  function handleRowClick(params) {
+    // The `params` argument contains information about the clicked row
+    const id = params.id;
+
+    // Redirect the user to the desired page
+    router.push({
+      pathname: '/home/risk/Risk_info',
+      query: { keyword: id },
+    });
+  }
+
   const openNewForm = () => {
     router.push('/home/risk/newRisk-form')
   }
@@ -224,7 +235,12 @@ const RiskList = () => {
         </CardContent>
         <Divider />
         {/* <TableHeader value={value} handleFilter={handleFilter} sx={{ textAlign: 'center' }} /> */}
-        <DataGrid rows={rows2} columns={columns} rowsPerPageOptions={[10, 25, 50]} />
+        <DataGrid 
+        rows={rows2} 
+        columns={columns} 
+        rowsPerPageOptions={[10, 25, 50]} 
+        onRowClick={handleRowClick}
+        />
       </div>
     </>
   )

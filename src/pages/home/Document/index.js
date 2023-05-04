@@ -74,6 +74,14 @@ const DocumentList = () => {
     router.push('/home/Document/editDocument')
   }
 
+  function handleRowClick(params) {
+    // The `params` argument contains information about the clicked row
+    // const rowId = params.id;
+
+    // Redirect the user to the desired page
+    router.push('/home/Document/Document_info')
+  }
+
   const router = useRouter()
   const [all, setAll] = useState([])
 
@@ -155,6 +163,7 @@ const DocumentList = () => {
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
           getRowId={row => row.doc_name + row.framework}
+          onRowClick={handleRowClick}
         />
       </div>
     </>

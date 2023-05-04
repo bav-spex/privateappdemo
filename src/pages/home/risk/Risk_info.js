@@ -27,7 +27,7 @@ import { addRisk } from 'src/store/apps/Risks/index'
 //Third party imports
 import toast from 'react-hot-toast'
 
-const EditRisk = () => {
+const Risk_info = () => {
   const data = useSelector(state => state.riskList)
 
   const dispatch = useDispatch()
@@ -98,45 +98,6 @@ const EditRisk = () => {
         set_regulation_dropdown(data);
   }
 
-  const submit_risk= async()=>{
-
-    const res= await fetch(`${authConfig.edit_risk}/${router.query.keyword}`, {
-        method:"POST",
-          headers:{
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            
-            subject: subject,
-            riskmapping: risk_mapping,
-            threatmapping: threat_mapping,
-            reference_id: reference_id,
-            regulation: regulation,
-            control_number: control_number,
-            source: rs,
-            category: category_,
-            owner: owner,
-            manager: manager,
-            assessment: assessment,
-            additionalnotes: additional_notes,
-            location: location,
-            riskscoringmethod: score,
-            currentlikelihood: current_likelihood,
-            currentimpact: current_impact,
-            affectedassets: aassets,
-            technology: tech,
-            supportingdocumentation: "yes",
-            team: team,
-            additionalstakeholders: additional_stakeholders,
-            tag: tag
-
-        })
-        });
-        const data= await res.json();
-        console.log("edited risk is", data);
-        toast.success('Submitted Risk');
-        router.push(`/home/risk`)
-  }
 
   const fetch_risk_by_id= async()=>{
 
@@ -426,78 +387,9 @@ const EditRisk = () => {
     <CardContent>
       {/* {JSON.stringify(data)} */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Edit Risk</h3>
+        <h3>Risk Information</h3>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h5>Complete the form below to document a risk for consideration in Risk Managment Process </h5>
-
-          <Grid
-            item
-            sx={{
-              marginLeft: 'auto',
-              '@media screen and (max-width:600px)': {
-                flexDirection: 'row',
-                marginLeft: 0
-              }
-            }}
-            xs={12}
-            md={4}
-            style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
-          >
-            <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-              cancel
-            </Button>
-            <Button
-              type='submit '
-              size='medium'
-              variant='contained'
-              style={{ marginLeft: '10px' }}
-              // onClick={SubmitRisk}
-              // onSubmit={handleSubmit(onSubmit)}
-              onClick={submit_risk}
-            >
-              SubmitRisk
-            </Button>
-          </Grid>
         </div>
-        {/* <Grid
-          item
-          xs={12}
-          style={{ padding: 4, display: 'flex' }}
-          sx={{
-            '@media screen and (max-width:600px)': {
-              flexDirection: 'column'
-            }
-          }}
-        >
-          <h5>Complete the form below to document a risk for consideration in Risk Managment Process </h5>
-          <Grid
-            item
-            sx={{
-              marginLeft: 'auto',
-              '@media screen and (max-width:600px)': {
-                flexDirection: 'row',
-                marginLeft: 0
-              }
-            }}
-            xs={12}
-            md={4}
-            style={{ justifyContent: 'space-between', display: 'flex' }}
-          >
-            <Button xs={2} variant='contained' size='medium' style={{ marginRight: '-1%' }} onClick={gotoCancel}>
-              cancel
-            </Button>
-            <Button
-              type='submit '
-              size='medium'
-              variant='contained'
-              onSubmit={handleSubmit(onSubmit)}
-              style={{ marginLeft: '' }}
-              onClick={SubmitRisk}
-            >
-              Submit Risk
-            </Button>
-          </Grid>
-        </Grid> */}
 
         <Grid container spacing={2}>
           <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
@@ -543,6 +435,7 @@ const EditRisk = () => {
                 onChange={(e)=> set_subject(e.target.value)}
                 //ends
                 placeholder='select a subject or start typing search ...'
+                disabled={true}
               />
               {errors.msg && (
                 <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
@@ -578,6 +471,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     <MenuItem value=''>None</MenuItem>
                     {/* {allRisk.data?.riskmapping?.map((item, i) => (
@@ -626,6 +520,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     <MenuItem value=''>None</MenuItem>
                     {/* {allRisk.data?.threatmapping?.map((item, i) => (
@@ -685,6 +580,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {Array.isArray(catList) &&
                       catList.map((c, i) => (
@@ -775,6 +671,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {Array.isArray(slList) &&
                       slList.map((c, i) => (
@@ -869,6 +766,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     <MenuItem value=''>None is Selected</MenuItem>
                     <MenuItem value={allRisk.data?.externalreferenceid}>{allRisk.data?.externalreferenceid}</MenuItem>
@@ -912,6 +810,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {Array.isArray(currentList) &&
                       currentList.map((c, i) => (
@@ -955,6 +854,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {/* <MenuItem value=''>None </MenuItem>
                     <MenuItem value={allRisk.data?.controlregulation}>{allRisk.data?.controlregulation}</MenuItem> */}
@@ -1002,6 +902,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {Array.isArray(impactList) &&
                       impactList.map((c, i) => (
@@ -1055,7 +956,13 @@ const EditRisk = () => {
                   Control Number
                 </FormHelperText>
               )} */}
-              <TextField type='text' variant='outlined' label='Control Number' value={control_number} onChange={(e)=> set_control_number(e.target.value)} />
+              <TextField type='text' 
+              variant='outlined' 
+              label='Control Number' 
+              value={control_number} 
+              onChange={(e)=> set_control_number(e.target.value)} 
+              disabled={true}
+              />
             </FormControl>
           </Grid>
           {/* end of Control Number  */}
@@ -1128,6 +1035,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {Array.isArray(assetsList) &&
                       assetsList.map((c, i) => (
@@ -1188,7 +1096,14 @@ const EditRisk = () => {
                 select an assets or assets Group you can create a new Assets by adding its name to the list
                 <br />
               </h6> */}
-              <TextField type='text' variant='outlined' label='Additional Notes' value={additional_notes} onChange={(e)=> set_additional_notes(e.target.value)}/>
+              <TextField 
+              type='text' 
+              variant='outlined' 
+              label='Additional Notes' 
+              value={additional_notes} 
+              onChange={(e)=> set_additional_notes(e.target.value)}
+              disabled={true}
+              />
             </FormControl>
           </Grid>
           {/* // end of additionalNotes */}
@@ -1219,6 +1134,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {Array.isArray(techList) &&
                       techList.map((c, i) => (
@@ -1275,7 +1191,14 @@ const EditRisk = () => {
                 </FormHelperText>
               )} */}
 
-              <TextField type='file' bg-color='primary' onChange={e => upload(e)} name='img' variant='outlined' />
+              <TextField 
+              type='file' 
+              bg-color='primary' 
+              onChange={e => upload(e)} 
+              name='img' 
+              variant='outlined' 
+              disabled={true}
+              />
             </FormControl>
           </Grid>
           {/* end of technology */}
@@ -1305,6 +1228,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {/* <MenuItem value=''>None</MenuItem>
                     {allRisk.data?.team?.map((item, i) => (
@@ -1354,6 +1278,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {/* <MenuItem value=''>None</MenuItem> */}
                     {ownerList.map((item, i) => (
@@ -1396,6 +1321,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {/* <MenuItem value=''>None</MenuItem>
                     <MenuItem value={allRisk.data?.owner}>{allRisk.data?.owner}</MenuItem> */}
@@ -1440,6 +1366,7 @@ const EditRisk = () => {
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
+                    disabled={true}
                   >
                     {/* <MenuItem value=''>None</MenuItem>
                     <MenuItem value={allRisk.data?.ownermanager}>{allRisk.data?.ownermanager}</MenuItem> */}
@@ -1460,7 +1387,14 @@ const EditRisk = () => {
           </Grid>
           <Grid container xs={12}>
             <h3>Tags</h3>
-            <TextField type='text' fullWidth placeholder='Select/AddTag' value={tag} onChange={(e)=> setTag(e.target.value)}/>
+            <TextField 
+            type='text' 
+            fullWidth 
+            placeholder='Select/AddTag' 
+            value={tag} 
+            onChange={(e)=> setTag(e.target.value)}
+            disabled={true}
+            />
           </Grid>
 
           {/* <Grid item xs={12} style={{ padding: 4, display: 'flex' }}>
@@ -1496,4 +1430,4 @@ const EditRisk = () => {
   )
 }
 
-export default EditRisk
+export default Risk_info

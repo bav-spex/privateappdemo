@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 import toast from 'react-hot-toast'
 
-const EditFrame = () => {
+const Framework_info = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
 
@@ -38,28 +38,6 @@ const EditFrame = () => {
     set_name(data.framework_Name);
     set_parent(data.framework_Parent);
     set_description(data.framework_Details);
-  }
-
-  const edit_framework= async()=>{
-
-      const res= await fetch(`${authConfig.edit_framework}/${router.query.keyword}`, {
-          method:"PUT",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              
-              id : router.query.keyword,
-              framework_Name: name,
-              framework_Details: description,
-              framework_Parent: parent,
-              framework_Status: 'active',
-            })
-          })
-          const data= await res.json();
-          console.log("edited framework is",  data);
-          toast.success('FrameWork Edited');
-          router.push(`/home/framework`);
   }
 
 
@@ -114,7 +92,7 @@ const [fwList, setFwList] = useState([])
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3>Edit FrameWork</h3>
+        <h3>FrameWork Inforamtion</h3>
 
         <Grid
           item
@@ -129,12 +107,6 @@ const [fwList, setFwList] = useState([])
           md={4}
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
         >
-          <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-            Cancel
-          </Button>
-          <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }} onClick={edit_framework}>
-            Save
-          </Button>
         </Grid>
       </div>
 
@@ -146,6 +118,7 @@ const [fwList, setFwList] = useState([])
           //  value={frameWorksDetails.framework_Name}
           value={name}
           onChange={(e)=> set_name(e.target.value)}
+          disabled={true}
             />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
@@ -172,6 +145,7 @@ const [fwList, setFwList] = useState([])
                 error={Boolean(errors?.msg)}
                 labelId='validation-basic-select'
                 aria-describedby='validation-basic-select'
+                disabled={true}
               >
                 {Array.isArray(frameWorksArray) &&
                   frameWorksArray.map((f, i) => {
@@ -192,6 +166,8 @@ const [fwList, setFwList] = useState([])
             // value={frameWorksDetails.framework_Details}
             value={description}
             onChange={(e)=> set_description(e.target.value)}
+            disabled={true}
+
           />
         </Grid>
       </Grid>
@@ -199,4 +175,4 @@ const [fwList, setFwList] = useState([])
   )
 }
 
-export default EditFrame
+export default Framework_info

@@ -145,6 +145,14 @@ function Row(props) {
   });
   }
 
+  function handleRowClick(id) {
+    // Redirect the user to the desired page
+    router.push({
+      pathname: '/home/complaince/test/Audit_info',
+      query: { keyword: id },
+  });
+  }
+
   return (
     <Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -207,7 +215,7 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {audit_data.map((item) => (
-                    <TableRow>
+                    <TableRow onClick={()=> {handleRowClick(item.auditid)}}>
                       <TableCell component="th" scope="row">
                         {item.auditid}
                       </TableCell>

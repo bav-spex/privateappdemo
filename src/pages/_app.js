@@ -57,6 +57,18 @@ import 'src/iconify-bundle/icons-bundle-react'
 // ** Global css styles
 import '../../styles/globals.css'
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { zhCN } from '@mui/material/locale';
+
+const theme = createTheme(
+  {
+    palette: {
+      primary: { main: '#1976d2' },
+    },
+  },
+  zhCN,
+);
+
 const clientSideEmotionCache = createEmotionCache()
 
 
@@ -88,6 +100,8 @@ const App = props => {
   return (
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={theme}>
+      <>
         <Head>
           <title>{`${themeConfig.templateName}`}</title>
           <meta name='description' content={`${themeConfig.templateName}`} />
@@ -117,6 +131,8 @@ const App = props => {
             </SettingsConsumer>
           </SettingsProvider>
         </AuthProvider>
+        </>
+        </ThemeProvider>
       </CacheProvider>
     </Provider>
   )

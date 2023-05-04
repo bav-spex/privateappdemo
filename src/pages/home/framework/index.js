@@ -95,6 +95,16 @@ const FrameWorkList = () => {
     });
   }
 
+  function handleRowClick(params) {
+    // The `params` argument contains information about the clicked row
+    const id = params.row.id;
+
+    router.push({
+      pathname: '/home/framework/Framework_info',
+      query: { keyword: id },
+    });
+  }
+
   const createNew = () => {
     router.push(`/home/framework/CreateFrameWork`)
   }
@@ -209,6 +219,7 @@ const FrameWorkList = () => {
           getRowId={row => row.framework_Name + row.framework_Details}
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
+          onRowClick={handleRowClick}
         />
       </div>
     </>
