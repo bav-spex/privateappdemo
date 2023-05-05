@@ -137,6 +137,7 @@ const AddDocument = () => {
               item
               sx={{
                 width: '40%',
+                marginBottom: '3vh',
                 '@media screen and (max-width:600px)': {
                   flexDirection: 'column',
                   marginLeft: 0
@@ -179,19 +180,19 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Document Type  */}
-            <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel
                   id='validation-basic-select'
                   error={Boolean(errors.msg)}
                   htmlFor='validation-basic-select'
                 ></InputLabel>
-                <TextField type='text' label='DocumentName' value={ed?.data?.doc_name} />
+                <TextField type='text' label='Document Name' value={ed?.data?.doc_name} />
               </FormControl>
             </Grid>
             {/* end of Documetname */}
 
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   FrameWorks
@@ -226,7 +227,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* end of FrameWorks  */}
-            <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -263,7 +264,7 @@ const AddDocument = () => {
             </Grid>
             {/* //end of controls  */}
 
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Additional Stakeholders:
@@ -298,7 +299,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* //end of AdditionalStakeHolders */}
-            <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -331,7 +332,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Document owner*/}
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Team
@@ -366,7 +367,7 @@ const AddDocument = () => {
               {/* end of Team  */}
             </Grid>
 
-            <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -377,13 +378,13 @@ const AddDocument = () => {
               {/* end of creationDate  */}
             </Grid>
 
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <TextField type='date' variant='outlined' label='LastReview' />
               </FormControl>
             </Grid>
             {/* end of Last Review */}
-            <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Review Frequency
@@ -393,7 +394,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Review Frequency */}
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -404,7 +405,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* end of next review Dates*/}
-            <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {/* ApprovalDate  */}
@@ -414,7 +415,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* // end of ApprovalDate */}
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   ParentDocumnent
@@ -452,7 +453,7 @@ const AddDocument = () => {
 
             {/* end of parent Document  */}
 
-            <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%', marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Document Status
@@ -483,7 +484,7 @@ const AddDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Documen Status */}
-            <Grid item sx={{ width: '40%' }}>
+            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   File

@@ -459,7 +459,7 @@ const RiskList = () => {
         </Grid> */}
 
         <Grid container spacing={2}>
-          <Grid item sx={{ width: '100%' }}>
+          <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel
                 id='validation-basic-select'
@@ -511,7 +511,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* subject end */}
-          <Grid item sx={{ width: '100%' }}>
+          <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Select a Risk mapping or start typing to search
@@ -559,7 +559,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* Risk mapping  */}
-          <Grid item sx={{ width: '100%' }}>
+          <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Select a Threat Mapping or start typing to search
@@ -611,6 +611,7 @@ const RiskList = () => {
             item
             sx={{
               width: '40%',
+              marginBottom: '3vh',
               '@media screen and (max-width:600px)': {
                 flexDirection: 'column',
                 marginLeft: 0
@@ -660,7 +661,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of category  */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Risk Source
@@ -703,7 +704,7 @@ const RiskList = () => {
           </Grid>
           {/* end of risk source */}
 
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 site location
@@ -750,7 +751,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of Site Location  */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 {' '}
@@ -799,7 +800,7 @@ const RiskList = () => {
           </Grid>
           {/* //end of risk scoring  */}
 
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 External Refrence id:
@@ -837,7 +838,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* //end of externalreferenceid */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 {' '}
@@ -884,7 +885,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of likelihood */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Control Regulation
@@ -929,7 +930,7 @@ const RiskList = () => {
             {/* end of Control Regulation  */}
           </Grid>
           {/* end of control regulation  */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 {' '}
@@ -974,7 +975,7 @@ const RiskList = () => {
             {/* end of Control Regulation  */}
           </Grid>
           {/* end of Current Impact */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Control Number
@@ -1011,7 +1012,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of Control Number  */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Risk Assesment
@@ -1051,7 +1052,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of risk assesment */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 {' '}
@@ -1099,7 +1100,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of selection assets  */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Additional Notes
@@ -1144,7 +1145,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* // end of additionalNotes */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Technology
@@ -1189,7 +1190,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of technology */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Technology
@@ -1231,7 +1232,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of technology */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Team
@@ -1280,7 +1281,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of Team  */}
-          <Grid item sx={{ width: '40%' }} style={{ marginLeft: 'auto' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Additional Stakeholders:
@@ -1324,7 +1325,7 @@ const RiskList = () => {
             </FormControl>
           </Grid>
           {/* end of additionalstakeholders */}
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 owner
@@ -1368,7 +1369,7 @@ const RiskList = () => {
           </Grid>
           {/*end of owner  */}
           <Grid container xs={12} />
-          <Grid item sx={{ width: '40%' }}>
+          <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 Owner's Manager:

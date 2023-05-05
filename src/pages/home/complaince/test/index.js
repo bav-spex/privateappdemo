@@ -153,9 +153,17 @@ function Row(props) {
   });
   }
 
+  function handleRowClick2(id) {
+    // Redirect the user to the desired page
+    router.push({
+      pathname: '/home/complaince/test/Test_info',
+      query: { keyword: id },
+  });
+  }
+
   return (
     <Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} onClick={() => handleRowClick2(row.testid)}>
         <TableCell>
           <IconButton
             aria-label="expand row"
