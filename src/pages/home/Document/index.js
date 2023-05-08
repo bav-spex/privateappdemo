@@ -24,6 +24,11 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Swal from 'sweetalert2'
 
+
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -44,6 +49,16 @@ const DocumentList = () => {
 
   const user_data=JSON.parse(localStorage.getItem('userData'));
   console.log("userdata is", user_data);
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
 
   const fdelete = () => {
     Swal.fire({
@@ -89,17 +104,17 @@ const DocumentList = () => {
   console.log('docArrray:', documentArray)
 
   const columns = [
-    { flex: 0.15, field: 'doc_name', headerName: 'DocumentName' },
-    { flex: 0.15, field: 'doc_type', headerName: 'DocumentType' },
-    { flex: 0.15, field: 'framework', headerName: 'ControlFrameWorks' },
-    { flex: 0.15, field: 'control', headerName: 'Controls' },
-    { flex: 0.15, field: 'creation_date', headerName: 'CreationDate' },
-    { flex: 0.15, field: 'approval_date', headerName: 'ApprovalDate' },
-    { flex: 0.15, field: 'status', headerName: 'status' },
+    { flex: 0.15, field: 'doc_name', headerName: t('Document Name') },
+    { flex: 0.15, field: 'doc_type', headerName: t('Document Type') },
+    { flex: 0.15, field: 'framework', headerName: t('Control FrameWorks') },
+    { flex: 0.15, field: 'control', headerName: t('Controls') },
+    { flex: 0.15, field: 'creation_date', headerName: t('Creation Date') },
+    { flex: 0.15, field: 'approval_date', headerName: t('Approval Date') },
+    { flex: 0.15, field: 'status', headerName: t('Status') },
 
     {
       filed: 'action',
-      headerName: 'Actions',
+      headerName: t('Action'),
       renderCell: ({ rows }) => {
         return (
           <>
@@ -144,13 +159,16 @@ const DocumentList = () => {
     <>
       <div style={{ height: 400 }}>
         <CardContent>
+        <Button onClick={() => changeLanguage('en')}>English</Button>
+            <Button onClick={() => changeLanguage('he')}>Hindi</Button>
           <Grid container spacing={6}>
-            <Grid item sm={4} xs={12}></Grid>
+            <Grid item sm={4} xs={12}>
+            </Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
             {
             user_data.role=='admin'?
               <Button size='medium' variant='contained' onClick={AddDoc}>
-                Create Document
+                {t('Create Document')}
               </Button>
               : ''
             }

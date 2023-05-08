@@ -30,6 +30,10 @@ import { Button } from '@mui/material';
 
 import { useRouter } from 'next/router'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 function createData(id, test_name, additional_stakeholders, tags, test_frequency, last_test_date, next_test_date, approximate_time) {
   return {
     id,
@@ -63,6 +67,16 @@ function Row(props) {
 
   const user_data=JSON.parse(localStorage.getItem('userData'));
   console.log("userdata is", user_data);
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
 
 
   const [audit_data, set_audit_data]= useState([]);
@@ -163,7 +177,7 @@ function Row(props) {
 
   return (
     <Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} onClick={() => handleRowClick2(row.testid)}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -207,18 +221,18 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Audits
+              {t('Audits')}
               </Typography>
               <Table size='medium' aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Audit Id</TableCell>
-                    <TableCell>Additional Stakeholders</TableCell>
-                    <TableCell align="right">Framework</TableCell>
-                    <TableCell align="right">Test Name</TableCell>
-                    <TableCell align="right">Teams</TableCell>
-                    <TableCell align="right">Test Date</TableCell>
-                    <TableCell align="right">Actions</TableCell>
+                    <TableCell>{t('Audit Id')}</TableCell>
+                    <TableCell>{t('Additional Stakeholders')}</TableCell>
+                    <TableCell align="right">{t('Framework')}</TableCell>
+                    <TableCell align="right">{t('Test Name')}</TableCell>
+                    <TableCell align="right">{t('Teams')}</TableCell>
+                    <TableCell align="right">{t('Test Date')}</TableCell>
+                    <TableCell align="right">{t('Action')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -291,6 +305,17 @@ export default function CollapsibleTable() {
   const user_data=JSON.parse(localStorage.getItem('userData'));
   console.log("userdata is", user_data);
 
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
+
+
   const addTest = (id) => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push('/home/complaince/test/add_test');
@@ -316,13 +341,16 @@ export default function CollapsibleTable() {
 
   return (
 
+    <>
+    <Button onClick={() => changeLanguage('en')}>English</Button>
+        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
     <Card>
-          <Typography sx={{display: 'inline', fontSize: '1.5em', marginTop: '10px', marginBottom: '10px'}}>Tests</Typography>
+          <Typography sx={{display: 'inline', fontSize: '1.5em', marginTop: '10px', marginBottom: '10px'}}>{t('Tests')}</Typography>
           <ToastContainer />
           {
             user_data.role=='admin'?
           <Button variant='contained' onClick={addTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>
-          Add Test
+          {t('Add Test')}
           </Button>
           : ''
           }
@@ -337,52 +365,52 @@ export default function CollapsibleTable() {
             <TableCell sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>ID</TableCell>
+            }}>{t('ID')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Test Name</TableCell>
+            }}>{t('Test Name')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Tester</TableCell>
+            }}>{t('Tester')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Additional Stakeholders</TableCell>
+            }}>{t('Additional Stakeholders')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Tags</TableCell>
+            }}>{t('Tags')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Test Frequency</TableCell>
+            }}>{t('Test Frequency')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Last Test Date</TableCell>
+            }}>{t('Last Test Date')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Next Test Date</TableCell>
+            }}>{t('Next Test Date')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Approximate Time</TableCell>
+            }}>{t('Approximate Time')}</TableCell>
             <TableCell align="right"
             sx={{
               borderLeft: '0px solid black',
               borderRight: '0px solid black'
-            }}>Action</TableCell>
+            }}>{t('Action')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -393,5 +421,6 @@ export default function CollapsibleTable() {
       </Table>
     </TableContainer>
     </Card>
+    </>
   );
 }

@@ -33,6 +33,10 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import DeleteIcon from '@mui/icons-material/Delete'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -57,6 +61,17 @@ const FrameWorkList = () => {
   const dispatch = useDispatch()
 
   // const data = useSelector(state => state.selectRisk)
+
+  const { t, i18n } = useTranslation();
+    const theme = useTheme();
+    // document.body.dir = i18n.dir();
+
+    const changeLanguage = (lng) => { 
+      i18n.changeLanguage(lng)
+    //   document.body.dir = i18n.dir();
+    //   theme.direction = i18n.dir();
+    }
+
 
   const fdelete = () => {
     Swal.fire({
@@ -123,14 +138,14 @@ const FrameWorkList = () => {
       flex: 0.5,
       width: 50,
       field: 'framework_Name',
-      headerName: 'FrameWorkName'
+      headerName: t('FrameWork Name')
     },
 
-    { flex: 0.5, width: 80, field: 'framework_Details', headerName: 'FrameWorkDescription' },
+    { flex: 0.5, width: 80, field: 'framework_Details', headerName: t('FrameWork Description') },
 
     {
       field: 'id',
-      headerName: 'Action',
+      headerName: t('Action'),
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
       // width: 300,
@@ -200,15 +215,18 @@ const FrameWorkList = () => {
   const handleClose = () => {
     setOpenDialog(false)
   }
+
   return (
     <>
       <div style={{ height: 500 }}>
+      <Button onClick={() => changeLanguage('en')}>English</Button>
+        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
         <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
         <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
         {
             user_data.role=='admin'?
           <Button size='medium' variant='contained' onClick={createNew}>
-            Create framework
+          {t('Create framework')}
           </Button>
           : ''
         }

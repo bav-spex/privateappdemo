@@ -52,6 +52,10 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { updateBatch } from 'src/store/apps/schedule'
 import { left } from '@popperjs/core'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 // ** Vars
 const userRoleObj = {
   admin: { icon: 'mdi:laptop', color: 'error.main' },
@@ -162,12 +166,22 @@ const BatchList = () => {
 
   const router = useRouter();
 
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
+
 
 const columns = [
-    { flex: 0.11, width: 50, field: 'name', headerName: 'Name' },
-    { flex: 0.11, width: 50, field: 'frameworkid', headerName: 'Framework ID' },
-    { flex: 0.12, minWidth: 5, field: 'control-number',type: 'number', headerName: 'Control Number' },
-    { flex: 0.08, minWidth: 10, field: 'status', headerName: 'Status' },
+    { flex: 0.11, width: 50, field: 'name', headerName: t('Name') },
+    { flex: 0.11, width: 50, field: 'frameworkid', headerName: t('Framework ID') },
+    { flex: 0.12, minWidth: 5, field: 'control-number',type: 'number', headerName: t('Control Number') },
+    { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     // {
     //   field: 'submissiondate',
     //   headerName: 'SUbmission Date ',
@@ -195,7 +209,7 @@ const columns = [
 
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: t('Action'),
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
       // width: 300,
@@ -312,17 +326,18 @@ useEffect(() => {
 
   return (
     <Grid container spacing={6}>
-      { console.log("statusList",statusList)}
+      <Button onClick={() => changeLanguage('en')}>English</Button>
+        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Controls' />
+          <CardHeader title={t('Controls')} />
           <CardContent>
             <Grid container spacing={6}>
             {
             user_data.role=='admin'?
               <Grid item sm={12} xs={12}>
               <div style={{display: 'flex', justifyContent: 'right'}}>
-                <Button variant='contained' onClick={new_control}>New Control</Button>
+                <Button variant='contained' onClick={new_control}>{t('New Control')}</Button>
                 </div>
               </Grid>
               : ''

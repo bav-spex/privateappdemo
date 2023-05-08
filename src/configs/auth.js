@@ -52,6 +52,7 @@ const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.moc
 const audit_data_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/audits/test'
 const add_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new'
 const add_lookup_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
+const edit_lookup_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/update'
 
 
 export default {
@@ -131,6 +132,6 @@ export default {
   add_audit: `${add_audit_url}`,
   control_update: `${control_update_url}`,
   add_lookup: `${add_lookup_url}`,
-  edit_lookup: '',
+  edit_lookup: `${edit_lookup_url}`,
 }
 

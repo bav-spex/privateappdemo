@@ -20,6 +20,7 @@ import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem
 import { ToastContainer } from 'react-toastify';
 import toast from 'react-hot-toast'
 import 'react-toastify/dist/ReactToastify.css';
+import auth from 'src/configs/auth';
 
 
 function SimpleDialog2(props) {
@@ -37,7 +38,7 @@ function SimpleDialog2(props) {
 
     const save_edit_lookup = async() => {
         
-        const res= await fetch(`https://common-dev-rakshitah.azurewebsites.net/lookup/v1/update/${row.lookupId}`, {
+        const res= await fetch(`${auth.edit_lookup}/${row.lookupId}`, {
             method:"PUT",
               headers:{
                   "Content-Type": "application/json"

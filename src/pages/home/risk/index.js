@@ -43,6 +43,10 @@ import { useRouter } from 'next/router'
 
 import { allRisk } from 'src/pages/home/risk/RiskService'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
 import { date } from 'yup/lib/locale'
 
@@ -53,6 +57,17 @@ const RiskList = () => {
 
   const user_data=JSON.parse(localStorage.getItem('userData'));
   console.log("userdata is", user_data);
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
+
 
   const reviewSubmit = values => {
     dispatch(reviewRisk(values))
@@ -70,13 +85,13 @@ const RiskList = () => {
   const risksArray = all?.data?.risk
 
   const columns = [
-    { flex: 0.08, width: 50, field: 'id', headerName: 'ID' },
-    { flex: 0.11, width: 50, field: 'suject', headerName: 'Subject' },
-    { flex: 0.12, minWidth: 25, field: 'inherentscore', headerName: 'Inherent Score' },
-    { flex: 0.08, minWidth: 10, field: 'status', headerName: 'Status' },
+    { flex: 0.08, width: 50, field: 'id', headerName: t('ID') },
+    { flex: 0.11, width: 50, field: 'suject', headerName: t('Subject') },
+    { flex: 0.12, minWidth: 25, field: 'inherentscore', headerName: t('Inherent Score') },
+    { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     {
       field: 'submissiondate',
-      headerName: 'SUbmission Date ',
+      headerName: t('Submission Date'),
       type: 'date',
       flex: 0.14,
       minWidth: 25,
@@ -111,14 +126,14 @@ const RiskList = () => {
     // },
     {
       field: 'framework',
-      headerName: 'Framework ',
+      headerName: t('Framework'),
       type: 'text',
       flex: 0.14,
       minWidth: 25
     },
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: t('Action'),
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
       // width: 300,
@@ -219,6 +234,8 @@ const RiskList = () => {
   return (
     <>
       <div style={{ height: 400 }}>
+      <Button onClick={() => changeLanguage('en')}>English</Button>
+        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
         <CardContent>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}></Grid>
@@ -226,7 +243,7 @@ const RiskList = () => {
             {
             user_data.role=='admin'?
               <Button size='medium' variant='contained' onClick={openNewForm}>
-                Create Risk
+                {t('Create Risk')}
               </Button>
               : ''
             }
