@@ -76,7 +76,7 @@ const columns = [
               noWrap
               variant='body2'
               component={Link}
-              href='/apps/user/view/overview/'
+              href='/users/overview/view/UserViewPage'
               sx={{
                 fontWeight: 600,
                 color: 'text.primary',

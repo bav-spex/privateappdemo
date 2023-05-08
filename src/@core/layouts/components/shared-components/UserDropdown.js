@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import TranslateIcon from '@mui/icons-material/Translate';
 
+
 import { useTranslation } from 'react-i18next';
 import withRoot from '../../../../pages/home/withRoot'
 import { useTheme } from '@material-ui/core/styles';
@@ -82,6 +83,11 @@ const UserDropdown = props => {
 
     console.log("handle close clicked")
     setAnchorEl2(false)
+  }
+
+  const user_overview= ()=>{
+
+    router.push('/users/overview/view/UserViewPage')
   }
 
   const styles = {
@@ -173,7 +179,7 @@ const UserDropdown = props => {
           </Box>
         </Box>
         <Divider sx={{ mt: '0 !important' }} />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+        <MenuItem sx={{ p: 0 }} onClick={() => user_overview()}>
           <Box sx={styles}>
             <Icon icon='mdi:account-outline' />
             Profile
