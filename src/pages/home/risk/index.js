@@ -234,8 +234,6 @@ const RiskList = () => {
   return (
     <>
       <div style={{ height: 400 }}>
-      <Button onClick={() => changeLanguage('en')}>English</Button>
-        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
         <CardContent>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}></Grid>

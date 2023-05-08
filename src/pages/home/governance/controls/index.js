@@ -326,8 +326,6 @@ useEffect(() => {
 
   return (
     <Grid container spacing={6}>
-      <Button onClick={() => changeLanguage('en')}>English</Button>
-        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
       <Grid item xs={12}>
         <Card>
           <CardHeader title={t('Controls')} />

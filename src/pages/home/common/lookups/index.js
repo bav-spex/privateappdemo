@@ -20,11 +20,26 @@ import SimpleDialog from './add_lookup';
 import EditIcon from '@mui/icons-material/Edit';
 import SimpleDialog2 from './edit_lookup';
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
+
 
 
 const LookUps = () => {
 
     const router = useRouter();
+
+    const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
 
     const [look_ups, set_look_ups]= useState([]);
 
@@ -117,7 +132,7 @@ const LookUps = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>Look Ups</h1>
+    <h1>{t('Look Ups')}</h1>
             </div>
 
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
@@ -146,7 +161,7 @@ const LookUps = () => {
     <div style={{display: 'flex', justifyContent: 'right', marginBottom: '5vh'}}>
           {
             user_data.role=='admin'?
-        <Button variant='contained' onClick={()=> {handleClickOpen()}}>Add Value</Button>
+        <Button variant='contained' onClick={()=> {handleClickOpen()}}>{t('Add Value')}</Button>
         : ''
           }
         <SimpleDialog
@@ -159,9 +174,9 @@ const LookUps = () => {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell align="center">Lookup Name</StyledTableCell>
-            <StyledTableCell align="center">Action</StyledTableCell>
+            <StyledTableCell>{t('ID')}</StyledTableCell>
+            <StyledTableCell align="center">{t('Lookup Name')}</StyledTableCell>
+            <StyledTableCell align="center">{t('Action')}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

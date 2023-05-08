@@ -219,8 +219,6 @@ const FrameWorkList = () => {
   return (
     <>
       <div style={{ height: 500 }}>
-      <Button onClick={() => changeLanguage('en')}>English</Button>
-        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
         <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
         <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
         {

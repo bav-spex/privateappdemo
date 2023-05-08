@@ -159,8 +159,6 @@ const DocumentList = () => {
     <>
       <div style={{ height: 400 }}>
         <CardContent>
-        <Button onClick={() => changeLanguage('en')}>English</Button>
-            <Button onClick={() => changeLanguage('he')}>Hindi</Button>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}>
             </Grid>

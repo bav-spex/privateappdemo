@@ -342,8 +342,6 @@ export default function CollapsibleTable() {
   return (
 
     <>
-    <Button onClick={() => changeLanguage('en')}>English</Button>
-        <Button onClick={() => changeLanguage('he')}>Hindi</Button>
     <Card>
           <Typography sx={{display: 'inline', fontSize: '1.5em', marginTop: '10px', marginBottom: '10px'}}>{t('Tests')}</Typography>
           <ToastContainer />

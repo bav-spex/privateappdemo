@@ -13,6 +13,11 @@ import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
+import TranslateIcon from '@mui/icons-material/Translate';
+
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../../../pages/home/withRoot'
+import { useTheme } from '@material-ui/core/styles';
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -33,8 +38,21 @@ const UserDropdown = props => {
   // ** Props
   const { settings } = props
 
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  // document.body.dir = i18n.dir();
+
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  handleDropdownClose2();
+  }
+
+
   // ** States
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null)
 
   // ** Hooks
   const router = useRouter()
@@ -47,11 +65,23 @@ const UserDropdown = props => {
     setAnchorEl(event.currentTarget)
   }
 
+  const handleDropdownOpen2 = async(event) => {
+
+    console.log("handle open clicked");
+    setAnchorEl2(true)
+  }
+
   const handleDropdownClose = url => {
     if (url) {
       router.push(url)
     }
     setAnchorEl(null)
+  }
+
+  const handleDropdownClose2 = async() => {
+
+    console.log("handle close clicked")
+    setAnchorEl2(false)
   }
 
   const styles = {
@@ -78,7 +108,7 @@ const UserDropdown = props => {
     <Fragment>
       <Badge
         overlap='circular'
-        onClick={handleDropdownOpen}
+        // onClick={handleDropdownOpen}
         sx={{ ml: 2, cursor: 'pointer' }}
         badgeContent={<BadgeContentSpan />}
         anchorOrigin={{
@@ -86,6 +116,27 @@ const UserDropdown = props => {
           horizontal: 'right'
         }}
       >
+       <Avatar
+          sx={{ width: 40, height: 40, marginRight: 5 }}>
+          <TranslateIcon onClick={()=> handleDropdownOpen2()}/>
+          <Menu
+          anchorEl={anchorEl2}
+          open={Boolean(anchorEl2)}
+          onClose={() => handleDropdownClose2()}
+          anchorOrigin={{ vertical: 'top', horizontal: direction === 'ltr' ? 'right' : 'left' }}
+        transformOrigin={{ vertical: 'bottom', horizontal: direction === 'ltr' ? 'right' : 'left' }}>
+            <MenuItem sx={{ p: 0 }} onClick={() => changeLanguage('en')}>
+            <Box sx={styles} >
+              English
+            </Box>
+          </MenuItem>
+        
+        <Divider />
+        <MenuItem sx={{ py: 2, '& svg': { mr: 2, fontSize: '1.375rem', color: 'text.primary' } }} onClick={() => changeLanguage('he')}>
+        हिंदी
+        </MenuItem>
+          </Menu>
+        </Avatar>
         <Avatar
           alt={user.firstName}
           onClick={handleDropdownOpen}
