@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography'
 import MuiTabList from '@mui/lab/TabList'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import Overview_tab from './overview_tab'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -120,11 +122,12 @@ const UserViewRight = ({ tab, invoiceData }) => {
   const handleChange = (event, value) => {
     setIsLoading(true)
     setActiveTab(value)
-    router
-      .push({
-        pathname: `/users/overview/view/UserViewOverview`
-      })
-      .then(() => setIsLoading(false))
+    setIsLoading(false);
+    // router
+    //   .push({
+    //     pathname: `/users/overview/view/${value}`
+    //   })
+    //   .then(() => setIsLoading(false))
   }
   useEffect(() => {
     if (tab && tab !== activeTab) {
@@ -148,7 +151,7 @@ const UserViewRight = ({ tab, invoiceData }) => {
         aria-label='forced scroll tabs example'
       >
         <Tab
-          value='overview'
+          value='overview_tab'
           label={
             <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
               <Icon fontSize={20} icon='mdi:account-outline' />
@@ -201,8 +204,9 @@ const UserViewRight = ({ tab, invoiceData }) => {
           </Box>
         ) : ( */}
           <>
-            <TabPanel sx={{ p: 0 }} value='overview'>
-              <UserViewOverview invoiceData={invoiceData} />
+            <TabPanel sx={{ p: 0 }} value='overview_tab'>
+              {/* <UserViewOverview invoiceData={invoiceData} /> */}
+              <Overview_tab />
             </TabPanel>
             <TabPanel sx={{ p: 0 }} value='security'>
               <UserViewSecurity />
