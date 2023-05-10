@@ -5,12 +5,19 @@ import auth from 'src/configs/auth';
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import authConfig from 'src/configs/auth'
+import authConfig from 'src/configs/auth';
+
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
 
 
 const EditAudit = () => {
 
     const router = useRouter();
+
+    const { t, i18n } = useTranslation();
+    const theme = useTheme();
 
     const [audit_status, set_audit_status]=useState('');
     const [test_results, set_test_results]= useState('');
@@ -146,7 +153,7 @@ const EditAudit = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>Edit Audit</h1>
+    <h1>{t('Edit Audit')}</h1>
     
     <ToastContainer />
     <Grid
@@ -163,7 +170,7 @@ const EditAudit = () => {
               style={{display: 'flex', justifyContent: 'right', marginBottom: 20}}
             >
               <Button xs={2} variant='contained' size='medium'>
-                cancel
+              {t('Cancel')}
               </Button>
               <Button
                 type='submit '
@@ -172,7 +179,7 @@ const EditAudit = () => {
                 style={{ marginLeft: '10px' }}
                 onClick={submit_edit_audit}
               >
-                Save
+                {t('Save')}
               </Button>
             </Grid>
             </div>
@@ -180,12 +187,12 @@ const EditAudit = () => {
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Audit Status</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Audit Status')}</InputLabel>
         <Select
         value={audit_status}
         onChange={(e)=> set_audit_status(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Audit Status"
+        label={t('Audit Status')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -200,12 +207,12 @@ const EditAudit = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Test Results</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Test Results')}</InputLabel>
         <Select
         value={test_results}
         onChange={(e)=> set_test_results(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Test Results"
+        label={t('Test Results')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -222,12 +229,12 @@ const EditAudit = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Tester</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Tester')}</InputLabel>
         <Select
         value={tester}
         onChange={(e)=> set_tester(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Tester"
+        label={t('Tester')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -251,13 +258,13 @@ const EditAudit = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Teams(s)</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Teams')}</InputLabel>
         <Select
         multiple
         value={teams}
         onChange={(e)=> set_teams(e.target.value)}
         labelId="demo-simple-select-label"
-        label="Teams(s)"
+        label={t('Teams')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -272,7 +279,7 @@ const EditAudit = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Tags' value={tags} onChange={(e)=> set_tags(e.target.value)}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Tags')} value={tags} onChange={(e)=> set_tags(e.target.value)}/>
       </FormControl>
       </div>
     </div>
@@ -281,12 +288,12 @@ const EditAudit = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Objective' value={objective} disabled={true}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Objective')} value={objective} disabled={true}/>
       </FormControl>
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Test Steps' value={test_steps} disabled={true}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Test Steps')} value={test_steps} disabled={true}/>
       </FormControl>
       </div>
     </div>
@@ -295,14 +302,14 @@ const EditAudit = () => {
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
         <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Summary' value={summary} onChange={(e)=>set_summary(e.target.value)}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Summary')} value={summary} onChange={(e)=>set_summary(e.target.value)}/>
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" type='file' label='Attachment' value={attachment}/>
+      <TextField id="outlined-basic" variant="outlined" type='file' label={t('Attachment')} value={attachment}/>
       </FormControl>
       </div>
     </div>
@@ -311,12 +318,12 @@ const EditAudit = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Additional Stakeholders' value={additional_stakeholders} disabled={true}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Additional Stakeholders')} value={additional_stakeholders} disabled={true}/>
       </FormControl>
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Control Owner' value={control_owner} disabled={true}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Control Owner')} value={control_owner} disabled={true}/>
       </FormControl>
       </div>
     </div>
@@ -324,12 +331,12 @@ const EditAudit = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Expected Results' value={expected_results} disabled={true}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Expected Results')} value={expected_results} disabled={true}/>
       </FormControl>
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" label='Approximate Time' value={approximate_time} disabled={true}/>
+      <TextField id="outlined-basic" variant="outlined" label={t('Approximate Time')} value={approximate_time} disabled={true}/>
       </FormControl>
       </div>
     </div>

@@ -19,6 +19,10 @@ import toast from 'react-hot-toast'
 import authConfig from 'src/configs/auth'
 import { comment } from 'stylis'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props
   return (
@@ -53,6 +57,9 @@ function a11yProps(index) {
 
 const Mitigation = () => {
   const data = useSelector(state => state.mitList)
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
 
   const dispatch = useDispatch()
 
@@ -290,7 +297,7 @@ const fetch_control= async()=>{
       {/* {JSON.stringify(data)} */}
       <form onSubmit={handleSubmit(saveMitigations)}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3>Mitigation</h3>
+          <h3>{t('Mitigation')}</h3>
           <Grid
             item
             sx={{
@@ -305,7 +312,7 @@ const fetch_control= async()=>{
             style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
           >
             <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-              cancel
+            {t('Cancel')}
             </Button>
             <Button
               type='submit '
@@ -318,7 +325,7 @@ const fetch_control= async()=>{
               onClick={save_mitigation}
               onSubmit={handleSubmit(saveMitigations)}
             >
-              save
+              {t('Save')}
             </Button>
           </Grid>
         </div>
@@ -343,7 +350,7 @@ const fetch_control= async()=>{
                 type='date'
                 variant='outlined'
                 // value={allMit?.data?.mitigationsubmissiondate}
-                label='Mitigation submission.date'
+                label={t('Mitigation submission date')}
                 value={submission_date}
                 disabled={true}
               />
@@ -354,7 +361,7 @@ const fetch_control= async()=>{
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                 {/* <h5>Current solution:</h5> */}
-                <TextField type='text' style={{ width: '100%' }} label='Current solution' value={current_solution} onChange={(e)=> set_current_solution(e.target.value)}/>
+                <TextField type='text' style={{ width: '100%' }} label={t('Current solution')} value={current_solution} onChange={(e)=> set_current_solution(e.target.value)}/>
               </div>
             </FormControl>
           </Grid>
@@ -367,7 +374,7 @@ const fetch_control= async()=>{
               <TextField variant='outlined' 
               type='date' 
               // value={allMit?.data?.plannedmitigationdate} 
-              label='planned mitigation Date'
+              label={t('Planned mitigation Date')}
               value={planned_date}
               onChange={(e)=> set_planned_date(e.target.value)}
              />
@@ -380,7 +387,7 @@ const fetch_control= async()=>{
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                 {/* <h5>Security Requirments:</h5> */}
 
-                <TextField type='text' label='Security Requirments' style={{ width: '100%' }} value={security_requirements} onChange={(e)=> set_security_requirements(e.target.value)}/>
+                <TextField type='text' label={t('Security Requirments')} style={{ width: '100%' }} value={security_requirements} onChange={(e)=> set_security_requirements(e.target.value)}/>
               </div>
             </FormControl>
           </Grid>
@@ -389,7 +396,7 @@ const fetch_control= async()=>{
           <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Planning stratergy
+              {t('Planning stratergy')}
               </InputLabel>
               <Controller
                 name='planning stratergy'
@@ -401,7 +408,7 @@ const fetch_control= async()=>{
                     // value={value}
                     value={planning_strategy}
                     fullWidth
-                    label={'site location'}
+                    label={t('Planning Strategy')}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
                     aria-describedby='validation-basic-select'
@@ -438,7 +445,7 @@ const fetch_control= async()=>{
                   htmlFor='validation-basic-select'
                 ></InputLabel>
                 {/* <h5 style={{ marginLeft: '20px' }}>Security Reccomendations:</h5> */}
-                <TextField type='text' style={{ width: '100%' }} label='Security Reccomendations' value={security_recommendations} onChange={(e)=> set_security_recommendations(e.target.value)}/>
+                <TextField type='text' style={{ width: '100%' }} label={t('Security Reccomendations')} value={security_recommendations} onChange={(e)=> set_security_recommendations(e.target.value)}/>
               </div>
             </FormControl>
           </Grid>
@@ -446,7 +453,7 @@ const fetch_control= async()=>{
           <Grid item sx={{ width: '40%', marginTop: 8}}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Mitigation Effort:
+              {t('Mitigation Effort')}:
               </InputLabel>
               <Controller
                 name='mitigation Effort'
@@ -458,7 +465,7 @@ const fetch_control= async()=>{
                     // value={value}
                     value={effort}
                     fullWidth
-                    label={'Mitigation Effort'}
+                    label={t('Mitigation Effort')}
                     onChange={e => {
                       setMit(e.target.value)
                       set_effort(e.target.value)
@@ -497,7 +504,7 @@ const fetch_control= async()=>{
           <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Mitigation Cost:
+              {t('Mitigation Cost')}:
               </InputLabel>
               <Controller
                 name='mitigation cost'
@@ -509,7 +516,7 @@ const fetch_control= async()=>{
                     // value={value}
                     value={cost}
                     fullWidth
-                    label={'Mitigation Cost'}
+                    label={t('Mitigation Cost')}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
@@ -544,7 +551,7 @@ const fetch_control= async()=>{
                 <TextField type='number' 
                 variant='outlined'
                 // value={allMit?.data?.mitigationpercent}
-                label='Mitigation Percent'
+                label={t('Mitigation Percent')}
                 value={percent}
                 onChange={(e)=> set_percent(e.target.value)}
                  />
@@ -564,7 +571,7 @@ const fetch_control= async()=>{
                   Mitigation Percent:
                 </InputLabel> */}
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Mitigation Owner
+                {t('Mitigation Owner')}
               </InputLabel>
                 <Controller
                 name='mitigation cost'
@@ -576,7 +583,7 @@ const fetch_control= async()=>{
                      
                     value={owner}
                     fullWidth
-                    label={'Mitigation Owner'}
+                    label={t('Mitigation Owner')}
                     onChange={(e)=> set_owner(e.target.value)}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
@@ -606,7 +613,7 @@ const fetch_control= async()=>{
                 </InputLabel> */}
 
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Mitigation Team
+                {t('Mitigation Team')}
               </InputLabel>
                 <Controller
                 name='mitigation cost'
@@ -619,7 +626,7 @@ const fetch_control= async()=>{
                     value={team}
                     fullWidth
                     multiple
-                    label={'Mitigation Team'}
+                    label={t('Mitigation Team')}
                     onChange={(e)=> set_team(e.target.value)}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
@@ -649,7 +656,7 @@ const fetch_control= async()=>{
                 </InputLabel> */}
 
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Mitigation Control
+                {t('Mitigation Control')}
               </InputLabel>
                 <Controller
                 name='mitigation cost'
@@ -662,7 +669,7 @@ const fetch_control= async()=>{
                     value={controls}
                     multiple
                     fullWidth
-                    label={'Mitigation Control'}
+                    label={t('Mitigation Control')}
                     onChange={(e)=> set_controls(e.target.value)}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'

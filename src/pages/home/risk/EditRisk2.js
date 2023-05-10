@@ -24,11 +24,18 @@ import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select 
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 //Third party imports
 import toast from 'react-hot-toast'
 
 const EditRisk = () => {
   const data = useSelector(state => state.riskList)
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
 
   const dispatch = useDispatch()
 
@@ -426,7 +433,7 @@ const EditRisk = () => {
     <CardContent>
       {/* {JSON.stringify(data)} */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Edit Risk</h3>
+        <h3>{t('Edit Risk')}</h3>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h5>Complete the form below to document a risk for consideration in Risk Managment Process </h5>
 
@@ -444,7 +451,7 @@ const EditRisk = () => {
             style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
           >
             <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-              cancel
+            {t('Cancel')}
             </Button>
             <Button
               type='submit '
@@ -455,7 +462,7 @@ const EditRisk = () => {
               // onSubmit={handleSubmit(onSubmit)}
               onClick={submit_risk}
             >
-              SubmitRisk
+              {t('Submit Risk')}
             </Button>
           </Grid>
         </div>
@@ -537,7 +544,7 @@ const EditRisk = () => {
                 type='text'
                 variant='outlined'
                 name='suject'
-                label='Subject'
+                label={t('Subject')}
                 // value={allRisk?.data?.suject}
                 value={subject}
                 onChange={(e)=> set_subject(e.target.value)}
@@ -662,7 +669,7 @@ const EditRisk = () => {
           >
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Category
+              {t('Category')}
               </InputLabel>
               <Controller
                 name='category'
@@ -674,7 +681,7 @@ const EditRisk = () => {
                     value={value}
                     // defaultValue={'Management'}
                     fullWidth
-                    label={'category'}
+                    label={t('Category')}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
@@ -706,7 +713,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Risk Source
+              {t('Risk Source')}
               </InputLabel>
               <Controller
                 name='Risk Source'
@@ -718,7 +725,7 @@ const EditRisk = () => {
                     // value={value}
                     value={rs}
                     fullWidth
-                    label={'Risk Source'}
+                    label={t('Risk Source')}
                     onChange={e => {
                       setRiskSource(e.target.value)
                       onChange(e)
@@ -750,11 +757,11 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                site location
+              {t('Site location')}
               </InputLabel>
 
               <Controller
-                name='siteLocation'
+                name={t('Site Location')}
                 control={control}
                 rules={{ required: true }}
                 defaultValue={data}
@@ -799,8 +806,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {' '}
-                Risk Score
+              {t('Risk Score')}
               </InputLabel>
 
               <Controller
@@ -814,7 +820,7 @@ const EditRisk = () => {
                     value={score}
                     // defaultValue={'Management'}
                     fullWidth
-                    label={'riskScore'}
+                    label={t('Risk Score')}
                     disabled={true}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
@@ -848,7 +854,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                External Refrence id:
+              {t('External Refrence id')}:
               </InputLabel>
               <Controller
                 name='External Refrence id'
@@ -860,7 +866,7 @@ const EditRisk = () => {
                     // value={value}
                     value={reference_id}
                     fullWidth
-                    label={'External Refrence id'}
+                    label={t('External Refrence id')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       set_refernce_id(e.target.value)
@@ -886,8 +892,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {' '}
-                currentlikelihood
+              {t('Current likelihood')}
               </InputLabel>
 
               <Controller
@@ -901,7 +906,7 @@ const EditRisk = () => {
                     value={current_likelihood}
                     // defaultValue={'Management'}
                     fullWidth
-                    label={'currentLikelihood'}
+                    label={t('Current likelihood')}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
@@ -934,7 +939,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Control Regulation
+              {t('Control Regulation')}
               </InputLabel>
               <Controller
                 name='control Regulation'
@@ -946,7 +951,7 @@ const EditRisk = () => {
                     // value={value}
                     value={regulation}
                     fullWidth
-                    label={'control regulation'}
+                    label={t('Control regulation')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       set_regulation(e.target.value);
@@ -979,8 +984,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {' '}
-                currentImpact
+              {t('Current Impact')}
               </InputLabel>
               <Controller
                 name='currentImpacts'
@@ -993,7 +997,7 @@ const EditRisk = () => {
                     value={current_impact}
                     // defaultValue={'Management'}
                     fullWidth
-                    label={'ccurrentImpacts'}
+                    label={t('Current Impact')}
                     onChange={e => {
                       setImpactss(e.target.value)
                       set_current_impact(e.target.value)
@@ -1055,7 +1059,7 @@ const EditRisk = () => {
                   Control Number
                 </FormHelperText>
               )} */}
-              <TextField type='text' variant='outlined' label='Control Number' value={control_number} onChange={(e)=> set_control_number(e.target.value)} />
+              <TextField type='text' variant='outlined' label={t('Control Number')} value={control_number} onChange={(e)=> set_control_number(e.target.value)} />
             </FormControl>
           </Grid>
           {/* end of Control Number  */}
@@ -1095,15 +1099,14 @@ const EditRisk = () => {
 
               {/* //DropDown Fetch */}
 
-              <TextField type='text' variant='outlined' label='Risk Assessment' value={assessment} onChange={(e)=> set_assessment(e.target.value)}/>
+              <TextField type='text' variant='outlined' label={t('Risk Assessment')} value={assessment} onChange={(e)=> set_assessment(e.target.value)}/>
             </FormControl>
           </Grid>
           {/* end of risk assesment */}
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {' '}
-                Affected Assets
+              {t('Affected Assets')}
               </InputLabel>
               <Controller
                 name='affectedAssets'
@@ -1117,7 +1120,7 @@ const EditRisk = () => {
                     multiple
                     // defaultValue={'Management'}
                     fullWidth
-                    label={'affectedAssets'}
+                    label={t('Affected Assets')}
                     onChange={e => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
@@ -1188,14 +1191,14 @@ const EditRisk = () => {
                 select an assets or assets Group you can create a new Assets by adding its name to the list
                 <br />
               </h6> */}
-              <TextField type='text' variant='outlined' label='Additional Notes' value={additional_notes} onChange={(e)=> set_additional_notes(e.target.value)}/>
+              <TextField type='text' variant='outlined' label={t('Additional Notes')} value={additional_notes} onChange={(e)=> set_additional_notes(e.target.value)}/>
             </FormControl>
           </Grid>
           {/* // end of additionalNotes */}
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Technology
+              {t('Technology')}
               </InputLabel>
               <Controller
                 name='currentImpacts'
@@ -1209,7 +1212,7 @@ const EditRisk = () => {
                     // defaultValue={'Management'}
                     multiple
                     fullWidth
-                    label={'ccurrentImpacts'}
+                    label={t('Technology')}
                     onChange={e => {
                       selectTechno(e.target.value)
                       onChange(e)
@@ -1282,7 +1285,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Team
+              {t('Team')}
               </InputLabel>
               <Controller
                 name='technology'
@@ -1295,7 +1298,7 @@ const EditRisk = () => {
                     // value={value}
                     value={team}
                     fullWidth
-                    label={'technology'}
+                    label={t('Team')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
@@ -1331,7 +1334,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Additional Stakeholders:
+              {t('Additional Stakeholders')}
               </InputLabel>
               <Controller
                 name='technology'
@@ -1344,7 +1347,7 @@ const EditRisk = () => {
                     // value={value}
                     value={additional_stakeholders}
                     fullWidth
-                    label={'Additional Stakeholders'}
+                    label={t('Additional Stakeholders')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
@@ -1375,7 +1378,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                owner
+              {t('Owner')}
               </InputLabel>
               <Controller
                 name='owner'
@@ -1387,7 +1390,7 @@ const EditRisk = () => {
                     // value={value}
                     value={owner}
                     fullWidth
-                    label={'owner'}
+                    label={t('Owner')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       setOwner(e.target.value)
@@ -1419,7 +1422,7 @@ const EditRisk = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                Owner's Manager:
+              {t('Owner Manager')}:
               </InputLabel>
               <Controller
                 name='owner'
@@ -1431,7 +1434,7 @@ const EditRisk = () => {
                     // value={value}
                     value={manager}
                     fullWidth
-                    label={'Owners Manager'}
+                    label={t('Owners Manager')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
                       setManager(e.target.value)
@@ -1459,8 +1462,8 @@ const EditRisk = () => {
             </FormControl>
           </Grid>
           <Grid container xs={12}>
-            <h3>Tags</h3>
-            <TextField type='text' fullWidth placeholder='Select/AddTag' value={tag} onChange={(e)=> setTag(e.target.value)}/>
+            <h3>{t('Tags')}</h3>
+            <TextField type='text' fullWidth placeholder={t('Select/AddTag')} value={tag} onChange={(e)=> setTag(e.target.value)}/>
           </Grid>
 
           {/* <Grid item xs={12} style={{ padding: 4, display: 'flex' }}>

@@ -6,10 +6,17 @@ import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 
 const AddTest = () => {
 
     const router = useRouter();
+
+    const { t, i18n } = useTranslation();
+  const theme = useTheme();
 
     const [additional_stakeholders, set_additional_stakeholders]= useState([]);
     const [testers, set_testers]= useState([]);
@@ -120,7 +127,7 @@ const AddTest = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>Add Test</h1>
+    <h1>{t('Add Test')}</h1>
     
     <ToastContainer />
     <Grid
@@ -137,7 +144,7 @@ const AddTest = () => {
               style={{display: 'flex', justifyContent: 'right', marginBottom: 20}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={submitcancel}>
-                cancel
+              {t('Cancel')}
               </Button>
               <Button
                 type='submit '
@@ -146,7 +153,7 @@ const AddTest = () => {
                 onClick={submit_test}
                 style={{ marginLeft: '10px' }}
               >
-                Save
+                {t('Save')}
               </Button>
             </Grid>
 
@@ -155,18 +162,18 @@ const AddTest = () => {
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Test Name" variant="outlined"  value={test_name} onChange={(e)=> set_test_name(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Test Name')} variant="outlined"  value={test_name} onChange={(e)=> set_test_name(e.target.value)}/>
       </FormControl>
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Tester</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Tester')}</InputLabel>
         <Select
         multiple
         value={testers}
         onChange={add_testers}
         labelId="demo-simple-select-label"
-        label="Tester"
+        label={t('Tester')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -183,13 +190,13 @@ const AddTest = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <div style={{width: '40%'}}>
     <FormControl fullWidth>
-    <InputLabel id="demo-simple-select-label">Additional Stakeholders</InputLabel>
+    <InputLabel id="demo-simple-select-label">{t('Additional Stakeholders')}</InputLabel>
         <Select
         multiple
         value={additional_stakeholders}
         onChange={add_stakeholders}
         labelId="demo-simple-select-label"
-        label="Additional Stakeholders"
+        label={t('Additional Stakeholders')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -203,13 +210,13 @@ const AddTest = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Teams</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Teams')}</InputLabel>
         <Select
         multiple
         value={teams}
         onChange={add_teams}
         labelId="demo-simple-select-label"
-        label="Teams"
+        label={t('Teams')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',
@@ -226,7 +233,7 @@ const AddTest = () => {
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <div style={{width: '40%'}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Test Frequency" variant="outlined" type='number'  value={test_frequency} onChange={(e)=> set_test_frequency(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Test Frequency')} variant="outlined" type='number'  value={test_frequency} onChange={(e)=> set_test_frequency(e.target.value)}/>
       </FormControl>
       </div>
       <div style={{width: '40%'}}>
@@ -238,33 +245,33 @@ const AddTest = () => {
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Objective" variant="outlined"  value={objective} onChange={(e)=> set_objective(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Objective')} variant="outlined"  value={objective} onChange={(e)=> set_objective(e.target.value)}/>
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Test Steps" variant="outlined"  value={test_steps} onChange={(e)=> set_test_steps(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Test Steps')} variant="outlined"  value={test_steps} onChange={(e)=> set_test_steps(e.target.value)}/>
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <div style={{width: '40%'}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Approximate Time" variant="outlined" type='number'  value={approximate_time} onChange={(e)=> set_approximate_time(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Approximate Time')} variant="outlined" type='number'  value={approximate_time} onChange={(e)=> set_approximate_time(e.target.value)}/>
       </FormControl>
       </div>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Expected Results" variant="outlined"  value={expected_results} onChange={(e)=> set_expected_results(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Expected Results')} variant="outlined"  value={expected_results} onChange={(e)=> set_expected_results(e.target.value)}/>
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <FormControl fullWidth>
-        <TextField id="outlined-basic" label="Tags" variant="outlined"  value={tags} onChange={(e)=> set_tags(e.target.value)}/>
+        <TextField id="outlined-basic" label={t('Tags')} variant="outlined"  value={tags} onChange={(e)=> set_tags(e.target.value)}/>
       </FormControl>
     </div>
 

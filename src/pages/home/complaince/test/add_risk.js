@@ -77,11 +77,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import SimpleDialog from './existing_risk'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 const AddRisk = () => {
 
     const router = useRouter();
+
+    const { t, i18n } = useTranslation();
+    const theme = useTheme();
 
     const audit_id= router.query.keyword
 
@@ -156,7 +163,7 @@ const AddRisk = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>Add Risk</h1>
+    <h1>{t('Add Risk')}</h1>
     
     <ToastContainer />
     <Grid
@@ -173,7 +180,7 @@ const AddRisk = () => {
               style={{display: 'flex', justifyContent: 'right', marginBottom: 20}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={new_risk}>
-                New Risk
+              {t('New Risk')}
               </Button>
               <Button
                 type='submit '
@@ -182,7 +189,7 @@ const AddRisk = () => {
                 style={{ marginLeft: '10px' }}
                 onClick={handleClickOpen}
               >
-                Existing risk
+                {t('Existing risk')}
               </Button>
               <SimpleDialog
         open={open}
@@ -199,9 +206,9 @@ const AddRisk = () => {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell align="right">Subject</StyledTableCell>
-            <StyledTableCell align="right">Action</StyledTableCell>
+            <StyledTableCell>{t('ID')}</StyledTableCell>
+            <StyledTableCell align="right">{t('Subject')}</StyledTableCell>
+            <StyledTableCell align="right">{t('Action')}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
