@@ -13,11 +13,17 @@ import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 import toast from 'react-hot-toast'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
+
 const Framework_info = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
 
-  
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
 
   const [fwDetails, setFwDetails] = useState([]);
   const [name, set_name]=useState('');
@@ -92,7 +98,7 @@ const [fwList, setFwList] = useState([])
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3>FrameWork Inforamtion</h3>
+        <h3>{t('FrameWork Information')}</h3>
 
         <Grid
           item
@@ -113,7 +119,7 @@ const [fwList, setFwList] = useState([])
       <Divider />
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
-          <h5>FrameWork Name</h5>
+          <h5>{t('FrameWork Name')}</h5>
           <TextField label='FrameWork' fullWidth
           //  value={frameWorksDetails.framework_Name}
           value={name}
@@ -122,7 +128,7 @@ const [fwList, setFwList] = useState([])
             />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
-          <h5>Parent FrameWork</h5>
+          <h5>{t('Parent FrameWork')}</h5>
           <Controller
             name='ParentFrameWork'
             control={control}
@@ -156,7 +162,7 @@ const [fwList, setFwList] = useState([])
           />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
-          <h5>Framework description</h5>
+          <h5>{t('Framework description')}</h5>
           <TextareaAutosize
             aria-label='minimum height'
             minRows={5}

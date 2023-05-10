@@ -11,12 +11,19 @@ import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import authConfig from 'src/configs/auth'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 //third part imports
 import toast from 'react-hot-toast'
 
 const AddFrame = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
 
   const [name, set_name]=useState('');
   const [parent, set_parent]=useState('');
@@ -36,6 +43,8 @@ const AddFrame = () => {
   const [fwList, setFwList] = useState([])
 
   const CreateFrames = async() => {
+
+
     const res= await fetch(`${authConfig.new_framework}`, {
         method:"POST",
           headers:{
@@ -76,7 +85,7 @@ const AddFrame = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3>Add FrameWork</h3>
+        <h3>{t('Add FrameWork')}</h3>
 
         <Grid
           item
@@ -92,7 +101,7 @@ const AddFrame = () => {
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
         >
           <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-            cancel
+          {t('Cancel')}
           </Button>
           <Button
             type='submit '
@@ -101,20 +110,20 @@ const AddFrame = () => {
             style={{ marginLeft: '10px' }}
             onClick={CreateFrames}
           >
-            Save
+            {t('Save')}
           </Button>
         </Grid>
       </div>
       <Divider />
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
-          <h5>FrameWork Name</h5>
+          <h5>{t('FrameWork Name')}</h5>
           <TextField label='FrameWork' fullWidth 
           value={name}
           onChange={(e)=> set_name(e.target.value)} />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
-          <h5>parent FrameWork</h5>
+          <h5>{t('Parent FrameWork')}</h5>
           <Controller
             name='ParentFrameWork'
             control={control}
@@ -147,7 +156,7 @@ const AddFrame = () => {
           />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
-          <h5>Frame work description</h5>
+          <h5>{t('Framework description')}</h5>
           <TextareaAutosize
             aria-label='minimum height'
             minRows={5}

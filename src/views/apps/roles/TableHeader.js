@@ -22,10 +22,17 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../../pages/home/withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 
 const TableHeader = props => {
   // ** Props
   const { plan, handlePlanChange, handleFilter, value } = props;
+
+  const { t, i18n } = useTranslation();
+const theme = useTheme();
 
   const [state, setState] = useState({
     top: false,
@@ -93,6 +100,9 @@ const TableHeader = props => {
       <TextField id="outlined-basic" label="Address" variant="outlined" />
       </FormControl>
       </div>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+      <Button variant='contained' sx={{width: '50%'}}>Save</Button>
+      </div>
     </Box>
   );
 
@@ -100,7 +110,7 @@ const TableHeader = props => {
   return (
     <Box sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
       <Button sx={{ mr: 4, mb: 2 }} color='secondary' variant='outlined' startIcon={<Icon icon='mdi:export-variant' />}>
-        Export
+      {t('Export')}
       </Button>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
         <TextField
@@ -111,7 +121,7 @@ const TableHeader = props => {
           onChange={e => handleFilter(e.target.value)}
         />
         <FormControl size='small' sx={{ mb: 2 }}>
-        <Button variant='contained' onClick={toggleDrawer('right', true)}>Add User</Button>
+        <Button variant='contained' onClick={toggleDrawer('right', true)}>{t('Add User')}</Button>
         <Drawer
                 anchor={'right'}
                 open={state['right']}

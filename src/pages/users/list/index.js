@@ -31,6 +31,10 @@ import { fetchData } from 'src/store/apps/user'
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/roles/TableHeader'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../home/withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 
 // ** Vars
 const userRoleObj = {
@@ -49,6 +53,7 @@ const userStatusObj = {
 
 // ** renders client column
 const renderClient = row => {
+
   if (row.avatar.length) {
     return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 30, height: 30 }} />
   } else {
@@ -60,12 +65,22 @@ const renderClient = row => {
   }
 }
 
+const UserList = () => {
+  // ** State
+  const [plan, setPlan] = useState('')
+  const [value, setValue] = useState('')
+  const [pageSize, setPageSize] = useState(10)
+
+  const { t, i18n } = useTranslation();
+const theme = useTheme();
+  
+
 const columns = [
   {
     flex: 0.2,
     minWidth: 230,
     field: 'fullName',
-    headerName: 'User',
+    headerName: t('User'),
     renderCell: ({ row }) => {
       const { fullName, username } = row
 
@@ -99,7 +114,7 @@ const columns = [
     flex: 0.2,
     minWidth: 250,
     field: 'email',
-    headerName: 'Email',
+    headerName: t('Email'),
     renderCell: ({ row }) => {
       return (
         <Typography variant='body2' noWrap>
@@ -112,7 +127,7 @@ const columns = [
     flex: 0.15,
     field: 'role',
     minWidth: 150,
-    headerName: 'Role',
+    headerName: t('Role'),
     renderCell: ({ row }) => {
       return (
         <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
@@ -128,7 +143,7 @@ const columns = [
     flex: 0.1,
     minWidth: 110,
     field: 'status',
-    headerName: 'Status',
+    headerName: t('Status'),
     renderCell: ({ row }) => {
       return (
         <CustomChip
@@ -146,7 +161,7 @@ const columns = [
     minWidth: 100,
     sortable: false,
     field: 'actions',
-    headerName: 'Actions',
+    headerName: t('Action'),
     renderCell: () => (
       <IconButton component={Link} href='/apps/user/view/overview/'>
         <Icon icon='mdi:eye-outline' />
@@ -154,12 +169,6 @@ const columns = [
     )
   }
 ]
-
-const UserList = () => {
-  // ** State
-  const [plan, setPlan] = useState('')
-  const [value, setValue] = useState('')
-  const [pageSize, setPageSize] = useState(10)
 
   // ** Hooks
   const dispatch = useDispatch()

@@ -256,7 +256,7 @@ const Edit_control = () => {
               style={{display: 'flex', justifyContent: 'right', marginBottom: 20}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={submitcancel}>
-                cancel
+              {t('Cancel')}
               </Button>
               <Button
                 type='submit '
@@ -265,27 +265,27 @@ const Edit_control = () => {
                 onClick={submitdetails}
                 style={{ marginLeft: '10px' }}
               >
-                Save
+                {t('Save')}
               </Button>
             </Grid>
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Control Short Name" variant="outlined"  value={shortname} onChange={(e)=> setShortname(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Control Short Name')} variant="outlined"  value={shortname} onChange={(e)=> setShortname(e.target.value)}/>
       </FormControl>
     </div>
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <FormControl fullWidth>
-        <TextField id="outlined-basic" label="Control Long Name" variant="outlined"  value={longname} onChange={(e)=> setLongname(e.target.value)}/>
+        <TextField id="outlined-basic" label={t('Control Long Name')} variant="outlined"  value={longname} onChange={(e)=> setLongname(e.target.value)}/>
       </FormControl>
     </div>
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Control Description" variant="outlined"  value={desc} onChange={(e)=> setDesc(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Control Description')} variant="outlined"  value={desc} onChange={(e)=> setDesc(e.target.value)}/>
       </FormControl>
     </div>
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <FormControl fullWidth>
-        <TextField id="outlined-basic" label="Supplemental Guidance" variant="outlined"  value={suppementalguidance} onChange={(e)=> setSuppementalguidance(e.target.value)}/>
+        <TextField id="outlined-basic" label={t('Supplemental Guidance')} variant="outlined"  value={suppementalguidance} onChange={(e)=> setSuppementalguidance(e.target.value)}/>
       </FormControl>
     </div>
 
@@ -293,12 +293,12 @@ const Edit_control = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Class</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Class')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={class1}
-          label="Control Class"
+          label={t('Control Class')}
           onChange={(e)=> setClass1(e.target.value)}
         >
           {classList.map((item) => (item !== null ?
@@ -309,12 +309,12 @@ const Edit_control = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Phase</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Phase')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={phase}
-          label="Control Phase"
+          label={t('Control Phase')}
           onChange={(e)=> setPhase(e.target.value)}
         >
           {phaseList.map((item) => (item !== null ?
@@ -328,7 +328,7 @@ const Edit_control = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Control Number" variant="outlined"  value={controlNumber} onChange={(e)=> setControlNumber(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Control Number')} variant="outlined"  value={controlNumber} onChange={(e)=> setControlNumber(e.target.value)}/>
       </FormControl>
       </div>
       </div>
@@ -337,12 +337,12 @@ const Edit_control = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Current Maturity</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Current Maturity')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={currentMaturity}
-          label="Current Maturity"
+          label={t('Current Maturity')}
           onChange={(e)=> setCurrentMaturity(e.target.value)}
         >
           {maturityList.map((item) => (item !== null ?
@@ -353,12 +353,12 @@ const Edit_control = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Desired Maturity</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Desired Maturity')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={desiredMaturity}
-          label="Desired Maturity"
+          label={t('Desired Maturity')}
           onChange={(e)=> setDesiredMaturity(e.target.value)}
         >
           {maturityList.map((item) => (item !== null ?
@@ -372,12 +372,12 @@ const Edit_control = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Priority</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Priority')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={priority}
-          label="Control Priority"
+          label={t('Control Priority')}
           onChange={(e)=> setPriority(e.target.value)}
         >
           {priorityList.map((item) => (item !== null ?
@@ -388,12 +388,12 @@ const Edit_control = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Family</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Family')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={family}
-          label="Control Family"
+          label={t('Control Family')}
           onChange={(e)=> setFamily(e.target.value)}
         >
           {familyList.map((item) => (item !== null ?
@@ -408,12 +408,12 @@ const Edit_control = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Type</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Type')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={controlType}
-          label="Control Type"
+          label={t('Control Type')}
           onChange={(e)=> setControlType(e.target.value)}
         >
           {typeList.map((item) => (item !== null ?
@@ -424,12 +424,12 @@ const Edit_control = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Status</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Status')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={status}
-          label="Control Phase"
+          label={t('Control Phase')}
           onChange={(e)=> setStatus(e.target.value)}
         >
           {statusList.map((item) => (item !== null ?
@@ -445,12 +445,12 @@ const Edit_control = () => {
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Owner</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Owner')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={owner}
-          label="Control Owner"
+          label={t('Control Owner')}
           onChange={(e)=> setOwner(e.target.value)}
         >
           {ownerList.map((item) => (item !== null ?
@@ -461,13 +461,13 @@ const Edit_control = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Control Framework</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Control Framework')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           multiple
           id="demo-simple-select"
           value={framework}
-          label="Control Framework"
+          label={t('Control Framework')}
           onChange={(e)=> setFramework(e.target.value)}
         >
           {frameworkList.map((item) => (item !== null ?
