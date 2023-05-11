@@ -105,5 +105,20 @@
     "Summary": "सारांश",
     "Audit Information": "लेखापरीक्षा सूचना",
     "Add Risk": "जोखिम जोड़ें",
-    "Existing risk": "मौजूदा जोखिम"
+    "Existing risk": "मौजूदा जोखिम",
+    "Add Comment": "टिप्पणी जोड़ना",
+    "New Comment": "नई टिप्पणी",
+    "Comment": "टिप्पणी",
+    "Comment Date": "टिप्पणी दिनांक",
+    "Comment User": "टिप्पणी उपयोगकर्ता",
+    "Add New Comment": "नई टिप्पणी जोड़ें",
+    "Add New Lookup": "नया लुकअप जोड़ें",
+    "Edit Lookup Details": "लुकअप विवरण संपादित करें",
+    "Edit": "संपादन",
+    "Add User Details": "उपयोगकर्ता विवरण जोड़ें",
+    "Username": "उपयोगकर्ता नाम",
+    "Full Name": "पूरा नाम",
+    "Select Role": "भूमिका का चयन करें",
+    "Contact": "संपर्क",
+    "Address": "पता"
 }

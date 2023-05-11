@@ -105,5 +105,20 @@
     "Summary": "Summary",
     "Audit Information": "Audit Information",
     "Add Risk": "Add Risk",
-    "Existing risk": "Existing risk"
+    "Existing risk": "Existing risk",
+    "Add Comment": "Add Comment",
+    "New Comment": "New Comment",
+    "Comment": "Comment",
+    "Comment Date": "Comment Date",
+    "Comment User": "Comment User",
+    "Add New Comment": "Add New Comment",
+    "Add New Lookup": "Add New Lookup",
+    "Edit Lookup Details": "Edit Lookup Details",
+    "Edit": "Edit",
+    "Add User Details": "Add User Details",
+    "Username": "Username",
+    "Full Name": "Full Name",
+    "Select Role": "Select Role",
+    "Contact": "Contact",
+    "Address": "Address"
 }

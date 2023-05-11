@@ -22,9 +22,16 @@ import toast from 'react-hot-toast'
 import 'react-toastify/dist/ReactToastify.css';
 import auth from 'src/configs/auth';
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 
 function SimpleDialog2(props) {
     const { onClose, open, category_id, row, fun } = props;
+
+    const { t, i18n } = useTranslation();
+    const theme = useTheme();
 
     const [new_lookup_name, set_new_lookup_name]= useState(props.row.lookupName);
   
@@ -69,7 +76,7 @@ function SimpleDialog2(props) {
           },
         },
       }}>
-        <DialogTitle>Edit Lookup Details</DialogTitle>
+        <DialogTitle>{t('Edit Lookup Details')}</DialogTitle>
 
         <FormControl fullWidth>
       <TextField id="outlined-flexible" label='Look Up Name' value={new_lookup_name} onChange={(e)=>set_new_lookup_name(e.target.value)}/>
@@ -91,7 +98,7 @@ function SimpleDialog2(props) {
               style={{display: 'flex', justifyContent: 'right'}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={handleClose}>
-                cancel
+              {t('Cancel')}
               </Button>
               <Button
                 type='submit '
@@ -100,7 +107,7 @@ function SimpleDialog2(props) {
                 style={{ marginLeft: '10px' }}
                 onClick={save_edit_lookup}
               >
-                Edit
+                {t('Edit')}
               </Button>
             </Grid>
 

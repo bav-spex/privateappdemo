@@ -56,32 +56,32 @@ const theme = useTheme();
       // onClick={toggleDrawer(anchor, false)}
       // onKeyDown={toggleDrawer(anchor, false)}
     >
-    <h2 style={{textAlign: 'center'}}>Add User Details</h2>
+    <h2 style={{textAlign: 'center'}}>{t('Add User Details')}</h2>
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginTop: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Full Name" variant="outlined" />
+      <TextField id="outlined-basic" label={t('Full Name')} variant="outlined" />
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Username" variant="outlined" />
+      <TextField id="outlined-basic" label={t('Username')} variant="outlined" />
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Email" variant="outlined" />
+      <TextField id="outlined-basic" label={t('Email')} variant="outlined" />
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Select Role</InputLabel>
+        <InputLabel id="demo-simple-select-label">{t('Select Role')}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          label="Select Role"
+          label={t('Select Role')}
         >
         </Select>
       </FormControl>
@@ -89,7 +89,7 @@ const theme = useTheme();
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Contact" variant="outlined" />
+      <TextField id="outlined-basic" label={t('Contact')} variant="outlined" />
       </FormControl>
     </div>
 
@@ -97,11 +97,11 @@ const theme = useTheme();
 
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label="Address" variant="outlined" />
+      <TextField id="outlined-basic" label={t('Address')} variant="outlined" />
       </FormControl>
       </div>
       <div style={{display: 'flex', justifyContent: 'center'}}>
-      <Button variant='contained' sx={{width: '50%'}}>Save</Button>
+      <Button variant='contained' sx={{width: '50%'}}>{t('Save')}</Button>
       </div>
     </Box>
   );

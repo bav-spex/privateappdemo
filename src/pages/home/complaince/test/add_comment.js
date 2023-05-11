@@ -77,11 +77,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import SimpleDialog from './add_comment_popup'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 const AddRisk = () => {
 
     const router = useRouter();
+
+    const { t, i18n } = useTranslation();
+    const theme = useTheme();
 
     const audit_id= router.query.keyword
 
@@ -148,7 +155,7 @@ const AddRisk = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>Add Comments</h1>
+    <h1>{t('Add Comment')}</h1>
     
     <ToastContainer />
     <Grid
@@ -165,7 +172,7 @@ const AddRisk = () => {
               style={{display: 'flex', justifyContent: 'right', marginBottom: 20}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={handleClickOpen}>
-                New Comment
+              {t('New Comment')}
               </Button>
               <SimpleDialog
         open={open}
@@ -181,9 +188,9 @@ const AddRisk = () => {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Comment</StyledTableCell>
-            <StyledTableCell align="right">Comment Date</StyledTableCell>
-            <StyledTableCell align="right">Comment User</StyledTableCell>
+            <StyledTableCell>{t('Comment')}</StyledTableCell>
+            <StyledTableCell align="right">{t('Comment Date')}</StyledTableCell>
+            <StyledTableCell align="right">{t('Comment User')}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

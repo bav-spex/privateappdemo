@@ -22,9 +22,16 @@ import { ToastContainer } from 'react-toastify';
 import toast from 'react-hot-toast'
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 
 function SimpleDialog(props) {
     const { onClose, open, category_id } = props;
+
+    const { t, i18n } = useTranslation();
+    const theme = useTheme();
 
     const [new_lookup_name, set_new_lookup_name]= useState('');
   
@@ -68,7 +75,7 @@ function SimpleDialog(props) {
           },
         },
       }}>
-        <DialogTitle>Add New Lookup</DialogTitle>
+        <DialogTitle>{t('Add New Lookup')}</DialogTitle>
 
         <FormControl fullWidth>
       <TextField id="outlined-flexible" label='Look Up Name' value={new_lookup_name} onChange={(e)=>set_new_lookup_name(e.target.value)}/>
@@ -90,7 +97,7 @@ function SimpleDialog(props) {
               style={{display: 'flex', justifyContent: 'right'}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={handleClose}>
-                Cancel
+              {t('Cancel')}
               </Button>
               <Button
                 type='submit '
@@ -99,7 +106,7 @@ function SimpleDialog(props) {
                 style={{ marginLeft: '10px' }}
                 onClick={save_new_lookup}
               >
-                Save
+                {t('Save')}
               </Button>
             </Grid>
 

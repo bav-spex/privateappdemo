@@ -21,9 +21,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authConfig from 'src/configs/auth'
 
+import { useTranslation } from 'react-i18next';
+import withRoot from '../../withRoot'
+import { useTheme } from '@material-ui/core/styles';
+
 
 function SimpleDialog(props) {
     const { onClose, selectedValue, open, audit_id } = props;
+
+    const { t, i18n } = useTranslation();
+    const theme = useTheme();
   
     const handleClose = () => {
       onClose(selectedValue);
@@ -65,7 +72,7 @@ function SimpleDialog(props) {
           },
         },
       }}>
-        <DialogTitle>Add New Comment</DialogTitle>
+        <DialogTitle>{t('Add New Comment')}</DialogTitle>
 
         <FormControl fullWidth>
       <TextField id="outlined-multiline-flexible" multiline rows={10} value={new_comment} onChange={(e)=> set_new_comment(e.target.value)}/>
@@ -87,7 +94,7 @@ function SimpleDialog(props) {
               style={{display: 'flex', justifyContent: 'right'}}
             >
               <Button xs={2} variant='contained' size='medium' onClick={handleClose}>
-                cancel
+              {t('Cancel')}
               </Button>
               <Button
                 type='submit '
@@ -96,7 +103,7 @@ function SimpleDialog(props) {
                 style={{ marginLeft: '10px' }}
                 onClick={save_new_comment}
               >
-                Save
+                {t('Save')}
               </Button>
             </Grid>
 
