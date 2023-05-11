@@ -34,6 +34,13 @@ const TableHeader = props => {
   const { t, i18n } = useTranslation();
 const theme = useTheme();
 
+  const [full_name, set_full_name]= useState('');
+  const [username, set_username]= useState('');
+  const [email, set_email]= useState('');
+  const [role, set_role]= useState('');
+  const [contact, set_contact]= useState('');
+  const [address, set_address]= useState('');
+
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -48,6 +55,11 @@ const theme = useTheme();
   
     setState({ ...state, [anchor]: open });
   };
+
+  const save_user = async()=>{
+
+    console.log("user saved");
+  }
   
   const list = (anchor) => (
     <Box
@@ -59,19 +71,19 @@ const theme = useTheme();
     <h2 style={{textAlign: 'center'}}>{t('Add User Details')}</h2>
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginTop: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Full Name')} variant="outlined" />
+      <TextField id="outlined-basic" label={t('Full Name')} value={full_name} onChange={(e)=> set_full_name(e.target.value)} variant="outlined" />
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Username')} variant="outlined" />
+      <TextField id="outlined-basic" label={t('Username')} value={username} onChange={(e)=> set_username(e.target.value)} variant="outlined" />
       </FormControl>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Email')} variant="outlined" />
+      <TextField id="outlined-basic" label={t('Email')} value={email} onChange={(e)=> set_email(e.target.value)} variant="outlined" />
       </FormControl>
     </div>
 
@@ -82,6 +94,7 @@ const theme = useTheme();
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label={t('Select Role')}
+          value={role} onChange={(e)=> set_role(e.target.value)}
         >
         </Select>
       </FormControl>
@@ -89,7 +102,7 @@ const theme = useTheme();
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Contact')} variant="outlined" />
+      <TextField id="outlined-basic" label={t('Contact')} value={contact} onChange={(e)=> set_contact(e.target.value)} variant="outlined" />
       </FormControl>
     </div>
 
@@ -97,11 +110,12 @@ const theme = useTheme();
 
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Address')} variant="outlined" />
+      <TextField id="outlined-basic" label={t('Address')} value={address} onChange={(e)=> set_address(e.target.value)} variant="outlined" />
       </FormControl>
       </div>
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-      <Button variant='contained' sx={{width: '50%'}}>{t('Save')}</Button>
+      <div style={{display: 'flex', justifyContent: 'space-around'}}>
+      <Button variant='contained' onClick={toggleDrawer(anchor, false)} sx={{width: '40%'}}>{t('Cancel')}</Button>
+      <Button variant='contained' sx={{width: '40%'}} onClick={()=> save_user()}>{t('Save')}</Button>
       </div>
     </Box>
   );
