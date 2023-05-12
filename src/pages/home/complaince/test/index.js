@@ -187,7 +187,7 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>
+        <TableCell onClick={()=> {handleRowClick2(row.testid)}}>
           {row.testid}
         </TableCell>
         <TableCell align="right">{row.testname}</TableCell>
@@ -237,8 +237,8 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {audit_data.map((item) => (
-                    <TableRow onClick={()=> {handleRowClick(item.auditid)}}>
-                      <TableCell component="th" scope="row">
+                    <TableRow>
+                      <TableCell component="th" scope="row" onClick={()=> {handleRowClick(item.auditid)}}>
                         {item.auditid}
                       </TableCell>
                       <TableCell>{item.additionalstakeholders[0]}</TableCell>

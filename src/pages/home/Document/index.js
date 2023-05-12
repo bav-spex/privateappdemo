@@ -158,6 +158,7 @@ const DocumentList = () => {
   return (
     <>
       <div style={{ height: 400 }}>
+      <h2>Documents</h2>
         <CardContent>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}>

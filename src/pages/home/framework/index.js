@@ -219,6 +219,7 @@ const FrameWorkList = () => {
   return (
     <>
       <div style={{ height: 500 }}>
+      <h2>Frameworks</h2>
         <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
         <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
         {
@@ -229,6 +230,7 @@ const FrameWorkList = () => {
           : ''
         }
         </Grid>
+        
         <Divider />
         <DataGrid
           rows={rows}

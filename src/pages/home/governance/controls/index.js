@@ -319,6 +319,12 @@ useEffect(() => {
   });
   }
 
+  function handleCellClick(params) {
+    // if (params.field === 'age') {
+      console.log(`Clicked on Age ${params.field}`);
+    // }
+  }
+
   const new_control= ()=>{
 
     router.push('/home/governance/controls/new_control')
@@ -356,7 +362,8 @@ useEffect(() => {
             disableSelectionOnClick
             rowsPerPageOptions={[10, 25, 50]}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}
-            onRowClick={handleRowClick}
+            onCellClick={handleCellClick}
+            // onRowClick={handleRowClick}
           />
         </Card>
       </Grid>

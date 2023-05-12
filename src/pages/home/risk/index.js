@@ -234,9 +234,11 @@ const RiskList = () => {
   return (
     <>
       <div style={{ height: 400 }}>
+      <h2>Risk</h2>
         <CardContent>
           <Grid container spacing={6}>
-            <Grid item sm={4} xs={12}></Grid>
+            <Grid item sm={4} xs={12}>
+            </Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
             {
             user_data.role=='admin'?
