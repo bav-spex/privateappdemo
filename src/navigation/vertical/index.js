@@ -6,6 +6,11 @@ const navigation = () => {
       icon: 'mdi:home-outline'
     },
     {
+      title: 'Dashboard',
+      path: '/home/dashboard',
+      icon: 'mdi:home-outline'
+    },
+    {
       title: 'Governance',
       path: '/home/framework',
       icon: 'mdi:bank',
