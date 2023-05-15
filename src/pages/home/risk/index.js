@@ -85,7 +85,26 @@ const RiskList = () => {
   const risksArray = all?.data?.risk
 
   const columns = [
-    { flex: 0.08, width: 50, field: 'id', headerName: t('ID') },
+    { flex: 0.08, width: 50, field: 'id', headerName: t('ID'),
+    renderCell: (params) => {
+      const handleRowClick = () => {
+        
+
+        console.log('framework row clicked');
+        const id = params.row.id;
+
+    // Redirect the user to the desired page
+        router.push({
+          pathname: '/home/risk/Risk_info',
+          query: { keyword: id },
+        });
+      };
+      return (
+        <div onClick={handleRowClick}>
+          {params.value}
+        </div>
+      );
+    } },
     { flex: 0.11, width: 50, field: 'suject', headerName: t('Subject') },
     { flex: 0.12, minWidth: 25, field: 'inherentscore', headerName: t('Inherent Score') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
@@ -203,16 +222,16 @@ const RiskList = () => {
     // dispatch(reviewRisk(data))
   }
 
-  function handleRowClick(params) {
-    // The `params` argument contains information about the clicked row
-    const id = params.id;
+  // function handleRowClick(params) {
+  //   // The `params` argument contains information about the clicked row
+  //   const id = params.id;
 
-    // Redirect the user to the desired page
-    router.push({
-      pathname: '/home/risk/Risk_info',
-      query: { keyword: id },
-    });
-  }
+  //   // Redirect the user to the desired page
+  //   router.push({
+  //     pathname: '/home/risk/Risk_info',
+  //     query: { keyword: id },
+  //   });
+  // }
 
   const openNewForm = () => {
     router.push('/home/risk/newRisk-form')
@@ -256,7 +275,7 @@ const RiskList = () => {
         rows={rows2} 
         columns={columns} 
         rowsPerPageOptions={[10, 25, 50]} 
-        onRowClick={handleRowClick}
+        // onRowClick={handleRowClick}
         />
       </div>
     </>

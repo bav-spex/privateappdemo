@@ -89,13 +89,13 @@ const DocumentList = () => {
     router.push('/home/Document/editDocument')
   }
 
-  function handleRowClick(params) {
-    // The `params` argument contains information about the clicked row
-    // const rowId = params.id;
+  // function handleRowClick(params) {
+  //   // The `params` argument contains information about the clicked row
+  //   // const rowId = params.id;
 
-    // Redirect the user to the desired page
-    router.push('/home/Document/Document_info')
-  }
+  //   // Redirect the user to the desired page
+  //   router.push('/home/Document/Document_info')
+  // }
 
   const router = useRouter()
   const [all, setAll] = useState([])
@@ -104,7 +104,25 @@ const DocumentList = () => {
   console.log('docArrray:', documentArray)
 
   const columns = [
-    { flex: 0.15, field: 'doc_name', headerName: t('Document Name') },
+    { flex: 0.15, field: 'doc_name', headerName: t('Document Name'),
+    renderCell: (params) => {
+      const handleRowClick = () => {
+        
+
+        console.log('framework row clicked');
+        const id = params.row.id;
+
+        router.push({
+          pathname: '/home/Document/Document_info',
+          query: { keyword: id },
+        });
+      };
+      return (
+        <div onClick={handleRowClick}>
+          {params.value}
+        </div>
+      );
+    } },
     { flex: 0.15, field: 'doc_type', headerName: t('Document Type') },
     { flex: 0.15, field: 'framework', headerName: t('Control FrameWorks') },
     { flex: 0.15, field: 'control', headerName: t('Controls') },
@@ -180,7 +198,7 @@ const DocumentList = () => {
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
           getRowId={row => row.doc_name + row.framework}
-          onRowClick={handleRowClick}
+          // onRowClick={handleRowClick}
         />
       </div>
     </>

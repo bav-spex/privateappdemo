@@ -178,7 +178,24 @@ const BatchList = () => {
 
 
 const columns = [
-    { flex: 0.11, width: 50, field: 'name', headerName: t('Name') },
+    { flex: 0.11, width: 50, field: 'name', headerName: t('Name'),
+    renderCell: (params) => {
+      const handleRowClick = () => {
+        
+        const id = params.row.id;
+
+      // Redirect the user to the desired page
+      router.push({
+        pathname: '/home/governance/controls/edit_control/',
+        query: { keyword: id },
+    });
+      };
+      return (
+        <div onClick={handleRowClick}>
+          {params.value}
+        </div>
+      );
+    } },
     { flex: 0.11, width: 50, field: 'frameworkid', headerName: t('Framework ID') },
     { flex: 0.12, minWidth: 5, field: 'control-number',type: 'number', headerName: t('Control Number') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
@@ -310,7 +327,7 @@ useEffect(() => {
 
   function handleRowClick(params) {
     // The `params` argument contains information about the clicked row
-    const id = params.id;
+    const id = params.row.id;
 
     // Redirect the user to the desired page
     router.push({

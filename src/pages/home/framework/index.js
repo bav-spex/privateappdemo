@@ -110,15 +110,15 @@ const FrameWorkList = () => {
     });
   }
 
-  function handleRowClick(params) {
-    // The `params` argument contains information about the clicked row
-    const id = params.row.id;
+  // function handleRowClick(params) {
+  //   // The `params` argument contains information about the clicked row
+  //   const id = params.row.id;
 
-    router.push({
-      pathname: '/home/framework/Framework_info',
-      query: { keyword: id },
-    });
-  }
+  //   router.push({
+  //     pathname: '/home/framework/Framework_info',
+  //     query: { keyword: id },
+  //   });
+  // }
 
   const createNew = () => {
     router.push(`/home/framework/CreateFrameWork`)
@@ -138,7 +138,25 @@ const FrameWorkList = () => {
       flex: 0.5,
       width: 50,
       field: 'framework_Name',
-      headerName: t('FrameWork Name')
+      headerName: t('FrameWork Name'),
+      renderCell: (params) => {
+        const handleRowClick = () => {
+          
+
+          console.log('framework row clicked');
+          const id = params.row.id;
+
+          router.push({
+            pathname: '/home/framework/Framework_info',
+            query: { keyword: id },
+          });
+        };
+        return (
+          <div onClick={handleRowClick}>
+            {params.value}
+          </div>
+        );
+      },
     },
 
     { flex: 0.5, width: 80, field: 'framework_Details', headerName: t('FrameWork Description') },
@@ -237,7 +255,7 @@ const FrameWorkList = () => {
           getRowId={row => row.framework_Name + row.framework_Details}
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
-          onRowClick={handleRowClick}
+          // onRowClick={handleRowClick}
         />
       </div>
     </>
