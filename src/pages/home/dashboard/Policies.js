@@ -29,7 +29,7 @@ const Policies = ()=>{
 
     return(
         <>
-        <h4 style={{textAlign: 'center', color: 'black', display: 'block'}}>Policies</h4>
+        <h4 style={{textAlign: 'center', color: 'black', display: 'block'}}>Documents</h4>
         <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center', marginBottom: '0px', paddingBottom: '0px'}}>
             <ReactSpeedometer
                 maxValue={10}

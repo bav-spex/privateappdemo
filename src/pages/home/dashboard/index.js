@@ -73,6 +73,8 @@ const Dashboard = () => {
         ['16 May', 7.6]
       ];
 
+      const tabs= [{id:"23",framework_name:"F1"} ,{id:"24",framework_name:"F2"},{id:"25",framework_name:"F4"}];
+
 
   return (
     <>
@@ -94,20 +96,19 @@ const Dashboard = () => {
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="ISO270012022" {...a11yProps(0)} />
+                    {tabs.map((item, index) => (
+                      <Tab label={item.framework_name} {...a11yProps(index)} />
+                    ))}
+                    {/* <Tab label="ISO270012022" {...a11yProps(0)} />
                     <Tab label="ISO27001" {...a11yProps(1)} />
-                    <Tab label="SOC2" {...a11yProps(2)} />
+                    <Tab label="SOC2" {...a11yProps(2)} /> */}
                     </Tabs>
                 </Box>
-                <TabPanel value={value} index={0}>
-                    <Tab_one />
+                {tabs.map((item, index) => (
+                <TabPanel value={value} index={index}>
+                    <Tab_one framework_id={item.id}/>
                 </TabPanel>
-                <TabPanel value={value} index={1}>
-                    Item Two
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    Item Three
-                </TabPanel>
+                ))}
                 </Box>
             </div>
         </div>

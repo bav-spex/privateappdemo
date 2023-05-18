@@ -30,7 +30,7 @@ const Tasks = ()=>{
     return(
         <>
         {/* <Paper style={{padding: 'auto'}}> */}
-        <h4 style={{textAlign: 'center', color: 'black'}}>Tasks</h4>
+        <h4 style={{textAlign: 'center', color: 'black'}}>Risks</h4>
         <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center'}}>
             <ReactSpeedometer
                 maxValue={10}
