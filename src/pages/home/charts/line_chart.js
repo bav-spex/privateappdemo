@@ -14,7 +14,7 @@ const options = {
   curveType: "function",
   legend: { position: "bottom" },
   backgroundColor: "transparent",
-  height: 350,
+  height: 450,
   titleTextStyle: {
     fontSize: 16,
     textAlign: "center",

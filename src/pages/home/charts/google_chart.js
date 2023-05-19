@@ -46,9 +46,7 @@ const Google_Chart = () => {
     title: "Open Risks",
     sliceVisibilityThreshold: 0.01, // 20%
     backgroundColor: "transparent",
-    marginTop: 0,
-    paddingTop: 0,
-    height: 500,
+    height: 450,
     titleTextStyle: {
       fontSize: 16,
       textAlign: "center",

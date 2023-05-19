@@ -15,7 +15,7 @@ const options = {
   pieHole: 0.5, 
   is3D: false,
   backgroundColor: "transparent",
-  height: 350,
+  height: 450,
   titleTextStyle: {
     fontSize: 16,
     textAlign: "center",

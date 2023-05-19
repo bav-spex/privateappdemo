@@ -39,8 +39,8 @@ const Speedometer = ()=>{
                 startColor="green"
                 segments={10}
                 endColor="red"
-                height={350}
-                width={350}
+                height={200}
+                width={200}
                 // title="Speedometer"
                 />
         </div>

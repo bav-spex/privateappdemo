@@ -8,6 +8,11 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Tab_one from './Tab_one';
+import styles from '../../../../styles/charts.module.css'
+import Google_Chart from '../charts/google_chart'
+import Line_Chart from '../charts/line_chart'
+import Doughnut_Chart from '../charts/doughnut_chart'
+import Speedometer from '../charts/speedometer'
 
 
 function TabPanel(props) {
@@ -80,7 +85,7 @@ const Dashboard = () => {
     <>
         <div>
             <div style={{marginBottom: '5vh', border: '1px solid silver', padding: '10px'}}>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            {/* <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <h3>Critical issues</h3>
             <Button variant='contained'>View All</Button>
             </div>
@@ -90,7 +95,18 @@ const Dashboard = () => {
                 height="350px"
                 data={data}
                 options={options}
-                />
+                /> */}
+                <div className={styles.row}>
+                  <div className={styles.chart_div}>
+                  <Google_Chart />
+                  </div>
+                  <div className={styles.chart_div}>
+                  <Doughnut_Chart />
+                  </div>
+                  <div className={styles.chart_div}>
+                  <Line_Chart />
+                  </div>
+                  </div>
             </div>
             <div style={{border: '1px solid silver', padding: '10px'}}>
             <Box sx={{ width: '100%' }}>

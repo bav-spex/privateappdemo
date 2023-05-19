@@ -4,6 +4,7 @@ import Policies from './Policies'
 import Tests from './Tests'
 import Tasks from './Tasks'
 import { useRouter } from 'next/router'
+import styles from '../../../../styles/dashboard.module.css'
 
 const Tab_one = (props) => {
 
@@ -11,7 +12,7 @@ const Tab_one = (props) => {
   return (
     
     <>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}} className={styles.row}>
         <div onClick={()=> {router.push(({
           pathname: `/home/Document`,
           query: { keyword: props.framework_id },
@@ -19,10 +20,20 @@ const Tab_one = (props) => {
           )}}>
             <Policies />
         </div>
-        <div onClick={()=> {router.push(`/home/complaince/test`)}}>
+        <div onClick={()=> {router.push(
+          ({
+          pathname: `/home/complaince/test`,
+          query: { keyword: props.framework_id },
+          })
+          )}}>
             <Tests />
         </div>
-        <div onClick={()=> {router.push(`/home/risk`)}}>
+        <div onClick={()=> {router.push(
+          ({
+          pathname: `/home/risk`,
+          query: { keyword: props.framework_id },
+          })
+          )}}>
             <Tasks />
         </div>
         </div>
