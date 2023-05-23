@@ -342,8 +342,9 @@ export default function CollapsibleTable() {
   return (
 
     <>
-    <Card>
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <Typography sx={{display: 'inline', fontSize: '1.5em', marginTop: '10px', marginBottom: '10px'}}>{t('Tests')}</Typography>
+          <div>
           <ToastContainer />
           {
             user_data.role=='admin'?
@@ -352,6 +353,8 @@ export default function CollapsibleTable() {
           </Button>
           : ''
           }
+          </div>
+          </div>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -418,7 +421,6 @@ export default function CollapsibleTable() {
         </TableBody>
       </Table>
     </TableContainer>
-    </Card>
     </>
   );
 }

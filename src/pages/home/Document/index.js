@@ -176,8 +176,8 @@ const DocumentList = () => {
   return (
     <>
       <div style={{ height: 400 }}>
-      <h2>Documents</h2>
-        <CardContent>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <h2>{t('Documents')}</h2>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}>
             </Grid>
@@ -191,7 +191,7 @@ const DocumentList = () => {
             }
             </Grid>
           </Grid>
-        </CardContent>
+        </div>
         <Divider />
         <DataGrid
           rows={rows}

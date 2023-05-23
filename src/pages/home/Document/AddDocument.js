@@ -182,11 +182,11 @@ const AddDocument = () => {
             {/* end of Document Type  */}
             <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
-                <InputLabel
+                {/* <InputLabel
                   id='validation-basic-select'
                   error={Boolean(errors.msg)}
                   htmlFor='validation-basic-select'
-                ></InputLabel>
+                >Document Name</InputLabel> */}
                 <TextField type='text' label='Document Name' value={ed?.data?.doc_name} />
               </FormControl>
             </Grid>
@@ -373,7 +373,7 @@ const AddDocument = () => {
                   {' '}
                 </InputLabel>
 
-                <TextField type='date' label='creationDate' />
+                <TextField type='date' label='Creation Date' />
               </FormControl>
               {/* end of creationDate  */}
             </Grid>

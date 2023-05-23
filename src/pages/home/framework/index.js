@@ -237,9 +237,9 @@ const FrameWorkList = () => {
   return (
     <>
       <div style={{ height: 500 }}>
-      <h2>Frameworks</h2>
-        <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
-        <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <h2>{t('Frameworks')}</h2>
+      <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
         {
             user_data.role=='admin'?
           <Button size='medium' variant='contained' onClick={createNew}>
@@ -248,6 +248,9 @@ const FrameWorkList = () => {
           : ''
         }
         </Grid>
+        </div>
+        <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
+        
         
         <Divider />
         <DataGrid

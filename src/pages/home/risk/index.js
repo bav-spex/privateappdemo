@@ -253,8 +253,8 @@ const RiskList = () => {
   return (
     <>
       <div style={{ height: 400 }}>
-      <h2>Risk</h2>
-        <CardContent>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <h2>{t('Risk')}</h2>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}>
             </Grid>
@@ -268,7 +268,7 @@ const RiskList = () => {
             }
             </Grid>
           </Grid>
-        </CardContent>
+        </div>
         <Divider />
         {/* <TableHeader value={value} handleFilter={handleFilter} sx={{ textAlign: 'center' }} /> */}
         <DataGrid 

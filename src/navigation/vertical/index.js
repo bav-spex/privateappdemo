@@ -1,17 +1,24 @@
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '@material-ui/core/styles';
+
 const navigation = () => {
+
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
+
   return [
     {
-      title: 'Home',
+      title: t('Home'),
       path: '/home/charts',
       icon: 'mdi:home-outline'
     },
     {
-      title: 'Dashboard',
+      title: t('Dashboard'),
       path: '/home/dashboard',
       icon: 'mdi:home-outline'
     },
     {
-      title: 'Governance',
+      title: t('Governance'),
       path: '/home/framework',
       icon: 'mdi:bank',
 
@@ -21,56 +28,56 @@ const navigation = () => {
         //   path: '/home/framework/list'
         // },
         {
-          title: 'Frameworks',
+          title: t('Frameworks'),
           path: '/home/framework'
         },
         {
-          title: 'Controls',
+          title: t('Controls'),
           path: '/home/governance/controls'
         },
         {
-          title: 'Documents',
+          title: t('Documents'),
           path: '/home/Document'
         }
       ]
     },    
     {
-      title: 'Risk Management',
+      title: t('Risk Management'),
       path: '/home/risk',
       icon: 'mdi:progress-alert',
       children: [
         {
-          title: 'Risks',
+          title: t('Risks'),
           path: '/home/risk'
         }
       ]
     },
     {
-      title: 'Complaince',
+      title: t('Complaince'),
       path: '/home/complaince',
       icon: 'mdi:license',
       children: [
         {
-          title: 'Tests',
+          title: t('Tests'),
           path: '/home/complaince/test'
         }
       ]
     },
     {
-      title: 'Settings',
+      title: t('Settings'),
       path: '/home/Settings',
       icon: 'mdi:cog',
       children: [
         {
-          title: 'Lookups',
+          title: t('Lookups'),
           path: '/home/common/lookups'
         },
         {
-          title: 'Users',
+          title: t('Users'),
           path: '/users/list'
         },
         {
-          title: 'Roles',
+          title: t('Roles'),
           path: '/users/roles'
         }
       ]

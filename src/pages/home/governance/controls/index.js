@@ -350,7 +350,7 @@ useEffect(() => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <Card>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <CardHeader title={t('Controls')} />
           <CardContent>
             <Grid container spacing={6}>
@@ -365,6 +365,7 @@ useEffect(() => {
             }
             </Grid>
           </CardContent>
+          </div>
           <Divider />
           {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
           <DataGrid
@@ -382,7 +383,6 @@ useEffect(() => {
             onCellClick={handleCellClick}
             // onRowClick={handleRowClick}
           />
-        </Card>
       </Grid>
     </Grid>
   )
