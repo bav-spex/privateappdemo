@@ -26,6 +26,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 // import PreviewIcon from '@mui/icons-material/Preview'
 
+import { makeStyles } from '@material-ui/core/styles';
+
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -145,7 +147,11 @@ const RowOptions = ({ id }) => {
   )
 }
 
-
+const useStyles = makeStyles({
+  customBackground: {
+    backgroundColor: 'white', // Replace with your desired background color
+  },
+});
 
 const BatchList = () => {
   // ** State
@@ -165,6 +171,8 @@ const BatchList = () => {
   console.log("userdata is", user_data);
 
   const router = useRouter();
+
+  const classes = useStyles();
 
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -348,8 +356,10 @@ useEffect(() => {
   }
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
+    <>
+    <div style={{ height: 500 }}>
+    {/* <Grid container spacing={6}> */}
+      {/* <Grid item xs={12}> */}
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <CardHeader title={t('Controls')} />
           <CardContent>
@@ -369,7 +379,6 @@ useEffect(() => {
           <Divider />
           {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
           <DataGrid
-            autoHeight
             rows={controlList}
             getRowId={row => row.id}
             loading={false}
@@ -381,10 +390,13 @@ useEffect(() => {
             rowsPerPageOptions={[10, 25, 50]}
             onPageSizeChange={newPageSize => setPageSize(newPageSize)}
             onCellClick={handleCellClick}
+            className={classes.customBackground}
             // onRowClick={handleRowClick}
           />
-      </Grid>
-    </Grid>
+      {/* </Grid> */}
+    {/* </Grid> */}
+    </div>
+    </>
   )
 }
 

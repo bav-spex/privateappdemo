@@ -26,6 +26,7 @@ import PreviewIcon from '@mui/icons-material/Preview'
 import EditIcon from '@mui/icons-material/Edit';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import { makeStyles } from '@material-ui/core/styles';
 
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -50,6 +51,12 @@ import { useTheme } from '@material-ui/core/styles';
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
 import { date } from 'yup/lib/locale'
 
+const useStyles = makeStyles({
+  customBackground: {
+    backgroundColor: 'white', // Replace with your desired background color
+  },
+});
+
 const RiskList = () => {
   const dispatch = useDispatch()
 
@@ -61,6 +68,8 @@ const RiskList = () => {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   // document.body.dir = i18n.dir();
+
+  const classes = useStyles();
 
   const changeLanguage = (lng) => { 
     i18n.changeLanguage(lng)
@@ -252,7 +261,7 @@ const RiskList = () => {
 
   return (
     <>
-      <div style={{ height: 400 }}>
+      <div style={{ height: 500 }}>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       <h2>{t('Risk')}</h2>
           <Grid container spacing={6}>
@@ -276,6 +285,7 @@ const RiskList = () => {
         columns={columns} 
         rowsPerPageOptions={[10, 25, 50]} 
         // onRowClick={handleRowClick}
+        className={classes.customBackground}
         />
       </div>
     </>

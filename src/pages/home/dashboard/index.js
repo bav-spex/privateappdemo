@@ -97,13 +97,13 @@ const Dashboard = () => {
                 options={options}
                 /> */}
                 <div className={styles.row}>
-                  <div className={styles.chart_div}>
+                  <div className={styles.chart_div1}>
                   <Google_Chart />
                   </div>
-                  <div className={styles.chart_div}>
+                  <div className={styles.chart_div2}>
                   <Doughnut_Chart />
                   </div>
-                  <div className={styles.chart_div}>
+                  <div className={styles.chart_div3}>
                   <Line_Chart />
                   </div>
                   </div>

@@ -23,6 +23,7 @@ import Select from '@mui/material/Select'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Swal from 'sweetalert2'
+import { makeStyles } from '@material-ui/core/styles';
 
 
 import { useTranslation } from 'react-i18next';
@@ -44,6 +45,14 @@ import { useRouter } from 'next/router'
 
 import { getDocument } from 'src/pages/home/Document/DocService'
 
+
+const useStyles = makeStyles({
+  customBackground: {
+    backgroundColor: 'white', // Replace with your desired background color
+  },
+});
+
+
 const DocumentList = () => {
   const dispatch = useDispatch()
 
@@ -53,6 +62,8 @@ const DocumentList = () => {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   // document.body.dir = i18n.dir();
+
+  const classes = useStyles();
 
   const changeLanguage = (lng) => { 
     i18n.changeLanguage(lng)
@@ -175,7 +186,7 @@ const DocumentList = () => {
 
   return (
     <>
-      <div style={{ height: 400 }}>
+      <div style={{ height: 500 }}>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       <h2>{t('Documents')}</h2>
           <Grid container spacing={6}>
@@ -198,6 +209,7 @@ const DocumentList = () => {
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
           getRowId={row => row.doc_name + row.framework}
+          className={classes.customBackground}
           // onRowClick={handleRowClick}
         />
       </div>

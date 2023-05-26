@@ -13,14 +13,14 @@ const Tab_one = (props) => {
     
     <>
         <div style={{display: 'flex', justifyContent: 'space-between'}} className={styles.row}>
-        <div onClick={()=> {router.push(({
+        <div className={styles.chart_div1} onClick={()=> {router.push(({
           pathname: `/home/Document`,
           query: { keyword: props.framework_id },
           })
           )}}>
             <Policies />
         </div>
-        <div onClick={()=> {router.push(
+        <div className={styles.chart_div2} onClick={()=> {router.push(
           ({
           pathname: `/home/complaince/test`,
           query: { keyword: props.framework_id },
@@ -28,7 +28,7 @@ const Tab_one = (props) => {
           )}}>
             <Tests />
         </div>
-        <div onClick={()=> {router.push(
+        <div className={styles.chart_div3} onClick={()=> {router.push(
           ({
           pathname: `/home/risk`,
           query: { keyword: props.framework_id },

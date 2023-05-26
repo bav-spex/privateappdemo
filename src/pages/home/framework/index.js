@@ -57,6 +57,14 @@ import { allFrameWorks, fwa } from './frameworkService'
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
 import AddEditFrameWorks from './AddEditFramework'
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  customBackground: {
+    backgroundColor: 'white', // Replace with your desired background color
+  },
+});
+
 const FrameWorkList = () => {
   const dispatch = useDispatch()
 
@@ -71,6 +79,8 @@ const FrameWorkList = () => {
     //   document.body.dir = i18n.dir();
     //   theme.direction = i18n.dir();
     }
+
+    const classes = useStyles();
 
 
   const fdelete = () => {
@@ -258,6 +268,7 @@ const FrameWorkList = () => {
           getRowId={row => row.framework_Name + row.framework_Details}
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
+          className={classes.customBackground}
           // onRowClick={handleRowClick}
         />
       </div>
