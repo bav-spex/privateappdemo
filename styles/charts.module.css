@@ -17,8 +17,9 @@
     /* justify-content: center; */
     padding-top: 0px;
     padding-bottom: 0px;
-    background-color: #AFFBD5;
+    background-color: #EED4F0;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 20px;
 }
 
 .chart_div2{
@@ -27,8 +28,9 @@
     /* justify-content: center; */
     padding-top: 0px;
     padding-bottom: 0px;
-    background-color: #F9FCBC;
+    background-color: #EED4F0;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 20px;
 }
 
 .chart_div3{
@@ -37,8 +39,9 @@
     /* justify-content: center; */
     padding-top: 0px;
     padding-bottom: 0px;
-    background-color: #C7FFBA;
+    background-color: #EED4F0;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 20px;
 }
 
 @media screen and (max-width: 700px) {

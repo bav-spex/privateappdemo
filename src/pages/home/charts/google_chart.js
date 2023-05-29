@@ -2,7 +2,8 @@
 import { useState, useEffect, useCallback } from 'react'
 
 import Chart from "react-google-charts";
-import authConfig from 'src/configs/auth'
+import authConfig from 'src/configs/auth';
+import styles from '../../../../styles/pie_chart.module.css'
 
 
 
@@ -46,7 +47,7 @@ const Google_Chart = () => {
     title: "Open Risks",
     sliceVisibilityThreshold: 0.01, // 20%
     backgroundColor: "transparent",
-    height: 450,
+    height: 350,
     titleTextStyle: {
       fontSize: 16,
       textAlign: "center",
@@ -62,11 +63,13 @@ const Google_Chart = () => {
   return (
     <>
     {/* <h4 style={{textAlign: 'center', marginBottom : '0px', paddingBottom: '0px'}}>Open Risks</h4> */}
+    <div className={styles.chart_container}>
         <Chart
             chartType="PieChart"
             data={risks}
             options={options}
             />
+      </div>
     </>
   )
 }
