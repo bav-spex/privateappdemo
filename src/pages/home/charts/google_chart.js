@@ -10,15 +10,6 @@ import styles from '../../../../styles/pie_chart.module.css'
 
 const Google_Chart = () => {
   // ** State
-
-   const data3 = [
-    ["Risk", "Priority"],
-    ["High", 10],
-    ["Medium", 18],
-    ["Low", 8],
-    ["Well", 8]
-  ];
-
   const [risks, set_risks]= useState([]);
 
     const fetch_risks = async()=>{
@@ -44,18 +35,20 @@ const Google_Chart = () => {
       }, [])
   
  const options = {
+    chartArea : { left: "20%" },
+    legend: {position: 'bottom'},
     title: "Open Risks",
     sliceVisibilityThreshold: 0.01, // 20%
-    backgroundColor: "transparent",
+    backgroundColor: "transparent",        
     height: 350,
     titleTextStyle: {
-      fontSize: 16,
+      fontSize: 20,
       textAlign: "center",
       marginLeft: 'auto',
       marginRight: 'auto',
       marginTop: '0px',
       marginBottom: '0px',
-      // bold: true,
+      bold: true,
     },
   };
   

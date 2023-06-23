@@ -1,6 +1,6 @@
 // // ** React Imports
 import { useState, useEffect, useCallback } from 'react'
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 // ** Next Imports
 import Link from 'next/link'
 
@@ -43,7 +43,7 @@ import { useRouter } from 'next/router'
 // //*axios import
 
 // import { allRisk } from 'src/pages/home/risk/RiskService'
-import { allRisk } from 'src/store/apps/Risks/RiskService'
+import { allAudits } from 'src/store/apps/Risks/RiskService'
 
 import { useTranslation } from 'react-i18next';
 import withRoot from '../withRoot'
@@ -86,13 +86,13 @@ const RiskList = () => {
   }
 
   useEffect(() => {
-    allRisk(() => {}, setAll)
+    allAudits(() => {}, setAll)
   }, [])
 
   const router = useRouter()
   const [all, setAll] = useState([])
 
-  const risksArray = all?.data?.risk
+  const risksArray = all?.data?.audit
 
   const columns = [
     { flex: 0.08, width: 50, field: 'id', headerName: t('ID'),
@@ -110,17 +110,17 @@ const RiskList = () => {
         });
       };
       return (
-        <div onClick={handleRowClick}>
+        <div>
           {params.value}
         </div>
       );
     } },
-    { flex: 0.15, width: 50, field: 'suject', headerName: t('Subject') },
-    { flex: 0.08, minWidth: 25, field: 'inherentscore', headerName: t('Inherent Score') },
+    { flex: 0.17, width: 50, field: 'suject', headerName: t('Name') },
+    { flex: 0.06, minWidth: 25, field: 'inherentscore', headerName: t('Type') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     {
       field: 'submissiondate',
-      headerName: t('Submission Date'),
+      headerName: t('Audit Date'),
       type: 'date',
       flex: 0.14,
       minWidth: 25,
@@ -178,11 +178,11 @@ const RiskList = () => {
               risksArray.map((r, i) =>
                 i == 0 ? (
                   <>
-                  <IconButton onClick={()=>handleCreateClick(r.id)} sx={{ color: 'blue' }}>
-                    <EditIcon titleAccess='Edit Risk' />
+                  <IconButton sx={{ color: 'blue' }}>
+                    <EditIcon titleAccess='Edit Audit' />
                   </IconButton>
-                  <IconButton onClick={()=>openMitigation(r.id)} sx={{ color: 'green' }}>
-                  <VerifiedUserIcon titleAccess='Plan Mitigate'/>
+                  <IconButton sx={{ color: 'green' }}>
+                  <ImportExportIcon titleAccess='Import/Export Audit' />
                 </IconButton>
                   </>
                 ) : null
@@ -190,8 +190,8 @@ const RiskList = () => {
             {/* <IconButton onClick={openMitigation(r.id)} sx={{ color: 'green' }}>
               <ContactSupportIcon />
             </IconButton> */}
-            <IconButton onClick={openPreview} sx={{ color: 'blue' }}>
-              <AddCommentIcon titleAccess='Add Comment' />
+            <IconButton sx={{ color: 'blue' }}>
+              <AddCommentIcon titleAccess='Add Comments' />
             </IconButton>
             </>
             : ''
@@ -264,7 +264,7 @@ const RiskList = () => {
     <>
       <div style={{ height: 500 }}>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <h2>{t('Risk')}</h2>
+      <h2>{t('Audits')}</h2>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}>
             </Grid>
@@ -272,7 +272,7 @@ const RiskList = () => {
             {
             user_data.role=='admin'?
               <Button size='medium' variant='contained' onClick={openNewForm}>
-                {t('Create Risk')}
+                {t('Add Audit')}
               </Button>
               : ''
             }

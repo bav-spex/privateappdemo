@@ -3,7 +3,7 @@ import axios from 'axios'
 //*config
 import authConfig from 'src/configs/auth'
 
-export const getDocument = (errorCallback, successCallback) => {
+export  const getDocument = (errorCallback, successCallback) => {
   axios
     .get(authConfig.Document)
     .then(res => {
@@ -48,3 +48,4 @@ export const saveDocs = (params, errorCallback, successCallback) => {
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
+export default getDocument;

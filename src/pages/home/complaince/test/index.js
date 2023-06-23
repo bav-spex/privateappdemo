@@ -209,7 +209,7 @@ function Row(props) {
             <DeleteIcon titleAccess='Delete Test'/>
           </IconButton>
           <IconButton onClick={()=> handleAddAudit(row.testid)} sx={{ color: 'blue' }}>
-            <AddIcon titleAccess='Add Audits'/>
+            <AddIcon titleAccess='Add Assesment'/>
           </IconButton>
       </>
       : ''
@@ -221,12 +221,12 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-              {t('Audits')}
+              {t('Assesments')}
               </Typography>
               <Table size='medium' aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('Audit Id')}</TableCell>
+                    <TableCell>{t('Assesment Id')}</TableCell>
                     <TableCell>{t('Additional Stakeholders')}</TableCell>
                     <TableCell align="right">{t('Framework')}</TableCell>
                     <TableCell align="right">{t('Test Name')}</TableCell>

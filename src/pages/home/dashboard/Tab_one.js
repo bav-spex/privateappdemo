@@ -22,19 +22,19 @@ const Tab_one = (props) => {
         </div>
         <div className={styles.chart_div2} onClick={()=> {router.push(
           ({
-          pathname: `/home/complaince/test`,
-          query: { keyword: props.framework_id },
-          })
-          )}}>
-            <Tests />
-        </div>
-        <div className={styles.chart_div3} onClick={()=> {router.push(
-          ({
           pathname: `/home/risk`,
           query: { keyword: props.framework_id },
           })
           )}}>
             <Tasks />
+        </div>
+        <div className={styles.chart_div3} onClick={()=> {router.push(
+          ({
+          pathname: `/home/complaince/test`,
+          query: { keyword: props.framework_id },
+          })
+          )}}>
+            <Tests />
         </div>
         </div>
     </>

@@ -14,7 +14,6 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 // import { addMits } from 'src/store/apps/mitigation'
-import { saveMitigation } from 'src/pages/home/mitigation/mit_service'
 import toast from 'react-hot-toast'
 import authConfig from 'src/configs/auth'
 import { comment } from 'stylis'
@@ -235,10 +234,7 @@ const fetch_control= async()=>{
       return data
     }, [data])
   })
-  const MitSub = values => {
-    console.log('values:', values)
-    saveMitigation(values, () => {}, setSave)
-  }
+
   const SubmitMiti = () => {
     toast.success('Saved Mitigation')
   }

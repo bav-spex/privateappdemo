@@ -11,7 +11,7 @@ const FooterContent = () => {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
       <Typography sx={{ mr: 2 }}>
-        {`Copyright © 2021 9USRcraft. All rights reserved.`}
+        {`Copyright © 2023 9USRcraft. All rights reserved.`}
       </Typography>
     </Box>
   )

@@ -3,7 +3,7 @@ import axios from 'axios'
 //.config
 import authConfig from 'src/configs/auth'
 
-export const fetchRisk = (params, errorCallback, successCallback) => {
+const fetchRisk = (params, errorCallback, successCallback) => {
   axios
     .get(authConfig.riskListEndPoint, `${params}`)
     .then(res => {
@@ -197,3 +197,6 @@ export const allReview = (errorCallback, successCallback) => {
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
+
+const dummy = (errorCallback, successCallback) => {}
+export default dummy;

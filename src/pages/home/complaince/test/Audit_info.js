@@ -129,7 +129,7 @@ const Audit_info = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>{t('Audit Information')}</h1>
+    <h1>{t('Assesment Information')}</h1>
     
     <ToastContainer />
     <Grid
@@ -151,12 +151,12 @@ const Audit_info = () => {
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">{t('Audit Status')}</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Assesment Status')}</InputLabel>
         <Select
         value={audit_status}
         onChange={(e)=> set_audit_status(e.target.value)}
         labelId="demo-simple-select-label"
-        label={t('Audit Status')}
+        label={t('Assesment Status')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',

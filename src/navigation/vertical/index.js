@@ -9,14 +9,9 @@ const navigation = () => {
   return [
     {
       title: t('Home'),
-      path: '/home/charts',
-      icon: 'mdi:home-outline'
-    },
-    {
-      title: t('Dashboard'),
       path: '/home/dashboard',
       icon: 'mdi:home-outline'
-    },
+    },    
     {
       title: t('Governance'),
       path: '/home/framework',
@@ -53,13 +48,17 @@ const navigation = () => {
       ]
     },
     {
-      title: t('Complaince'),
+      title: t('Compliance'),
       path: '/home/complaince',
       icon: 'mdi:license',
       children: [
         {
-          title: t('Tests'),
+          title: t('Tests & Assesments'),
           path: '/home/complaince/test'
+        },
+        {
+          title: t('Audits'),
+          path: '/home/risk/audit'
         }
       ]
     },

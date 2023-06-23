@@ -35,7 +35,7 @@
     "Next Test Date": "Next Test Date",
     "Approximate Time": "Approximate Time",
     "Audits": "Audits",
-    "Audit Id": "Audit Id",
+    "Assesment Id": "Assesment Id",
     "Teams": "Teams",
     "Test Date": "Test Date",
     "Look Ups": "Look Ups",
@@ -133,5 +133,17 @@
     "Address": "Address",
     "Settings": "Settings",
     "Dashboard": "Dashboard",
-    "Home": "Home"
+    "Home": "Home",
+    "Add Audit": "Add Audit",
+    "Assesment Information": "Assesment Information",    
+    "Assesments": "Assesments",
+    "Assesment Status": "Assesment Status",
+    "Edit Assesment": "Edit Assesment",
+    "Import Controls": "Import Controls"
+    
+    
+    
+    
+    
+    
 }

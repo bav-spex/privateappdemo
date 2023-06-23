@@ -12,18 +12,18 @@ const technology_url = 'https://common-dev-rakshitah.azurewebsites.net/'
 const owner_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users'
 const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
 const risk_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/28'
-const threat_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/2'
+const threat_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/29'
 const regulation_dropdown_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/getAll'
 const edit_risk_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks/update'
 const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const savemitigation_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
-const frameWork_src_url = `https://governance-dev-rakshitah.azurewebsites.net/`
+const frameWork_src_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
 // const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
-const control_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/getAllNewControl'
+const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls'
 const control_by_id_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/id'
 // const control_new_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/new'
 const control_new_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/new'
@@ -53,6 +53,8 @@ const audit_data_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.i
 const add_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new'
 const add_lookup_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
 const edit_lookup_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/update'
+const test_url="http://localhost:8091/compliance/v1/test"
+const adit_url="http://localhost:8091/compliance/v1/audit"
 
 
 export default {
@@ -88,6 +90,7 @@ export default {
   threat_mapping_list: `${threat_mapping_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks`,
+  auditAll: `${risk_base_url}/rmf/v1/audits`,
   // frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
   // frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
   // riskAll: `${risk_base_url}/rmf/v1/risks`,  
@@ -133,5 +136,7 @@ export default {
   control_update: `${control_update_url}`,
   add_lookup: `${add_lookup_url}`,
   edit_lookup: `${edit_lookup_url}`,
+  audit_url :  `${test_url}`,
+  test_url :  `${adit_url}`,
 }
 

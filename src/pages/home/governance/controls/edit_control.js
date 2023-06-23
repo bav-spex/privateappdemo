@@ -4,6 +4,7 @@ import auth from 'src/configs/auth';
 // import './edit_control.css'
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material'
 import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next';
 
 const Edit_control = () => {
 
@@ -36,6 +37,14 @@ const Edit_control = () => {
   const handleChange = (event) => {
     setClass1(event.target.value);
   };
+
+  const { t, i18n } = useTranslation();
+  
+  const changeLanguage = (lng) => { 
+    i18n.changeLanguage(lng)
+  //   document.body.dir = i18n.dir();
+  //   theme.direction = i18n.dir();
+  }
 
   const router = useRouter()
   console.log("id is",router.query);
@@ -217,7 +226,7 @@ const Edit_control = () => {
     })
     const data= await res.json();
     console.log("framework list is", data);
-    setFrameworkList(data);
+    setFrameworkList(data.data.frameworks);
   }
 
 

@@ -133,7 +133,7 @@ const EditAudit = () => {
     const data= await res.json();
     // setControlList(data.data.controls);
     console.log("post data is", data);
-    toast.success("Audit Edited Successfully");
+    toast.success("Assesment Edited Successfully");
     // router.push('/home/complaince/test');
     }
   
@@ -153,7 +153,7 @@ const EditAudit = () => {
     <>
     <div style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-    <h1>{t('Edit Audit')}</h1>
+    <h1>{t('Edit Assesment')}</h1>
     
     <ToastContainer />
     <Grid
@@ -187,12 +187,12 @@ const EditAudit = () => {
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
             <div style={{width: '40%'}}>
             <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">{t('Audit Status')}</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Assesment Status')}</InputLabel>
         <Select
         value={audit_status}
         onChange={(e)=> set_audit_status(e.target.value)}
         labelId="demo-simple-select-label"
-        label={t('Audit Status')}
+        label={t('Assesment Status')}
         inputProps={{
           name: 'selectedValues',
           id: 'selected-values',

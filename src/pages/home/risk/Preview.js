@@ -37,7 +37,7 @@ import { useRouter } from 'next/router'
 
 // //*axios import
 
-import { allReview } from 'src/pages/home/risk/RiskService'
+import { allReview } from 'src/store/apps/Risks/RiskService'
 
 const Preview = () => {
   const dispatch = useDispatch()

@@ -17,7 +17,7 @@ import {
   fetchAssets,
   fetchTechnology,
   fetchOwner
-} from 'src/pages/home/risk/RiskService'
+} from 'src/store/apps/Risks/RiskService'
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'

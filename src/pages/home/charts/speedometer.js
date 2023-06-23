@@ -1,8 +1,11 @@
-import ReactSpeedometer from "react-d3-speedometer"
+// import ReactSpeedometer from "react-d3-speedometer"
 import Paper from '@material-ui/core/Paper';
 import { useEffect, useState } from "react";
 // and just use it
 import authConfig from 'src/configs/auth'
+import dynamic from 'next/dynamic';
+
+const ReactSpeedometer = dynamic(() => import('react-d3-speedometer'),{ ssr: false },);
 
 
 const Speedometer = ()=>{

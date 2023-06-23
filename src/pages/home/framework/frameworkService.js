@@ -2,7 +2,7 @@
 import axios from 'axios'
 //.config
 import authConfig from 'src/configs/auth'
-export const freameworkDetails = (errorCallback, successCallback) => {
+const freameworkDetails = (errorCallback, successCallback) => {
   console.log(authConfig.frameWorkbyId)
   axios
     .get(authConfig.frameWorkbyId)
@@ -28,9 +28,10 @@ export const fwa = (errorCallback, successCallback) => {
         console.log('error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        successCallback(res.data)
-        console.log('allfw:', res.data)
+        successCallback(res.data.data.frameworks)
+        console.log('allfw:', res.data.data.frameworks)
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
+export default freameworkDetails;

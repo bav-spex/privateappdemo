@@ -47,7 +47,7 @@ import { Button } from '@mui/material'
 
 // ** Next Import
 import { useRouter } from 'next/router'
-import { getBatchList } from 'src/store/apps/batches'
+// import { getBatchList } from 'src/store/apps/batches'
 
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
@@ -153,7 +153,7 @@ const useStyles = makeStyles({
   },
 });
 
-const BatchList = () => {
+const ControlList = () => {
   // ** State
 
   const [value, setValue] = useState('')
@@ -161,9 +161,9 @@ const BatchList = () => {
 
   const [pageSize, setPageSize] = useState(10)
 
-  const batchList = useSelector(state => state.batches.batchList)
-  const [tableData, setTableData] = useState(batchList);
-  const [statusList, setStatusList ] = useState(Array.from(new Set(batchList.map(item => item.status))));
+  // const batchList = useSelector(state => state.batches.batchList)
+  // const [tableData, setTableData] = useState(batchList);
+  // const [statusList, setStatusList ] = useState(Array.from(new Set(batchList.map(item => item.status))));
 
   const [controlList, setControlList] = useState([]);
 
@@ -204,7 +204,7 @@ const columns = [
         </div>
       );
     } },
-    { flex: 0.11, width: 50, field: 'frameworkid', headerName: t('Framework ID') },
+    { flex: 0.11, width: 50, field: 'framework', headerName: t('Framework ID') },
     { flex: 0.12, minWidth: 5, field: 'control-number',type: 'number', headerName: t('Control Number') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     // {
@@ -301,14 +301,14 @@ const columns = [
     })
     const data= await res.json();
     console.log("control data is", data);
-    // setControlList(data.data.controls);
-    setControlList(data);
+    setControlList(data.data.controls);
+    //setControlList(data);
   }
 
 
-  useEffect(() => {
-    dispatch(getBatchList({ q: value }))
-  }, [dispatch, value])
+  // useEffect(() => {
+  //   dispatch(getBatchList({ q: value }))
+  // }, [dispatch, value])
 
 //   useEffect(() => {
 
@@ -400,4 +400,4 @@ useEffect(() => {
   )
 }
 
-export default BatchList
+export default ControlList

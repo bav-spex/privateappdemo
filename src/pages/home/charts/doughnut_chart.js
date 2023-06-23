@@ -12,6 +12,7 @@ const data = [
 
 const options = {
   title: "Overall Risk Status",
+  legend: {position: 'bottom'},
   pieHole: 0.5, 
   is3D: false,
   backgroundColor: "transparent",

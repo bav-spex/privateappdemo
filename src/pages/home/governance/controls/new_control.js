@@ -198,7 +198,7 @@ const New_control = () => {
     })
     const data= await res.json();
     console.log("framework list is", data);
-    setFrameworkList(data);
+    setFrameworkList(data.data.frameworks);
   }
 
 

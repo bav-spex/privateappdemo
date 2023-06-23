@@ -118,7 +118,7 @@ const AddFrame = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
           <h5>{t('FrameWork Name')}</h5>
-          <TextField label='FrameWork' fullWidth 
+          <TextField label='FrameWork Name' fullWidth 
           value={name}
           onChange={(e)=> set_name(e.target.value)} />
         </Grid>

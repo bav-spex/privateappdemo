@@ -11,9 +11,9 @@ import {
   currentImpacts,
   fetchAssets,
   fetchTechnology
-} from 'src/pages/home/risk/RiskService'
-import { category } from 'src/pages/home/risk/RiskService'
-import { riskSourceA } from 'src/pages/home/risk/RiskService'
+} from 'src/store/apps/Risks/RiskService'
+import { category } from 'src/store/apps/Risks/RiskService'
+import { riskSourceA } from 'src/store/apps/Risks/RiskService'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'

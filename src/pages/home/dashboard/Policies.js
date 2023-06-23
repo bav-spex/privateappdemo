@@ -1,8 +1,13 @@
-import ReactSpeedometer from "react-d3-speedometer"
+// import ReactSpeedometer from "react-d3-speedometer"
 import Paper from '@material-ui/core/Paper';
 import { useEffect, useState } from "react";
 // and just use it
 import authConfig from 'src/configs/auth'
+
+import dynamic from 'next/dynamic';
+
+const ReactSpeedometer = dynamic(() => import('react-d3-speedometer'),{ ssr: false },);
+
 
 
 const Policies = ()=>{
@@ -29,21 +34,21 @@ const Policies = ()=>{
 
     return(
         <>
-        <h4 style={{textAlign: 'center', color: 'black', display: 'block'}}>Documents</h4>
+        <h4 style={{textAlign: 'center',  display: 'block'}}>Governance</h4>
         <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center', marginBottom: '0px', paddingBottom: '0px'}}>
             <ReactSpeedometer
                 maxValue={10}
-                value={score}
+                value={8}
                 needleColor="black"
-                startColor="violet"
+                startColor="red"
                 segments={10}
-                endColor="blue"
-                height={250}
+                endColor="green"
+                height={160}
                 width={250}
                 // title="Speedometer"
                 />
         </div>
-        <p style={{textAlign: 'center', marginTop: '0px'}}>15 policies have been published</p>
+        <p style={{textAlign: 'center', marginTop: '0px'}}>28 policies have been published</p>
         </>
     );
 }

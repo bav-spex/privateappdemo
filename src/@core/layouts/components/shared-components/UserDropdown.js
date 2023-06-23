@@ -124,8 +124,14 @@ const UserDropdown = props => {
       >
        <Avatar
           sx={{ width: 40, height: 40, marginRight: 5 }}>
-          <TranslateIcon onClick={()=> handleDropdownOpen2()}/>
+             <Avatar
+          alt={user.firstName}
+          onClick={()=> handleDropdownOpen2()}
+          sx={{ width: 40, height: 40 }}
+          src='/images/lanugage.png'
+        />               
           <Menu
+          src='/images/avatars/1.png'
           anchorEl={anchorEl2}
           open={Boolean(anchorEl2)}
           onClose={() => handleDropdownClose2()}

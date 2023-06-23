@@ -3,6 +3,8 @@ import axios from 'axios'
 //.config
 import authConfig from 'src/configs/auth'
 
+const dummy = (errorCallback, successCallback) => {}
+
 export const fetchMit = (errorCallback, successCallback) => {
   axios
     .get(authConfig.mitigation)
@@ -33,3 +35,4 @@ export const SaveAllM = (params, errorCallback, successCallback) => {
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
+export default dummy;

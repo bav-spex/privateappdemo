@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import axios from 'axios'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
@@ -17,7 +18,9 @@ import {
   fetchAssets,
   fetchTechnology,
   fetchOwner
-} from 'src/pages/home/risk/RiskService'
+} from 'src/store/apps/Risks/RiskService'
+// } from 'src/pages/home/risk/RiskService'
+
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
@@ -363,6 +366,21 @@ const EditRisk = () => {
   const [threat_mapping ,set_threat_mapping]= useState([]);
 
   const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
+
+  const fetchRisk = (params, errorCallback, successCallback) => {
+    axios
+      .get(authConfig.riskListEndPoint, `${params}`)
+      .then(res => {
+        if (res.data.error.msg != '') {
+          console.log('error : ', res.data.error)
+          if (errorCallback) errorCallback(res.data.error)
+        } else {
+          console.log('successing : ', res.data)
+          successCallback(res.data)
+        }
+      })
+      .catch(err => (errorCallback ? errorCallback(err) : null))
+  }
 
   // console.log('allrisk :', allRisk)
   const setSelectedRisk = value => {

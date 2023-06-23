@@ -180,7 +180,7 @@ const Control_info = () => {
     })
     const data= await res.json();
     console.log("framework list is", data);
-    setFrameworkList(data);
+    setFrameworkList(data.data.frameworks);
   }
 
 

@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const Governance = () => {
+const Governance = () => {
   return (
     <div>Governance</div>
   )
 }
+
+export default Governance;

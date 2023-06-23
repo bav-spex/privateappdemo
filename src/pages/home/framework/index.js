@@ -254,8 +254,15 @@ const FrameWorkList = () => {
             user_data.role=='admin'?
           <Button size='medium' variant='contained' onClick={createNew}>
           {t('Create framework')}
-          </Button>
-          : ''
+          </Button>          
+          : ''          
+        },
+        {
+            user_data.role=='admin'?
+          <Button size='medium' variant='contained'>
+          {t('Import Framework')}
+          </Button>          
+          : ''          
         }
         </Grid>
         </div>
