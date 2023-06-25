@@ -168,10 +168,10 @@ const [fwList, setFwList] = useState([])
                 fullWidth
                 label={'Parent FrameWork'}
                 onChange={e => {
-                  setSelectedRisk(e.target.value)
+                  // setSelectedRisk(e.target.value)
                   onChange(e)
-                  setCatRisk(e.target.value)
-                  onChange(e)
+                  // setCatRisk(e.target.value)
+                  // onChange(e)
                   set_parent(e.target.value)
                 }}
                 error={Boolean(errors?.msg)}

@@ -1,3 +1,5 @@
+// const governance_base_url = 'http://localhost:8080'
+const governance_base_url = 'https://governance-dev-rakshitah.azurewebsites.net'
 const auth_base_url = 'https://iac-dev-rakshitah.azurewebsites.net'
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
 const risk_base_url = ' https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
@@ -13,7 +15,7 @@ const owner_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/ia
 const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
 const risk_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/28'
 const threat_mapping_list_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category/29'
-const regulation_dropdown_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/getAll'
+const regulation_dropdown_url = `${governance_base_url}/governance/v1/frameworks/getAll`
 const edit_risk_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks/update'
 const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
 const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
@@ -23,11 +25,11 @@ const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
 // const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
-const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls'
-const control_by_id_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/id'
+const control_url=`${governance_base_url}/governance/v1/controls/get`
+const control_by_id_url=`${governance_base_url}/governance/v1/controls/id`
 // const control_new_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/new'
-const control_new_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/new'
-const control_update_url='https://governance-dev-rakshitah.azurewebsites.net/governance/v1/controls/update'
+const control_new_url=`${governance_base_url}/governance/v1/controls/new`
+const control_update_url=`${governance_base_url}/governance/v1/controls/update`
 const control_dropdown_url='https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
 const test_list_url="https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/test/get"
 const category_list_url= "https://common-dev-rakshitah.azurewebsites.net/categories/v1/get"
@@ -38,8 +40,9 @@ const planning_strategy_url= 'https://common-dev-rakshitah.azurewebsites.net/loo
 const mitigation_update_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update'
 const speedometer_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
 const open_risk_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
-const edit_framework_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/update'
-const new_framework_url= 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/frameworks/new'
+const edit_framework_url = `${governance_base_url}/governance/v1/frameworks/update`
+const delete_framework_url = `${governance_base_url}/governance/v1/frameworks/delete`
+const new_framework_url= `${governance_base_url}/governance/v1/frameworks/new`
 const audit_dropdown_url= 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/category'
 const fetch_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
 const edit_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/testresult/update'
@@ -94,11 +97,11 @@ export default {
   // frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
   // frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
   // riskAll: `${risk_base_url}/rmf/v1/risks`,  
-  frameWorkAll: `${frameWork_src_url}governance/v1/frameworks/getAll`,
+  frameWorkAll: `${governance_base_url}/governance/v1/frameworks/getAll`,
   // frameWorkbyId: `${frameWork_src_url}governance/v1/frameworks/get/1`,
-  frameWorkbyId: `${frameWork_src_url}governance/v1/frameworks/get`,
-  frameWork_new: `${frameWork_src_url}governance/v1/frameworks/new/`,
-  frameWork_update: `${frameWork_src_url}governance/v1/frameworks/update/`,
+  frameWorkbyId: `${governance_base_url}/governance/v1/frameworks/get`,
+  frameWork_new: `${governance_base_url}/governance/v1/frameworks/new/`,
+  frameWork_update: `${governance_base_url}/governance/v1/frameworks/update/`,
   Document: `${getDocument_url}governance/v1/documents/get`,
   editDoc: `${editDocument_url}governance/v1/documents/id/56`,
   saveAllDocs: `${saveDocument_url}governance/v1/documents/update/1456`,
@@ -121,6 +124,7 @@ export default {
   open_risk: `${open_risk_url}`,
   control_new: `${control_new_url}`,
   edit_framework: `${edit_framework_url}`,
+  delete_framework: delete_framework_url,
   new_framework: `${new_framework_url}`,
   audit_dropdown: `${audit_dropdown_url}`,
   edit_audit: `${edit_audit_url}`,

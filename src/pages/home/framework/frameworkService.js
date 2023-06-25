@@ -23,13 +23,25 @@ export const fwa = (errorCallback, successCallback) => {
   axios
     .get(authConfig.frameWorkAll)
     .then(res => {
-      console.log('alldata', res)
       if (res.data.error) {
         console.log('error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        successCallback(res.data.data.frameworks)
-        console.log('allfw:', res.data.data.frameworks)
+        successCallback(res.data);
+      }
+    })
+    .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
+export const deleteFramework = (frameworkId, errorCallback, successCallback) => {
+  axios
+    .delete(authConfig.delete_framework + '/' + frameworkId)
+    .then(res => {
+      if (res.data.error) {
+        console.log('error:', res.data)
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        successCallback(res.data);
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))

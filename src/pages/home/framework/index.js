@@ -51,7 +51,7 @@ import { useRouter } from 'next/router'
 
 // //*axios import
 // import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { allFrameWorks, fwa } from './frameworkService'
+import { allFrameWorks, fwa, deleteFramework } from './frameworkService'
 // console.log('allFrameworks:', allFrameWorks)
 
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
@@ -83,7 +83,7 @@ const FrameWorkList = () => {
     const classes = useStyles();
 
 
-  const fdelete = () => {
+  const fdelete = (frameworkId) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -94,9 +94,14 @@ const FrameWorkList = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
-
-        Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
+        const successCallback = (response) => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        }
+        const errorCallback = (response) => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+          // Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
+        }
+        deleteFramework(frameworkId, errorCallback, successCallback);
       }
     })
   }
@@ -189,7 +194,7 @@ const FrameWorkList = () => {
           <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(id)}>
           <ModeEditIcon titleAccess='Edit Framework'/>
           </IconButton>
-            <IconButton sx={{ color: 'red' }} onClick={fdelete}>
+            <IconButton sx={{ color: 'red' }} onClick={()=> fdelete(id)}>
               <DeleteIcon titleAccess='Delete Framework'/>
           </IconButton>
        </> 
@@ -272,7 +277,7 @@ const FrameWorkList = () => {
         <Divider />
         <DataGrid
           rows={rows}
-          getRowId={row => row.framework_Name + row.framework_Details}
+          getRowId={row => row.framework_Name + row.framework_Details + row.id}
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
           className={classes.customBackground}

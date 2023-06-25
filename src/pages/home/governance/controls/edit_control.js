@@ -58,7 +58,7 @@ const Edit_control = () => {
   const submitdetails= async()=>{
 
     const res= await fetch(`${auth.control_update}/${router.query.keyword}`, {
-      method:"POST",
+      method:"PUT",
         headers:{
             "Content-Type": "application/json"
         },
@@ -225,8 +225,7 @@ const Edit_control = () => {
           }
     })
     const data= await res.json();
-    console.log("framework list is", data);
-    setFrameworkList(data.data.frameworks);
+    setFrameworkList(data);
   }
 
 

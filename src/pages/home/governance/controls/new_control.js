@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import auth from 'src/configs/auth';
 // import './edit_control.css'
-import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material'
-import toast from 'react-hot-toast'
-
+import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid, Button } from '@mui/material';
+import toast from 'react-hot-toast';
+import {fwa} from 'src/pages/home/framework/frameworkService';
 import { useTranslation } from 'react-i18next';
-import withRoot from '../../withRoot'
+import withRoot from '../../withRoot';
 import { useTheme } from '@material-ui/core/styles';
 
 const New_control = () => {
@@ -188,22 +188,7 @@ const New_control = () => {
     setOwnerList(data.data.users);
   }
 
-  const fetch_frameworkList= async()=>{
-
-    const res= await fetch(`${auth.frameWorkAll}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          }
-    })
-    const data= await res.json();
-    console.log("framework list is", data);
-    setFrameworkList(data.data.frameworks);
-  }
-
-
   useEffect(() => {
-
     fetch_classList();
     fetch_phaseList();
     fetch_maturityList();
@@ -212,7 +197,7 @@ const New_control = () => {
     fetch_typeList();
     fetch_familyList();
     fetch_statusList();
-    fetch_frameworkList();
+    fwa(() =>  {}, setFrameworkList);
   }, [])
 
   return (
