@@ -54,27 +54,26 @@ const New_control = () => {
   }
 
   const submitdetails= async()=>{
-
     const res= await fetch(`${auth.control_new}`, {
       method:"POST",
         headers:{
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          short_name: shortname,
-          control_number: controlNumber,
-          control_owner: owner,
-          control_priority: priority,
-          control_phase: phase,
+          shortname: shortname,
+          number: controlNumber,
+          owner: owner,
+          priority: priority,
+          phase: phase,
           family: family,
-          control_maturity: currentMaturity,
-          desired_maturity: desiredMaturity,
+          currentmaturity: currentMaturity,
+          desiredmaturity: desiredMaturity,
           controltype: controlType,
-          control_class: class1,
-          control_status: status,
-          description: desc,
-          supplemental_guidance: suppementalguidance,
-          frameworks_id: framework,
+          class: class1,
+          status: status,
+          desc: desc,
+          suppementalguidance: suppementalguidance,
+          frameworkids: framework,
       })
   })
   const data= await res.json();

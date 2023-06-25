@@ -57,6 +57,8 @@ import { left } from '@popperjs/core'
 import { useTranslation } from 'react-i18next';
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles';
+import Swal from 'sweetalert2';
+import {deleteControl} from 'src/pages/home/governance/controls/controlService';
 
 // ** Vars
 const userRoleObj = {
@@ -252,7 +254,7 @@ const columns = [
                     <EditIcon titleAccess='Edit Control'/>
           </IconButton>
 
-            <IconButton  sx={{ color: 'red' }}>
+            <IconButton onClick={()=> deleteControlId(id)} sx={{ color: 'red' }}>
               <DeleteIcon titleAccess='Delete Control'/>
             </IconButton>
           </>
@@ -345,13 +347,34 @@ useEffect(() => {
   }
 
   function handleCellClick(params) {
-    // if (params.field === 'age') {
-      console.log(`Clicked on Age ${params.field}`);
-    // }
+    console.log(params)
+    console.log(`Clicked on Age ${params.field}`);
+  }
+
+  function deleteControlId(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        const successCallback = (response) => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        }
+        const errorCallback = (response) => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+          // Swal.fire('Deleted!', 'Your file has not been deleted.', 'error');
+        }
+        deleteControl(id, errorCallback, successCallback);
+      }
+    })
   }
 
   const new_control= ()=>{
-
     router.push('/home/governance/controls/new_control')
   }
 

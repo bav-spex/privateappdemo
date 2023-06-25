@@ -56,31 +56,29 @@ const Edit_control = () => {
   }
 
   const submitdetails= async()=>{
-
     const res= await fetch(`${auth.control_update}/${router.query.keyword}`, {
       method:"PUT",
         headers:{
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          short_name: shortname,
-          control_number: controlNumber,
-          control_owner: owner,
-          control_priority: priority,
-          control_phase: phase,
+          shortname: shortname,
+          number: controlNumber,
+          owner: owner,
+          priority: priority,
+          phase: phase,
           family: family,
-          control_maturity: currentMaturity,
-          desired_maturity: desiredMaturity,
+          currentmaturity: currentMaturity,
+          desiredmaturity: desiredMaturity,
           controltype: controlType,
-          control_class: class1,
-          control_status: status,
-          description: desc,
-          supplemental_guidance: suppementalguidance,
-          frameworks_id: framework,
+          class: class1,
+          status: status,
+          desc: desc,
+          supplementalguidance: suppementalguidance,
+          frameworkids: framework,
       })
   })
   const data= await res.json();
-  // setControlList(data.data.controls);
   console.log("post data is", data);
   toast.success('Control Edited Successfully');
     router.push('/home/governance/controls');
@@ -110,6 +108,7 @@ const Edit_control = () => {
     setSuppementalguidance(data.data.suppementalguidance);
     setOwner(data.data.owner);
     setFramework(data.data.frameworkids);
+    setControlNumber(data.data.number);
   }
 
   const fetch_classList= async()=>{
