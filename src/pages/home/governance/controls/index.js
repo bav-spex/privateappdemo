@@ -206,7 +206,7 @@ const columns = [
         </div>
       );
     } },
-    { flex: 0.11, width: 50, field: 'framework', headerName: t('Framework ID') },
+    { flex: 0.11, width: 50, field: 'frameworks', headerName: t('Framework ID') },
     { flex: 0.12, minWidth: 5, field: 'control-number',type: 'number', headerName: t('Control Number') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     // {
