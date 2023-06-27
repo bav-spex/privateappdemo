@@ -194,7 +194,7 @@ function Row(props) {
         <TableCell align="right">{row.tester[0]}</TableCell>
         <TableCell align="right">{row.additionalstakeholders[0]}</TableCell>
         <TableCell align="right">{row.tags}</TableCell>
-        <TableCell align="right">{row.testfrequency[0]}</TableCell>
+        <TableCell align="right">{row.testfrequency}</TableCell>
         <TableCell align="right">{row.lasttestdate}</TableCell>
         <TableCell align="right">{row.next_test_date}</TableCell>
         <TableCell align="right">{row.approximatetime}</TableCell>
@@ -323,7 +323,7 @@ export default function CollapsibleTable() {
 
   const fetch_test_list = async () => {
     const res = await fetch(`${auth.test_list}`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       }

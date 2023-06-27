@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles';
+import { getControlList } from 'src/pages/home/governance/controls/controlService';
 
 
 const AddTest = () => {
@@ -32,9 +33,15 @@ const AddTest = () => {
 
     const [tester_list, set_tester_list]= useState([]);
     const [teams_list, set_teams_list]= useState([]);
+    const [controls_list, set_controls_list]= useState([]);
+    const [frameworkControlId, set_frameworkControlId]= useState('');
+
+    const add_framework_control =(e)=>{
+      set_frameworkControlId(e.target.value);
+      console.log("frameworkControlId:", frameworkControlId);
+    }
 
     const add_stakeholders =(e)=>{
-
       set_additional_stakeholders(e.target.value);
       console.log(additional_stakeholders);
     }
@@ -68,9 +75,9 @@ const AddTest = () => {
               "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            
+            additionalstakeholders: additional_stakeholders,
             testname: test_name,
-            teser: testers,
+            tester: testers,
             teams: teams,
             testfrequency: test_frequency,
             lasttestdate: last_test_date,
@@ -113,10 +120,17 @@ const AddTest = () => {
         console.log("teams data is", data);
       }
 
+      const fetchControlList = async() =>{
+        console.log("Fetching control list")
+        let successCallback = (response) => {
+          set_controls_list(response.data.controls);
+        }
+        getControlList(() => {}, successCallback)
+      }
 
 
       useEffect(() => {
-       
+        fetchControlList();
         fetch_testers();
         fetch_teams();
       }, [])
@@ -231,14 +245,28 @@ const AddTest = () => {
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
-    <div style={{width: '40%'}}>
-    <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Test Frequency')} variant="outlined" type='number'  value={test_frequency} onChange={(e)=> set_test_frequency(e.target.value)}/>
-      </FormControl>
+      <div style={{width: '40%'}}>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={t('Test Frequency')} variant="outlined" type='number'  value={test_frequency} onChange={(e)=> set_test_frequency(e.target.value)}/>
+        </FormControl>
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <TextField id="outlined-basic" variant="outlined" type='date' label="date"  value={last_test_date} onChange={(e)=> set_last_test_date(e.target.value)}/>
+      <InputLabel id="demo-simple-select-label">{t('Framework Control Id')}</InputLabel>
+        <Select
+        value={frameworkControlId}
+        onChange={add_framework_control}
+        labelId="demo-simple-select-label"
+        label={t('Framework Control Id')}
+        inputProps={{
+          name: 'selectedValues',
+          id: 'selected-values',
+        }}
+      >
+          {controls_list.map((item) => (item !== null ?
+          <MenuItem value={item.id}>{item['control-number']}</MenuItem>: ""
+          ))}
+      </Select>
       </FormControl>
       </div>
     </div>
@@ -256,10 +284,15 @@ const AddTest = () => {
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
-    <div style={{width: '40%'}}>
-    <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Approximate Time')} variant="outlined" type='number'  value={approximate_time} onChange={(e)=> set_approximate_time(e.target.value)}/>
-      </FormControl>
+      <div style={{width: '40%'}}>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={t('Approximate Time')} variant="outlined" type='number'  value={approximate_time} onChange={(e)=> set_approximate_time(e.target.value)}/>
+        </FormControl>
+      </div>
+      <div style={{width: '40%'}}>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" variant="outlined" type='date' label="date"  value={last_test_date} onChange={(e)=> set_last_test_date(e.target.value)}/>
+        </FormControl>
       </div>
     </div>
 
