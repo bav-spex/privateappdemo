@@ -21,7 +21,7 @@ export const getControlList = (errorCallback, successCallback) => {
   axios
     .get(authConfig.controlList)
     .then(res => {
-      if (res.data.error.msg) {
+      if (res?.data?.error?.msg) {
         console.log('getControlList error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {

@@ -9,7 +9,9 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
-import { getDocument, edit, saveDocs } from 'src/pages/home/Document/DocService'
+import { createDocument, getCategoryData, getTeams, getUsers } from 'src/pages/home/Document/DocService';
+import { fwa } from 'src/pages/home/framework/frameworkService';
+import { getControlList } from 'src/pages/home/governance/controls/controlService';
 import { useRouter } from 'next/router'
 
 //Third party imports
@@ -22,46 +24,49 @@ const AddDocument = () => {
 
   //!fetch Documents
   useEffect(() => {
-    getDocument(() => {}, setAllDoc)
-    console.log('getDocs:', doc)
-  }, [])
+    getCategoryData(9, () => {}, setDocTypeList);
+    getCategoryData(10, () => {}, setDocumentStatusList);
+    fwa(() => {}, setFrameworkList);
 
-  //!editDocuments
-  useEffect(() => {
-    edit(() => {}, setEd)
-  }, [])
-
-  //! to save docs
-
-  // useEffect(() => {}, [])
-  // const [saveDocs, setSaveDocs] = useState([])
-  // ! to select docs
-  const setGd = value => {
-    let DocSource = value => {
-      if (DocSource) {
-        setDocs(DocSource)
-      }
+    let controlSuccessCallback = (response) => {
+      setControlList(response.data.controls);
     }
-    console.log('DocsSourceArray:', DocSource)
-  }
+    getControlList(() => {}, controlSuccessCallback);
 
-  const setEdit = value => {
-    let editSource = value => {
-      if (editSource) {
-        setEDocs(editSource)
-      }
+    let teamSuccessCallback = (response) => {
+      setTeamList(response.data.users);
     }
-    console.log('EdidDocs:', EDocs)
-  }
+    getTeams(() => {}, teamSuccessCallback);
 
-  const [doc, setAllDoc] = useState({})
-  const [docs, setDocs] = useState([])
-  const [ed, setEd] = useState({})
-  const [EDocs, setEDocs] = useState([])
-  const [save, setSave] = useState({})
+    getUsers(() => {}, (response) => { setDocumentOwnerList(response.data.users); });
+  }, []);
+
+  const [frameworkIds, setFrameworkIds] = useState([]);
+  const [frameworkList, setFrameworkList] = useState([]);
+  const [controlIds, setcontrolIds] = useState([]);
+  const [controlList, setControlList] = useState([]);
+  const [doc_name, setDocName] = useState('');
+  const [doc_type, setDocType] = useState('');
+  const [docTypeList, setDocTypeList] = useState([])
+  const [additional_stakeholders, setAdditionalStakeholders] = useState([])
+  const [teams_id, setTeamIds] = useState([])
+  const [teamList, setTeamList] = useState([])
+  const [documentStatusList, setDocumentStatusList] = useState([])
+  const [documentStatusIds, setDocumentStatusIds] = useState('')
+  const [documentOwnerIds, setDocumentOwnerIds] = useState([]);
+  const [documentOwnerList, setDocumentOwnerList] = useState([]);
+  const [creationDate, setCreationDate] = useState('');
+  const [lastReviewDate, setLastReviewDate] = useState('');
+  const [review_frequency, setReviewFrequency] = useState('');
+  const [next_review_date, setNextReviewDate] = useState('');
+  const [approval_date, setApprovalDate] = useState('');
+  
+  
+  // const [EDocs, setEDocs] = useState([])
+  // const [save, setSave] = useState({})
 
   // console.log('allrisk :', allRisk)
-  console.log('ED :', ed)
+  // console.log('ED :', ed)
 
   // ** Hooks
   const {
@@ -79,13 +84,31 @@ const AddDocument = () => {
   })
 
   const router = useRouter()
-  const docSubmit = values => {
-    console.log('values:', values)
-    saveDocs(values, () => {}, setSave)
-  }
-
-  const AddDocument = () => {
-    toast.success('Document Added')
+  const addDocument = () => {
+    let request_data = {
+      "doc_name": doc_name,
+      "doc_type": doc_type,
+      "framework_ids": frameworkIds,
+      "control_ids": controlIds,
+      "creation_date": creationDate,
+      "last_review_date": lastReviewDate,
+      "review_frequency": review_frequency,
+      "next_review_date": next_review_date,
+      "approval_date": approval_date,
+      "approver": 34,
+      "status": documentStatusIds,
+      "additional_stakeholders": additional_stakeholders,
+      "teams_id": teams_id
+    }
+    console.log(JSON.stringify(request_data));
+    let errorCallback = (response) => {
+      toast.error('Document Added');
+    }
+    let successCallback = (response) => {
+        toast.success('Document Added');
+        router.push(`/home/Document`);
+    }
+    createDocument(JSON.stringify(request_data), errorCallback, successCallback);
   }
 
   const upload = e => {
@@ -100,7 +123,7 @@ const AddDocument = () => {
     <>
       <CardContent>
         {/* {JSON.stringify(data)} */}
-        <form onSubmit={handleSubmit(docSubmit)}>
+        <form>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h3>Add Document</h3>
             <Grid
@@ -120,14 +143,13 @@ const AddDocument = () => {
                 cancel
               </Button>
               <Button
-                type='submit '
+                type='button'
                 size='medium'
                 variant='contained'
                 style={{ marginLeft: '10px' }}
-                onClick={AddDocument}
-                onSubmit={handleSubmit(docSubmit)}
+                onClick={addDocument}
               >
-                Add Document
+                Save
               </Button>
             </Grid>
           </div>
@@ -155,25 +177,17 @@ const AddDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
-                      defaultValue={'Management'}
+                      value={doc_type}
                       fullWidth
                       label={'documenttype'}
-                      onChange={e => {
-                        // setSelectedRisk(e.target.value)
-                        // onChange(e)
-                        // setCatRisk(e.target.value)
-                        // onChange(e)
-
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setDocType(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''> None</MenuItem>
-                      <MenuItem value={ed?.data?.doc_type}>{ed?.data?.doc_type}</MenuItem>
+                      {docTypeList.map((item) => (item !== null ?
+                        <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />
@@ -187,7 +201,7 @@ const AddDocument = () => {
                   error={Boolean(errors.msg)}
                   htmlFor='validation-basic-select'
                 >Document Name</InputLabel> */}
-                <TextField type='text' label='Document Name' value={ed?.data?.doc_name} />
+                <TextField type='text' label='Document Name' value={doc_name} onChange={(e)=> setDocName(e.target.value)}/>
               </FormControl>
             </Grid>
             {/* end of Documetname */}
@@ -205,22 +219,19 @@ const AddDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
-                      // defaultValue={'Management'}
+                      multiple
+                      value={frameworkIds}
+                      defaultValue={''}
                       fullWidth
                       label={'FrameWorks'}
-                      onChange={e => {
-                        // setSelectedRisk(e.target.value)
-                        // onChange(e)
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setFrameworkIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''> None</MenuItem>
-                      <MenuItem value={ed?.data?.framework}> {ed?.data?.framework}</MenuItem>
+                      {frameworkList.map((item) => (item !== null ?
+                        <MenuItem value={item.id}>{item.framework_Name}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />
@@ -241,22 +252,19 @@ const AddDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
+                      multiple
+                      value={controlIds}
                       // defaultValue={'Management'}
                       fullWidth
                       label={'Controls'}
-                      onChange={e => {
-                        // setSelectedRisk(e.target.value)
-                        // onChange(e)
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setcontrolIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''> None</MenuItem>
-                      <MenuItem value={ed?.data?.control}> {ed?.data?.control}</MenuItem>
+                      {controlList.map((item) => (item !== null ?
+                        <MenuItem value={item.id}>{item['control-number']}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />
@@ -276,23 +284,16 @@ const AddDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
+                      value={additional_stakeholders}
                       fullWidth
                       label={'Additional StakeHolders'}
-                      onChange={e => {
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setAdditionalStakeholders(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
                       <MenuItem value=''>None is Selected</MenuItem>
-                      {/* <MenuItem value={allRisk.data?.externalreferenceid}>{allRisk.data?.externalreferenceid}</MenuItem> */}
-                      {Array.isArray(ed?.data?.additional_stackholder) &&
-                        ed?.data?.additional_stackholder.map((e, i) => {
-                          return <MenuItem value={e}>{e}</MenuItem>
-                        })}
+                      
                     </Select>
                   )}
                 />
@@ -306,29 +307,26 @@ const AddDocument = () => {
                   Document Owner
                 </InputLabel>
 
-                {/* <Controller
-                  name='DocumentOwner'
+                <Controller
+                  name='control Regulation'
                   control={control}
                   rules={{ required: true }}
-                  defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
-                      // defaultValue={'Management'}
+                      value={documentOwnerIds}
                       fullWidth
-                      label={'DocumentOwner'}
-                      onChange={e => {
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      label={'Document Owner'}
+                      onChange={(e)=> setDocumentOwnerIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''>None</MenuItem>
+                      {documentOwnerList.map((item) => (item !== null ?
+                        <MenuItem value={item.id}>{item.name}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
-                /> */}
+                />
               </FormControl>
             </Grid>
             {/* end of Document owner*/}
@@ -344,22 +342,18 @@ const AddDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
+                      multiple
+                      value={teams_id}
                       fullWidth
                       label={'Team'}
-                      onChange={e => {
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setTeamIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''>None </MenuItem>
-                      {Array.isArray(ed?.data?.teams) &&
-                        ed?.data?.teams.map((e, i) => {
-                          return <MenuItem value={e}>{e}</MenuItem>
-                        })}
+                      {teamList.map((item) => (item !== null ?
+                        <MenuItem value={item.id}>{item.name}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />
@@ -372,25 +366,45 @@ const AddDocument = () => {
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
                 </InputLabel>
+                
 
-                <TextField type='date' label='Creation Date' />
+                <TextField 
+                  type='date'
+                  label='Creation Date'
+                  InputLabelProps={{ shrink: true }}
+                  value={creationDate}
+                  onChange={(e)=> setCreationDate(e.target.value)}
+                />
               </FormControl>
               {/* end of creationDate  */}
             </Grid>
 
             <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
-                <TextField type='date' variant='outlined' label='LastReview' />
+                <TextField
+                  type='date'
+                  variant='outlined'
+                  label='Last Review'
+                  InputLabelProps={{ shrink: true }}
+                  value={lastReviewDate}
+                  onChange={(e)=> setLastReviewDate(e.target.value)}
+                />
               </FormControl>
             </Grid>
             {/* end of Last Review */}
             <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  Review Frequency
+                  
                 </InputLabel>
 
-                <TextField type='number' variant='outlined' label='ReviewFrequency in Days' />
+                <TextField
+                  type='number'
+                  variant='outlined'
+                  label='Review Frequency in Days' 
+                  value={review_frequency}
+                  onChange={(e)=> setReviewFrequency(e.target.value)}
+                />
               </FormControl>
             </Grid>
             {/* end of Review Frequency */}
@@ -401,7 +415,13 @@ const AddDocument = () => {
                   {/* Next Review Dates */}
                 </InputLabel>
 
-                <TextField type='date' label='Next Review Dates' />
+                <TextField
+                  type='date'
+                  label='Next Review Dates'
+                  InputLabelProps={{ shrink: true }}
+                  value={next_review_date}
+                  onChange={(e)=> setNextReviewDate(e.target.value)}
+                />
               </FormControl>
             </Grid>
             {/* end of next review Dates*/}
@@ -411,7 +431,14 @@ const AddDocument = () => {
                   {/* ApprovalDate  */}
                 </InputLabel>
 
-                <TextField type='date' variant='outlined' label='ApprovalDate' />
+                <TextField
+                  type='date' 
+                  variant='outlined' 
+                  label='Approval Date' 
+                  InputLabelProps={{ shrink: true }}
+                  value={approval_date}
+                  onChange={(e)=> setApprovalDate(e.target.value)}
+                />
               </FormControl>
             </Grid>
             {/* // end of ApprovalDate */}
@@ -465,19 +492,17 @@ const AddDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
+                      value={documentStatusIds}
                       fullWidth
                       label={'DocumentStatus'}
-                      onChange={e => {
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setDocumentStatusIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''>None</MenuItem>
-                      <MenuItem value={ed?.data?.status}>{ed?.data?.status}</MenuItem>
+                      {documentStatusList.map((item) => (item !== null ?
+                        <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />

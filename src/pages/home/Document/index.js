@@ -111,7 +111,7 @@ const DocumentList = () => {
   const router = useRouter()
   const [all, setAll] = useState([])
 
-  const documentArray = all?.data?.documents
+  const documentArray = all?.data?.controls
   console.log('docArrray:', documentArray)
 
   const columns = [
