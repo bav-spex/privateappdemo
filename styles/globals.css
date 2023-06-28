@@ -112,3 +112,82 @@ code[class*='language-'] {
 .data_table tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+
+/* New theme CSS here */
+:root {
+  --primary__color: #060056;
+  --secondary__color: #ecadaa;
+  --tertiary__color: #b7e4f9; 
+}
+.MuiButtonBase-root.MuiButton-root, .MuiButtonBase-root.MuiButton-root:hover{
+  background-color: var(--primary__color);
+  color: var(--tertiary__color);
+}
+.MuiButtonBase-root.MuiCheckbox-root.Mui-checked, .MuiFormLabel-root.MuiInputLabel-root.Mui-focused{
+  color: var(--primary__color);
+}
+.mui-fixed .MuiButtonBase-root.MuiFab-root{
+  background-color: var(--primary__color);
+}
+.MuiBox-root a{
+  color: var(--primary__color);
+}
+/* .Mui-focused .muiOutlinedInput-notouchedLine */
+.MuiFormControl-root .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+  border-color: var(--primary__color);
+}
+/* left sidebar */
+.MuiDrawer-root .MuiDrawer-paper {
+  background-color: var(--primary__color);
+}
+.MuiDrawer-root .MuiTypography-root, .MuiDrawer-root svg{
+  color: var(--tertiary__color);
+}
+.MuiDrawer-root .MuiListItemButton-root.active, .MuiDrawer-root .MuiListItemButton-root.active:hover, .MuiDrawer-root .MuiListItemButton-root:hover{
+  color: var(--primary__color);
+  background: var(--secondary__color);
+}
+.MuiDrawer-root .MuiListItemButton-root.active svg, .MuiDrawer-root .MuiListItemButton-root:hover svg{
+  color: var(--primary__color);
+  transition: 0.3s all;
+}
+.MuiDrawer-root .MuiListItemButton-root.active .MuiTypography-root, .MuiDrawer-root .MuiListItemButton-root:hover .MuiTypography-root {
+  color: var(--primary__color) !important;
+  font-weight: 500;
+  transition: 0.3s all;
+}
+.MuiDrawer-root .menu-item-meta svg{
+  color: var(--tertiary__color);
+}
+.MuiDrawer-root .MuiListItemButton-root.Mui-selected:hover{
+  color: var(--primary__color) !important;
+  font-weight: 500;
+  transition: 0.3s all;
+}
+
+/* main rigth section */
+.charts_row__cKNz0 .charts_chart_div1__9Iizx{
+  background-color: #ecaba9;
+}
+.charts_row__cKNz0 .charts_chart_div2__jJCHR{
+  background-color: #9ab0e9
+}
+.charts_row__cKNz0 .charts_chart_div3__rzFzq{
+  background-color: #aaa4d2
+}
+.layout-page-content .MuiPaper-root{
+  background-color: #b9e6fd;
+}
+
+/* grid table */
+.layout-page-content .MuiTableCell-head{
+  text-align: left;
+}
+.layout-page-content .MuiTableCell-body{
+  color: rgb(58 53 65 / 80%);
+}
+.layout-page-content .MuiTableCell-root svg[data-testid="AddCommentIcon"]{
+  color: #060056;
+}
+
