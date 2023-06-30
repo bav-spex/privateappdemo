@@ -9,26 +9,75 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
-import { getDocument, edit } from 'src/pages/home/Document/DocService'
+import { getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService';
+import { fwa } from 'src/pages/home/framework/frameworkService';
+import { getControlList } from 'src/pages/home/governance/controls/controlService';
 import { useRouter } from 'next/router'
 
 //Third party imports
 import toast from 'react-hot-toast'
 
 const EditDocument = () => {
+  const router = useRouter();
   const data = useSelector(state => state.riskList)
+  
+  const [doc_id, setDocId] = useState(0);
+  const [document_object, setDocumentObject] = useState({});
+
+  const [frameworkIds, setFrameworkIds] = useState([]);
+  const [frameworkList, setFrameworkList] = useState([]);
+  const [controlIds, setcontrolIds] = useState([]);
+  const [controlList, setControlList] = useState([]);
+  const [doc_name, setDocName] = useState('');
+  const [doc_type, setDocType] = useState('');
+  const [docTypeList, setDocTypeList] = useState([])
+  const [additional_stakeholders, setAdditionalStakeholders] = useState([])
+  const [teams_id, setTeamIds] = useState([])
+  const [teamList, setTeamList] = useState([])
+  const [documentStatusList, setDocumentStatusList] = useState([])
+  const [documentStatusIds, setDocumentStatusIds] = useState('')
+  const [document_approver, setDocumentApprover] = useState('');
+  const [user_list, setUserList] = useState([]);
+  const [creationDate, setCreationDate] = useState('');
+  const [lastReviewDate, setLastReviewDate] = useState('');
+  const [review_frequency, setReviewFrequency] = useState('');
+  const [next_review_date, setNextReviewDate] = useState('');
+  const [approval_date, setApprovalDate] = useState('');
 
   const dispatch = useDispatch()
 
   //!fetch Documents
   useEffect(() => {
-    getDocument(() => {}, setAllDoc)
-    console.log('getDocs:', doc)
-  }, [])
+    getCategoryData(9, () => {}, setDocTypeList);
+    setDocId(router.query.keyword);
+    getDocumentById(router.query.keyword,() => {}, (response) => {
+      const doc_obj = response.data;
+      console.log("doc_obj res:", doc_obj);
+      setDocumentObject(doc_obj);
+      setDocType(doc_obj.doc_type);
+      setDocName(doc_obj.doc_name);
+      setFrameworkIds(doc_obj.framework_ids);
+      setcontrolIds(doc_obj.control_ids);
+      setAdditionalStakeholders(doc_obj.additional_stakeholders);
+      setDocumentApprover(doc_obj.approver);
+      setTeamIds(doc_obj.teams_id);
+    });
 
-  //!editDocuments
-  useEffect(() => {
-    edit(() => {}, setEd)
+    getCategoryData(9, () => {}, setDocTypeList);
+    getCategoryData(10, () => {}, setDocumentStatusList);
+    fwa(() => {}, setFrameworkList);
+
+    let controlSuccessCallback = (response) => {
+      setControlList(response.data.controls);
+    }
+    getControlList(() => {}, controlSuccessCallback);
+
+    let teamSuccessCallback = (response) => {
+      setTeamList(response.data.users);
+    }
+    getTeams(() => {}, teamSuccessCallback);
+    getUsers(() => {}, (response) => { setUserList(response.data.users); });
+    console.log("document_object:", document_object);
   }, [])
 
   // ! to select docs
@@ -72,8 +121,6 @@ const EditDocument = () => {
       return data
     }, [data])
   })
-
-  const router = useRouter()
 
   const onSubmit = values => {
     dispatch(addRisk(values))
@@ -164,19 +211,17 @@ const EditDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
+                      value={doc_type}
                       fullWidth
                       label={'documenttype'}
-                      onChange={e => {
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setDocType(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''> None</MenuItem>
-                      <MenuItem value={ed?.data?.doc_type}>{ed?.data?.doc_type}</MenuItem>
+                      {docTypeList.map((item) => (item !== null ?
+                        <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />
@@ -190,7 +235,7 @@ const EditDocument = () => {
                   error={Boolean(errors.msg)}
                   htmlFor='validation-basic-select'
                 ></InputLabel>
-                <TextField type='text' label='DocumentName' value={ed?.data?.doc_name} />
+                <TextField type='text' label='DocumentName' value={doc_name} />
               </FormControl>
             </Grid>
             {/* end of Documetname */}
@@ -207,22 +252,19 @@ const EditDocument = () => {
                   defaultValue={data}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={value}
-                      // defaultValue={'Management'}
+                      multiple
+                      value={frameworkIds}
+                      defaultValue={''}
                       fullWidth
                       label={'FrameWorks'}
-                      onChange={e => {
-                        // setSelectedRisk(e.target.value)
-                        // onChange(e)
-                        setEdit(e.target.value)
-                        onChange(e)
-                      }}
+                      onChange={(e)=> setFrameworkIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value=''> None</MenuItem>
-                      <MenuItem value={ed?.data?.framework}> {ed?.data?.framework}</MenuItem>
+                      {frameworkList.map((item) => (item !== null ?
+                        <MenuItem value={item.id}>{item.framework_Name}</MenuItem>: ""
+                      ))}
                     </Select>
                   )}
                 />

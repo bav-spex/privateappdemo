@@ -18,7 +18,7 @@ import moment from "moment";
 //Third party imports
 import toast from 'react-hot-toast'
 
-const AddDocument = () => {
+const SaveDocument = () => {
   const data = useSelector(state => state.riskList)
   const router = useRouter();
   const dispatch = useDispatch();
@@ -528,4 +528,4 @@ const AddDocument = () => {
   )
 }
 
-export default AddDocument
+export default SaveDocument

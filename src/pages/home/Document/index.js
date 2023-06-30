@@ -43,7 +43,7 @@ import { useRouter } from 'next/router'
 
 // //*axios import
 
-import { getDocument } from 'src/pages/home/Document/DocService'
+import { getDocument, deleteDocument } from 'src/pages/home/Document/DocService'
 
 
 const useStyles = makeStyles({
@@ -71,7 +71,7 @@ const DocumentList = () => {
   //   theme.direction = i18n.dir();
   }
 
-  const fdelete = () => {
+  const fdelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -82,9 +82,14 @@ const DocumentList = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
-
-        Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
+        const successCallback = (response) => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+          getDocument(() => {}, setAll);
+        }
+        const errorCallback = (response) => {
+          Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
+        }
+        deleteDocument(id, errorCallback, successCallback);
       }
     })
   }
@@ -112,24 +117,21 @@ const DocumentList = () => {
   const [all, setAll] = useState([])
 
   const documentArray = all?.data?.controls
-  console.log('docArrray:', documentArray)
+  
+  const goToEdit = (id) => {
+    console.log("goToEdit in:", id);
+    router.push({
+      pathname: '/home/Document/SaveDocument/',
+      query: { keyword: id },
+    });
+    console.log("goToEdit out:", id);
+  }
 
   const columns = [
     { flex: 0.15, field: 'doc_name', headerName: t('Document Name'),
     renderCell: (params) => {
-      const handleRowClick = () => {
-        
-
-        console.log('framework row clicked');
-        const id = params.row.id;
-
-        router.push({
-          pathname: '/home/Document/Document_info',
-          query: { keyword: id },
-        });
-      };
       return (
-        <div onClick={handleRowClick}>
+        <div onClick={()=> goToEdit(params.row.doc_id)}>
           {params.value}
         </div>
       );
@@ -142,23 +144,18 @@ const DocumentList = () => {
     { flex: 0.15, field: 'status', headerName: t('Status') },
 
     {
-      filed: 'action',
+      field: 'action',
       headerName: t('Action'),
-      renderCell: ({ rows }) => {
+      renderCell: (params) => {
         return (
           <>
           {
             user_data.role=='admin'?
             <>
-            {Array.isArray(documentArray) &&
-              documentArray.map((r, i) =>
-                i == 0 ? (
-                  <IconButton sx={{ color: 'blue' }} onClick={openEdit}>
-                    <ModeEditIcon />
-                  </IconButton>
-                ) : null
-              )}
-            <IconButton sx={{ color: 'red' }} onClick={fdelete}>
+            <IconButton sx={{ color: 'blue' }} onClick={()=> goToEdit(params.row.doc_id)}>
+              <ModeEditIcon />
+            </IconButton>
+            <IconButton sx={{ color: 'red' }} onClick={()=> fdelete(params.row.doc_id)}>
               <DeleteIcon />
             </IconButton>
             </>
@@ -177,7 +174,7 @@ const DocumentList = () => {
   const [value, setValue] = useState('')
 
   const AddDoc = () => {
-    router.push('/home/Document/AddDocument')
+    router.push('/home/Document/SaveDocument')
   }
 
   const handleFilter = useCallback(val => {

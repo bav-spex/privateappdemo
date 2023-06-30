@@ -108,6 +108,8 @@ export default {
   Document: `${governance_base_url}/governance/v1/documents/getAll`,
   documentById: `${governance_base_url}/governance/v1/documents/id/`,
   create_document: `${governance_base_url}/governance/v1/documents/new`,
+  update_document: `${governance_base_url}/governance/v1/documents/update/`,
+  delete_document: `${governance_base_url}/governance/v1/documents/delete/`,
   // mitigation: `${mitigation_url}rmf/v1/risks/1/mitigation`,
   mitigation: `${mitigation_url}rmf/v1/risks/`,
   mitigation_effort: `${mitigation_effort_url}`,
