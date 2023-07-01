@@ -138,8 +138,7 @@ const EditRisk = () => {
             supportingdocumentation: "yes",
             team: team,
             additionalstakeholders: additional_stakeholders,
-            tag: tag,
-            //submissiondate: submissiondate
+            tag: tag
 
         })
         });
@@ -180,7 +179,6 @@ const EditRisk = () => {
     setOwner(data.data.owner);
     setManager(data.data.ownermanager);
     setTag(data.data.tag);
-    setSubmissiondate(data.data.submissiondate);
   }
 
   //!for selecting Risk
@@ -369,7 +367,6 @@ const EditRisk = () => {
 
   const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
 
-  const [submissiondate, setSubmissiondate] = useState('');
 
   const fetchRisk = (params, errorCallback, successCallback) => {
     axios
