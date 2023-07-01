@@ -111,7 +111,7 @@ const EditRisk = () => {
   const submit_risk= async()=>{
 
     const res= await fetch(`${authConfig.edit_risk}/${router.query.keyword}`, {
-        method:"POST",
+        method:"PUT",
           headers:{
               "Content-Type": "application/json"
           },
@@ -138,7 +138,8 @@ const EditRisk = () => {
             supportingdocumentation: "yes",
             team: team,
             additionalstakeholders: additional_stakeholders,
-            tag: tag
+            tag: tag,
+            //submissiondate: submissiondate
 
         })
         });
@@ -158,7 +159,7 @@ const EditRisk = () => {
     })
     const data= await res.json();
     console.log("specified risk data is", data);
-    set_subject(data.data.suject);
+    set_subject(data.data.subject);
     set_risk_mapping(data.data.riskmapping);
     set_threat_mapping(data.data.threatmapping);
     set_category(data.data.category);
@@ -179,6 +180,7 @@ const EditRisk = () => {
     setOwner(data.data.owner);
     setManager(data.data.ownermanager);
     setTag(data.data.tag);
+    setSubmissiondate(data.data.submissiondate);
   }
 
   //!for selecting Risk
@@ -367,6 +369,8 @@ const EditRisk = () => {
 
   const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
 
+  const [submissiondate, setSubmissiondate] = useState('');
+
   const fetchRisk = (params, errorCallback, successCallback) => {
     axios
       .get(authConfig.riskListEndPoint, `${params}`)
@@ -552,7 +556,7 @@ const EditRisk = () => {
                   >
                     <MenuItem value=''> None</MenuItem>
 
-                    <MenuItem value={allRisk.data?.suject}>{allRisk.data?.suject}</MenuItem>
+                    <MenuItem value={allRisk.data?.subject}>{allRisk.data?.subject}</MenuItem>
                   </Select>
                 )}
               /> */}
@@ -561,9 +565,9 @@ const EditRisk = () => {
                 // sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
-                name='suject'
+                name='subject'
                 label={t('Subject')}
-                // value={allRisk?.data?.suject}
+                // value={allRisk?.data?.subject}
                 value={subject}
                 onChange={(e)=> set_subject(e.target.value)}
                 //ends

@@ -115,7 +115,7 @@ const RiskList = () => {
         </div>
       );
     } },
-    { flex: 0.17, width: 50, field: 'suject', headerName: t('Name') },
+    { flex: 0.17, width: 50, field: 'subject', headerName: t('Name') },
     { flex: 0.06, minWidth: 25, field: 'inherentscore', headerName: t('Type') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     {

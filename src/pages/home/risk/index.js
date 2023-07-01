@@ -115,7 +115,7 @@ const RiskList = () => {
         </div>
       );
     } },
-    { flex: 0.15, width: 50, field: 'suject', headerName: t('Subject') },
+    { flex: 0.15, width: 50, field: 'subject', headerName: t('Subject') },
     { flex: 0.08, minWidth: 25, field: 'inherentscore', headerName: t('Inherent Score') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     {
@@ -168,25 +168,24 @@ const RiskList = () => {
       // width: 300,
       flex: 0.15,
       valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-      renderCell: ({ rows }) => {
+      renderCell: ({ row }) => {
         return (
           <>
           {
             user_data.role=='admin'?
             <>
-            {Array.isArray(risksArray) &&
-              risksArray.map((r, i) =>
-                i == 0 ? (
+            {
+                (
                   <>
-                  <IconButton onClick={()=>handleCreateClick(r.id)} sx={{ color: 'blue' }}>
+                  <IconButton onClick={()=>handleCreateClick(row.id)} sx={{ color: 'blue' }}>
                     <EditIcon titleAccess='Edit Risk' />
                   </IconButton>
-                  <IconButton onClick={()=>openMitigation(r.id)} sx={{ color: 'green' }}>
+                  <IconButton onClick={()=>openMitigation(row.id)} sx={{ color: 'green' }}>
                   <VerifiedUserIcon titleAccess='Plan Mitigate'/>
                 </IconButton>
                   </>
-                ) : null
-              )}
+                )
+              }
             {/* <IconButton onClick={openMitigation(r.id)} sx={{ color: 'green' }}>
               <ContactSupportIcon />
             </IconButton> */}
@@ -212,10 +211,16 @@ const RiskList = () => {
   // }));
 
   const rows2 = rows.map(row => {
-    const [day, month, year] = row.submissiondate.split('-');
+    //const [day, month, year] = row.submissiondate.split('-');
+    const dateObj = new Date(row.submissiondate); // Replace this with your actual Date object
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+
+    const submissiondate = `${year}-${month}-${day}`;
     return {
       ...row,
-      submissiondate: new Date(`${year}-${month}-${day}`)
+      submissiondate
     };
   });
 

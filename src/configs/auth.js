@@ -4,7 +4,7 @@ const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net'
 const common_base_url = 'https://common-dev-rakshitah.azurewebsites.net';
 const auth_base_url = 'https://iac-dev-rakshitah.azurewebsites.net'
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
-const risk_base_url = ' https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
+const risk_base_url = ' https://risk-dev-rakshitah.azurewebsites.net'
 const risk_category_url = `${common_base_url}/`;
 const risk_source_url = `${common_base_url}/`;
 const site_location_url = `${common_base_url}/`;
@@ -18,10 +18,10 @@ const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.i
 const risk_mapping_list_url = `${common_base_url}/lookup/v1/category/28`;
 const threat_mapping_list_url = `${common_base_url}/lookup/v1/category/29`;
 const regulation_dropdown_url = `${governance_base_url}/governance/v1/frameworks/getAll`
-const edit_risk_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks/update'
-const mitigation_url = ` https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
-const riskSave_url = `https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/`
-const savemitigation_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
+const edit_risk_url= `${risk_base_url}/rmf/v1/risks/update`
+const mitigation_url = ` ${risk_base_url}/`
+const riskSave_url = `${risk_base_url}/`
+const savemitigation_url = `${risk_base_url}/`
 const frameWork_src_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
@@ -37,10 +37,10 @@ const control_dropdown_url=`${common_base_url}/lookup/v1/category`;
 const test_list_url=`${compliance_base_url}/compliance/v1/test/get`;
 const category_list_url= `${common_base_url}/categories/v1/get`;
 const display_lookup_url= `${common_base_url}/lookup/v1/category`;
-const managmentReview_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
+const managmentReview_url = `${risk_base_url}/`
 const mitigation_effort_url = `${common_base_url}/lookup/v1/category/22`;
 const planning_strategy_url= `${common_base_url}/lookup/v1/category/21`;
-const mitigation_update_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/risk/1/mitigation/update'
+const mitigation_update_url= `${risk_base_url}/rmf/risk/1/mitigation/update`
 const speedometer_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
 const open_risk_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
 const edit_framework_url = `${governance_base_url}/governance/v1/frameworks/update`
@@ -54,7 +54,7 @@ const comment_list_url ='https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn
 const risk_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
 const add_test_url= `${compliance_base_url}/compliance/v1/test/new`
 const save_existing_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks'
-const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks'
+const fetch_existing_list_url= `${risk_base_url}/rmf/v1/risks`
 const audit_data_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/audits/test'
 const add_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new'
 const add_lookup_url= `${common_base_url}/lookup/v1/category`
@@ -78,7 +78,7 @@ export default {
   submitBatch: `${batch_base_url}/cohorts/v1/cohorts/`,
   batchList: `${batch_base_url}/cohorts/v1/`,
   // riskListEndPoint: `${risk_base_url}/rmf/v1/risks/id/`,
-  riskListEndPoint: `${risk_base_url}rmf/v1/risks/id`,
+  riskListEndPoint: `${risk_base_url}/rmf/v1/risks`,
   riskCategory: `${risk_category_url}lookup/v1/category/12`,
   // riskSource: `${risk_source_url}lookup/v1/category/12`,
   riskSource: `${risk_source_url}lookup/v1/category/13`,
@@ -95,7 +95,7 @@ export default {
   risk_mapping_list: `${risk_mapping_list_url}`,
   threat_mapping_list: `${threat_mapping_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
-  riskAll: `${risk_base_url}/rmf/v1/risks`,
+  riskAll: `${risk_base_url}/rmf/v1/risks/get`,
   auditAll: `${risk_base_url}/rmf/v1/audits`,
   // frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
   // frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,

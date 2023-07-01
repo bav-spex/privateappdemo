@@ -340,7 +340,7 @@ const RiskList = () => {
   // console.log('allrisk :', allRisk)
   const setSelectedRisk = value => {
     let riskArray = allRisk.data?.riskmapping?.filter(item => item.id == value)
-    if (riskArray.length) {
+    if (riskArray?.length) {
       setValue('risk', riskArray[0])
       setRisk(riskArray[0])
     } else {
@@ -493,7 +493,7 @@ const RiskList = () => {
                   >
                     <MenuItem value=''> None</MenuItem>
 
-                    <MenuItem value={allRisk.data?.suject}>{allRisk.data?.suject}</MenuItem>
+                    <MenuItem value={allRisk.data?.subject}>{allRisk.data?.subject}</MenuItem>
                   </Select>
                 )}
               /> */}
@@ -502,9 +502,9 @@ const RiskList = () => {
                 // sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
-                name='suject'
+                name='subject'
                 label={t('Subject')}
-                // value={allRisk?.data?.suject}
+                // value={allRisk?.data?.subject}
                 value={subject}
                 onChange={(e)=> set_subject(e.target.value)}
                 //ends
