@@ -108,7 +108,7 @@ function SimpleDialog(props) {
       >
           
           {available_risk_list.map((item) => (item !== null ?
-          <MenuItem value={item.id}>{item.suject}</MenuItem>: ""
+          <MenuItem value={item.id}>{item.subject}</MenuItem>: ""
           ))}
       </Select>
       </FormControl>

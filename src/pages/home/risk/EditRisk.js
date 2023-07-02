@@ -43,7 +43,7 @@ const NewRisk = () => {
     riskscoringmethod: 'none',
     risksource: 'none',
     site: 'none',
-    suject: '',
+    subject: '',
     supportingdocumentation: 'none',
     tag: 'none',
     team: 'none',
@@ -351,9 +351,9 @@ const NewRisk = () => {
                 sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
-                name='suject'
+                name='subject'
                 label='Subject'
-                // value={allRisk?.data?.suject}
+                // value={allRisk?.data?.subject}
                 value={subject}
                 onChange={(e)=> set_subject(e.target.value)}
                 placeholder='select a subject or start typing search ...'
@@ -373,7 +373,7 @@ const NewRisk = () => {
                 sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
-                name='suject'
+                name='subject'
                 label='RiskMapping'
                 // value={allRisk?.data?.riskmapping}
                 value={risk_mapping}
@@ -395,7 +395,7 @@ const NewRisk = () => {
                 sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
-                name='suject'
+                name='subject'
                 label='ThreatMapping'
                 // value={allRisk?.data?.threatmapping}
                 value={threat_mapping}

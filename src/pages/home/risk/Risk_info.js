@@ -116,7 +116,7 @@ const Risk_info = () => {
     })
     const data= await res.json();
     console.log("specified risk data is", data);
-    set_subject(data.data.suject);
+    set_subject(data.data.subject);
     set_risk_mapping(data.data.riskmapping);
     set_threat_mapping(data.data.threatmapping);
     set_category(data.data.category);
@@ -426,7 +426,7 @@ const Risk_info = () => {
                   >
                     <MenuItem value=''> None</MenuItem>
 
-                    <MenuItem value={allRisk.data?.suject}>{allRisk.data?.suject}</MenuItem>
+                    <MenuItem value={allRisk.data?.subject}>{allRisk.data?.subject}</MenuItem>
                   </Select>
                 )}
               /> */}
@@ -435,9 +435,9 @@ const Risk_info = () => {
                 // sx={{ p: 1.5 }}
                 type='text'
                 variant='outlined'
-                name='suject'
+                name='subject'
                 label={t('Subject')}
-                // value={allRisk?.data?.suject}
+                // value={allRisk?.data?.subject}
                 value={subject}
                 onChange={(e)=> set_subject(e.target.value)}
                 //ends
