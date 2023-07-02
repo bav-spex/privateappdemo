@@ -1,7 +1,8 @@
 // *Axios
 import axios from 'axios'
 //*config
-import authConfig from 'src/configs/auth'
+import authConfig from 'src/configs/auth';
+import moment from "moment";
 
 export  const getDocument = (errorCallback, successCallback) => {
   axios
@@ -129,6 +130,16 @@ export const deleteDocument = (id, errorCallback, successCallback) => {
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
+export const convertDateFormat = (date, date_format) => {
+  date_format = date_format || "YYYY-MM-DD";
+  try{
+    date = moment(date).format(date_format);
+  }catch(err){
+    console.log("MOMENT ERROR:", err);
+  }
+  return date;
 }
 
 export default getDocument;

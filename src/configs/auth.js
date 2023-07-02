@@ -26,15 +26,13 @@ const frameWork_src_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pst
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
-// const control_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance'
 const control_url=`${governance_base_url}/governance/v1/controls/get`
 const control_by_id_url=`${governance_base_url}/governance/v1/controls/id`
-// const control_new_url='https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/governance/v1/controls/new'
 const control_new_url=`${governance_base_url}/governance/v1/controls/new`
 const control_update_url=`${governance_base_url}/governance/v1/controls/update`
 const delete_control_url = `${governance_base_url}/governance/v1/controls/delete`
 const control_dropdown_url=`${common_base_url}/lookup/v1/category`;
-const test_list_url=`${compliance_base_url}/compliance/v1/test/get`;
+const get_tests_url=`${compliance_base_url}/compliance/v1/test/get`;
 const category_list_url= `${common_base_url}/categories/v1/get`;
 const display_lookup_url= `${common_base_url}/lookup/v1/category`;
 const managmentReview_url = 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/'
@@ -47,16 +45,16 @@ const edit_framework_url = `${governance_base_url}/governance/v1/frameworks/upda
 const delete_framework_url = `${governance_base_url}/governance/v1/frameworks/delete`
 const new_framework_url= `${governance_base_url}/governance/v1/frameworks/new`
 const audit_dropdown_url= `${common_base_url}/lookup/v1/category`;
-const fetch_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
-const edit_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/testresult/update'
-const add_comment_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/comments'
+const update_assessment_url= `${compliance_base_url}/compliance/v1/assessment/testresult/update`;
+const add_assessment_comment_url= `${compliance_base_url}/compliance/v1/assessment/testresult/comments`;
 const comment_list_url ='https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
 const risk_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
 const add_test_url= `${compliance_base_url}/compliance/v1/test/new`
 const save_existing_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks'
 const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks'
-const audit_data_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/governance/v1/complince/audits/test'
-const add_audit_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/new'
+const get_test_data_by_id_url=`${compliance_base_url}/compliance/v1/test/`;
+const add_assessment_url= `${compliance_base_url}/compliance/v1/assessment/new`;
+const get_assessment_url = `${compliance_base_url}/compliance/v1/assessment/`;
 const add_lookup_url= `${common_base_url}/lookup/v1/category`
 const edit_lookup_url= `${common_base_url}/lookup/v1/update`
 const test_url="http://localhost:8091/compliance/v1/test"
@@ -77,14 +75,11 @@ export default {
   getAllTeachers: `${batch_base_url}/users/v1?role=Teacher`,
   submitBatch: `${batch_base_url}/cohorts/v1/cohorts/`,
   batchList: `${batch_base_url}/cohorts/v1/`,
-  // riskListEndPoint: `${risk_base_url}/rmf/v1/risks/id/`,
   riskListEndPoint: `${risk_base_url}rmf/v1/risks/id`,
   riskCategory: `${risk_category_url}lookup/v1/category/12`,
-  // riskSource: `${risk_source_url}lookup/v1/category/12`,
   riskSource: `${risk_source_url}lookup/v1/category/13`,
   siteLocation: `${site_location_url}lookup/v1/category/14`,
   scoreRisk: `${risk_scoring_url}lookup/v1/category/15`,
-  // currentLike: `${current_likelihood_url}lookup/v1/category/16`,
   currentLike: `${current_likelihood_url}lookup/v1/category/16`,
   edit_risk: `${edit_risk_url}`,
   currentImpact: `${current_Impact_url}lookup/v1/category/17`,
@@ -97,11 +92,7 @@ export default {
   regulation_dropdown: `${regulation_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks`,
   auditAll: `${risk_base_url}/rmf/v1/audits`,
-  // frameWorkAllID: `${frameWorks_url_ID}/governance/v1/frameworks`,
-  // frameWorkAll: `${frameWorkAll_url}governance/v1/frameworks/getAll`,
-  // riskAll: `${risk_base_url}/rmf/v1/risks`,  
   frameWorkAll: `${governance_base_url}/governance/v1/frameworks/getAll`,
-  // frameWorkbyId: `${frameWork_src_url}governance/v1/frameworks/get/1`,
   frameWorkbyId: `${governance_base_url}/governance/v1/frameworks/get`,
   frameWork_new: `${governance_base_url}/governance/v1/frameworks/new/`,
   frameWork_update: `${governance_base_url}/governance/v1/frameworks/update/`,
@@ -110,7 +101,6 @@ export default {
   create_document: `${governance_base_url}/governance/v1/documents/new`,
   update_document: `${governance_base_url}/governance/v1/documents/update/`,
   delete_document: `${governance_base_url}/governance/v1/documents/delete/`,
-  // mitigation: `${mitigation_url}rmf/v1/risks/1/mitigation`,
   mitigation: `${mitigation_url}rmf/v1/risks/`,
   mitigation_effort: `${mitigation_effort_url}`,
   planning_strategy: `${planning_strategy_url}`,
@@ -120,7 +110,7 @@ export default {
   controlList:`${control_url}`,
   control_by_id: `${control_by_id_url}`,
   control_dropdown: `${control_dropdown_url}`,
-  test_list: `${test_list_url}`,
+  get_tests: `${get_tests_url}`,
   category_list: category_list_url,
   display_lookup: display_lookup_url,
   SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
@@ -133,16 +123,16 @@ export default {
   delete_framework: delete_framework_url,
   new_framework: `${new_framework_url}`,
   audit_dropdown: `${audit_dropdown_url}`,
-  edit_audit: `${edit_audit_url}`,
-  fetch_audit: `${fetch_audit_url}`,
-  add_comment: `${add_comment_url}`,
-  comment_list: `${comment_list_url}`,
+  update_assessment: `${update_assessment_url}`,
+  get_assessment_by_id: `${get_assessment_url}`,
+  add_assessment_comment: `${add_assessment_comment_url}`,
+  comment_list: comment_list_url,
   risk_list: `${risk_list_url}`,
   add_test: `${add_test_url}`,
   save_existing_list: `${save_existing_list_url}`,
   fetch_existing_list: `${fetch_existing_list_url}`,
-  audit_data: `${audit_data_url}`,
-  add_audit: `${add_audit_url}`,
+  get_test_data_by_id: `${get_test_data_by_id_url}`,
+  add_assessment: `${add_assessment_url}`,
   control_update: `${control_update_url}`,
   add_lookup: `${add_lookup_url}`,
   edit_lookup: `${edit_lookup_url}`,

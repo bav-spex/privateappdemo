@@ -9,11 +9,10 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
-import { createDocument, updateDocument, getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService';
+import { createDocument, updateDocument, getCategoryData, getTeams, getUsers, getDocumentById, convertDateFormat } from 'src/pages/home/Document/DocService';
 import { fwa } from 'src/pages/home/framework/frameworkService';
 import { getControlList } from 'src/pages/home/governance/controls/controlService';
 import { useRouter } from 'next/router';
-import moment from "moment";
 
 //Third party imports
 import toast from 'react-hot-toast'
@@ -46,15 +45,6 @@ const AddDocument = () => {
   const [next_review_date, setNextReviewDate] = useState('');
   const [approval_date, setApprovalDate] = useState('');
 
-  const convertDateFormat = (date, date_format) => {
-    date_format = date_format || "YYYY-MM-DD";
-    try{
-      date = moment(date).format(date_format);
-    }catch(err){
-      console.log("MOMENT ERROR:", err);
-    }
-    return date;
-  }
   //!fetch Documents
   useEffect(() => {
     /* For Edit document start */

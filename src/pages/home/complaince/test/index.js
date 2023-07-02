@@ -33,6 +33,9 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next';
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles';
+import { createAssessment, getTestAssessments, getTests } from 'src/pages/home/complaince/test/complaince_service';
+import { getUsers, getTeams } from 'src/pages/home/Document/DocService';
+
 
 function createData(id, test_name, additional_stakeholders, tags, test_frequency, last_test_date, next_test_date, approximate_time) {
   return {
@@ -60,9 +63,9 @@ function createData(id, test_name, additional_stakeholders, tags, test_frequency
 }
 
 function Row(props) {
-  const { row } = props;
+  const { row, team_dict, user_dict } = props;
   const [open, setOpen] = useState(false);
-
+  
   const router = useRouter();
 
   const user_data=JSON.parse(localStorage.getItem('userData'));
@@ -70,7 +73,6 @@ function Row(props) {
 
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  // document.body.dir = i18n.dir();
 
   const changeLanguage = (lng) => { 
     i18n.changeLanguage(lng)
@@ -81,20 +83,16 @@ function Row(props) {
 
   const [audit_data, set_audit_data]= useState([]);
 
-  const open_dropdown = async(para)=>{
-
+  const open_assessments = async(id)=>{
     if(!open)
     {
-      const res = await fetch(`${auth.audit_data}/${para}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        }
-      });
-      const data = await res.json();
-      set_audit_data(data.data);
-      console.log("audit list is");
-      console.log(data);
+      let successCallback = (response) => {
+        set_audit_data(response.data);
+      }
+      let errorCallback = (response) => {
+        toast.error("Something went wrong");
+      }
+      getTestAssessments(id, errorCallback, successCallback);
     }
     setOpen(!open)
   }
@@ -107,52 +105,35 @@ function Row(props) {
   });
   }
 
-  const handleAddAudit= async(id)=>{
-
-
-    const res = await fetch(`${auth.add_audit}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-
-          test_id: id
-        })
-      });
-      const data = await res.json();
-      console.log("add audit result is");
-      console.log(data);
-      open_dropdown(id);
+  const createAudit = (id) => {
+    let request_data = JSON.stringify({
+      test_id: id
+    });
+    let successCallback = (response) => {
+      open_assessments(id);
       toast.success("Audit added successfully");
-  //   router.push({
-  //     pathname: '/home/complaince/test/add_audit',
-  //     query: { keyword: id },
-  // });
+    }
+    let errorCallback = (response) => {
+      toast.error("Something went wrong.");
+    }
+    createAssessment(request_data, errorCallback, successCallback);  
   }
 
   const handleEditAudit= async(id)=>{
-
-
     router.push({
-      pathname: '/home/complaince/test/edit_audit',
+      pathname: '/home/complaince/test/edit_assessment',
       query: { keyword: id },
   });
   }
 
   const handleAddRisk= async(id)=>{
-
-
     router.push({
       pathname: '/home/complaince/test/add_risk',
       query: { keyword: id },
   });
   }
 
-
   const handleAddComments= async(id)=>{
-
-
     router.push({
       pathname: '/home/complaince/test/add_comment',
       query: { keyword: id },
@@ -182,7 +163,7 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => open_dropdown(row.testid) }
+            onClick={() => open_assessments(row.testid) }
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
@@ -208,7 +189,7 @@ function Row(props) {
             <IconButton onClick={()=> handleEditClick(r.testid)} sx={{ color: 'red' }}>
             <DeleteIcon titleAccess='Delete Test'/>
           </IconButton>
-          <IconButton onClick={()=> handleAddAudit(row.testid)} sx={{ color: 'blue' }}>
+          <IconButton onClick={()=> createAudit(row.testid)} sx={{ color: 'blue' }}>
             <AddIcon titleAccess='Add Assesment'/>
           </IconButton>
       </>
@@ -238,23 +219,23 @@ function Row(props) {
                 <TableBody>
                   {audit_data.map((item) => (
                     <TableRow>
-                      <TableCell component="th" scope="row" onClick={()=> {handleRowClick(item.auditid)}}>
-                        {item.auditid}
+                      <TableCell component="th" scope="row" onClick={()=> {handleRowClick(item.assessmentid)}}>
+                        {item.assessmentid}
                       </TableCell>
-                      <TableCell>{item.additionalstakeholders[0]}</TableCell>
+                      <TableCell>{item.additionalstakeholders.map((row) => ( user_dict[row] ))}</TableCell>
                       <TableCell align="right">{item.framework}</TableCell>
                       <TableCell align="right">{item.testname}</TableCell>
-                      <TableCell align="right">{item.teams[0]}</TableCell>
+                      <TableCell align="right">{item.teams.map((row) => ( team_dict[row] ))}</TableCell>
                       <TableCell align="right">{item.testdate}</TableCell>
                       <TableCell align="right">
                       <IconButton sx={{ color: 'green' }}>
-                        <EditIcon titleAccess='Edit Audit' onClick={()=> handleEditAudit(item.auditid)}/>
+                        <EditIcon titleAccess='Edit Audit' onClick={()=> handleEditAudit(item.assessmentid)}/>
                       </IconButton>
                       <IconButton sx={{ color: 'blue' }}>
-                        <AddCommentIcon titleAccess='Add comment' onClick={()=> handleAddComments(item.auditid)}/>
+                        <AddCommentIcon titleAccess='Add comment' onClick={()=> handleAddComments(item.assessmentid)}/>
                       </IconButton>
                       <IconButton sx={{ color: 'green' }}>
-                        <AddIcon titleAccess='Add Risk' onClick={()=> handleAddRisk(item.auditid)}/>
+                        <AddIcon titleAccess='Add Risk' onClick={()=> handleAddRisk(item.assessmentid)}/>
                       </IconButton>
                       </TableCell>
                     </TableRow>
@@ -299,7 +280,8 @@ const rows = [
 export default function CollapsibleTable() {
 
   const [test_list, set_test_list]= useState([]);
-
+  const [user_dict, setUserDict] = useState([]);
+  const [team_dict, setTeamDict] = useState([]);
   const router = useRouter();
 
   const user_data=JSON.parse(localStorage.getItem('userData'));
@@ -321,21 +303,36 @@ export default function CollapsibleTable() {
     router.push('/home/complaince/test/add_test');
   }
 
-  const fetch_test_list = async () => {
-    const res = await fetch(`${auth.test_list}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-    const data = await res.json();
-    set_test_list(data.data);
-    console.log("test list is");
-    console.log(data);
+  const fetch_test_list = () => {
+    let successCallback = (response) => {
+      set_test_list(response.data);
+    }
+    let errorCallback = (response) => {
+      toast.error("Something went wrong.");
+    }
+    getTests(errorCallback, successCallback);
   };
   
   useEffect(() => {
     fetch_test_list();
+
+    let successCallback = (response) => {
+      let userdict = {};
+      response.data.users.map((row) => {
+        userdict[row.id] = row.name;
+      });
+      setUserDict(userdict);
+    }
+    getUsers(() => {}, successCallback);
+
+    let getTeamsSuccessCallback = (response) => {
+      let d = {};
+      response.data.users.map((row) => {
+        d[row.id] = row.name;
+      });
+      setTeamDict(d);
+    }
+    getTeams(() => {}, getTeamsSuccessCallback);
   }, []);
 
 
@@ -416,7 +413,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {test_list.map((row) => (
-            <Row row={row} />
+            <Row row={row} team_dict={team_dict} user_dict={user_dict}/>
           ))}
         </TableBody>
       </Table>
