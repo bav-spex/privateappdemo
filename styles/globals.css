@@ -117,7 +117,7 @@ code[class*='language-'] {
 /* New theme CSS here */
 :root {
   --primary__color: #060056;
-  --secondary__color: #ecadaa;
+  --secondary__color: #d9b3b1;/*  #ecadaa; */
   --tertiary__color: #b7e4f9; 
 }
 .MuiButtonBase-root.MuiButton-root, .MuiButtonBase-root.MuiButton-root:hover{
@@ -138,7 +138,7 @@ code[class*='language-'] {
   border-color: var(--primary__color);
 }
 /* left sidebar */
-.MuiDrawer-root .MuiDrawer-paper {
+.MuiDrawer-paperAnchorDockedLeft {
   background-color: var(--primary__color);
 }
 .MuiDrawer-root .MuiTypography-root, .MuiDrawer-root svg{
@@ -177,7 +177,7 @@ code[class*='language-'] {
   background-color: #aaa4d2
 }
 .layout-page-content .MuiPaper-root{
-  background-color: #b9e6fd;
+  background-color: #f3f8f9;
 }
 
 /* grid table */

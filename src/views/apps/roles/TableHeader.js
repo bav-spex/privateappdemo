@@ -29,17 +29,19 @@ import { useTheme } from '@material-ui/core/styles';
 
 const TableHeader = props => {
   // ** Props
-  const { plan, handlePlanChange, handleFilter, value } = props;
+  const { plan, handlePlanChange, handleFilter, value, saveUser } = props;
 
   const { t, i18n } = useTranslation();
-const theme = useTheme();
+  const theme = useTheme();
 
-  const [full_name, set_full_name]= useState('');
-  const [username, set_username]= useState('');
-  const [email, set_email]= useState('');
-  const [role, set_role]= useState('');
-  const [contact, set_contact]= useState('');
-  const [address, set_address]= useState('');
+  const [full_name, set_full_name] = useState('');
+  const [username, set_username] = useState('');
+  const [email, set_email] = useState('');
+  const [password, setPass] = useState('');
+
+  const [role, set_role] = useState('');
+  const [contact, set_contact] = useState('');
+  const [address, set_address] = useState('');
 
   const [state, setState] = useState({
     top: false,
@@ -47,102 +49,123 @@ const theme = useTheme();
     bottom: false,
     right: false,
   });
-  
+
+  const collectData = () => {
+    let data = {
+      'fullName': full_name,
+      'username': username,
+      'email': email,
+      'role': role,
+      'address': address,
+      'password': password,
+
+      "teams": [
+        0
+      ]
+    }
+
+    saveUser(data);
+  }
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-  
+
     setState({ ...state, [anchor]: open });
   };
 
-  const save_user = async()=>{
 
-    console.log("user saved");
-  }
-  
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 350 }}
+      sx={ { width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 350 } }
       role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
-      // onKeyDown={toggleDrawer(anchor, false)}
+    // onClick={toggleDrawer(anchor, false)}
+    // onKeyDown={toggleDrawer(anchor, false)}
     >
-    <h2 style={{textAlign: 'center'}}>{t('Add User Details')}</h2>
-    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginTop: 40, marginLeft: 20, marginRight: 20}}>
-      <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Full Name')} value={full_name} onChange={(e)=> set_full_name(e.target.value)} variant="outlined" />
-      </FormControl>
-    </div>
-
-    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
-      <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Username')} value={username} onChange={(e)=> set_username(e.target.value)} variant="outlined" />
-      </FormControl>
-    </div>
-
-    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
-      <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Email')} value={email} onChange={(e)=> set_email(e.target.value)} variant="outlined" />
-      </FormControl>
-    </div>
-
-    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">{t('Select Role')}</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label={t('Select Role')}
-          value={role} onChange={(e)=> set_role(e.target.value)}
-        >
-        </Select>
-      </FormControl>
+      <h2 style={ { textAlign: 'center' } }>{ t('Add User Details') }</h2>
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginTop: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={ t('Full Name') } value={ full_name } onChange={ (e) => set_full_name(e.target.value) } variant="outlined" />
+        </FormControl>
       </div>
 
-    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
-      <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Contact')} value={contact} onChange={(e)=> set_contact(e.target.value)} variant="outlined" />
-      </FormControl>
-    </div>
-
-    
-
-      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20}}>
-      <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Address')} value={address} onChange={(e)=> set_address(e.target.value)} variant="outlined" />
-      </FormControl>
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={ t('Username') } value={ username } onChange={ (e) => set_username(e.target.value) } variant="outlined" />
+        </FormControl>
       </div>
-      <div style={{display: 'flex', justifyContent: 'space-around'}}>
-      <Button variant='contained' onClick={toggleDrawer(anchor, false)} sx={{width: '40%'}}>{t('Cancel')}</Button>
-      <Button variant='contained' sx={{width: '40%'}} onClick={()=> save_user()}>{t('Save')}</Button>
+
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={ t('Email') } value={ email } onChange={ (e) => set_email(e.target.value) } variant="outlined" />
+        </FormControl>
+      </div>
+
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={ t('Password') } value={ password } onChange={ (e) => setPass(e.target.value) } variant="outlined" />
+        </FormControl>
+      </div>
+
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">{ t('Select Role') }</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label={ t('Select Role') }
+            value={ role } onChange={ (e) => set_role(e.target.value) }
+          >
+            <MenuItem value={ 'user' }>User</MenuItem>
+            <MenuItem value={ 'admin' }>Admin</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={ t('Contact') } value={ contact } onChange={ (e) => set_contact(e.target.value) } variant="outlined" />
+        </FormControl>
+      </div>
+
+
+
+      <div style={ { display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 } }>
+        <FormControl fullWidth>
+          <TextField id="outlined-basic" label={ t('Address') } value={ address } onChange={ (e) => set_address(e.target.value) } variant="outlined" />
+        </FormControl>
+      </div>
+      <div style={ { display: 'flex', justifyContent: 'space-around' } }>
+        <Button variant='contained' onClick={ toggleDrawer(anchor, false) } sx={ { width: '40%' } }>{ t('Cancel') }</Button>
+        <Button variant='contained' sx={ { width: '40%' } } onClick={ (e) => collectData() }>{ t('Save') }</Button>
       </div>
     </Box>
   );
 
 
   return (
-    <Box sx={{ p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Button sx={{ mr: 4, mb: 2 }} color='secondary' variant='outlined' startIcon={<Icon icon='mdi:export-variant' />}>
-      {t('Export')}
+    <Box sx={ { p: 5, pb: 3, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' } }>
+      <Button sx={ { mr: 4, mb: 2 } } color='secondary' variant='outlined' startIcon={ <Icon icon='mdi:export-variant' /> }>
+        { t('Export') }
       </Button>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+      <Box sx={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }>
         <TextField
           size='small'
-          value={value}
+          value={ value }
           placeholder='Search User'
-          sx={{ mr: 4, mb: 2 }}
-          onChange={e => handleFilter(e.target.value)}
+          sx={ { mr: 4, mb: 2 } }
+          onChange={ e => handleFilter(e.target.value) }
         />
-        <FormControl size='small' sx={{ mb: 2 }}>
-        <Button variant='contained' onClick={toggleDrawer('right', true)}>{t('Add User')}</Button>
-        <Drawer
-                anchor={'right'}
-                open={state['right']}
-                onClose={toggleDrawer('right', false)}
-              >
-                {list('right')}
-        </Drawer>
+        <FormControl size='small' sx={ { mb: 2 } }>
+          <Button variant='contained' onClick={ toggleDrawer('right', true) }>{ t('Add User') }</Button>
+          <Drawer
+            anchor={ 'right' }
+            open={ state['right'] }
+            onClose={ toggleDrawer('right', false) }
+          >
+            { list('right') }
+          </Drawer>
         </FormControl>
       </Box>
     </Box>
