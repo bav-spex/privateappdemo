@@ -58,6 +58,21 @@ export const getTestAssessments = (id, errorCallback, successCallback) => {
       .catch(err => (errorCallback ? errorCallback(err) : null))
 }
 
+export const getTestById = (id, errorCallback, successCallback) => {
+    axios
+      .get(authConfig.get_test_data_by_id + id +'/get')
+      .then(res => {
+        if (res?.data?.error?.msg) {
+          console.log('getTestById error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
+        } else {
+          console.log('getTestById success:', res.data)
+          successCallback(res.data)
+        }
+      })
+      .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
 export const getAssessmentById = (id, action, errorCallback, successCallback) => {
 axios
     .get(authConfig.get_assessment_by_id + id +'/testresult/' + action)
@@ -106,4 +121,42 @@ export const addComment = (params, errorCallback, successCallback) => {
         }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
+export const createTest = (params, errorCallback, successCallback) => {
+    axios
+        .post(authConfig.add_test, params, {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (res?.data?.error?.msg) {
+            console.log('createTest error:', res.data)
+            if (errorCallback) errorCallback(res.data.error.msg)
+            } else {
+            console.log('createTest success:', res.data)
+            successCallback(res.data)
+            }
+        })
+        .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
+export const updateTest = (id, params, errorCallback, successCallback) => {
+    axios
+        .post(authConfig.update_test + id, params, {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (res?.data?.error?.msg) {
+            console.log('updateTest error:', res.data)
+            if (errorCallback) errorCallback(res.data.error.msg)
+            } else {
+            console.log('updateTest success:', res.data)
+            successCallback(res.data)
+            }
+        })
+        .catch(err => (errorCallback ? errorCallback(err) : null))
 }

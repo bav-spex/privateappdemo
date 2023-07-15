@@ -98,9 +98,8 @@ function Row(props) {
   }
 
   const handleEditTest= (id)=>{
-
     router.push({
-      pathname: '/home/complaince/test/edit_test',
+      pathname: '/home/complaince/test/save_test',
       query: { keyword: id },
   });
   }
@@ -172,8 +171,8 @@ function Row(props) {
           {row.testid}
         </TableCell>
         <TableCell align="right">{row.testname}</TableCell>
-        <TableCell align="right">{row.tester[0]}</TableCell>
-        <TableCell align="right">{row.additionalstakeholders[0]}</TableCell>
+        <TableCell align="right">{row.testers.map((row) => ( user_dict[row] ))}</TableCell>
+        <TableCell align="right">{row.additionalstakeholders.map((row) => ( user_dict[row] ))}</TableCell>
         <TableCell align="right">{row.tags}</TableCell>
         <TableCell align="right">{row.testfrequency}</TableCell>
         <TableCell align="right">{row.lasttestdate}</TableCell>
@@ -297,10 +296,8 @@ export default function CollapsibleTable() {
   //   theme.direction = i18n.dir();
   }
 
-
-  const addTest = (id) => {
-    // router.push(`/home/governance/controls/edit_control/${id}`);
-    router.push('/home/complaince/test/add_test');
+  const saveTest = () => {
+    router.push('/home/complaince/test/save_test');
   }
 
   const fetch_test_list = () => {
@@ -345,7 +342,7 @@ export default function CollapsibleTable() {
           <ToastContainer />
           {
             user_data.role=='admin'?
-          <Button variant='contained' onClick={addTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>
+          <Button variant='contained' onClick={saveTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>
           {t('Add Test')}
           </Button>
           : ''
