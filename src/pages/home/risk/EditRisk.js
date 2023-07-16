@@ -51,18 +51,16 @@ const NewRisk = () => {
     threatmapping: 'none'
   })
 
-  const fetch_risk_by_id= async()=>{
-
-    const res= await fetch(`${authConfig.riskListEndPoint}/${router.query.keyword}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          },
+  const fetch_risk_by_id = async () => {
+    const res = await fetch(`${authConfig.riskListEndPoint}/${router.query.keyword}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-    const data= await res.json();
-    console.log("specified risk data is", data);
+    const data = await res.json()
+    console.log('specified risk data is', data)
   }
-
 
   const data = useSelector(addRisk)
   console.log('newData :', data)
@@ -74,9 +72,8 @@ const NewRisk = () => {
   // }, [])
 
   useEffect(() => {
-   fetch_risk_by_id();
+    fetch_risk_by_id()
   }, [])
-
 
   //!to fetch categories
   useEffect(() => {
@@ -142,35 +139,35 @@ const NewRisk = () => {
   const [aassets, setAssets] = useState({})
   const [assetsList, setAssetsList] = useState([])
   const [tech, setTech] = useState({})
-  const [techList, setTechList] = useState([]);
+  const [techList, setTechList] = useState([])
 
   const [ownerList, setOwnerList] = useState([])
-  const [teamList, setTeamList] = useState([]);
+  const [teamList, setTeamList] = useState([])
 
-  const [team, setTeam] = useState([]);
-  const [additional_stakeholders, set_additional_stakeholders] = useState([]);
+  const [team, setTeam] = useState([])
+  const [additional_stakeholders, set_additional_stakeholders] = useState([])
 
-  const [subject, set_subject]= useState('');
+  const [subject, set_subject] = useState('')
 
-  const [reference_id, set_refernce_id]= useState('');
-  const [regulation, set_regulation]= useState('');
-  const [control_number, set_control_number]= useState('');
-  const [owner, setOwner]= useState('');
-  const [manager, setManager]= useState('');
-  const [assessment, set_assessment]= useState('');
-  const [tag, setTag]= useState('');
-  const [additional_notes, set_additional_notes]= useState('');
-  const [category_ ,set_category]= useState('');
-  const [current_impact ,set_current_impact]= useState('');
-  const [current_likelihood ,set_current_likelihood]= useState('');
+  const [reference_id, set_refernce_id] = useState('')
+  const [regulation, set_regulation] = useState('')
+  const [control_number, set_control_number] = useState('')
+  const [owner, setOwner] = useState('')
+  const [manager, setManager] = useState('')
+  const [assessment, set_assessment] = useState('')
+  const [tag, setTag] = useState('')
+  const [additional_notes, set_additional_notes] = useState('')
+  const [category_, set_category] = useState('')
+  const [current_impact, set_current_impact] = useState('')
+  const [current_likelihood, set_current_likelihood] = useState('')
 
-  const [risk_dropdown ,set_risk_dropdown]= useState([]);
-  const [risk_mapping ,set_risk_mapping]= useState([]);
+  const [risk_dropdown, set_risk_dropdown] = useState([])
+  const [risk_mapping, set_risk_mapping] = useState([])
 
-  const [threat_dropdown ,set_threat_dropdown]= useState([]);
-  const [threat_mapping ,set_threat_mapping]= useState([]);
+  const [threat_dropdown, set_threat_dropdown] = useState([])
+  const [threat_mapping, set_threat_mapping] = useState([])
 
-  const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
+  const [regulation_dropdown, set_regulation_dropdown] = useState([])
 
   //! to select categories
   const setCatRisk = value => {
@@ -355,7 +352,7 @@ const NewRisk = () => {
                 label='Subject'
                 // value={allRisk?.data?.subject}
                 value={subject}
-                onChange={(e)=> set_subject(e.target.value)}
+                onChange={e => set_subject(e.target.value)}
                 placeholder='select a subject or start typing search ...'
               />
             </FormControl>
@@ -377,7 +374,7 @@ const NewRisk = () => {
                 label='RiskMapping'
                 // value={allRisk?.data?.riskmapping}
                 value={risk_mapping}
-                onChange={(e)=> set_risk_mapping(e.target.value)}
+                onChange={e => set_risk_mapping(e.target.value)}
                 placeholder='select a subject or start typing search ...'
               />
             </FormControl>
@@ -399,7 +396,7 @@ const NewRisk = () => {
                 label='ThreatMapping'
                 // value={allRisk?.data?.threatmapping}
                 value={threat_mapping}
-                onChange={(e)=> set_threat_mapping(e.target.value)}
+                onChange={e => set_threat_mapping(e.target.value)}
                 placeholder='select a subject or start typing search ...'
               />
             </FormControl>
@@ -631,7 +628,13 @@ const NewRisk = () => {
                   External Refrence Id is must
                 </FormHelperText>
               )}
-              <TextField type='number' variant='outlined' label='Control Number' value={control_number} onChange={(e)=> set_control_number(e.target.value)}/>
+              <TextField
+                type='number'
+                variant='outlined'
+                label='Control Number'
+                value={control_number}
+                onChange={e => set_control_number(e.target.value)}
+              />
             </FormControl>
           </Grid>
           {/* //end of externalreferenceid */}
@@ -658,7 +661,7 @@ const NewRisk = () => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
                       selectCurrent(e.target.value)
-                      set_current_likelihood(e.target.value);
+                      set_current_likelihood(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}

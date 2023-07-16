@@ -100,7 +100,6 @@ const schema = yup.object().shape({
   password: yup.string().min(5).required()
 })
 
-
 const defaultValues = {
   password: 'admin',
   email: 'admin@materio.com'
@@ -108,7 +107,7 @@ const defaultValues = {
 
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(true)
-  const [showPassword, setShowPassword] = useState(false)  
+  const [showPassword, setShowPassword] = useState(false)
 
   // ** Hooks
   const auth = useAuth()
@@ -133,7 +132,11 @@ const LoginPage = () => {
 
   const onSubmit = data => {
     const { email, password } = data
-    const authParams = { email: data.email , password : data.password , rememberMe: event.target.children[2].children[0].children[0].children[0].checked}      
+    const authParams = {
+      email: data.email,
+      password: data.password,
+      rememberMe: event.target.children[2].children[0].children[0].children[0].checked
+    }
     auth.login(authParams, () => {
       setError('email', {
         type: 'manual',
@@ -177,7 +180,7 @@ const LoginPage = () => {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-            >                         
+            >
               <Typography
                 variant='h6'
                 sx={{
@@ -194,7 +197,7 @@ const LoginPage = () => {
             <Box sx={{ mb: 6 }}>
               <TypographyStyled variant='h5'>Welcome to {themeConfig.templateName}! 👋🏻</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
-            </Box>            
+            </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller

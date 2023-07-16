@@ -127,8 +127,7 @@ const Document_info = () => {
           xs={12}
           md={4}
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
-        >
-        </Grid>
+        ></Grid>
       </div>
 
       <Divider />
@@ -177,7 +176,7 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* end of Document Type  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel
                   id='validation-basic-select'
@@ -188,7 +187,7 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* end of Documetname */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   FrameWorks
@@ -224,7 +223,7 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* end of FrameWorks  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -258,7 +257,7 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* //end of controls  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Additional Stakeholders:
@@ -294,7 +293,7 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* //end of AdditionalStakeHolders */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -328,7 +327,7 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* end of Document owner*/}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Team
@@ -363,50 +362,56 @@ const Document_info = () => {
               </FormControl>
               {/* end of Team  */}
             </Grid>
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
                 </InputLabel>
 
-                <TextField type='text' label='creationDate' value={ed?.data?.creation_date} disabled={true}/>
+                <TextField type='text' label='creationDate' value={ed?.data?.creation_date} disabled={true} />
               </FormControl>
               {/* end of creationDate  */}
             </Grid>
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <TextField type='text' variant='outlined' label='LastReview' value={ed?.data?.last__review_date} />
               </FormControl>
             </Grid>
             {/* end of Last Review */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Review Frequency
                 </InputLabel>
 
-                <TextField type='number' variant='outlined' label='ReviewFrequency in Days' disabled={true}/>
+                <TextField type='number' variant='outlined' label='ReviewFrequency in Days' disabled={true} />
               </FormControl>
             </Grid>
             {/* end of Review Frequency */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
                   {/* Next Review Dates */}
                 </InputLabel>
 
-                <TextField type='type' label='Next Review Dates' value={ed?.data?.next__review_date} disabled={true}/>
+                <TextField type='type' label='Next Review Dates' value={ed?.data?.next__review_date} disabled={true} />
               </FormControl>
             </Grid>
             {/* end of next review Dates*/}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {/* ApprovalDate  */}
                 </InputLabel>
 
-                <TextField type='text' variant='outlined' label='ApprovalDate' value={ed?.data?.approval_date} disabled={true}/>
+                <TextField
+                  type='text'
+                  variant='outlined'
+                  label='ApprovalDate'
+                  value={ed?.data?.approval_date}
+                  disabled={true}
+                />
               </FormControl>
             </Grid>
             {/* // end of ApprovalDate */}
@@ -447,7 +452,7 @@ const Document_info = () => {
             </Grid> */}
 
             {/* end of parent Document  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Document Status
@@ -479,12 +484,12 @@ const Document_info = () => {
               </FormControl>
             </Grid>
             {/* end of Documen Status */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%', marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%', marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   File
                 </InputLabel>
-                <TextField type='file' disabled={true}/>
+                <TextField type='file' disabled={true} />
               </FormControl>
             </Grid>
           </Grid>

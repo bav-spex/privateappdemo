@@ -23,12 +23,11 @@ import Select from '@mui/material/Select'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Swal from 'sweetalert2'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
-
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles'
 
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -45,33 +44,31 @@ import { useRouter } from 'next/router'
 
 import { getDocument, deleteDocument } from 'src/pages/home/Document/DocService'
 
-
 const useStyles = makeStyles({
   customBackground: {
-    backgroundColor: 'white', // Replace with your desired background color
-  },
-});
-
+    backgroundColor: 'white' // Replace with your desired background color
+  }
+})
 
 const DocumentList = () => {
   const dispatch = useDispatch()
 
-  const user_data=JSON.parse(localStorage.getItem('userData'));
-  console.log("userdata is", user_data);
+  const user_data = JSON.parse(localStorage.getItem('userData'))
+  console.log('userdata is', user_data)
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
   // document.body.dir = i18n.dir();
 
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const changeLanguage = (lng) => { 
+  const changeLanguage = lng => {
     i18n.changeLanguage(lng)
-  //   document.body.dir = i18n.dir();
-  //   theme.direction = i18n.dir();
+    //   document.body.dir = i18n.dir();
+    //   theme.direction = i18n.dir();
   }
 
-  const fdelete = (id) => {
+  const fdelete = id => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -82,14 +79,14 @@ const DocumentList = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        const successCallback = (response) => {
-          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
-          getDocument(() => {}, setAll);
+        const successCallback = response => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
+          getDocument(() => {}, setAll)
         }
-        const errorCallback = (response) => {
+        const errorCallback = response => {
           Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
         }
-        deleteDocument(id, errorCallback, successCallback);
+        deleteDocument(id, errorCallback, successCallback)
       }
     })
   }
@@ -117,25 +114,25 @@ const DocumentList = () => {
   const [all, setAll] = useState([])
 
   const documentArray = all?.data?.controls
-  
-  const goToEdit = (id) => {
-    console.log("goToEdit in:", id);
+
+  const goToEdit = id => {
+    console.log('goToEdit in:', id)
     router.push({
       pathname: '/home/Document/SaveDocument/',
-      query: { keyword: id },
-    });
-    console.log("goToEdit out:", id);
+      query: { keyword: id }
+    })
+    console.log('goToEdit out:', id)
   }
 
   const columns = [
-    { flex: 0.15, field: 'doc_name', headerName: t('Document Name'),
-    renderCell: (params) => {
-      return (
-        <div onClick={()=> goToEdit(params.row.doc_id)}>
-          {params.value}
-        </div>
-      );
-    } },
+    {
+      flex: 0.15,
+      field: 'doc_name',
+      headerName: t('Document Name'),
+      renderCell: params => {
+        return <div onClick={() => goToEdit(params.row.doc_id)}>{params.value}</div>
+      }
+    },
     { flex: 0.15, field: 'doc_type', headerName: t('Document Type') },
     { flex: 0.15, field: 'framework', headerName: t('Control FrameWorks') },
     { flex: 0.15, field: 'control', headerName: t('Controls') },
@@ -146,21 +143,21 @@ const DocumentList = () => {
     {
       field: 'action',
       headerName: t('Action'),
-      renderCell: (params) => {
+      renderCell: params => {
         return (
           <>
-          {
-            user_data.role=='admin'?
-            <>
-            <IconButton sx={{ color: 'blue' }} onClick={()=> goToEdit(params.row.doc_id)}>
-              <ModeEditIcon />
-            </IconButton>
-            <IconButton sx={{ color: 'red' }} onClick={()=> fdelete(params.row.doc_id)}>
-              <DeleteIcon />
-            </IconButton>
-            </>
-            : ''
-          }
+            {user_data.role == 'admin' ? (
+              <>
+                <IconButton sx={{ color: 'blue' }} onClick={() => goToEdit(params.row.doc_id)}>
+                  <ModeEditIcon />
+                </IconButton>
+                <IconButton sx={{ color: 'red' }} onClick={() => fdelete(params.row.doc_id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            ) : (
+              ''
+            )}
           </>
         )
       }
@@ -184,19 +181,18 @@ const DocumentList = () => {
   return (
     <>
       <div style={{ height: 500 }}>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <h2>{t('Documents')}</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2>{t('Documents')}</h2>
           <Grid container spacing={6}>
-            <Grid item sm={4} xs={12}>
-            </Grid>
+            <Grid item sm={4} xs={12}></Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
-            {
-            user_data.role=='admin'?
-              <Button size='medium' variant='contained' onClick={AddDoc}>
-                {t('Create Document')}
-              </Button>
-              : ''
-            }
+              {user_data.role == 'admin' ? (
+                <Button size='medium' variant='contained' onClick={AddDoc}>
+                  {t('Create Document')}
+                </Button>
+              ) : (
+                ''
+              )}
             </Grid>
           </Grid>
         </div>

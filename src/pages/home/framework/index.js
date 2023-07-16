@@ -33,9 +33,9 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles'
 
 //  ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -57,33 +57,32 @@ import { allFrameWorks, fwa, deleteFramework } from './frameworkService'
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
 import AddEditFrameWorks from './AddEditFramework'
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   customBackground: {
-    backgroundColor: 'white', // Replace with your desired background color
-  },
-});
+    backgroundColor: 'white' // Replace with your desired background color
+  }
+})
 
 const FrameWorkList = () => {
   const dispatch = useDispatch()
 
   // const data = useSelector(state => state.selectRisk)
 
-  const { t, i18n } = useTranslation();
-    const theme = useTheme();
-    // document.body.dir = i18n.dir();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
+  // document.body.dir = i18n.dir();
 
-    const changeLanguage = (lng) => { 
-      i18n.changeLanguage(lng)
+  const changeLanguage = lng => {
+    i18n.changeLanguage(lng)
     //   document.body.dir = i18n.dir();
     //   theme.direction = i18n.dir();
-    }
+  }
 
-    const classes = useStyles();
+  const classes = useStyles()
 
-
-  const fdelete = (frameworkId) => {
+  const fdelete = frameworkId => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -94,20 +93,20 @@ const FrameWorkList = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        const successCallback = (response) => {
-          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        const successCallback = response => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
         }
-        const errorCallback = (response) => {
-          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        const errorCallback = response => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
           // Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
         }
-        deleteFramework(frameworkId, errorCallback, successCallback);
+        deleteFramework(frameworkId, errorCallback, successCallback)
       }
     })
   }
 
-  const user_data=JSON.parse(localStorage.getItem('userData'));
-  console.log("userdata is", user_data);
+  const user_data = JSON.parse(localStorage.getItem('userData'))
+  console.log('userdata is', user_data)
 
   useEffect(() => {
     fwa(() => {}, setAll)
@@ -117,12 +116,12 @@ const FrameWorkList = () => {
   const [all, setAll] = useState([])
   console.log('allf:', all)
 
-  const handleCreateClick = (id) => {
+  const handleCreateClick = id => {
     console.log('editing framework :', id)
     router.push({
       pathname: '/home/framework/edit',
-      query: { keyword: id },
-    });
+      query: { keyword: id }
+    })
   }
 
   // function handleRowClick(params) {
@@ -145,8 +144,8 @@ const FrameWorkList = () => {
     setOpen(!open)
   }
 
-  const frameWorksArray = [...all];
-  console.log("frameWorksArray is", frameWorksArray);
+  const frameWorksArray = [...all]
+  console.log('frameWorksArray is', frameWorksArray)
 
   const columns = [
     {
@@ -154,24 +153,18 @@ const FrameWorkList = () => {
       width: 50,
       field: 'framework_Name',
       headerName: t('FrameWork Name'),
-      renderCell: (params) => {
+      renderCell: params => {
         const handleRowClick = () => {
-          
-
-          console.log('framework row clicked');
-          const id = params.row.id;
+          console.log('framework row clicked')
+          const id = params.row.id
 
           router.push({
             pathname: '/home/framework/Framework_info',
-            query: { keyword: id },
-          });
-        };
-        return (
-          <div onClick={handleRowClick}>
-            {params.value}
-          </div>
-        );
-      },
+            query: { keyword: id }
+          })
+        }
+        return <div onClick={handleRowClick}>{params.value}</div>
+      }
     },
 
     { flex: 0.5, width: 80, field: 'framework_Details', headerName: t('FrameWork Description') },
@@ -183,25 +176,24 @@ const FrameWorkList = () => {
       sortable: false,
       // width: 300,
       flex: 0.15,
-      renderCell: (params) => {
-
-        const id = params.row.id;
+      renderCell: params => {
+        const id = params.row.id
         return (
           <>
-           {
-            user_data.role=='admin'?
-            <>
-          <IconButton sx={{ color: 'blue' }} onClick={()=> handleCreateClick(id)}>
-          <ModeEditIcon titleAccess='Edit Framework'/>
-          </IconButton>
-            <IconButton sx={{ color: 'red' }} onClick={()=> fdelete(id)}>
-              <DeleteIcon titleAccess='Delete Framework'/>
-          </IconButton>
-       </> 
-       : ''
-           }
-        </>
-        );
+            {user_data.role == 'admin' ? (
+              <>
+                <IconButton sx={{ color: 'blue' }} onClick={() => handleCreateClick(id)}>
+                  <ModeEditIcon titleAccess='Edit Framework' />
+                </IconButton>
+                <IconButton sx={{ color: 'red' }} onClick={() => fdelete(id)}>
+                  <DeleteIcon titleAccess='Delete Framework' />
+                </IconButton>
+              </>
+            ) : (
+              ''
+            )}
+          </>
+        )
         // return (
         //   <>
         //     {Array.isArray(frameWorksArray) &&
@@ -252,28 +244,28 @@ const FrameWorkList = () => {
   return (
     <>
       <div style={{ height: 500 }}>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <h2>{t('Frameworks')}</h2>
-      <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
-        {
-            user_data.role=='admin'?
-          <Button size='medium' variant='contained' onClick={createNew}>
-          {t('Create framework')}
-          </Button>          
-          : ''          
-        },
-        {
-            user_data.role=='admin'?
-          <Button size='medium' variant='contained'>
-          {t('Import Framework')}
-          </Button>          
-          : ''          
-        }
-        </Grid>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2>{t('Frameworks')}</h2>
+          <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
+            {user_data.role == 'admin' ? (
+              <Button size='medium' variant='contained' onClick={createNew}>
+                {t('Create framework')}
+              </Button>
+            ) : (
+              ''
+            )}
+            ,
+            {user_data.role == 'admin' ? (
+              <Button size='medium' variant='contained'>
+                {t('Import Framework')}
+              </Button>
+            ) : (
+              ''
+            )}
+          </Grid>
         </div>
         <AddEditFrameWorks open={openDialog} handleClose={handleClose} />
-        
-        
+
         <Divider />
         <DataGrid
           rows={rows}

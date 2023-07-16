@@ -25,20 +25,17 @@ import UserViewSecurity from './UserViewSecurity'
 import UserViewConnection from './UserViewConnection'
 import UserViewNotification from './UserViewNotification'
 
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
-
-
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
+import Button from '@mui/material/Button'
+import List from '@mui/material/List'
+import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import InboxIcon from '@mui/icons-material/MoveToInbox'
+import MailIcon from '@mui/icons-material/Mail'
 
 // ** Styled Tab component
 const TabList = styled(MuiTabList)(({ theme }) => ({
@@ -72,15 +69,15 @@ const UserViewRight = ({ tab, invoiceData }) => {
   //   bottom: false,
   //   right: false,
   // });
-  
+
   // const toggleDrawer = (anchor, open) => (event) => {
   //   if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
   //     return;
   //   }
-  
+
   //   setState({ ...state, [anchor]: open });
   // };
-  
+
   // const list = (anchor) => (
   //   <Box
   //     sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -122,7 +119,7 @@ const UserViewRight = ({ tab, invoiceData }) => {
   const handleChange = (event, value) => {
     setIsLoading(true)
     setActiveTab(value)
-    setIsLoading(false);
+    setIsLoading(false)
     // router
     //   .push({
     //     pathname: `/users/overview/view/${value}`
@@ -143,61 +140,61 @@ const UserViewRight = ({ tab, invoiceData }) => {
 
   return (
     <>
-    <TabContext value={activeTab}>
-      <TabList
-        variant='scrollable'
-        scrollButtons='auto'
-        onChange={handleChange}
-        aria-label='forced scroll tabs example'
-      >
-        <Tab
-          value='overview_tab'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-              <Icon fontSize={20} icon='mdi:account-outline' />
-              Overview
-            </Box>
-          }
-        />
-        <Tab
-          value='security'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-              <Icon fontSize={20} icon='mdi:lock-outline' />
-              Security
-            </Box>
-          }
-        />
-        <Tab
-          value='billing-plan'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-              <Icon fontSize={20} icon='mdi:bookmark-outline' />
-              Billing & Plan
-            </Box>
-          }
-        />
-        <Tab
-          value='notification'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-              <Icon fontSize={20} icon='mdi:bell-outline' />
-              Notification
-            </Box>
-          }
-        />
-        <Tab
-          value='connection'
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-              <Icon fontSize={20} icon='mdi:link' />
-              Connection
-            </Box>
-          }
-        />
-      </TabList>
-      <Box sx={{ mt: 4 }}>
-        {/* {isLoading ? (
+      <TabContext value={activeTab}>
+        <TabList
+          variant='scrollable'
+          scrollButtons='auto'
+          onChange={handleChange}
+          aria-label='forced scroll tabs example'
+        >
+          <Tab
+            value='overview_tab'
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
+                <Icon fontSize={20} icon='mdi:account-outline' />
+                Overview
+              </Box>
+            }
+          />
+          <Tab
+            value='security'
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
+                <Icon fontSize={20} icon='mdi:lock-outline' />
+                Security
+              </Box>
+            }
+          />
+          <Tab
+            value='billing-plan'
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
+                <Icon fontSize={20} icon='mdi:bookmark-outline' />
+                Billing & Plan
+              </Box>
+            }
+          />
+          <Tab
+            value='notification'
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
+                <Icon fontSize={20} icon='mdi:bell-outline' />
+                Notification
+              </Box>
+            }
+          />
+          <Tab
+            value='connection'
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
+                <Icon fontSize={20} icon='mdi:link' />
+                Connection
+              </Box>
+            }
+          />
+        </TabList>
+        <Box sx={{ mt: 4 }}>
+          {/* {isLoading ? (
           <Box sx={{ mt: 6, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <CircularProgress sx={{ mb: 4 }} />
             <Typography>Loading...</Typography>
@@ -221,9 +218,9 @@ const UserViewRight = ({ tab, invoiceData }) => {
               <UserViewConnection />
             </TabPanel>
           </>
-        {/* )} */}
-      </Box>
-    </TabContext>
+          {/* )} */}
+        </Box>
+      </TabContext>
     </>
   )
 }

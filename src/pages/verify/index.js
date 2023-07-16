@@ -75,7 +75,7 @@ const TwoStepsV1 = () => {
 
   const auth = useAuth()
 
-  const [resendOTP, setResendOTP] = useState(false);
+  const [resendOTP, setResendOTP] = useState(false)
 
   // ** Hooks
   const theme = useTheme()
@@ -103,25 +103,23 @@ const TwoStepsV1 = () => {
     }
   }
 
-  const handleResend = (mobileNumber) =>{
-    const isVerify = true;
-    auth.login({ mobileNumber, isVerify }, () => {
-    })
-    setResendOTP(true);
+  const handleResend = mobileNumber => {
+    const isVerify = true
+    auth.login({ mobileNumber, isVerify }, () => {})
+    setResendOTP(true)
   }
 
   const onSubmit = data => {
-    const { val1,val2,val3,val4 } = data
-    const otp = (val1  + val2 + val3 + val4 + '');
-    const mobileNumber = localObj.mobileNumber;
-    auth.verify({ mobileNumber,otp }, () => {
+    const { val1, val2, val3, val4 } = data
+    const otp = val1 + val2 + val3 + val4 + ''
+    const mobileNumber = localObj.mobileNumber
+    auth.verify({ mobileNumber, otp }, () => {
       setError('otp', {
         type: 'manual',
         message: 'OTP Number is invalid'
       })
     })
   }
-
 
   const handleKeyDown = event => {
     if (event.key === 'Backspace') {
@@ -164,9 +162,11 @@ const TwoStepsV1 = () => {
     ))
   }
 
-  const localObj = window.localStorage.getItem('mobileNumber') ? JSON.parse(window.localStorage.getItem('mobileNumber')) : {};
+  const localObj = window.localStorage.getItem('mobileNumber')
+    ? JSON.parse(window.localStorage.getItem('mobileNumber'))
+    : {}
 
-  const mobile4Digit = localObj.mobileNumber ? (localObj.mobileNumber+"").substring(6) : "";
+  const mobile4Digit = localObj.mobileNumber ? (localObj.mobileNumber + '').substring(6) : ''
 
   return (
     <Box className='content-center'>
@@ -246,7 +246,6 @@ const TwoStepsV1 = () => {
             </Typography>
           </Box>
           <Box sx={{ mb: 6 }}>
-            
             <Typography sx={{ color: 'text.secondary' }}>
               We sent a verification code to your mobile. Enter the code from the mobile in the field below.
             </Typography>
@@ -258,7 +257,7 @@ const TwoStepsV1 = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                padding:'0px 30px',
+                padding: '0px 30px',
                 justifyContent: 'space-between',
                 ...(errorsArray.length && {
                   '& .invalid:focus': {
@@ -273,18 +272,28 @@ const TwoStepsV1 = () => {
             {errorsArray.length ? (
               <FormHelperText sx={{ color: 'error.main' }}>Please enter a valid OTP</FormHelperText>
             ) : null}
-            <Button fullWidth type='submit' variant='contained' sx={{ mt: 4 }} >
+            <Button fullWidth type='submit' variant='contained' sx={{ mt: 4 }}>
               Verify My Account
             </Button>
           </form>
           <Box sx={{ mt: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Typography sx={{ color: 'text.secondary' }}>Didn't get the code?</Typography>
-            <LinkStyled href='/' onClick={e => {e.preventDefault(); handleResend(localObj.mobileNumber )}}>
+            <LinkStyled
+              href='/'
+              onClick={e => {
+                e.preventDefault()
+                handleResend(localObj.mobileNumber)
+              }}
+            >
               Resend
             </LinkStyled>
           </Box>
           <Box>
-          {resendOTP && <FormHelperText sx={{ color: 'info.main',textAlign:'center' }}>{"OTP is re-sent to mobile number."}</FormHelperText>}
+            {resendOTP && (
+              <FormHelperText sx={{ color: 'info.main', textAlign: 'center' }}>
+                {'OTP is re-sent to mobile number.'}
+              </FormHelperText>
+            )}
           </Box>
         </CardContent>
       </Card>

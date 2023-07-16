@@ -1,7 +1,7 @@
 //*Axios
 import axios from 'axios'
 //.config
-import authConfig from 'src/configs/auth';
+import authConfig from 'src/configs/auth'
 
 export const deleteControl = (id, errorCallback, successCallback) => {
   axios
@@ -11,7 +11,7 @@ export const deleteControl = (id, errorCallback, successCallback) => {
         console.log('deleteControl error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        successCallback(res.data);
+        successCallback(res.data)
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
@@ -25,7 +25,7 @@ export const getControlList = (errorCallback, successCallback) => {
         console.log('getControlList error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        successCallback(res.data);
+        successCallback(res.data)
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))

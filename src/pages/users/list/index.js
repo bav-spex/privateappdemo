@@ -31,10 +31,9 @@ import { fetchData } from 'src/store/apps/user'
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/roles/TableHeader'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../../home/withRoot'
-import { useTheme } from '@material-ui/core/styles';
-
+import { useTheme } from '@material-ui/core/styles'
 
 // ** Vars
 const userRoleObj = {
@@ -53,7 +52,6 @@ const userStatusObj = {
 
 // ** renders client column
 const renderClient = row => {
-
   if (row.avatar.length) {
     return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 30, height: 30 }} />
   } else {
@@ -71,104 +69,103 @@ const UserList = () => {
   const [value, setValue] = useState('')
   const [pageSize, setPageSize] = useState(10)
 
-  const { t, i18n } = useTranslation();
-const theme = useTheme();
-  
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
-const columns = [
-  {
-    flex: 0.2,
-    minWidth: 230,
-    field: 'fullName',
-    headerName: t('User'),
-    renderCell: ({ row }) => {
-      const { fullName, username } = row
+  const columns = [
+    {
+      flex: 0.2,
+      minWidth: 230,
+      field: 'fullName',
+      headerName: t('User'),
+      renderCell: ({ row }) => {
+        const { fullName, username } = row
 
-      return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {renderClient(row)}
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-            <Typography
-              noWrap
-              variant='body2'
-              component={Link}
-              href='/users/overview/view/UserViewPage'
-              sx={{
-                fontWeight: 600,
-                color: 'text.primary',
-                textDecoration: 'none',
-                '&:hover': { color: theme => theme.palette.primary.main }
-              }}
-            >
-              {fullName}
-            </Typography>
-            <Typography noWrap variant='caption'>
-              {`@${username}`}
+        return (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {renderClient(row)}
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+              <Typography
+                noWrap
+                variant='body2'
+                component={Link}
+                href='/users/overview/view/UserViewPage'
+                sx={{
+                  fontWeight: 600,
+                  color: 'text.primary',
+                  textDecoration: 'none',
+                  '&:hover': { color: theme => theme.palette.primary.main }
+                }}
+              >
+                {fullName}
+              </Typography>
+              <Typography noWrap variant='caption'>
+                {`@${username}`}
+              </Typography>
+            </Box>
+          </Box>
+        )
+      }
+    },
+    {
+      flex: 0.2,
+      minWidth: 250,
+      field: 'email',
+      headerName: t('Email'),
+      renderCell: ({ row }) => {
+        return (
+          <Typography variant='body2' noWrap>
+            {row.email}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.15,
+      field: 'role',
+      minWidth: 150,
+      headerName: t('Role'),
+      renderCell: ({ row }) => {
+        return (
+          <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
+            <Icon icon={userRoleObj[row.role].icon} fontSize={20} />
+            <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+              {row.role}
             </Typography>
           </Box>
-        </Box>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 110,
+      field: 'status',
+      headerName: t('Status'),
+      renderCell: ({ row }) => {
+        return (
+          <CustomChip
+            skin='light'
+            size='small'
+            label={row.status}
+            color={userStatusObj[row.status]}
+            sx={{ textTransform: 'capitalize' }}
+          />
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 100,
+      sortable: false,
+      field: 'actions',
+      headerName: t('Action'),
+      renderCell: () => (
+        <IconButton component={Link} href='/apps/user/view/overview/'>
+          <Icon icon='mdi:eye-outline' />
+        </IconButton>
       )
     }
-  },
-  {
-    flex: 0.2,
-    minWidth: 250,
-    field: 'email',
-    headerName: t('Email'),
-    renderCell: ({ row }) => {
-      return (
-        <Typography variant='body2' noWrap>
-          {row.email}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.15,
-    field: 'role',
-    minWidth: 150,
-    headerName: t('Role'),
-    renderCell: ({ row }) => {
-      return (
-        <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
-          <Icon icon={userRoleObj[row.role].icon} fontSize={20} />
-          <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.role}
-          </Typography>
-        </Box>
-      )
-    }
-  },
-  {
-    flex: 0.1,
-    minWidth: 110,
-    field: 'status',
-    headerName: t('Status'),
-    renderCell: ({ row }) => {
-      return (
-        <CustomChip
-          skin='light'
-          size='small'
-          label={row.status}
-          color={userStatusObj[row.status]}
-          sx={{ textTransform: 'capitalize' }}
-        />
-      )
-    }
-  },
-  {
-    flex: 0.1,
-    minWidth: 100,
-    sortable: false,
-    field: 'actions',
-    headerName: t('Action'),
-    renderCell: () => (
-      <IconButton component={Link} href='/apps/user/view/overview/'>
-        <Icon icon='mdi:eye-outline' />
-      </IconButton>
-    )
-  }
-]
+  ]
 
   // ** Hooks
   const dispatch = useDispatch()

@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import authConfig from 'src/configs/auth'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles'
 
 //third part imports
 import toast from 'react-hot-toast'
@@ -22,12 +22,12 @@ const AddFrame = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
-  const [name, set_name]=useState('');
-  const [parent, set_parent]=useState('');
-  const [description, set_description]=useState('');
+  const [name, set_name] = useState('')
+  const [parent, set_parent] = useState('')
+  const [description, set_description] = useState('')
 
   useEffect(() => {
     fwa(() => {}, setAll)
@@ -42,27 +42,24 @@ const AddFrame = () => {
   //!states
   const [fwList, setFwList] = useState([])
 
-  const CreateFrames = async() => {
-
-
-    const res= await fetch(`${authConfig.new_framework}`, {
-        method:"POST",
-          headers:{
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            
-            id : null,
-            framework_Name: name,
-            framework_Details: description,
-            framework_Parent: parent,
-            framework_Status: 'active',
-          })
-        })
-        const data= await res.json();
-        console.log("save framework is",  data);
-        toast.success('Created FrameWork');
-        router.push(`/home/framework`);
+  const CreateFrames = async () => {
+    const res = await fetch(`${authConfig.new_framework}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: null,
+        framework_Name: name,
+        framework_Details: description,
+        framework_Parent: parent,
+        framework_Status: 'active'
+      })
+    })
+    const data = await res.json()
+    console.log('save framework is', data)
+    toast.success('Created FrameWork')
+    router.push(`/home/framework`)
   }
 
   // ** Hooks
@@ -101,7 +98,7 @@ const AddFrame = () => {
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
         >
           <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-          {t('Cancel')}
+            {t('Cancel')}
           </Button>
           <Button
             type='submit '
@@ -118,9 +115,7 @@ const AddFrame = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
           <h5>{t('FrameWork Name')}</h5>
-          <TextField label='FrameWork Name' fullWidth 
-          value={name}
-          onChange={(e)=> set_name(e.target.value)} />
+          <TextField label='FrameWork Name' fullWidth value={name} onChange={e => set_name(e.target.value)} />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
           <h5>{t('Parent FrameWork')}</h5>
@@ -164,7 +159,7 @@ const AddFrame = () => {
             style={{ width: '100%' }}
             fullWidth
             value={description}
-            onChange={(e)=> set_description(e.target.value)}
+            onChange={e => set_description(e.target.value)}
           />
         </Grid>
       </Grid>

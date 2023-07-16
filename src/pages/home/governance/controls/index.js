@@ -19,15 +19,14 @@ import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
 import Select from '@mui/material/Select'
-import auth from 'src/configs/auth';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import auth from 'src/configs/auth'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 // import VisibilityIcon from '@mui/icons-material/Visibility'
 // import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 // import PreviewIcon from '@mui/icons-material/Preview'
 
-import { makeStyles } from '@material-ui/core/styles';
-
+import { makeStyles } from '@material-ui/core/styles'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -54,11 +53,11 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { updateBatch } from 'src/store/apps/schedule'
 import { left } from '@popperjs/core'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles';
-import Swal from 'sweetalert2';
-import {deleteControl} from 'src/pages/home/governance/controls/controlService';
+import { useTheme } from '@material-ui/core/styles'
+import Swal from 'sweetalert2'
+import { deleteControl } from 'src/pages/home/governance/controls/controlService'
 
 // ** Vars
 const userRoleObj = {
@@ -151,9 +150,9 @@ const RowOptions = ({ id }) => {
 
 const useStyles = makeStyles({
   customBackground: {
-    backgroundColor: 'white', // Replace with your desired background color
-  },
-});
+    backgroundColor: 'white' // Replace with your desired background color
+  }
+})
 
 const ControlList = () => {
   // ** State
@@ -167,47 +166,46 @@ const ControlList = () => {
   // const [tableData, setTableData] = useState(batchList);
   // const [statusList, setStatusList ] = useState(Array.from(new Set(batchList.map(item => item.status))));
 
-  const [controlList, setControlList] = useState([]);
+  const [controlList, setControlList] = useState([])
 
-  const user_data=JSON.parse(localStorage.getItem('userData'));
-  console.log("userdata is", user_data);
+  const user_data = JSON.parse(localStorage.getItem('userData'))
+  console.log('userdata is', user_data)
 
-  const router = useRouter();
+  const router = useRouter()
 
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
   // document.body.dir = i18n.dir();
 
-  const changeLanguage = (lng) => { 
+  const changeLanguage = lng => {
     i18n.changeLanguage(lng)
-  //   document.body.dir = i18n.dir();
-  //   theme.direction = i18n.dir();
+    //   document.body.dir = i18n.dir();
+    //   theme.direction = i18n.dir();
   }
 
+  const columns = [
+    {
+      flex: 0.11,
+      width: 50,
+      field: 'name',
+      headerName: t('Name'),
+      renderCell: params => {
+        const handleRowClick = () => {
+          const id = params.row.id
 
-const columns = [
-    { flex: 0.11, width: 50, field: 'name', headerName: t('Name'),
-    renderCell: (params) => {
-      const handleRowClick = () => {
-        
-        const id = params.row.id;
-
-      // Redirect the user to the desired page
-      router.push({
-        pathname: '/home/governance/controls/edit_control/',
-        query: { keyword: id },
-    });
-      };
-      return (
-        <div onClick={handleRowClick}>
-          {params.value}
-        </div>
-      );
-    } },
+          // Redirect the user to the desired page
+          router.push({
+            pathname: '/home/governance/controls/edit_control/',
+            query: { keyword: id }
+          })
+        }
+        return <div onClick={handleRowClick}>{params.value}</div>
+      }
+    },
     { flex: 0.11, width: 50, field: 'frameworks', headerName: t('Framework ID') },
-    { flex: 0.12, minWidth: 5, field: 'control-number',type: 'number', headerName: t('Control Number') },
+    { flex: 0.12, minWidth: 5, field: 'control-number', type: 'number', headerName: t('Control Number') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     // {
     //   field: 'submissiondate',
@@ -242,26 +240,25 @@ const columns = [
       // width: 300,
       flex: 0.15,
       valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-      renderCell: (params) => {
-
-        const id = params.row.id;
+      renderCell: params => {
+        const id = params.row.id
         return (
           <>
-          {
-            user_data.role=='admin'?
-            <>
-           <IconButton onClick={()=> handleEditClick(id)} sx={{ color: 'green' }}>
-                    <EditIcon titleAccess='Edit Control'/>
-          </IconButton>
+            {user_data.role == 'admin' ? (
+              <>
+                <IconButton onClick={() => handleEditClick(id)} sx={{ color: 'green' }}>
+                  <EditIcon titleAccess='Edit Control' />
+                </IconButton>
 
-            <IconButton onClick={()=> deleteControlId(id)} sx={{ color: 'red' }}>
-              <DeleteIcon titleAccess='Delete Control'/>
-            </IconButton>
+                <IconButton onClick={() => deleteControlId(id)} sx={{ color: 'red' }}>
+                  <DeleteIcon titleAccess='Delete Control' />
+                </IconButton>
+              </>
+            ) : (
+              ''
+            )}
           </>
-          : ''
-          }
-        </>
-        );
+        )
         // return (
         //   <>
         //     {Array.isArray(controlList) &&
@@ -291,64 +288,60 @@ const columns = [
   ]
 
   // ** Hooks
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const fetch_control_data= async()=>{
-
-    const res= await fetch(`${auth.controlList}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          },
+  const fetch_control_data = async () => {
+    const res = await fetch(`${auth.controlList}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-    const data= await res.json();
-    console.log("control data is", data);
-    setControlList(data.data.controls);
+    const data = await res.json()
+    console.log('control data is', data)
+    setControlList(data.data.controls)
     //setControlList(data);
   }
-
 
   // useEffect(() => {
   //   dispatch(getBatchList({ q: value }))
   // }, [dispatch, value])
 
-//   useEffect(() => {
+  //   useEffect(() => {
 
-//     fetch_control_data();
-//     const tableData = batchList.filter(item => item.status == bathcStatus)
-//     setTableData(tableData);
-//     const newSet = new Set(batchList.map(item => item.status))
-//     setStatusList(Array.from(newSet))
-//   }, [batchList])
+  //     fetch_control_data();
+  //     const tableData = batchList.filter(item => item.status == bathcStatus)
+  //     setTableData(tableData);
+  //     const newSet = new Set(batchList.map(item => item.status))
+  //     setStatusList(Array.from(newSet))
+  //   }, [batchList])
 
-useEffect(() => {
-
-    fetch_control_data();
-   
+  useEffect(() => {
+    fetch_control_data()
   }, [])
 
-  const handleEditClick = (id) => {
+  const handleEditClick = id => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push({
-    pathname: '/home/governance/controls/edit_control/',
-    query: { keyword: id },
-});
+      pathname: '/home/governance/controls/edit_control/',
+      query: { keyword: id }
+    })
   }
 
   function handleRowClick(params) {
     // The `params` argument contains information about the clicked row
-    const id = params.row.id;
+    const id = params.row.id
 
     // Redirect the user to the desired page
     router.push({
       pathname: '/home/governance/controls/edit_control/',
-      query: { keyword: id },
-  });
+      query: { keyword: id }
+    })
   }
 
   function handleCellClick(params) {
     console.log(params)
-    console.log(`Clicked on Age ${params.field}`);
+    console.log(`Clicked on Age ${params.field}`)
   }
 
   function deleteControlId(id) {
@@ -362,63 +355,65 @@ useEffect(() => {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        const successCallback = (response) => {
-          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        const successCallback = response => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
         }
-        const errorCallback = (response) => {
-          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        const errorCallback = response => {
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
           // Swal.fire('Deleted!', 'Your file has not been deleted.', 'error');
         }
-        deleteControl(id, errorCallback, successCallback);
+        deleteControl(id, errorCallback, successCallback)
       }
     })
   }
 
-  const new_control= ()=>{
+  const new_control = () => {
     router.push('/home/governance/controls/new_control')
   }
 
   return (
     <>
-    <div style={{ height: 500 }}>
-    {/* <Grid container spacing={6}> */}
-      {/* <Grid item xs={12}> */}
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div style={{ height: 500 }}>
+        {/* <Grid container spacing={6}> */}
+        {/* <Grid item xs={12}> */}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <CardHeader title={t('Controls')} />
           <CardContent>
             <Grid container spacing={6}>
-            {
-            user_data.role=='admin'?
-              <Grid item sm={12} xs={12}>
-              <div style={{display: 'flex', justifyContent: 'right'}}>
-                <Button variant='contained' onClick={new_control}>{t('New Control')}</Button>
-                </div>
-              </Grid>
-              : ''
-            }
+              {user_data.role == 'admin' ? (
+                <Grid item sm={12} xs={12}>
+                  <div style={{ display: 'flex', justifyContent: 'right' }}>
+                    <Button variant='contained' onClick={new_control}>
+                      {t('New Control')}
+                    </Button>
+                  </div>
+                </Grid>
+              ) : (
+                ''
+              )}
             </Grid>
           </CardContent>
-          </div>
-          <Divider />
-          {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
-          <DataGrid
-            rows={controlList}
-            getRowId={row => row.id}
-            loading={false}
-            columns={columns}
-            // onRowClick={(rows)=>{gotoEditMode(rows.id)}}
-            // checkboxSelection
-            pageSize={pageSize}
-            disableSelectionOnClick
-            rowsPerPageOptions={[10, 25, 50]}
-            onPageSizeChange={newPageSize => setPageSize(newPageSize)}
-            onCellClick={handleCellClick}
-            className={classes.customBackground}
-            // onRowClick={handleRowClick}
-          />
-      {/* </Grid> */}
-    {/* </Grid> */}
-    </div>
+        </div>
+        <Divider />
+        {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
+        <DataGrid
+          rows={controlList}
+          getRowId={row => row.id}
+          loading={false}
+          columns={columns}
+          // onRowClick={(rows)=>{gotoEditMode(rows.id)}}
+          // checkboxSelection
+          pageSize={pageSize}
+          disableSelectionOnClick
+          rowsPerPageOptions={[10, 25, 50]}
+          onPageSizeChange={newPageSize => setPageSize(newPageSize)}
+          onCellClick={handleCellClick}
+          className={classes.customBackground}
+          // onRowClick={handleRowClick}
+        />
+        {/* </Grid> */}
+        {/* </Grid> */}
+      </div>
     </>
   )
 }

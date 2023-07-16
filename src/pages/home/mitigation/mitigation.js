@@ -18,9 +18,9 @@ import toast from 'react-hot-toast'
 import authConfig from 'src/configs/auth'
 import { comment } from 'stylis'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -57,8 +57,8 @@ function a11yProps(index) {
 const Mitigation = () => {
   const data = useSelector(state => state.mitList)
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
   const dispatch = useDispatch()
 
@@ -66,140 +66,127 @@ const Mitigation = () => {
     fetchMit(() => {}, setAllMit)
   }, [])
 
-
   //creating useStates for different fields
-  const [submission_date, set_submission_date]= useState('');
-  const [planned_date, set_planned_date]= useState('');
-  const [planning_strategy, set_planning_strategy]= useState('');
-  const [effort, set_effort]= useState('');
-  const [cost, set_cost]= useState('');
-  const [percent, set_percent]= useState('');
-  const [current_solution, set_current_solution]= useState('');
-  const [security_requirements, set_security_requirements]= useState('');
-  const [security_recommendations, set_security_recommendations]= useState('');
-  const [owner, set_owner]= useState('');
-  const [team, set_team]= useState([]);
-  const [controls, set_controls]= useState([]);
-
+  const [submission_date, set_submission_date] = useState('')
+  const [planned_date, set_planned_date] = useState('')
+  const [planning_strategy, set_planning_strategy] = useState('')
+  const [effort, set_effort] = useState('')
+  const [cost, set_cost] = useState('')
+  const [percent, set_percent] = useState('')
+  const [current_solution, set_current_solution] = useState('')
+  const [security_requirements, set_security_requirements] = useState('')
+  const [security_recommendations, set_security_recommendations] = useState('')
+  const [owner, set_owner] = useState('')
+  const [team, set_team] = useState([])
+  const [controls, set_controls] = useState([])
 
   //creating useStates for different dropdowns
-  const [effort_dropdown, set_effort_dropdown]= useState([]);
-  const [strategy_dropdown, set_strategy_dropdown]= useState([]);
-  const [owner_dropdown, set_owner_dropdown]= useState([]);
-  const [team_dropdown, set_team_dropdown]= useState([]);
-  const [control_dropdown, set_control_dropdown]= useState([]);
-
+  const [effort_dropdown, set_effort_dropdown] = useState([])
+  const [strategy_dropdown, set_strategy_dropdown] = useState([])
+  const [owner_dropdown, set_owner_dropdown] = useState([])
+  const [team_dropdown, set_team_dropdown] = useState([])
+  const [control_dropdown, set_control_dropdown] = useState([])
 
   //api fetch to display efforts dropdown
-  const fetch_efforts= async()=>{
-
-    const res= await fetch(`${authConfig.mitigation_effort}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          },
+  const fetch_efforts = async () => {
+    const res = await fetch(`${authConfig.mitigation_effort}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-    const data= await res.json();
-    console.log("mitgation efforts list is", data);
-    set_effort_dropdown(data);
-}
-
-
-//api fetch to display startegy dropdown
-const fetch_strategy= async()=>{
-
-  const res= await fetch(`${authConfig.planning_strategy}`, {
-      method:"GET",
-        headers:{
-            "Content-Type": "application/json"
-        },
-  })
-  const data= await res.json();
-  console.log("strategy list is", data);
-  set_strategy_dropdown(data);
-}
-
-
-//api fetch to display owner dropdown
-const fetch_owner= async()=>{
-
-  const res= await fetch(`${authConfig.owner_list}`, {
-      method:"GET",
-        headers:{
-            "Content-Type": "application/json"
-        },
-  })
-  const data= await res.json();
-  console.log("owner list is", data);
-  set_owner_dropdown(data.data.users);
-}
-
-
-//api fetch to display team dropdown
-const fetch_team= async()=>{
-
-  const res= await fetch(`${authConfig.team_list}`, {
-      method:"GET",
-        headers:{
-            "Content-Type": "application/json"
-        },
-  })
-  const data= await res.json();
-  console.log("team list is", data);
-  set_team_dropdown(data.data.users);
-}
-
-//api fetch to display control dropdown
-const fetch_control= async()=>{
-
-  const res= await fetch(`${authConfig.control_dropdown}`, {
-      method:"GET",
-        headers:{
-            "Content-Type": "application/json"
-        },
-  })
-  const data= await res.json();
-  console.log("team list is", data);
-  set_control_dropdown(data);
-}
-
-//api fetch to prefill the fields in mitigation
-  const fetch_mitigation= async()=>{
-
-      const res= await fetch(`${authConfig.mitigation}/${router.query.keyword}/mitigation`, {
-          method:"GET",
-            headers:{
-                "Content-Type": "application/json"
-            },
-      })
-      const data= await res.json();
-      console.log("specified mitgation data is", data);
-      set_submission_date("01-02-2023");
-      set_planned_date(data.data.plannedmitigationdate);
-      set_planning_strategy(data.data.planningstrategy);
-      set_effort(data.data.mitigationeffort);
-      set_cost(data.data.mitigationcost);
-      set_percent(data.data.mitigationpercent);
-      set_current_solution(data.data.currentsolution);
-      set_security_requirements(data.data.securityrequirements);
-      set_security_recommendations(data.data.securityrecommendations);
-      set_owner(data.data.mitigationowner);
-      set_team(data.data.mitigationteam);
-      set_controls(data.data.mitigationcontrols);
+    const data = await res.json()
+    console.log('mitgation efforts list is', data)
+    set_effort_dropdown(data)
   }
 
-//to call these functions when the page gets rendered
+  //api fetch to display startegy dropdown
+  const fetch_strategy = async () => {
+    const res = await fetch(`${authConfig.planning_strategy}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('strategy list is', data)
+    set_strategy_dropdown(data)
+  }
+
+  //api fetch to display owner dropdown
+  const fetch_owner = async () => {
+    const res = await fetch(`${authConfig.owner_list}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('owner list is', data)
+    set_owner_dropdown(data.data.users)
+  }
+
+  //api fetch to display team dropdown
+  const fetch_team = async () => {
+    const res = await fetch(`${authConfig.team_list}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('team list is', data)
+    set_team_dropdown(data.data.users)
+  }
+
+  //api fetch to display control dropdown
+  const fetch_control = async () => {
+    const res = await fetch(`${authConfig.control_dropdown}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('team list is', data)
+    set_control_dropdown(data)
+  }
+
+  //api fetch to prefill the fields in mitigation
+  const fetch_mitigation = async () => {
+    const res = await fetch(`${authConfig.mitigation}/${router.query.keyword}/mitigation`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('specified mitgation data is', data)
+    set_submission_date('01-02-2023')
+    set_planned_date(data.data.plannedmitigationdate)
+    set_planning_strategy(data.data.planningstrategy)
+    set_effort(data.data.mitigationeffort)
+    set_cost(data.data.mitigationcost)
+    set_percent(data.data.mitigationpercent)
+    set_current_solution(data.data.currentsolution)
+    set_security_requirements(data.data.securityrequirements)
+    set_security_recommendations(data.data.securityrecommendations)
+    set_owner(data.data.mitigationowner)
+    set_team(data.data.mitigationteam)
+    set_controls(data.data.mitigationcontrols)
+  }
+
+  //to call these functions when the page gets rendered
   useEffect(() => {
+    fetch_mitigation()
 
-    fetch_mitigation();
+    fetch_efforts()
 
-    fetch_efforts();
+    fetch_strategy()
 
-    fetch_strategy();
+    fetch_owner()
 
-    fetch_owner();
-
-    fetch_team();
+    fetch_team()
   }, [])
 
   // useEffect(() => {}, [])
@@ -240,34 +227,32 @@ const fetch_control= async()=>{
   }
 
   //api to save the details of the mitigation
-  const save_mitigation= async()=>{
-
-    const res= await fetch(`${authConfig.mitigation_update}/${router.query.keyword}`, {
-      method:"POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-
-          mitigationsubmissiondate: submission_date,
-          currentsolution: current_solution,
-          plannedmitigationdate: planned_date,
-          securityrequirements: security_requirements,
-          securityrecommendations: security_recommendations,
-          planningstrategy: planning_strategy,
-          mitigationeffort: effort,
-          mitigationcost: cost,
-          mitigationowner: owner,
-          mitigationteam: team,
-          mitigationpercent: percent,
-          mitigationcontrols: controls,
-          supportingdocumentation: "yes",
-          comments : "some comment"
+  const save_mitigation = async () => {
+    const res = await fetch(`${authConfig.mitigation_update}/${router.query.keyword}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        mitigationsubmissiondate: submission_date,
+        currentsolution: current_solution,
+        plannedmitigationdate: planned_date,
+        securityrequirements: security_requirements,
+        securityrecommendations: security_recommendations,
+        planningstrategy: planning_strategy,
+        mitigationeffort: effort,
+        mitigationcost: cost,
+        mitigationowner: owner,
+        mitigationteam: team,
+        mitigationpercent: percent,
+        mitigationcontrols: controls,
+        supportingdocumentation: 'yes',
+        comments: 'some comment'
       })
-  })
-  const data= await res.json();
-  console.log("mitigation is saved", data);
-  toast.success('Saved Mitigation')
+    })
+    const data = await res.json()
+    console.log('mitigation is saved', data)
+    toast.success('Saved Mitigation')
   }
 
   const saveMitigations = values => {
@@ -308,7 +293,7 @@ const fetch_control= async()=>{
             style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
           >
             <Button xs={2} variant='contained' size='medium' onClick={gotoCancel}>
-            {t('Cancel')}
+              {t('Cancel')}
             </Button>
             <Button
               type='submit '
@@ -357,7 +342,13 @@ const fetch_control= async()=>{
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                 {/* <h5>Current solution:</h5> */}
-                <TextField type='text' style={{ width: '100%' }} label={t('Current solution')} value={current_solution} onChange={(e)=> set_current_solution(e.target.value)}/>
+                <TextField
+                  type='text'
+                  style={{ width: '100%' }}
+                  label={t('Current solution')}
+                  value={current_solution}
+                  onChange={e => set_current_solution(e.target.value)}
+                />
               </div>
             </FormControl>
           </Grid>
@@ -367,13 +358,14 @@ const fetch_control= async()=>{
               {/* <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                 planned mitigation Date
               </InputLabel> */}
-              <TextField variant='outlined' 
-              type='date' 
-              // value={allMit?.data?.plannedmitigationdate} 
-              label={t('Planned mitigation Date')}
-              value={planned_date}
-              onChange={(e)=> set_planned_date(e.target.value)}
-             />
+              <TextField
+                variant='outlined'
+                type='date'
+                // value={allMit?.data?.plannedmitigationdate}
+                label={t('Planned mitigation Date')}
+                value={planned_date}
+                onChange={e => set_planned_date(e.target.value)}
+              />
             </FormControl>
           </Grid>
           {/* planned mitigation date */}
@@ -383,7 +375,13 @@ const fetch_control= async()=>{
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                 {/* <h5>Security Requirments:</h5> */}
 
-                <TextField type='text' label={t('Security Requirments')} style={{ width: '100%' }} value={security_requirements} onChange={(e)=> set_security_requirements(e.target.value)}/>
+                <TextField
+                  type='text'
+                  label={t('Security Requirments')}
+                  style={{ width: '100%' }}
+                  value={security_requirements}
+                  onChange={e => set_security_requirements(e.target.value)}
+                />
               </div>
             </FormControl>
           </Grid>
@@ -392,7 +390,7 @@ const fetch_control= async()=>{
           <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Planning stratergy')}
+                {t('Planning stratergy')}
               </InputLabel>
               <Controller
                 name='planning stratergy'
@@ -417,9 +415,9 @@ const fetch_control= async()=>{
                     {/* <MenuItem value=''>None is Selected</MenuItem>
                     <MenuItem value={allMit?.data?.planningstrategy}>{allMit?.data?.planningstrategy}</MenuItem> */}
 
-                    {strategy_dropdown.map((item) => (item !== null ?
-                      <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
-                      ))}
+                    {strategy_dropdown.map(item =>
+                      item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                    )}
                   </Select>
                 )}
               />
@@ -441,15 +439,21 @@ const fetch_control= async()=>{
                   htmlFor='validation-basic-select'
                 ></InputLabel>
                 {/* <h5 style={{ marginLeft: '20px' }}>Security Reccomendations:</h5> */}
-                <TextField type='text' style={{ width: '100%' }} label={t('Security Reccomendations')} value={security_recommendations} onChange={(e)=> set_security_recommendations(e.target.value)}/>
+                <TextField
+                  type='text'
+                  style={{ width: '100%' }}
+                  label={t('Security Reccomendations')}
+                  value={security_recommendations}
+                  onChange={e => set_security_recommendations(e.target.value)}
+                />
               </div>
             </FormControl>
           </Grid>
           {/* //end of externalreferenceid */}
-          <Grid item sx={{ width: '40%', marginTop: 8}}>
+          <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Mitigation Effort')}:
+                {t('Mitigation Effort')}:
               </InputLabel>
               <Controller
                 name='mitigation Effort'
@@ -474,9 +478,9 @@ const fetch_control= async()=>{
                     {/* <MenuItem value=''>None is Selected</MenuItem>
                     <MenuItem value={allMit?.data?.mitigationeffort}>{allMit?.data?.mitigationeffort}</MenuItem> */}
 
-                    {effort_dropdown.map((item) => (item !== null ?
-                      <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
-                      ))}
+                    {effort_dropdown.map(item =>
+                      item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                    )}
                   </Select>
                 )}
               />
@@ -492,7 +496,7 @@ const fetch_control= async()=>{
             <FormControl fullWidth>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                 {/* <h5>Supporting Documentation:</h5> */}
-                <TextField type='file' style={{ width: '100%' }}/>
+                <TextField type='file' style={{ width: '100%' }} />
               </div>
             </FormControl>
           </Grid>
@@ -500,7 +504,7 @@ const fetch_control= async()=>{
           <Grid item sx={{ width: '40%', marginTop: 8 }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Mitigation Cost')}:
+                {t('Mitigation Cost')}:
               </InputLabel>
               <Controller
                 name='mitigation cost'
@@ -544,13 +548,14 @@ const fetch_control= async()=>{
                   Mitigation Percent:
                 </InputLabel> */}
 
-                <TextField type='number' 
-                variant='outlined'
-                // value={allMit?.data?.mitigationpercent}
-                label={t('Mitigation Percent')}
-                value={percent}
-                onChange={(e)=> set_percent(e.target.value)}
-                 />
+                <TextField
+                  type='number'
+                  variant='outlined'
+                  // value={allMit?.data?.mitigationpercent}
+                  label={t('Mitigation Percent')}
+                  value={percent}
+                  onChange={e => set_percent(e.target.value)}
+                />
                 {errors.msg && (
                   <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
                     Mitigation Percent
@@ -567,33 +572,32 @@ const fetch_control= async()=>{
                   Mitigation Percent:
                 </InputLabel> */}
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {t('Mitigation Owner')}
-              </InputLabel>
+                  {t('Mitigation Owner')}
+                </InputLabel>
                 <Controller
-                name='mitigation cost'
-                control={control}
-                rules={{ required: true }}
-                defaultValue={data}
-                render={({ field: { value, onChange } }) => (
-                  <Select
-                     
-                    value={owner}
-                    fullWidth
-                    label={t('Mitigation Owner')}
-                    onChange={(e)=> set_owner(e.target.value)}
-                    error={Boolean(errors?.msg)}
-                    labelId='validation-basic-select'
-                    aria-describedby='validation-basic-select'
-                  >
-                    {/* <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
+                  name='mitigation cost'
+                  control={control}
+                  rules={{ required: true }}
+                  defaultValue={data}
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      value={owner}
+                      fullWidth
+                      label={t('Mitigation Owner')}
+                      onChange={e => set_owner(e.target.value)}
+                      error={Boolean(errors?.msg)}
+                      labelId='validation-basic-select'
+                      aria-describedby='validation-basic-select'
+                    >
+                      {/* <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
                     <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem> */}
 
-                    {owner_dropdown.map((item) => (item !== null ?
-                      <MenuItem value={item.id}>{item.name}</MenuItem>: ""
-                      ))}
-                  </Select>
-                )}
-              />
+                      {owner_dropdown.map(item =>
+                        item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''
+                      )}
+                    </Select>
+                  )}
+                />
                 {errors.msg && (
                   <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
                     Mitigation Percent
@@ -609,34 +613,33 @@ const fetch_control= async()=>{
                 </InputLabel> */}
 
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {t('Mitigation Team')}
-              </InputLabel>
+                  {t('Mitigation Team')}
+                </InputLabel>
                 <Controller
-                name='mitigation cost'
-                control={control}
-                rules={{ required: true }}
-                defaultValue={data}
-                render={({ field: { value, onChange } }) => (
-                  <Select
-                     
-                    value={team}
-                    fullWidth
-                    multiple
-                    label={t('Mitigation Team')}
-                    onChange={(e)=> set_team(e.target.value)}
-                    error={Boolean(errors?.msg)}
-                    labelId='validation-basic-select'
-                    aria-describedby='validation-basic-select'
-                  >
-                    {/* <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
+                  name='mitigation cost'
+                  control={control}
+                  rules={{ required: true }}
+                  defaultValue={data}
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      value={team}
+                      fullWidth
+                      multiple
+                      label={t('Mitigation Team')}
+                      onChange={e => set_team(e.target.value)}
+                      error={Boolean(errors?.msg)}
+                      labelId='validation-basic-select'
+                      aria-describedby='validation-basic-select'
+                    >
+                      {/* <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
                     <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem> */}
 
-                    {team_dropdown.map((item) => (item !== null ?
-                      <MenuItem value={item.id}>{item.name}</MenuItem>: ""
-                      ))}
-                  </Select>
-                )}
-              />
+                      {team_dropdown.map(item =>
+                        item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''
+                      )}
+                    </Select>
+                  )}
+                />
                 {errors.msg && (
                   <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
                     Mitigation Percent
@@ -652,30 +655,29 @@ const fetch_control= async()=>{
                 </InputLabel> */}
 
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                {t('Mitigation Control')}
-              </InputLabel>
+                  {t('Mitigation Control')}
+                </InputLabel>
                 <Controller
-                name='mitigation cost'
-                control={control}
-                rules={{ required: true }}
-                defaultValue={data}
-                render={({ field: { value, onChange } }) => (
-                  <Select
-                     
-                    value={controls}
-                    multiple
-                    fullWidth
-                    label={t('Mitigation Control')}
-                    onChange={(e)=> set_controls(e.target.value)}
-                    error={Boolean(errors?.msg)}
-                    labelId='validation-basic-select'
-                    aria-describedby='validation-basic-select'
-                  >
-                    <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
-                    <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem>
-                  </Select>
-                )}
-              />
+                  name='mitigation cost'
+                  control={control}
+                  rules={{ required: true }}
+                  defaultValue={data}
+                  render={({ field: { value, onChange } }) => (
+                    <Select
+                      value={controls}
+                      multiple
+                      fullWidth
+                      label={t('Mitigation Control')}
+                      onChange={e => set_controls(e.target.value)}
+                      error={Boolean(errors?.msg)}
+                      labelId='validation-basic-select'
+                      aria-describedby='validation-basic-select'
+                    >
+                      <MenuItem value='$0 to $100,000'>None is Selected</MenuItem>
+                      <MenuItem value={allMit?.data?.mitigationcost}>{allMit?.data?.mitigationcost}</MenuItem>
+                    </Select>
+                  )}
+                />
                 {errors.msg && (
                   <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
                     Mitigation Percent
