@@ -29,17 +29,17 @@ const FallbackSpinner = ({ sx }) => {
 
   return (
     <Box
-      sx={ {
+      sx={{
         height: '100vh',
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
         ...sx
-      } }
+      }}
     >
       <Img alt='loader image' src='/images/apple-touch-icon.png' />
-      <CircularProgress disableShrink sx={ { mt: 6 } } sx={ { color: '#060056' } } />
+      <CircularProgress disableShrink sx={{ mt: 6 }} sx={{ color: '#060056' }} />
     </Box>
   )
 }

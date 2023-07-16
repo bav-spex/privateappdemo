@@ -111,7 +111,7 @@ const ForgotPassword = () => {
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ p: theme => `${theme.spacing(12, 9, 7)} !important` }}>
           <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Img alt='error-illustration' src='/images/apple-touch-icon.png' />{' '}
+            <Img alt='error-illustration' src='/images/apple-touch-icon.png' />{' '}
             <Typography
               variant='h6'
               sx={{

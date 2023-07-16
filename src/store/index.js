@@ -12,18 +12,18 @@ import schedule from 'src/store/apps/schedule'
 import batches from 'src/store/apps/batches'
 
 export const store = configureStore({
-    reducer: {
-        user,
-        chat,
-        email,
-        invoice,
-        calendar,
-        permissions,
-        schedule,
-        batches
-    },
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware({
-            serializableCheck: false
-        })
+  reducer: {
+    user,
+    chat,
+    email,
+    invoice,
+    calendar,
+    permissions,
+    schedule,
+    batches
+  },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    })
 })

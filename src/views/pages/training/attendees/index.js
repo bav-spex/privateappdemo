@@ -269,11 +269,11 @@ const AttendeesList = props => {
   }, [])
 
   const handleNextBtn = () => {
-    toast.success('Batch is submitted.');
+    toast.success('Batch is submitted.')
     dispatch(submitBatch(storeData))
 
     dispatch(resetBatch())
-    router.replace("/home");
+    router.replace('/home')
   }
 
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
@@ -290,7 +290,7 @@ const AttendeesList = props => {
           <DataGrid
             autoHeight
             rows={store.teacherList}
-            getRowId={(row) => row.userId}
+            getRowId={row => row.userId}
             columns={columns}
             checkboxSelection
             loading={store.teacherList.length ? false : true}
@@ -319,12 +319,7 @@ const AttendeesList = props => {
         <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
           Back
         </Button>
-        <Button
-          size='large'
-          onClick={handleNextBtn}
-          disabled={!selectionModel.length}
-          variant='contained'
-        >
+        <Button size='large' onClick={handleNextBtn} disabled={!selectionModel.length} variant='contained'>
           Submit
         </Button>
       </Grid>

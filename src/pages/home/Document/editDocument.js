@@ -9,75 +9,84 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
-import { getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService';
-import { fwa } from 'src/pages/home/framework/frameworkService';
-import { getControlList } from 'src/pages/home/governance/controls/controlService';
+import { getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService'
+import { fwa } from 'src/pages/home/framework/frameworkService'
+import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 
 //Third party imports
 import toast from 'react-hot-toast'
 
 const EditDocument = () => {
-  const router = useRouter();
+  const router = useRouter()
   const data = useSelector(state => state.riskList)
-  
-  const [doc_id, setDocId] = useState(0);
-  const [document_object, setDocumentObject] = useState({});
 
-  const [frameworkIds, setFrameworkIds] = useState([]);
-  const [frameworkList, setFrameworkList] = useState([]);
-  const [controlIds, setcontrolIds] = useState([]);
-  const [controlList, setControlList] = useState([]);
-  const [doc_name, setDocName] = useState('');
-  const [doc_type, setDocType] = useState('');
+  const [doc_id, setDocId] = useState(0)
+  const [document_object, setDocumentObject] = useState({})
+
+  const [frameworkIds, setFrameworkIds] = useState([])
+  const [frameworkList, setFrameworkList] = useState([])
+  const [controlIds, setcontrolIds] = useState([])
+  const [controlList, setControlList] = useState([])
+  const [doc_name, setDocName] = useState('')
+  const [doc_type, setDocType] = useState('')
   const [docTypeList, setDocTypeList] = useState([])
   const [additional_stakeholders, setAdditionalStakeholders] = useState([])
   const [teams_id, setTeamIds] = useState([])
   const [teamList, setTeamList] = useState([])
   const [documentStatusList, setDocumentStatusList] = useState([])
   const [documentStatusIds, setDocumentStatusIds] = useState('')
-  const [document_approver, setDocumentApprover] = useState('');
-  const [user_list, setUserList] = useState([]);
-  const [creationDate, setCreationDate] = useState('');
-  const [lastReviewDate, setLastReviewDate] = useState('');
-  const [review_frequency, setReviewFrequency] = useState('');
-  const [next_review_date, setNextReviewDate] = useState('');
-  const [approval_date, setApprovalDate] = useState('');
+  const [document_approver, setDocumentApprover] = useState('')
+  const [user_list, setUserList] = useState([])
+  const [creationDate, setCreationDate] = useState('')
+  const [lastReviewDate, setLastReviewDate] = useState('')
+  const [review_frequency, setReviewFrequency] = useState('')
+  const [next_review_date, setNextReviewDate] = useState('')
+  const [approval_date, setApprovalDate] = useState('')
 
   const dispatch = useDispatch()
 
   //!fetch Documents
   useEffect(() => {
-    getCategoryData(9, () => {}, setDocTypeList);
-    setDocId(router.query.keyword);
-    getDocumentById(router.query.keyword,() => {}, (response) => {
-      const doc_obj = response.data;
-      console.log("doc_obj res:", doc_obj);
-      setDocumentObject(doc_obj);
-      setDocType(doc_obj.doc_type);
-      setDocName(doc_obj.doc_name);
-      setFrameworkIds(doc_obj.framework_ids);
-      setcontrolIds(doc_obj.control_ids);
-      setAdditionalStakeholders(doc_obj.additional_stakeholders);
-      setDocumentApprover(doc_obj.approver);
-      setTeamIds(doc_obj.teams_id);
-    });
+    getCategoryData(9, () => {}, setDocTypeList)
+    setDocId(router.query.keyword)
+    getDocumentById(
+      router.query.keyword,
+      () => {},
+      response => {
+        const doc_obj = response.data
+        console.log('doc_obj res:', doc_obj)
+        setDocumentObject(doc_obj)
+        setDocType(doc_obj.doc_type)
+        setDocName(doc_obj.doc_name)
+        setFrameworkIds(doc_obj.framework_ids)
+        setcontrolIds(doc_obj.control_ids)
+        setAdditionalStakeholders(doc_obj.additional_stakeholders)
+        setDocumentApprover(doc_obj.approver)
+        setTeamIds(doc_obj.teams_id)
+      }
+    )
 
-    getCategoryData(9, () => {}, setDocTypeList);
-    getCategoryData(10, () => {}, setDocumentStatusList);
-    fwa(() => {}, setFrameworkList);
+    getCategoryData(9, () => {}, setDocTypeList)
+    getCategoryData(10, () => {}, setDocumentStatusList)
+    fwa(() => {}, setFrameworkList)
 
-    let controlSuccessCallback = (response) => {
-      setControlList(response.data.controls);
+    let controlSuccessCallback = response => {
+      setControlList(response.data.controls)
     }
-    getControlList(() => {}, controlSuccessCallback);
+    getControlList(() => {}, controlSuccessCallback)
 
-    let teamSuccessCallback = (response) => {
-      setTeamList(response.data.users);
+    let teamSuccessCallback = response => {
+      setTeamList(response.data.users)
     }
-    getTeams(() => {}, teamSuccessCallback);
-    getUsers(() => {}, (response) => { setUserList(response.data.users); });
-    console.log("document_object:", document_object);
+    getTeams(() => {}, teamSuccessCallback)
+    getUsers(
+      () => {},
+      response => {
+        setUserList(response.data.users)
+      }
+    )
+    console.log('document_object:', document_object)
   }, [])
 
   // ! to select docs
@@ -214,21 +223,21 @@ const EditDocument = () => {
                       value={doc_type}
                       fullWidth
                       label={'documenttype'}
-                      onChange={(e)=> setDocType(e.target.value)}
+                      onChange={e => setDocType(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {docTypeList.map((item) => (item !== null ?
-                        <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
-                      ))}
+                      {docTypeList.map(item =>
+                        item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                      )}
                     </Select>
                   )}
                 />
               </FormControl>
             </Grid>
             {/* end of Document Type  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel
                   id='validation-basic-select'
@@ -239,7 +248,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Documetname */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   FrameWorks
@@ -257,21 +266,21 @@ const EditDocument = () => {
                       defaultValue={''}
                       fullWidth
                       label={'FrameWorks'}
-                      onChange={(e)=> setFrameworkIds(e.target.value)}
+                      onChange={e => setFrameworkIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {frameworkList.map((item) => (item !== null ?
-                        <MenuItem value={item.id}>{item.framework_Name}</MenuItem>: ""
-                      ))}
+                      {frameworkList.map(item =>
+                        item !== null ? <MenuItem value={item.id}>{item.framework_Name}</MenuItem> : ''
+                      )}
                     </Select>
                   )}
                 />
               </FormControl>
             </Grid>
             {/* end of FrameWorks  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -304,7 +313,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* //end of controls  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Additional Stakeholders:
@@ -339,7 +348,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* //end of AdditionalStakeHolders */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -372,7 +381,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Document owner*/}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Team
@@ -406,7 +415,7 @@ const EditDocument = () => {
               </FormControl>
               {/* end of Team  */}
             </Grid>
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -416,13 +425,13 @@ const EditDocument = () => {
               </FormControl>
               {/* end of creationDate  */}
             </Grid>
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <TextField type='text' variant='outlined' label='LastReview' value={ed?.data?.last__review_date} />
               </FormControl>
             </Grid>
             {/* end of Last Review */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Review Frequency
@@ -432,7 +441,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Review Frequency */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -443,7 +452,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* end of next review Dates*/}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {/* ApprovalDate  */}
@@ -490,7 +499,7 @@ const EditDocument = () => {
             </Grid> */}
 
             {/* end of parent Document  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Document Status
@@ -521,7 +530,7 @@ const EditDocument = () => {
               </FormControl>
             </Grid>
             {/* end of Documen Status */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%', marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%', marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   File

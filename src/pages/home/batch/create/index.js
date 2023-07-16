@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import CreateBatch from "src/views/pages/batches/create"
+import CreateBatch from 'src/views/pages/batches/create'
 
 const steps = [
   {
@@ -25,7 +25,6 @@ const steps = [
   }
 ]
 
-
 const BatchCreate = () => {
   return (
     <Grid container spacing={6}>
@@ -37,7 +36,6 @@ const BatchCreate = () => {
           </CardContent>
         </Card>
       </Grid>
-      
     </Grid>
   )
 }

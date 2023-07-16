@@ -13,55 +13,50 @@ import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 import toast from 'react-hot-toast'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles';
-
+import { useTheme } from '@material-ui/core/styles'
 
 const Framework_info = () => {
   const router = useRouter()
   const data = useSelector(state => state.riskList)
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
-  const [fwDetails, setFwDetails] = useState([]);
-  const [name, set_name]=useState('');
-  const [parent, set_parent]=useState('');
-  const [description, set_description]=useState('');
+  const [fwDetails, setFwDetails] = useState([])
+  const [name, set_name] = useState('')
+  const [parent, set_parent] = useState('')
+  const [description, set_description] = useState('')
 
-  const fetch_framework_details =async()=>{
-
-    const res= await fetch(`${authConfig.frameWorkbyId}/${router.query.keyword}`, {
-      method:"GET",
-        headers:{
-            "Content-Type": "application/json"
-        },
-  })
-    const data= await res.json();
-    console.log("framework is", data);
-    setFwDetails(data);
-    set_name(data.framework_Name);
-    set_parent(data.framework_Parent);
-    set_description(data.framework_Details);
+  const fetch_framework_details = async () => {
+    const res = await fetch(`${authConfig.frameWorkbyId}/${router.query.keyword}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('framework is', data)
+    setFwDetails(data)
+    set_name(data.framework_Name)
+    set_parent(data.framework_Parent)
+    set_description(data.framework_Details)
   }
 
-
   useEffect(() => {
-    
-    fetch_framework_details();
+    fetch_framework_details()
   }, [])
-
 
   // useEffect(() => {
   //   freameworkDetails(() => {}, setFwDetails)
   //   console.log('fwDetails:', fwDetails)
   // }, [])
 
-const [fwList, setFwList] = useState([])
+  const [fwList, setFwList] = useState([])
   //!  to feth Parent fw
   useEffect(() => {
-    fwa(() =>  {}, setFwList)
+    fwa(() => {}, setFwList)
     console.log('allframeaworks:', fwList)
   }, [])
 
@@ -70,14 +65,12 @@ const [fwList, setFwList] = useState([])
   console.log('Frameworks:', frameWorksArray)
   console.log('Frameworks Details:', frameWorksDetails)
 
-  
-  
   // !button methods
   const gotoCancel = () => {
     router.push(`/home/framework`)
   }
   //!states
- 
+
   const [cat, setCat] = useState({})
 
   // ** Hooks
@@ -112,27 +105,28 @@ const [fwList, setFwList] = useState([])
           xs={12}
           md={4}
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
-        >
-        </Grid>
+        ></Grid>
       </div>
 
       <Divider />
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ width: '100%' }}>
           <h5>{t('FrameWork Name')}</h5>
-          <TextField label='FrameWork' fullWidth
-          //  value={frameWorksDetails.framework_Name}
-          value={name}
-          onChange={(e)=> set_name(e.target.value)}
-          disabled={true}
-            />
+          <TextField
+            label='FrameWork'
+            fullWidth
+            //  value={frameWorksDetails.framework_Name}
+            value={name}
+            onChange={e => set_name(e.target.value)}
+            disabled={true}
+          />
         </Grid>
         <Grid item sx={{ width: '100%' }}>
           <h5>{t('Parent FrameWork')}</h5>
           <Controller
             name='ParentFrameWork'
             control={control}
-            rules={{ required: true }}            
+            rules={{ required: true }}
             render={({ field: { value, onChange } }) => (
               <Select
                 // value={value}
@@ -171,9 +165,8 @@ const [fwList, setFwList] = useState([])
             fullWidth
             // value={frameWorksDetails.framework_Details}
             value={description}
-            onChange={(e)=> set_description(e.target.value)}
+            onChange={e => set_description(e.target.value)}
             disabled={true}
-
           />
         </Grid>
       </Grid>

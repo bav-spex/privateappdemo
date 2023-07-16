@@ -147,11 +147,10 @@ export const fetchOwner = (errorCallback, successCallback) => {
     .get(authConfig.owner_list)
     .then(res => {
       console.log('owner list:', res.data)
-      successCallback(res.data.users);
+      successCallback(res.data.users)
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
-
 
 export const saveRisk = (params, errorCallback, successCallback) => {
   console.log('params:', params)

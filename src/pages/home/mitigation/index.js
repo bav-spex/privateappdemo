@@ -1,3 +1,3 @@
 const dummy = (errorCallback, successCallback) => {}
 
-export default dummy;
+export default dummy

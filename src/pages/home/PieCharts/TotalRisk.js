@@ -46,7 +46,7 @@ const PieCharts = () => {
 
   useEffect(() => {
     const getStatus = []
-    
+
     getRisk()
   }, [])
 

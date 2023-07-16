@@ -27,116 +27,108 @@ import { addRisk } from 'src/store/apps/Risks/index'
 //Third party imports
 import toast from 'react-hot-toast'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles'
 
 const Risk_info = () => {
   const data = useSelector(state => state.riskList)
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
   const dispatch = useDispatch()
 
-
-  const fetch_owner_list= async()=>{
-
-    const res= await fetch(`${authConfig.owner_list}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          }
-        });
-        const data= await res.json();
-        console.log("owner dropdown list is", data);
-        setOwnerList(data.data.users);
-  }
-
-  const fetch_team_list= async()=>{
-
-    const res= await fetch(`${authConfig.team_list}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          }
-        });
-        const data= await res.json();
-        console.log("team dropdown list is", data);
-        setTeamList(data.data.users);
-  }
-
-  const fetch_risk_dropdown= async()=>{
-
-    const res= await fetch(`${authConfig.risk_mapping_list}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          }
-        });
-        const data= await res.json();
-        console.log("risk dropdown list is", data);
-        set_risk_dropdown(data);
-  }
-
-  const fetch_threat_dropdown= async()=>{
-
-    const res= await fetch(`${authConfig.threat_mapping_list}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          }
-        });
-        const data= await res.json();
-        console.log("threat dropdown list is", data);
-        set_threat_dropdown(data);
-  }
-
-  const fetch_regulation_dropdown= async()=>{
-
-    const res= await fetch(`${authConfig.regulation_dropdown}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          }
-        });
-        const data= await res.json();
-        console.log("regulation dropdown list is", data);
-        set_regulation_dropdown(data);
-  }
-
-
-  const fetch_risk_by_id= async()=>{
-
-    const res= await fetch(`${authConfig.riskListEndPoint}/${router.query.keyword}`, {
-        method:"GET",
-          headers:{
-              "Content-Type": "application/json"
-          },
+  const fetch_owner_list = async () => {
+    const res = await fetch(`${authConfig.owner_list}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-    const data= await res.json();
-    console.log("specified risk data is", data);
-    set_subject(data.data.subject);
-    set_risk_mapping(data.data.riskmapping);
-    set_threat_mapping(data.data.threatmapping);
-    set_category(data.data.category);
-    setRs(data.data.risksource);
-    setlocation(data.data.site);
-    setScore(data.data.riskscoringmethod);
-    set_refernce_id(data.data.externalreferenceid);
-    set_current_likelihood(data.data.currentlikelihood);
-    set_regulation(data.data.controlregulation);
-    set_current_impact(data.data.currentimpact);
-    set_control_number(data.data.controlnumber);
-    set_assessment(data.data.riskassessment);
-    setAssets(data.data.affectedassets);
-    set_additional_notes(data.data.additionalnotes);
-    setTech(data.data.technology);
-    setTeam(data.data.team);
-    set_additional_stakeholders(data.data.additionalstakeholders);
-    setOwner(data.data.owner);
-    setManager(data.data.ownermanager);
-    setTag(data.data.tag);
+    const data = await res.json()
+    console.log('owner dropdown list is', data)
+    setOwnerList(data.data.users)
+  }
+
+  const fetch_team_list = async () => {
+    const res = await fetch(`${authConfig.team_list}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('team dropdown list is', data)
+    setTeamList(data.data.users)
+  }
+
+  const fetch_risk_dropdown = async () => {
+    const res = await fetch(`${authConfig.risk_mapping_list}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('risk dropdown list is', data)
+    set_risk_dropdown(data)
+  }
+
+  const fetch_threat_dropdown = async () => {
+    const res = await fetch(`${authConfig.threat_mapping_list}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('threat dropdown list is', data)
+    set_threat_dropdown(data)
+  }
+
+  const fetch_regulation_dropdown = async () => {
+    const res = await fetch(`${authConfig.regulation_dropdown}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('regulation dropdown list is', data)
+    set_regulation_dropdown(data)
+  }
+
+  const fetch_risk_by_id = async () => {
+    const res = await fetch(`${authConfig.riskListEndPoint}/${router.query.keyword}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log('specified risk data is', data)
+    set_subject(data.data.subject)
+    set_risk_mapping(data.data.riskmapping)
+    set_threat_mapping(data.data.threatmapping)
+    set_category(data.data.category)
+    setRs(data.data.risksource)
+    setlocation(data.data.site)
+    setScore(data.data.riskscoringmethod)
+    set_refernce_id(data.data.externalreferenceid)
+    set_current_likelihood(data.data.currentlikelihood)
+    set_regulation(data.data.controlregulation)
+    set_current_impact(data.data.currentimpact)
+    set_control_number(data.data.controlnumber)
+    set_assessment(data.data.riskassessment)
+    setAssets(data.data.affectedassets)
+    set_additional_notes(data.data.additionalnotes)
+    setTech(data.data.technology)
+    setTeam(data.data.team)
+    set_additional_stakeholders(data.data.additionalstakeholders)
+    setOwner(data.data.owner)
+    setManager(data.data.ownermanager)
+    setTag(data.data.tag)
   }
 
   //!for selecting Risk
@@ -145,10 +137,8 @@ const Risk_info = () => {
   }, [])
 
   useEffect(() => {
-    fetch_risk_by_id();
-   }, [])
- 
-
+    fetch_risk_by_id()
+  }, [])
 
   //!to save risks
   useEffect(() => {}, [])
@@ -197,14 +187,12 @@ const Risk_info = () => {
 
   //to fetch owners and additional stakeholders
   useEffect(() => {
-    
-    fetch_owner_list();
-    fetch_team_list();
-    fetch_risk_dropdown();
-    fetch_threat_dropdown();
-    fetch_regulation_dropdown();
+    fetch_owner_list()
+    fetch_team_list()
+    fetch_risk_dropdown()
+    fetch_threat_dropdown()
+    fetch_regulation_dropdown()
   }, [])
-
 
   //! to select categories
   const setCatRisk = value => {
@@ -295,35 +283,35 @@ const Risk_info = () => {
   const [aassets, setAssets] = useState([])
   const [assetsList, setAssetsList] = useState([])
   const [tech, setTech] = useState([])
-  const [techList, setTechList] = useState([]);
+  const [techList, setTechList] = useState([])
 
   const [ownerList, setOwnerList] = useState([])
-  const [teamList, setTeamList] = useState([]);
+  const [teamList, setTeamList] = useState([])
 
-  const [team, setTeam] = useState([]);
-  const [additional_stakeholders, set_additional_stakeholders] = useState([]);
+  const [team, setTeam] = useState([])
+  const [additional_stakeholders, set_additional_stakeholders] = useState([])
 
-  const [subject, set_subject]= useState('');
+  const [subject, set_subject] = useState('')
 
-  const [reference_id, set_refernce_id]= useState('');
-  const [regulation, set_regulation]= useState('');
-  const [control_number, set_control_number]= useState('');
-  const [owner, setOwner]= useState('');
-  const [manager, setManager]= useState('');
-  const [assessment, set_assessment]= useState('');
-  const [tag, setTag]= useState('');
-  const [additional_notes, set_additional_notes]= useState('');
-  const [category_ ,set_category]= useState('');
-  const [current_impact ,set_current_impact]= useState('');
-  const [current_likelihood ,set_current_likelihood]= useState('');
+  const [reference_id, set_refernce_id] = useState('')
+  const [regulation, set_regulation] = useState('')
+  const [control_number, set_control_number] = useState('')
+  const [owner, setOwner] = useState('')
+  const [manager, setManager] = useState('')
+  const [assessment, set_assessment] = useState('')
+  const [tag, setTag] = useState('')
+  const [additional_notes, set_additional_notes] = useState('')
+  const [category_, set_category] = useState('')
+  const [current_impact, set_current_impact] = useState('')
+  const [current_likelihood, set_current_likelihood] = useState('')
 
-  const [risk_dropdown ,set_risk_dropdown]= useState([]);
-  const [risk_mapping ,set_risk_mapping]= useState([]);
+  const [risk_dropdown, set_risk_dropdown] = useState([])
+  const [risk_mapping, set_risk_mapping] = useState([])
 
-  const [threat_dropdown ,set_threat_dropdown]= useState([]);
-  const [threat_mapping ,set_threat_mapping]= useState([]);
+  const [threat_dropdown, set_threat_dropdown] = useState([])
+  const [threat_mapping, set_threat_mapping] = useState([])
 
-  const [regulation_dropdown ,set_regulation_dropdown]= useState([]);
+  const [regulation_dropdown, set_regulation_dropdown] = useState([])
 
   // console.log('allrisk :', allRisk)
   const setSelectedRisk = value => {
@@ -373,21 +361,21 @@ const Risk_info = () => {
   //   console.log(e.target.files)
   // }
 
-  const upload = async(e) => {
+  const upload = async e => {
     // console.log("file uploaded is", e.target.files[0]);
-    const selectedFile = e.target.files[0];
-  const formData = new FormData();
-  console.log("selected file is", selectedFile);
-  formData.append("file", selectedFile);
-  // console.log(formData); 
-  for (var key of formData.entries()) {
-    console.log(key[0] + ', ' + key[1])
-  }
-  // const res= await fetch(``, {
-  //   method:"POST",
-  //     body: formData
-  //   });
-  //   const data= await res.json();
+    const selectedFile = e.target.files[0]
+    const formData = new FormData()
+    console.log('selected file is', selectedFile)
+    formData.append('file', selectedFile)
+    // console.log(formData);
+    for (var key of formData.entries()) {
+      console.log(key[0] + ', ' + key[1])
+    }
+    // const res= await fetch(``, {
+    //   method:"POST",
+    //     body: formData
+    //   });
+    //   const data= await res.json();
   }
 
   return (
@@ -395,8 +383,7 @@ const Risk_info = () => {
       {/* {JSON.stringify(data)} */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3>{t('Risk Information')}</h3>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}></div>
 
         <Grid container spacing={2}>
           <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
@@ -439,7 +426,7 @@ const Risk_info = () => {
                 label={t('Subject')}
                 // value={allRisk?.data?.subject}
                 value={subject}
-                onChange={(e)=> set_subject(e.target.value)}
+                onChange={e => set_subject(e.target.value)}
                 //ends
                 placeholder='select a subject or start typing search ...'
                 disabled={true}
@@ -454,8 +441,12 @@ const Risk_info = () => {
           {/* subject end */}
           <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
-              <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'
-              style={{ paddingRight: '100px' }}>
+              <InputLabel
+                id='validation-basic-select'
+                error={Boolean(errors.msg)}
+                htmlFor='validation-basic-select'
+                style={{ paddingRight: '100px' }}
+              >
                 Select a Risk mapping or start typing to search
               </InputLabel>
               <Controller
@@ -521,7 +512,7 @@ const Risk_info = () => {
                     label={'Select a Threat Mapping or start typing to search'}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
-                      set_threat_mapping(e.target.value);
+                      set_threat_mapping(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -564,7 +555,7 @@ const Risk_info = () => {
           >
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Category')}
+                {t('Category')}
               </InputLabel>
               <Controller
                 name='category'
@@ -609,7 +600,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Risk Source')}
+                {t('Risk Source')}
               </InputLabel>
               <Controller
                 name='Risk Source'
@@ -653,7 +644,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Site location')}
+                {t('Site location')}
               </InputLabel>
 
               <Controller
@@ -686,7 +677,7 @@ const Risk_info = () => {
                           {c.lookupName}
                         </MenuItem>
                       ))}
-                      <MenuItem value='1'>All Sites</MenuItem>
+                    <MenuItem value='1'>All Sites</MenuItem>
                   </Select>
                 )}
               />
@@ -752,7 +743,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('External Refrence id')}:
+                {t('External Refrence id')}:
               </InputLabel>
               <Controller
                 name='External Refrence id'
@@ -791,7 +782,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Current likelihood')}
+                {t('Current likelihood')}
               </InputLabel>
 
               <Controller
@@ -810,7 +801,7 @@ const Risk_info = () => {
                       // setSelectedRisk(e.target.value)
                       // onChange(e)
                       selectCurrent(e.target.value)
-                      set_current_likelihood(e.target.value);
+                      set_current_likelihood(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -839,7 +830,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Control Regulation')}
+                {t('Control Regulation')}
               </InputLabel>
               <Controller
                 name='control Regulation'
@@ -854,7 +845,7 @@ const Risk_info = () => {
                     label={t('Control Regulation')}
                     onChange={e => {
                       setSelectedRisk(e.target.value)
-                      set_regulation(e.target.value);
+                      set_regulation(e.target.value)
                       onChange(e)
                     }}
                     error={Boolean(errors?.msg)}
@@ -865,11 +856,7 @@ const Risk_info = () => {
                     {/* <MenuItem value=''>None </MenuItem>
                     <MenuItem value={allRisk.data?.controlregulation}>{allRisk.data?.controlregulation}</MenuItem> */}
                     {Array.isArray(regulation_dropdown) &&
-                      regulation_dropdown.map((c, i) => (
-                        <MenuItem value={c.id}>
-                          {c.framework_Name}
-                        </MenuItem>
-                      ))}
+                      regulation_dropdown.map((c, i) => <MenuItem value={c.id}>{c.framework_Name}</MenuItem>)}
                   </Select>
                 )}
               />
@@ -885,7 +872,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Current Impact')}
+                {t('Current Impact')}
               </InputLabel>
               <Controller
                 name='currentImpacts'
@@ -961,12 +948,13 @@ const Risk_info = () => {
                   Control Number
                 </FormHelperText>
               )} */}
-              <TextField type='text' 
-              variant='outlined' 
-              label={t('Control Number')} 
-              value={control_number} 
-              onChange={(e)=> set_control_number(e.target.value)} 
-              disabled={true}
+              <TextField
+                type='text'
+                variant='outlined'
+                label={t('Control Number')}
+                value={control_number}
+                onChange={e => set_control_number(e.target.value)}
+                disabled={true}
               />
             </FormControl>
           </Grid>
@@ -1007,14 +995,20 @@ const Risk_info = () => {
 
               {/* //DropDown Fetch */}
 
-              <TextField type='text' variant='outlined' label={t('Risk Assessment')} value={assessment} onChange={(e)=> set_assessment(e.target.value)}/>
+              <TextField
+                type='text'
+                variant='outlined'
+                label={t('Risk Assessment')}
+                value={assessment}
+                onChange={e => set_assessment(e.target.value)}
+              />
             </FormControl>
           </Grid>
           {/* end of risk assesment */}
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Affected Assets')}
+                {t('Affected Assets')}
               </InputLabel>
               <Controller
                 name='affectedAssets'
@@ -1100,13 +1094,13 @@ const Risk_info = () => {
                 select an assets or assets Group you can create a new Assets by adding its name to the list
                 <br />
               </h6> */}
-              <TextField 
-              type='text' 
-              variant='outlined' 
-              label={t('Additional Notes')} 
-              value={additional_notes} 
-              onChange={(e)=> set_additional_notes(e.target.value)}
-              disabled={true}
+              <TextField
+                type='text'
+                variant='outlined'
+                label={t('Additional Notes')}
+                value={additional_notes}
+                onChange={e => set_additional_notes(e.target.value)}
+                disabled={true}
               />
             </FormControl>
           </Grid>
@@ -1114,7 +1108,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Technology')}
+                {t('Technology')}
               </InputLabel>
               <Controller
                 name='currentImpacts'
@@ -1195,13 +1189,13 @@ const Risk_info = () => {
                 </FormHelperText>
               )} */}
 
-              <TextField 
-              type='file' 
-              bg-color='primary' 
-              onChange={e => upload(e)} 
-              name='img' 
-              variant='outlined' 
-              disabled={true}
+              <TextField
+                type='file'
+                bg-color='primary'
+                onChange={e => upload(e)}
+                name='img'
+                variant='outlined'
+                disabled={true}
               />
             </FormControl>
           </Grid>
@@ -1209,7 +1203,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Team')}
+                {t('Team')}
               </InputLabel>
               <Controller
                 name='technology'
@@ -1218,7 +1212,7 @@ const Risk_info = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                  multiple
+                    multiple
                     // value={value}
                     value={team}
                     fullWidth
@@ -1227,7 +1221,7 @@ const Risk_info = () => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
                       //adding my
-                      setTeam(e.target.value);
+                      setTeam(e.target.value)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
@@ -1241,9 +1235,7 @@ const Risk_info = () => {
                       </MenuItem>
                     ))} */}
                     {teamList.map((item, i) => (
-                      <MenuItem value={item.id}>
-                        {item.name}
-                      </MenuItem>
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
                     ))}
                   </Select>
                 )}
@@ -1259,7 +1251,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Additional Stakeholders')}:
+                {t('Additional Stakeholders')}:
               </InputLabel>
               <Controller
                 name='technology'
@@ -1268,7 +1260,7 @@ const Risk_info = () => {
                 defaultValue={data}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                  multiple
+                    multiple
                     // value={value}
                     value={additional_stakeholders}
                     fullWidth
@@ -1277,7 +1269,7 @@ const Risk_info = () => {
                       setSelectedRisk(e.target.value)
                       onChange(e)
                       //adding my
-                      set_additional_stakeholders(e.target.value);
+                      set_additional_stakeholders(e.target.value)
                     }}
                     error={Boolean(errors?.msg)}
                     labelId='validation-basic-select'
@@ -1286,9 +1278,7 @@ const Risk_info = () => {
                   >
                     {/* <MenuItem value=''>None</MenuItem> */}
                     {ownerList.map((item, i) => (
-                      <MenuItem value={item.id}>
-                        {item.name}
-                      </MenuItem>
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
                     ))}
                   </Select>
                 )}
@@ -1304,7 +1294,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Owner')}
+                {t('Owner')}
               </InputLabel>
               <Controller
                 name='owner'
@@ -1330,9 +1320,7 @@ const Risk_info = () => {
                     {/* <MenuItem value=''>None</MenuItem>
                     <MenuItem value={allRisk.data?.owner}>{allRisk.data?.owner}</MenuItem> */}
                     {ownerList.map((item, i) => (
-                      <MenuItem value={item.id}>
-                        {item.name}
-                      </MenuItem>
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
                     ))}
                   </Select>
                 )}
@@ -1349,7 +1337,7 @@ const Risk_info = () => {
           <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-              {t('Owner Manager')}:
+                {t('Owner Manager')}:
               </InputLabel>
               <Controller
                 name='owner'
@@ -1375,9 +1363,7 @@ const Risk_info = () => {
                     {/* <MenuItem value=''>None</MenuItem>
                     <MenuItem value={allRisk.data?.ownermanager}>{allRisk.data?.ownermanager}</MenuItem> */}
                     {ownerList.map((item, i) => (
-                      <MenuItem value={item.id}>
-                        {item.name}
-                      </MenuItem>
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
                     ))}
                   </Select>
                 )}
@@ -1391,13 +1377,13 @@ const Risk_info = () => {
           </Grid>
           <Grid container xs={12}>
             <h3>{t('Tags')}</h3>
-            <TextField 
-            type='text' 
-            fullWidth 
-            placeholder='Select/AddTag' 
-            value={tag} 
-            onChange={(e)=> setTag(e.target.value)}
-            disabled={true}
+            <TextField
+              type='text'
+              fullWidth
+              placeholder='Select/AddTag'
+              value={tag}
+              onChange={e => setTag(e.target.value)}
+              disabled={true}
             />
           </Grid>
 

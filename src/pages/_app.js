@@ -30,7 +30,6 @@ import AuthGuard from 'src/@core/components/auth/AuthGuard'
 import GuestGuard from 'src/@core/components/auth/GuestGuard'
 import WindowWrapper from 'src/@core/components/window-wrapper'
 
-
 // ** Spinner Import
 import Spinner from 'src/@core/components/spinner'
 
@@ -57,21 +56,19 @@ import 'src/iconify-bundle/icons-bundle-react'
 // ** Global css styles
 import '../../styles/globals.css'
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { zhCN } from '@mui/material/locale';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { zhCN } from '@mui/material/locale'
 
 const theme = createTheme(
   {
     palette: {
-      primary: { main: '#1976d2' },
-    },
+      primary: { main: '#1976d2' }
+    }
   },
-  zhCN,
-);
+  zhCN
+)
 
 const clientSideEmotionCache = createEmotionCache()
-
-
 
 const Guard = ({ children, authGuard, guestGuard }) => {
   if (guestGuard) {
@@ -100,38 +97,41 @@ const App = props => {
   return (
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-      <>
-        <Head>
-          <title>{`${themeConfig.templateName}`}</title>
-          <meta name='description' content={`${themeConfig.templateName}`} />
-          <meta name='keywords' content='Rakshitah' />
-          <meta name='viewport' content='initial-scale=1, width=device-width' />
-        </Head>
+        <ThemeProvider theme={theme}>
+          <>
+            <Head>
+              <title>{`${themeConfig.templateName}`}</title>
+              <meta name='description' content={`${themeConfig.templateName}`} />
+              <meta name='keywords' content='Rakshitah' />
+              <meta name='viewport' content='initial-scale=1, width=device-width' />
+            </Head>
 
-        <AuthProvider>
-          <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-            <SettingsConsumer>
-              {({ settings }) => {
-                return (
-                  <ThemeComponent settings={settings}>
-                    <WindowWrapper>
-                      <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                        <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
-                          {getLayout(<Component {...pageProps} />)}
-                        </AclGuard>
-                      </Guard>
-                    </WindowWrapper>
-                    <ReactHotToast>
-                      <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
-                    </ReactHotToast>
-                  </ThemeComponent>
-                )
-              }}
-            </SettingsConsumer>
-          </SettingsProvider>
-        </AuthProvider>
-        </>
+            <WindowWrapper>
+              <AuthProvider>
+                <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+                  <SettingsConsumer>
+                    {({ settings }) => {
+                      return (
+                        <ThemeComponent settings={settings}>
+                          <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                            <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
+                              {getLayout(<Component {...pageProps} />)}
+                            </AclGuard>
+                          </Guard>
+                          <ReactHotToast>
+                            <Toaster
+                              position={settings.toastPosition}
+                              toastOptions={{ className: 'react-hot-toast' }}
+                            />
+                          </ReactHotToast>
+                        </ThemeComponent>
+                      )
+                    }}
+                  </SettingsConsumer>
+                </SettingsProvider>
+              </AuthProvider>
+            </WindowWrapper>
+          </>
         </ThemeProvider>
       </CacheProvider>
     </Provider>

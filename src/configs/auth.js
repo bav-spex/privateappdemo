@@ -1,24 +1,27 @@
 // const governance_base_url = 'http://localhost:8080'
 const governance_base_url = 'https://governance-dev-rakshitah.azurewebsites.net'
-const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net';
-const common_base_url = 'https://common-dev-rakshitah.azurewebsites.net';
-const auth_base_url = 'https://iac-dev-rakshitah.azurewebsites.net'
+const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net'
+const common_base_url = 'https://common-dev-rakshitah.azurewebsites.net'
+const auth_base_url = 'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io'
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
 const risk_base_url = ' https://risk-dev-rakshitah.azurewebsites.net'
-const risk_category_url = `${common_base_url}/`;
-const risk_source_url = `${common_base_url}/`;
-const site_location_url = `${common_base_url}/`;
-const current_likelihood_url = `${common_base_url}/`;
-const current_Impact_url = `${common_base_url}/`;
-const risk_scoring_url = `${common_base_url}/`;
-const Affected_Assets_url = `${common_base_url}/`;
-const technology_url = `${common_base_url}/`;
+const risk_category_url = `${common_base_url}/`
+const risk_source_url = `${common_base_url}/`
+const site_location_url = `${common_base_url}/`
+const current_likelihood_url = `${common_base_url}/`
+const current_Impact_url = `${common_base_url}/`
+const risk_scoring_url = `${common_base_url}/`
+const Affected_Assets_url = `${common_base_url}/`
+const technology_url = `${common_base_url}/`
 const owner_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users'
 const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
-const risk_mapping_list_url = `${common_base_url}/lookup/v1/category/28`;
-const threat_mapping_list_url = `${common_base_url}/lookup/v1/category/29`;
+const role_list_url = `${auth_base_url}/iam/roles`
+const add_update_role_list = `${auth_base_url}/iam/roles`
+const claim_list_url = `${auth_base_url}/iam/roles/claims`
+const risk_mapping_list_url = `${common_base_url}/lookup/v1/category/28`
+const threat_mapping_list_url = `${common_base_url}/lookup/v1/category/29`
 const regulation_dropdown_url = `${governance_base_url}/governance/v1/frameworks/getAll`
-const edit_risk_url= `${risk_base_url}/rmf/v1/risks/update`
+const edit_risk_url = `${risk_base_url}/rmf/v1/risks/update`
 const mitigation_url = ` ${risk_base_url}/`
 const riskSave_url = `${risk_base_url}/`
 const savemitigation_url = `${risk_base_url}/`
@@ -26,48 +29,48 @@ const frameWork_src_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pst
 const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
 const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
-const control_url=`${governance_base_url}/governance/v1/controls/get`
-const control_by_id_url=`${governance_base_url}/governance/v1/controls/id`
-const control_new_url=`${governance_base_url}/governance/v1/controls/new`
-const control_update_url=`${governance_base_url}/governance/v1/controls/update`
+const control_url = `${governance_base_url}/governance/v1/controls/get`
+const control_by_id_url = `${governance_base_url}/governance/v1/controls/id`
+const control_new_url = `${governance_base_url}/governance/v1/controls/new`
+const control_update_url = `${governance_base_url}/governance/v1/controls/update`
 const delete_control_url = `${governance_base_url}/governance/v1/controls/delete`
-const control_dropdown_url=`${common_base_url}/lookup/v1/category`;
-const get_tests_url=`${compliance_base_url}/compliance/v1/test/get`;
-const category_list_url= `${common_base_url}/categories/v1/get`;
-const display_lookup_url= `${common_base_url}/lookup/v1/category`;
+const control_dropdown_url = `${common_base_url}/lookup/v1/category`
+const get_tests_url = `${compliance_base_url}/compliance/v1/test/get`
+const category_list_url = `${common_base_url}/categories/v1/get`
+const display_lookup_url = `${common_base_url}/lookup/v1/category`
 const managmentReview_url = `${risk_base_url}/`
-const mitigation_effort_url = `${common_base_url}/lookup/v1/category/22`;
-const planning_strategy_url= `${common_base_url}/lookup/v1/category/21`;
-const mitigation_update_url= `${risk_base_url}/rmf/risk/1/mitigation/update`
-const speedometer_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
-const open_risk_url= 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
+const mitigation_effort_url = `${common_base_url}/lookup/v1/category/22`
+const planning_strategy_url = `${common_base_url}/lookup/v1/category/21`
+const mitigation_update_url = `${risk_base_url}/rmf/risk/1/mitigation/update`
+const speedometer_url = 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
+const open_risk_url = 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
 const edit_framework_url = `${governance_base_url}/governance/v1/frameworks/update`
 const delete_framework_url = `${governance_base_url}/governance/v1/frameworks/delete`
-const new_framework_url= `${governance_base_url}/governance/v1/frameworks/new`
-const audit_dropdown_url= `${common_base_url}/lookup/v1/category`;
-const update_assessment_url= `${compliance_base_url}/compliance/v1/assessment/testresult/update`;
-const add_assessment_comment_url= `${compliance_base_url}/compliance/v1/assessment/testresult/comments`;
-const comment_list_url ='https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
-const risk_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
-const add_test_url= `${compliance_base_url}/compliance/v1/test/new`
-const save_existing_list_url= 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks'
-const fetch_existing_list_url= `${risk_base_url}/rmf/v1/risks`
+const new_framework_url = `${governance_base_url}/governance/v1/frameworks/new`
+const audit_dropdown_url = `${common_base_url}/lookup/v1/category`
+const update_assessment_url = `${compliance_base_url}/compliance/v1/assessment/testresult/update`
+const add_assessment_comment_url = `${compliance_base_url}/compliance/v1/assessment/testresult/comments`
+const comment_list_url = 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
+const risk_list_url = 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
+const add_test_url = `${compliance_base_url}/compliance/v1/test/new`
+const save_existing_list_url =
+  'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks'
+const fetch_existing_list_url = `${risk_base_url}/rmf/v1/risks`
 // const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks'
-const get_test_data_by_id_url=`${compliance_base_url}/compliance/v1/test/`;
-const add_assessment_url= `${compliance_base_url}/compliance/v1/assessment/new`;
-const get_assessment_url = `${compliance_base_url}/compliance/v1/assessment/`;
-const add_lookup_url= `${common_base_url}/lookup/v1/category`
-const edit_lookup_url= `${common_base_url}/lookup/v1/update`
-const test_url="http://localhost:8091/compliance/v1/test"
-const adit_url="http://localhost:8091/compliance/v1/audit"
-
+const get_test_data_by_id_url = `${compliance_base_url}/compliance/v1/test/`
+const add_assessment_url = `${compliance_base_url}/compliance/v1/assessment/new`
+const get_assessment_url = `${compliance_base_url}/compliance/v1/assessment/`
+const add_lookup_url = `${common_base_url}/lookup/v1/category`
+const edit_lookup_url = `${common_base_url}/lookup/v1/update`
+const test_url = 'http://localhost:8091/compliance/v1/test'
+const adit_url = 'http://localhost:8091/compliance/v1/audit'
 
 export default {
-  meEndpoint: '/auth/me',
-  loginEndpoint: `${auth_base_url}/api/Authenticate/login`,
+  meEndpoint: `${auth_base_url}/iam/authenticate/me`,
+  loginEndpoint: `${auth_base_url}/iam/authenticate/login`,
   loginMockEndpoint: 'jwt/login',
   otpEndpoint: `${auth_base_url}/users/v1/user/validateOTP`,
-  registerEndpoint: '/jwt/register',
+  registerEndpoint: `${auth_base_url}/iam/authenticate/register`,
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken', // logout | refreshToken
   courseEndpoint: '/courses',
@@ -89,6 +92,9 @@ export default {
   technlogy: `${technology_url}lookup/v1/category/19`,
   owner_list: `${owner_url}`,
   team_list: `${team_list_url}`,
+  role_list: `${role_list_url}`,
+  add_update_role_list: `${add_update_role_list}`,
+  claim_list: `${claim_list_url}`,
   risk_mapping_list: `${risk_mapping_list_url}`,
   threat_mapping_list: `${threat_mapping_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
@@ -109,7 +115,7 @@ export default {
   mitigation_update: `${mitigation_update_url}`,
   saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
   saveAllMitigation: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
-  controlList:`${control_url}`,
+  controlList: `${control_url}`,
   control_by_id: `${control_by_id_url}`,
   control_dropdown: `${control_dropdown_url}`,
   get_tests: `${get_tests_url}`,
@@ -138,7 +144,6 @@ export default {
   control_update: `${control_update_url}`,
   add_lookup: `${add_lookup_url}`,
   edit_lookup: `${edit_lookup_url}`,
-  audit_url :  `${test_url}`,
-  test_url :  `${adit_url}`,
+  audit_url: `${test_url}`,
+  test_url: `${adit_url}`
 }
-

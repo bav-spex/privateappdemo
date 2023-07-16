@@ -135,8 +135,6 @@ const RowOptions = ({ id }) => {
   )
 }
 
-
-
 const BatchList = () => {
   // ** State
 
@@ -146,25 +144,25 @@ const BatchList = () => {
   const [pageSize, setPageSize] = useState(10)
 
   const batchList = useSelector(state => state.batches.batchList)
-  const [tableData, setTableData] = useState(batchList);
-  const [statusList, setStatusList ] = useState(Array.from(new Set(batchList.map(item => item.status))))
+  const [tableData, setTableData] = useState(batchList)
+  const [statusList, setStatusList] = useState(Array.from(new Set(batchList.map(item => item.status))))
 
-  const router = useRouter();
+  const router = useRouter()
 
-  const gotoEditMode = (rowId) =>{
-    let rowItem = batchList.filter(item => item.batchId == rowId);
-    let batch = {...rowItem[0]};
+  const gotoEditMode = rowId => {
+    let rowItem = batchList.filter(item => item.batchId == rowId)
+    let batch = { ...rowItem[0] }
 
-    if(batch.startDate){
+    if (batch.startDate) {
       batch.startDate = new Date(rowItem[0].startDate)
     }
-    if(batch.endDate){
+    if (batch.endDate) {
       batch.endDate = new Date(rowItem[0].endDate)
     }
-    console.log("BATCH",batch);
-    
-    dispatch(updateBatch({...batch}))
-    router.push('/home/batch/create');
+    console.log('BATCH', batch)
+
+    dispatch(updateBatch({ ...batch }))
+    router.push('/home/batch/create')
   }
 
   const columns = [
@@ -174,13 +172,11 @@ const BatchList = () => {
       field: 'batchName',
       headerName: 'Batch Name',
       renderCell: ({ row }) => {
-        const { batchName } = row;
-  
+        const { batchName } = row
+
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-              {batchName}
-            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{batchName}</Box>
           </Box>
         )
       }
@@ -192,7 +188,7 @@ const BatchList = () => {
       headerName: 'Venue',
       renderCell: ({ row }) => {
         return (
-          <Typography noWrap variant='body2' sx={{ fontSize:'0.9rem'}}>
+          <Typography noWrap variant='body2' sx={{ fontSize: '0.9rem' }}>
             {row.venue}
           </Typography>
         )
@@ -206,7 +202,7 @@ const BatchList = () => {
       renderCell: ({ row }) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3 } }}>
-            <Typography noWrap sx={{ fontSize:'0.9rem', color: 'text.secondary', textTransform: 'capitalize' }}>
+            <Typography noWrap sx={{ fontSize: '0.9rem', color: 'text.secondary', textTransform: 'capitalize' }}>
               {new Date(row.startDate).toLocaleDateString('en-US')}
             </Typography>
           </Box>
@@ -220,7 +216,7 @@ const BatchList = () => {
       field: 'Course Name',
       renderCell: ({ row }) => {
         return (
-          <Typography noWrap sx={{ textTransform: 'capitalize', fontSize:'0.9rem' }}>
+          <Typography noWrap sx={{ textTransform: 'capitalize', fontSize: '0.9rem' }}>
             {row.course.courseName}
           </Typography>
         )
@@ -238,7 +234,7 @@ const BatchList = () => {
             size='small'
             label={row.status}
             color={userStatusObj[row.status]}
-            sx={{ textTransform: 'capitalize', fontSize:'0.9rem' }}
+            sx={{ textTransform: 'capitalize', fontSize: '0.9rem' }}
           />
         )
       }
@@ -251,7 +247,7 @@ const BatchList = () => {
       headerName: 'Actions',
       renderCell: ({ row }) => <RowOptions id={row.batchId} />
     }
-  ];
+  ]
 
   // ** Hooks
   const dispatch = useDispatch()
@@ -262,7 +258,7 @@ const BatchList = () => {
 
   useEffect(() => {
     const tableData = batchList.filter(item => item.status == bathcStatus)
-    setTableData(tableData);
+    setTableData(tableData)
     const newSet = new Set(batchList.map(item => item.status))
     setStatusList(Array.from(newSet))
   }, [batchList])
@@ -276,17 +272,18 @@ const BatchList = () => {
   }
 
   const handleToggle = (event, newStatus) => {
-    const tableData = batchList.filter(item => (item.status == newStatus || item.status == null))
-    console.log("NUL Values ",batchList.filter(item => (item.status == null)))
-    setTableData(tableData);
+    const tableData = batchList.filter(item => item.status == newStatus || item.status == null)
+    console.log(
+      'NUL Values ',
+      batchList.filter(item => item.status == null)
+    )
+    setTableData(tableData)
     setBatchStatus(newStatus)
   }
 
-   
-
   return (
     <Grid container spacing={6}>
-      { console.log("statusList",statusList)}
+      {console.log('statusList', statusList)}
       <Grid item xs={12}>
         <Card>
           <CardHeader title='Batches' />
@@ -301,11 +298,15 @@ const BatchList = () => {
                     <Typography sx={{fontSize: '12px', lineHeight: '18px', fontWeight: 500}}>Completed</Typography>
                   </ToggleButton>
                 </ToggleButtonGroup> */}
-                  {statusList.map((item) => (item !== null ?
-                    <ToggleButton value={item} aria-label='left aligned'>
-                      <Typography sx={{ fontSize: '12px', lineHeight: '18px', fontWeight: 500 }}>{item}</Typography>
-                    </ToggleButton> : ""
-                  ))}
+                  {statusList.map(item =>
+                    item !== null ? (
+                      <ToggleButton value={item} aria-label='left aligned'>
+                        <Typography sx={{ fontSize: '12px', lineHeight: '18px', fontWeight: 500 }}>{item}</Typography>
+                      </ToggleButton>
+                    ) : (
+                      ''
+                    )
+                  )}
                 </ToggleButtonGroup>
               </Grid>
               <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
@@ -323,7 +324,9 @@ const BatchList = () => {
             getRowId={row => row.batchId}
             loading={false}
             columns={columns}
-            onRowClick={(rows)=>{gotoEditMode(rows.id)}}
+            onRowClick={rows => {
+              gotoEditMode(rows.id)
+            }}
             checkboxSelection
             pageSize={pageSize}
             disableSelectionOnClick

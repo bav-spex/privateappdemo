@@ -37,7 +37,6 @@ import { fetchEmployees } from 'src/store/apps/user'
 import TableHeader from 'src/views/apps/user/list/TableHeader'
 import { Button, FormHelperText } from '@mui/material'
 
-
 const userStatusObj = {
   active: 'success',
   pending: 'warning',
@@ -71,7 +70,6 @@ const renderClient = row => {
     )
   }
 }
-
 
 const columns = [
   {
@@ -136,7 +134,7 @@ const columns = [
         </Typography>
       )
     }
-  }/*,
+  } /*,
   {
     flex: 0.1,
     minWidth: 110,
@@ -167,8 +165,7 @@ const columns = [
 const FacilitatorList = props => {
   const { handleNext, handleBack, name } = props
 
-  const storeData = useSelector(state => state.schedule);
-  
+  const storeData = useSelector(state => state.schedule)
 
   // ** State
   const [role, setRole] = useState('')
@@ -185,7 +182,7 @@ const FacilitatorList = props => {
   useEffect(() => {
     dispatch(
       fetchEmployees({
-       q:value
+        q: value
       })
     )
   }, [dispatch, value])
@@ -216,7 +213,7 @@ const FacilitatorList = props => {
           <DataGrid
             autoHeight
             rows={store.employeesList ?? []}
-            getRowId={(row) => row.userId}
+            getRowId={row => row.userId}
             columns={columns}
             checkboxSelection
             loading={store.employeesList.length ? false : true}

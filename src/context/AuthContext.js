@@ -24,9 +24,11 @@ const AuthContext = createContext(defaultProvider)
 
 const AuthProvider = ({ children }) => {
   // ** States
-  const [user, setUser] = useState(defaultProvider.user)
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('userData')))
   const [loading, setLoading] = useState(defaultProvider.loading)
-
+  useEffect(() => {
+    setUser(JSON.parse(window.localStorage.getItem('userData')))
+  }, [window.localStorage])
   // ** Hooks
   const router = useRouter()
   useEffect(() => {
@@ -37,7 +39,7 @@ const AuthProvider = ({ children }) => {
         await axios
           .get(authConfig.meEndpoint, {
             headers: {
-              Authorization: storedToken
+              Authorization: `Bearer ${storedToken}`
             }
           })
           .then(async response => {
@@ -62,8 +64,8 @@ const AuthProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleLogin = (params, errorCallback) => {    
-    const authParams = { username: params.email , password : params.password }    
+  const handleLogin = (params, errorCallback) => {
+    const authParams = { username: params.email, password: params.password }
     axios
       .post(authConfig.loginEndpoint, authParams)
       .then(async response => {

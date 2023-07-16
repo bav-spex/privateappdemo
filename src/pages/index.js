@@ -17,30 +17,27 @@ export const getHomeRoute = role => {
   else return '/home'
 }
 
-
-
 const Home = () => {
   // ** Hooks
   const auth = useAuth()
   const router = useRouter()
 
   // ** Pace Loader
-if (themeConfig.routingLoader) {
-  Router.events.on('routeChangeStart', () => {
-    NProgress.start()
-  })
-  Router.events.on('routeChangeError', () => {
-    NProgress.done();
-    auth.setLoading(false);
-    console.log("routeChangeError called")
-  })
-  Router.events.on('routeChangeComplete', () => {
-    NProgress.done()
-    auth.setLoading(false);
-    console.log("routeChangeComplete called")
-  })
-}
-
+  if (themeConfig.routingLoader) {
+    Router.events.on('routeChangeStart', () => {
+      NProgress.start()
+    })
+    Router.events.on('routeChangeError', () => {
+      NProgress.done()
+      auth.setLoading(false)
+      console.log('routeChangeError called')
+    })
+    Router.events.on('routeChangeComplete', () => {
+      NProgress.done()
+      auth.setLoading(false)
+      console.log('routeChangeComplete called')
+    })
+  }
 
   useEffect(() => {
     if (!router.isReady) {

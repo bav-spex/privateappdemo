@@ -16,7 +16,6 @@ import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -188,7 +187,7 @@ const columns = [
     renderCell: ({ row }) => {
       return (
         <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: 'primary.main' } }}>
-         {/*  <Icon icon={userRoleObj[row.city].icon} fontSize={20} /> */}
+          {/*  <Icon icon={userRoleObj[row.city].icon} fontSize={20} /> */}
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
             {row.city}
           </Typography>
@@ -204,11 +203,11 @@ const columns = [
     renderCell: ({ row }) => {
       return (
         <Typography noWrap sx={{ textTransform: 'capitalize' }}>
-          {row.countryCode + " " + row.mobileNumber}
+          {row.countryCode + ' ' + row.mobileNumber}
         </Typography>
       )
     }
-  }/*,
+  } /*,
   {
     flex: 0.1,
     minWidth: 110,
@@ -236,11 +235,10 @@ const columns = [
   } */
 ]
 
-const CoordinatorList = (props) => {
-
+const CoordinatorList = props => {
   const { handleNext, handleBack, name } = props
 
-  const storeData = useSelector(state => state.schedule);
+  const storeData = useSelector(state => state.schedule)
 
   // ** State
   const [role, setRole] = useState('')
@@ -252,7 +250,7 @@ const CoordinatorList = (props) => {
 
   // ** Hooks
   const dispatch = useDispatch()
-  const store = useSelector(state => state.user);
+  const store = useSelector(state => state.user)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -268,43 +266,41 @@ const CoordinatorList = (props) => {
   }, [])
 
   const handleNextBtn = () => {
-    if(!selectionModel.length){
-      setError(true);
-    }
-    else{
-      handleNext();
+    if (!selectionModel.length) {
+      setError(true)
+    } else {
+      handleNext()
     }
   }
 
-/*   useEffect(()=>{
+  /*   useEffect(()=>{
     setSelectionModel(data);
   },[data])
  */
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
-  const [selectionModel, setSelectionModel] = useState(storeData.observers.map(item => item.userId));
+  const [selectionModel, setSelectionModel] = useState(storeData.observers.map(item => item.userId))
 
   return (
     <Grid container spacing={6}>
-      { console.log("store.data",storeData)}
-      
+      {console.log('store.data', storeData)}
+
       <Grid item xs={12}>
         <Card>
-        
           <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddUserDrawer} />
           <DataGrid
             autoHeight
             rows={store.employeesList ?? []}
-            getRowId={(row) => row.userId}
+            getRowId={row => row.userId}
             columns={columns}
             checkboxSelection
             loading={store.employeesList.length ? false : true}
-            onSelectionModelChange={(ids) => {
-              const selectedIDs = new Set(ids);
-              const selectedRowData = store.employeesList.filter((row) => selectedIDs.has(row.userId));
-              console.log(selectedRowData);
-              setSelectionModel(ids);
-              console.log("selection called",ids)
+            onSelectionModelChange={ids => {
+              const selectedIDs = new Set(ids)
+              const selectedRowData = store.employeesList.filter(row => selectedIDs.has(row.userId))
+              console.log(selectedRowData)
+              setSelectionModel(ids)
+              console.log('selection called', ids)
               dispatch(updateBatch({ observers: selectedRowData }))
             }}
             keepNonExistentRowsSelected
@@ -317,15 +313,15 @@ const CoordinatorList = (props) => {
         </Card>
       </Grid>
 
-     {/*  <AddUserDrawer open={addUserOpen} toggle={toggleAddUserDrawer} /> */}
-     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button size='large' variant='outlined' color='secondary'  onClick={handleBack}>
-              Back
-            </Button>
-            <Button size='large' onClick={handleNextBtn} disabled={!selectionModel.length} variant='contained'>
-              Next
-            </Button>
-          </Grid>
+      {/*  <AddUserDrawer open={addUserOpen} toggle={toggleAddUserDrawer} /> */}
+      <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button size='large' variant='outlined' color='secondary' onClick={handleBack}>
+          Back
+        </Button>
+        <Button size='large' onClick={handleNextBtn} disabled={!selectionModel.length} variant='contained'>
+          Next
+        </Button>
+      </Grid>
     </Grid>
   )
 }

@@ -26,26 +26,21 @@ import Doughnut_Chart from './doughnut_chart'
 import Speedometer from './speedometer'
 import styles from '../../../../styles/charts.module.css'
 
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import React from 'react'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Pie } from 'react-chartjs-2'
 
-import Paper from '@material-ui/core/Paper';
-import {
-  Chart,
-  PieSeries,
-  Title
-} from '@devexpress/dx-react-chart-material-ui';
+import Paper from '@material-ui/core/Paper'
+import { Chart, PieSeries, Title } from '@devexpress/dx-react-chart-material-ui'
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 const BatchList = () => {
   // ** State
 
   return (
     <>
-        <div>
+      <div>
         {/* <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <div style={{width: '50%'}}>
         <Pie data={data} />
@@ -60,22 +55,22 @@ const BatchList = () => {
         </div>
         </div> */}
         <div className={styles.row}>
-        <div className={styles.chart_div}>
-        <Speedometer />
-        </div>
-        <div className={styles.chart_div}>
-        <Google_Chart />
-        </div>
+          <div className={styles.chart_div}>
+            <Speedometer />
+          </div>
+          <div className={styles.chart_div}>
+            <Google_Chart />
+          </div>
         </div>
         <div className={styles.row}>
-        <div className={styles.chart_div}>
-        <Doughnut_Chart />
+          <div className={styles.chart_div}>
+            <Doughnut_Chart />
+          </div>
+          <div className={styles.chart_div}>
+            <Line_Chart />
+          </div>
         </div>
-        <div className={styles.chart_div}>
-        <Line_Chart />
-        </div>
-        </div>
-        </div>
+      </div>
     </>
   )
 }
