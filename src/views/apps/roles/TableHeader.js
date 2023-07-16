@@ -28,7 +28,7 @@ import { useTheme } from '@material-ui/core/styles'
 
 const TableHeader = props => {
   // ** Props
-  const { plan, handlePlanChange, handleFilter, value } = props
+  const { plan, handlePlanChange, handleFilter, value, saveUser } = props
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -36,6 +36,8 @@ const TableHeader = props => {
   const [full_name, set_full_name] = useState('')
   const [username, set_username] = useState('')
   const [email, set_email] = useState('')
+  const [password, setPass] = useState('')
+
   const [role, set_role] = useState('')
   const [contact, set_contact] = useState('')
   const [address, set_address] = useState('')
@@ -47,16 +49,27 @@ const TableHeader = props => {
     right: false
   })
 
+  const collectData = () => {
+    let data = {
+      fullName: full_name,
+      username: username,
+      email: email,
+      role: role,
+      address: address,
+      password: password,
+
+      teams: [0]
+    }
+
+    saveUser(data)
+  }
+
   const toggleDrawer = (anchor, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
 
     setState({ ...state, [anchor]: open })
-  }
-
-  const save_user = async () => {
-    console.log('user saved')
   }
 
   const list = anchor => (
@@ -120,6 +133,20 @@ const TableHeader = props => {
         style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 }}
       >
         <FormControl fullWidth>
+          <TextField
+            id='outlined-basic'
+            label={t('Password')}
+            value={password}
+            onChange={e => setPass(e.target.value)}
+            variant='outlined'
+          />
+        </FormControl>
+      </div>
+
+      <div
+        style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40, marginLeft: 20, marginRight: 20 }}
+      >
+        <FormControl fullWidth>
           <InputLabel id='demo-simple-select-label'>{t('Select Role')}</InputLabel>
           <Select
             labelId='demo-simple-select-label'
@@ -127,7 +154,10 @@ const TableHeader = props => {
             label={t('Select Role')}
             value={role}
             onChange={e => set_role(e.target.value)}
-          ></Select>
+          >
+            <MenuItem value={'user'}>User</MenuItem>
+            <MenuItem value={'admin'}>Admin</MenuItem>
+          </Select>
         </FormControl>
       </div>
 
@@ -162,7 +192,7 @@ const TableHeader = props => {
         <Button variant='contained' onClick={toggleDrawer(anchor, false)} sx={{ width: '40%' }}>
           {t('Cancel')}
         </Button>
-        <Button variant='contained' sx={{ width: '40%' }} onClick={() => save_user()}>
+        <Button variant='contained' sx={{ width: '40%' }} onClick={e => collectData()}>
           {t('Save')}
         </Button>
       </div>

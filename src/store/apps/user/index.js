@@ -5,9 +5,19 @@ import axios from 'axios'
 
 // ** Fetch Users
 export const fetchData = createAsyncThunk('appUsers/fetchData', async params => {
-  const response = await axios.get('https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/dummyusers', {
-    params
-  })
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    }
+  }
+
+  const response = await axios.get(
+    'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iac/users/getAll',
+    { ...config },
+    {
+      params
+    }
+  )
 
   return response.data
 })
@@ -43,10 +53,10 @@ export const appUsersSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      state.data = action.payload.users
+      state.data = action.payload
       state.total = action.payload.total
       state.params = action.payload.params
-      state.allData = action.payload.allData
+      state.allData = action.payload
     })
   }
 })

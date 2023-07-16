@@ -45,14 +45,14 @@ const Drawer = props => {
   const drawerColors = () => {
     if (mode === 'semi-dark') {
       return {
-        backgroundColor: 'customColors.darkBg',
+        backgroundColor: '#060056',
         '& .MuiTypography-root, & svg': {
           color: `rgba(${theme.palette.customColors.dark}, 0.87)`
         }
       }
     } else
       return {
-        backgroundColor: 'background.default'
+        backgroundColor: '#060056'
       }
   }
 

@@ -34,6 +34,9 @@ import TableHeader from 'src/views/apps/roles/TableHeader'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../home/withRoot'
 import { useTheme } from '@material-ui/core/styles'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // ** Vars
 const userRoleObj = {
@@ -41,7 +44,7 @@ const userRoleObj = {
   author: { icon: 'mdi:cog-outline', color: 'warning.main' },
   editor: { icon: 'mdi:pencil-outline', color: 'info.main' },
   maintainer: { icon: 'mdi:chart-donut', color: 'success.main' },
-  subscriber: { icon: 'mdi:account-outline', color: 'primary.main' }
+  user: { icon: 'mdi:account-outline', color: 'primary.main' }
 }
 
 const userStatusObj = {
@@ -52,7 +55,7 @@ const userStatusObj = {
 
 // ** renders client column
 const renderClient = row => {
-  if (row.avatar.length) {
+  if (row?.avatar?.length) {
     return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 30, height: 30 }} />
   } else {
     return (
@@ -170,6 +173,8 @@ const UserList = () => {
   // ** Hooks
   const dispatch = useDispatch()
   const store = useSelector(state => state.user)
+  const [userToggle, setUserToggle] = useState(false)
+
   useEffect(() => {
     dispatch(
       fetchData({
@@ -179,7 +184,7 @@ const UserList = () => {
         currentPlan: plan
       })
     )
-  }, [dispatch, plan, value])
+  }, [dispatch, plan, value, userToggle])
 
   const handleFilter = useCallback(val => {
     setValue(val)
@@ -189,11 +194,44 @@ const UserList = () => {
     setPlan(e.target.value)
   }, [])
 
+  const saveUser = data => {
+    const url = 'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iac/users/register'
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    }
+
+    axios
+      .post(
+        url,
+        {
+          ...data
+        },
+        config
+      )
+      .then(data => {
+        toast.success('User is Added.')
+        setUserToggle(!userToggle)
+      })
+      .catch(error => {
+        toast.error(error.message)
+      })
+  }
+
   return (
     <Grid container spacing={6}>
+      <ToastContainer />
       <Grid item xs={12}>
         <Card>
-          <TableHeader plan={plan} value={value} handleFilter={handleFilter} handlePlanChange={handlePlanChange} />
+          <TableHeader
+            plan={plan}
+            value={value}
+            saveUser={saveUser}
+            handleFilter={handleFilter}
+            handlePlanChange={handlePlanChange}
+          />
           <DataGrid
             autoHeight
             rows={store.data}
