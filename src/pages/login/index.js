@@ -43,6 +43,7 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import azureConfig from 'src/configs/azureConfig'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)(({ theme }) => ({
@@ -132,6 +133,7 @@ const LoginPage = () => {
 
   const onSubmit = data => {
     const { email, password } = data
+
     const authParams = {
       email: data.email,
       password: data.password,
@@ -145,6 +147,22 @@ const LoginPage = () => {
     })
   }
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
+
+  const handleLoginViaAzureAD = async e => {
+    e.preventDefault()
+
+    const client = new Msal.UserAgentApplication(azureConfig)
+
+    const request = {
+      scopes: ['user.read']
+    }
+
+    const loginResponse = await client.loginPopup(request)
+    console.log('loginResponse===>', loginResponse)
+
+    const tokenResponse = await client.acquireTokenSilent(request)
+    console.log('tokenResponse===>', tokenResponse)
+  }
 
   return (
     <Box className='content-right'>
@@ -278,7 +296,7 @@ const LoginPage = () => {
               </Box>
               <Divider sx={{ my: theme => `${theme.spacing(5)} !important` }}>or</Divider>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => e.preventDefault()}>
+                <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => handleLoginViaAzureAD(e)}>
                   <Icon icon='mdi:facebook' />
                 </IconButton>
                 <IconButton href='/' component={Link} sx={{ color: '#1da1f2' }} onClick={e => e.preventDefault()}>

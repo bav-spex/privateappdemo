@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 // ** React Import
 import { Children } from 'react'
 
@@ -23,6 +24,8 @@ class CustomDocument extends Document {
           />
           <link rel='apple-touch-icon' sizes='180x180' href='/images/apple-touch-icon.png' />
           <link rel='shortcut icon' href='/images/favicon.png' />
+
+          <script type='text/javascript' src='https://alcdn.msauth.net/lib/1.4.17/js/msal.min.js'></script>
         </Head>
         <body>
           <Main />
