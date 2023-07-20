@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Alert from '@mui/material/Alert'
@@ -108,11 +109,15 @@ const defaultValues = {
   email: 'admin@materio.com'
 }
 
+const TempToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYXVkaXRvckBjbGllbnRvcmcuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc2lkIjoiMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2xvY2FsaXR5IjoiMSIsImp0aSI6IjM5M2M1NjY2LWQ2NTAtNDJjNy04YTg5LWExNzJlN2ZlN2UxZiIsImRhc2hib2FyZCI6InJlYWQiLCJmcmFtZXdvcmtzIjoicmVhZCIsImNvbnRyb2xzIjoicmVhZCIsImRvY3VtZW50cyI6InJlYWQiLCJyaXNrIjoicmVhZCIsImFzc2VzbWVudCI6InJlYWQiLCJhdWRpdHMiOiJyZWFkIiwibG9va3VwcyI6InJlYWQiLCJyb2xlcyI6InJlYWQiLCJ1c2VycyI6InJlYWQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIgdXNlciIsInRlYW1zIjoiIHsgVGVhbUlkID0gMSB9LCB7IFRlYW1JZCA9IDEgfSIsImV4cCI6MTc4NDU2Njk1MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIn0.F41a2AU5C3vXhFfU3qcVyfsTqSzVymnQAerGPrNOhJI'
+
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
 
   // ** Hooks
+  const router = useRouter()
   const auth = useAuth()
   const theme = useTheme()
   const bgColors = useBgColor()
@@ -160,31 +165,30 @@ const LoginPage = () => {
     }
 
     const loginResponse = await client.loginPopup(request)
-    console.log('loginResponse===>', loginResponse)
 
     const tokenResponse = await client.acquireTokenSilent(request)
-    console.log('tokenResponse===>', tokenResponse)
     if (tokenResponse) {
       await axios
         .get(authConfig.meEndpoint, {
           headers: {
-            Authorization: `Bearer ${tokenResponse.accesToken}`
+            Authorization: `Bearer ${TempToken}`
           }
         })
-        .then(async response => {
-          console.log('response====>', response)
-          setLoading(false)
-          setUser({ ...response.data.userData })
-          router.replace('/home/dashboard')
+        .then(response => {
+          localStorage.setItem('userData', JSON.stringify(response.data))
+          localStorage.setItem(authConfig.storageTokenKeyName, TempToken)
+          // setUser({ ...response.data.userData })
+          router.push('/users/roles')
         })
-        .catch(() => {
+        .catch(err => {
+          console.log(err)
           localStorage.removeItem('userData')
           localStorage.removeItem('refreshToken')
-          localStorage.removeItem('accessToken')
+          // localStorage.removeItem('accessToken')
           // setUser(null)
           // setLoading(false)
           if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
-            router.replace('/home/dashboard')
+            router.replace('/login')
           }
         })
     } else {
