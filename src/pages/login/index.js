@@ -44,6 +44,8 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 import azureConfig from 'src/configs/azureConfig'
+import authConfig from 'src/configs/auth'
+import axios from 'axios'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)(({ theme }) => ({
@@ -162,6 +164,32 @@ const LoginPage = () => {
 
     const tokenResponse = await client.acquireTokenSilent(request)
     console.log('tokenResponse===>', tokenResponse)
+    if (tokenResponse) {
+      await axios
+        .get(authConfig.meEndpoint, {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.accesToken}`
+          }
+        })
+        .then(async response => {
+          console.log('response====>', response)
+          setLoading(false)
+          setUser({ ...response.data.userData })
+          router.replace('/home/dashboard')
+        })
+        .catch(() => {
+          localStorage.removeItem('userData')
+          localStorage.removeItem('refreshToken')
+          localStorage.removeItem('accessToken')
+          // setUser(null)
+          // setLoading(false)
+          if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
+            router.replace('/home/dashboard')
+          }
+        })
+    } else {
+      setLoading(false)
+    }
   }
 
   return (
@@ -296,10 +324,14 @@ const LoginPage = () => {
               </Box>
               <Divider sx={{ my: theme => `${theme.spacing(5)} !important` }}>or</Divider>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => handleLoginViaAzureAD(e)}>
+                {/* <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => handleLoginViaAzureAD(e)}>
                   <Icon icon='mdi:facebook' />
+                </IconButton> */}
+                <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => handleLoginViaAzureAD(e)}>
+                  <img src='/images/AzureSmall.png' alt={'azure'} height='24' />
                 </IconButton>
-                <IconButton href='/' component={Link} sx={{ color: '#1da1f2' }} onClick={e => e.preventDefault()}>
+
+                {/* <IconButton href='/' component={Link} sx={{ color: '#1da1f2' }} onClick={e => e.preventDefault()}>
                   <Icon icon='mdi:twitter' />
                 </IconButton>
                 <IconButton
@@ -312,7 +344,7 @@ const LoginPage = () => {
                 </IconButton>
                 <IconButton href='/' component={Link} sx={{ color: '#db4437' }} onClick={e => e.preventDefault()}>
                   <Icon icon='mdi:google' />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </form>
           </BoxWrapper>
