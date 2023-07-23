@@ -30,34 +30,26 @@ const AclGuard = props => {
   useEffect(() => {
     if (auth.user && auth.user.role) {
       setAbility(buildAbilityFor(auth.user.role.trim(), aclAbilities.subject))
-      setLoading(false)
+      //setLoading(false)
     }
   }, [auth, aclAbilities])
-  if (loading) {
-    // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
-    if (guestGuard || router.route === '/404' || router.route === '/500' || router.route === '/') {
-      return <>{children}</>
-    } else {
-      if (ability) {
-        // Render Not Authorized component if the current user has limited access
 
-        return <BlankLayout>{<NotAuthorized />}</BlankLayout>
-      } else {
-        return (
-          <BlankLayout>
-            <FallbackSpinner />
-          </BlankLayout>
-        )
-      }
-    }
+  // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
+  if (guestGuard || router.route === '/404' || router.route === '/500' || router.route === '/') {
+    return <>{children}</>
   }
-  if (!loading) {
-    // Check the access of current user and render pages
-    // aclAbilities.action
-    if (ability && ability.can(aclAbilities.action, aclAbilities.subject)) {
-      return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
-    }
+
+  // Check the access of current user and render pages
+  // aclAbilities.action
+  if (ability && ability.can(aclAbilities.action, aclAbilities.subject)) {
+    return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
   }
+
+  return (
+    <BlankLayout>
+      <FallbackSpinner />
+    </BlankLayout>
+  )
 }
 
 export default AclGuard

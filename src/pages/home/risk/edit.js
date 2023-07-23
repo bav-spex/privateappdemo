@@ -431,7 +431,6 @@ const EditRisk = () => {
                   rules={{ required: true }}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      // value={value}
                       value={threatMappingName}
                       multiple
                       fullWidth
@@ -480,7 +479,6 @@ const EditRisk = () => {
                   render={({ field: { value, onChange } }) => (
                     <Select
                       value={singleRiskData.category}
-                      // defaultValue={'Management'}
                       fullWidth
                       label={t('Category')}
                       onChange={e => {
