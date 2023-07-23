@@ -2,6 +2,7 @@
 import axios from 'axios'
 //.config
 import authConfig from 'src/configs/auth';
+import { siteCall } from 'src/util/web_call';
 
 export const deleteControl = (id, errorCallback, successCallback) => {
   axios
@@ -18,15 +19,15 @@ export const deleteControl = (id, errorCallback, successCallback) => {
 }
 
 export const getControlList = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.controlList)
-    .then(res => {
+  siteCall(authConfig.controlList, "GET", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('getControlList error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+          console.log('getControlList error:', res.data)
+          if (errorCallback) errorCallback(res.data.error)
       } else {
-        successCallback(res.data);
+          console.log('getControlList success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }

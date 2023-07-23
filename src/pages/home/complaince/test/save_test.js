@@ -11,7 +11,7 @@ import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles';
 import { getControlList } from 'src/pages/home/governance/controls/controlService';
 import { createTest, updateTest, getTestById } from 'src/pages/home/complaince/test/complaince_service';
-
+import { convertDateFormat } from 'src/util/common';
 
 const SaveTest = () => {
 
@@ -25,16 +25,17 @@ const SaveTest = () => {
     const [teams, set_teams]= useState([]);
     const [test_name, set_test_name]= useState('');
     const [test_frequency, set_test_frequency]= useState('');
-    const [last_test_date, set_last_test_date]= useState('');
+    const [lastassessmentdate, set_lastassessmentdate]= useState('');
     const [objective, set_objective]= useState('');
-    const [test_steps, set_test_steps]= useState('');
+    const [teststeps, set_teststeps]= useState('');
     const [approximate_time, set_approximate_time]= useState('');
-    const [expected_results, set_expected_results]= useState('');
+    const [expectedresults, set_expectedresults]= useState('');
     const [tags, set_tags]= useState('');
 
     const [tester_list, set_tester_list]= useState([]);
     const [teams_list, set_teams_list]= useState([]);
     const [controls_list, set_controls_list]= useState([]);
+    const [controls_dict, set_controls_dict]= useState({});
     const [frameworkControlId, set_frameworkControlId]= useState('');
     const [mode, setMode]= useState('create');
     const [id, setId]= useState(null);
@@ -65,15 +66,17 @@ const SaveTest = () => {
         let request_data = {
             additionalstakeholders: additional_stakeholders,
             testname: test_name,
-            tester: testers,
+            testers: testers,
             teams: teams,
             testfrequency: test_frequency,
-            lasttestdate: last_test_date,
+            lastassessmentdate: lastassessmentdate,
+            lasttestdate: lastassessmentdate,
             objective: objective,
-            teststeps: test_steps,
+            teststeps: teststeps,
             approximatetime: approximate_time,
-            expectedresults: expected_results,
-            tags: tags
+            expectedresults: expectedresults,
+            tags: tags,
+            frameworkControlId: frameworkControlId
         }
         
         let successCallback = (response) => {
@@ -81,12 +84,13 @@ const SaveTest = () => {
             router.push('/home/complaince/test');
         }
         let errorCallback = (response) => {
+            console.log("ERROR:", response);
             toast.error("Something went wrong");
         }
         if(mode == 'create'){
             createTest(request_data, errorCallback, successCallback);
         }else{
-            updateTest(request_data, errorCallback, successCallback);
+            updateTest(router.query.keyword, request_data, errorCallback, successCallback);
         }
       }
 
@@ -116,12 +120,18 @@ const SaveTest = () => {
       const fetchControlList = async() =>{
         console.log("Fetching control list")
         let successCallback = (response) => {
-          set_controls_list(response.data.controls);
+          let d = {};
+          let controls = response.data.controls;
+          controls.map((row) => {
+            d[row["control-number"]] = row.id;
+          });
+          set_controls_dict(d);
+          set_controls_list(controls);
         }
         getControlList(() => {}, successCallback)
       }
 
-      const setTestById = (id) => {
+      const setTestById = async(id) => {
         let successCallback = (response) => {
             let data = response.data;
             set_test_name(data.testname);
@@ -131,15 +141,31 @@ const SaveTest = () => {
             set_test_frequency(data.testfrequency);
             set_approximate_time(data.approximatetime);
             set_tags(data.tags);
-            // control id, objective, test setps, expected_results, last_test_date todo
+            let control_id = controls_dict[data.controlnumber] || null;
+            // set_frameworkControlId(control_id);
+            set_objective(0);
+            set_teststeps(0);
+            set_expectedresults(0);
+            let last_assessment_date = data.lastassessmentdate || null;
+            if(last_assessment_date){
+              last_assessment_date = convertDateFormat(data.lastassessmentdate);
+              console.log("lastassessmentdate1:", last_assessment_date)
+              set_lastassessmentdate(last_assessment_date);
+            }
+            // control id, objective, test setps, expected_results, lastassessmentdate todo
         }
         let errorCallback = (response) => {
+            console.log("ERROR:", response);
             toast.error("Something went wrong");
         }
         getTestById(id, errorCallback, successCallback);
       }
 
       useEffect(() => {
+        fetchControlList();
+        fetch_testers();
+        fetch_teams();
+        
         let keyword = router.query.keyword || null;
         if(keyword){
             setMode('update');
@@ -147,10 +173,7 @@ const SaveTest = () => {
             setTestById(keyword);
         }else{
             setMode('create');
-        }     
-        fetchControlList();
-        fetch_testers();
-        fetch_teams();
+        }
       }, [])
 
       
@@ -270,7 +293,7 @@ const SaveTest = () => {
       </div>
       <div style={{width: '40%'}}>
       <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">{t('Framework Control Id')}</InputLabel>
+      <InputLabel id="demo-simple-select-label">{t('Control ')}</InputLabel>
         <Select
         value={frameworkControlId}
         onChange={add_framework_control}
@@ -297,7 +320,7 @@ const SaveTest = () => {
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Test Steps')} variant="outlined"  value={test_steps} onChange={(e)=> set_test_steps(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Test Steps')} variant="outlined"  value={teststeps} onChange={(e)=> set_teststeps(e.target.value)}/>
       </FormControl>
     </div>
 
@@ -309,14 +332,14 @@ const SaveTest = () => {
       </div>
       <div style={{width: '40%'}}>
         <FormControl fullWidth>
-          <TextField id="outlined-basic" variant="outlined" type='date' label="date"  value={last_test_date} onChange={(e)=> set_last_test_date(e.target.value)}/>
+          <TextField id="outlined-basic" variant="outlined" type='date' label="Last AssessmentDate"  value={lastassessmentdate} onChange={(e)=> set_lastassessmentdate(e.target.value)}/>
         </FormControl>
       </div>
     </div>
 
     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 40}}>
     <FormControl fullWidth>
-      <TextField id="outlined-basic" label={t('Expected Results')} variant="outlined"  value={expected_results} onChange={(e)=> set_expected_results(e.target.value)}/>
+      <TextField id="outlined-basic" label={t('Expected Results')} variant="outlined"  value={expectedresults} onChange={(e)=> set_expectedresults(e.target.value)}/>
       </FormControl>
     </div>
 
