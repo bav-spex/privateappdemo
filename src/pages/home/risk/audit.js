@@ -64,7 +64,6 @@ const RiskList = () => {
   const data = useSelector(state => state.selectRisk)
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()

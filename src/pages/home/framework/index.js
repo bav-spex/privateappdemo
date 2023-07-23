@@ -106,7 +106,6 @@ const FrameWorkList = () => {
   }
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   useEffect(() => {
     fwa(() => {}, setAll)

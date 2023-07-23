@@ -1,186 +1,223 @@
 //*Axios
 import axios from 'axios'
+import toast from 'react-hot-toast'
 //.config
 import authConfig from 'src/configs/auth'
+import apiHelper from 'src/store/apiHelper'
 
-export const fetchRisk = (params, errorCallback, successCallback) => {
-  axios
-    .get(authConfig.riskListEndPoint, `${params}`)
+export const addNewRisk = (payload, successCallback, errorCallback) => {
+  console.log('payload')
+  apiHelper(`${authConfig.saveAllRisk}`, 'post', payload, {})
     .then(res => {
+      toast.success(res.data.data.msg)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const updateRisk = (payload, errorCallback, successCallback) => {
+  apiHelper(`${authConfig.edit_risk}/${payload.id}`, 'put', payload, {})
+    .then(res => {
+      console.log(res.data)
+      // successCallback(res.data.data.risk)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const getRisks = (errorCallback, successCallback) => {
+  apiHelper(authConfig.riskAll, 'get', null, {})
+    .then(res => {
+      successCallback(res.data.data.risk)
+    })
+    .catch(err => {
       if (res.data.error.msg != '') {
-        console.log('error : ', res.data.error)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        console.log('successing : ', res.data)
-        successCallback(res.data)
+        errorCallback ? errorCallback(err) : null
       }
     })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
 }
 
-export const category = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.riskCategory)
+export const getSingleRisk = (id, errorCallback, successCallback) => {
+  apiHelper(`${authConfig.riskListEndPoint}/${id}`, 'get')
     .then(res => {
-      console.log('newcategory:', res.data)
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('category:', res.data)
-        successCallback(res.data)
-      }
+      successCallback(res.data.data)
     })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const riskSourceA = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.riskSource)
-    .then(res => {
-      // console.log('RiskSource:', res.data)
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('riskSource:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const SiteLocations = (params, errorCallback, successCallback) => {
-  axios
-    .get(authConfig.siteLocation, `${params}`)
-    .then(res => {
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('siteLocation:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const RiskScore = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.scoreRisk)
-    .then(res => {
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('scoreRisk:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const currentlikehood = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.currentLike)
-    .then(res => {
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('current:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const currentImpacts = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.currentImpact)
-    .then(res => {
-      console.log('Current_Impact:', res.data)
-      if (!res.data) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('cI:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const fetchAssets = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.affectedAssets)
-
-    .then(res => {
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('assets:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const fetchTechnology = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.technlogy)
-    .then(res => {
-      if (res.data.error) {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        console.log('tech:', res.data)
-        successCallback(res.data)
-      }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const fetchOwner = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.owner_list)
-    .then(res => {
-      console.log('owner list:', res.data)
-      successCallback(res.data.users)
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
-}
-
-export const saveRisk = (params, errorCallback, successCallback) => {
-  console.log('params:', params)
-  axios
-    .post(authConfig.saveAllRisk, params)
-    .then(res => {
+    .catch(err => {
       if (res.data.error.msg != '') {
-        console.log('error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        console.log('allSave:', res.data)
-        successCallback(res.body.data)
+        errorCallback ? errorCallback(err) : null
       }
     })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
 }
 
-export const allRisk = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.riskAll)
+export const getRiskDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.risk_mapping_list, 'get')
     .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
       if (res.data.error.msg != '') {
-        console.log('error:', res.data)
         if (errorCallback) errorCallback(res.data.error)
       } else {
-        // console.log('allrisk:', res.data)
-        successCallback(res.data)
+        errorCallback ? errorCallback(err) : null
       }
     })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+}
+
+export const getThreatDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.threat_mapping_list, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getCategoryDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.riskCategory, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getRiskSourceDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.riskSource, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getSiteLocationDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.siteLocation, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getRiskScoreDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.scoreRisk, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getCurrentLikelyHoodDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.currentLike, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getControlRegulationDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.regulation_dropdown, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getCurrentImpactDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.currentImpact, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getAffectedAssetsDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.affectedAssets, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
+}
+
+export const getTechnologyDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.technlogy, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+      if (res.data.error.msg != '') {
+        if (errorCallback) errorCallback(res.data.error)
+      } else {
+        errorCallback ? errorCallback(err) : null
+      }
+    })
 }
 
 export const allAudits = (errorCallback, successCallback) => {

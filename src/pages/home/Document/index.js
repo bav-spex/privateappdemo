@@ -54,7 +54,6 @@ const DocumentList = () => {
   const dispatch = useDispatch()
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()

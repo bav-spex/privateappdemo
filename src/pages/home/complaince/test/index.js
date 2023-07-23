@@ -77,7 +77,6 @@ function Row(props) {
   const router = useRouter()
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -95,6 +94,7 @@ function Row(props) {
       let successCallback = response => {
         set_audit_data(response.data)
       }
+
       let errorCallback = response => {
         toast.error('Something went wrong')
       }
@@ -297,7 +297,6 @@ export default function CollapsibleTable() {
   const router = useRouter()
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()

@@ -58,7 +58,6 @@ const LookUps = () => {
   const [open2, setOpen2] = useState(false)
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -111,6 +110,7 @@ const LookUps = () => {
 
   const display_look_up = async e => {
     set_look_ups(e)
+
     const res = await fetch(`${auth.display_lookup}/${e}`, {
       method: 'GET',
       headers: {

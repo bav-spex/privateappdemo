@@ -23,8 +23,6 @@ const defaultProvider = {
 const AuthContext = createContext(defaultProvider)
 
 const AuthProvider = ({ children }) => {
-  // ** States
-  console.log('AuthProvider')
   const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('userData')))
   const [loading, setLoading] = useState(defaultProvider.loading)
   useEffect(() => {

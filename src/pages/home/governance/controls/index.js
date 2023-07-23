@@ -169,7 +169,6 @@ const ControlList = () => {
   const [controlList, setControlList] = useState([])
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const router = useRouter()
 
