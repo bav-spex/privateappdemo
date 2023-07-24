@@ -19,6 +19,8 @@ import { fwa } from 'src/pages/home/framework/frameworkService'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
+import { createControl } from 'src/pages/home/governance/controls/controlService'
+
 
 const New_control = () => {
   const { t, i18n } = useTranslation()
@@ -62,33 +64,38 @@ const New_control = () => {
   }
 
   const submitdetails = async () => {
-    const res = await fetch(`${auth.control_new}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        shortname: shortname,
-        number: controlNumber,
-        owner: owner,
-        priority: priority,
-        phase: phase,
-        family: family,
-        currentmaturity: currentMaturity,
-        desiredmaturity: desiredMaturity,
-        controltype: controlType,
-        class: class1,
-        status: status,
-        desc: desc,
-        suppementalguidance: suppementalguidance,
-        frameworkids: framework
-      })
-    })
-    const data = await res.json()
-    // setControlList(data.data.controls);
-    console.log('post data is', data)
-    toast.success('Created New Control')
-    router.push('/home/governance/controls')
+    let successCallback = (response) => {
+      toast.success('Created New Control');
+      router.push('/home/governance/controls');
+    }
+
+    let errorCallback = (response) => {
+      toast.error("Something went wrong");
+    }
+    let request_data = {
+      shortname: shortname,
+      number: controlNumber,
+      owner: owner,
+      priority: priority,
+      phase: phase,
+      family: family,
+      currentmaturity: currentMaturity,
+      desiredmaturity: desiredMaturity,
+      controltype: controlType,
+      class: class1,
+      status: status,
+      desc: desc,
+      suppementalguidance: suppementalguidance,
+      frameworkids: framework,
+      long_name: longname,
+      submission_date: new Date().toISOString(),
+      last_audit_date: new Date().toISOString(),
+      next_audit_date: new Date().toISOString(),
+      desired_frequency: 0,
+      mitigation_percent: 0,
+      deleted: 0,
+    };
+    createControl(request_data, errorCallback, successCallback);
   }
 
   const fetch_classList = async () => {

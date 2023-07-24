@@ -15,7 +15,10 @@ import {
   Button
 } from '@mui/material'
 import toast from 'react-hot-toast'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
+import { getControlById, updateControl } from 'src/pages/home/governance/controls/controlService';
+import { fwa } from 'src/pages/home/framework/frameworkService';
+import { getCategoryData, getUsers } from 'src/pages/home/Document/DocService';
 
 const Edit_control = () => {
   const [class1, setClass1] = useState('')
@@ -28,7 +31,7 @@ const Edit_control = () => {
   const [desc, setDesc] = useState('')
   const [shortname, setShortname] = useState('')
   const [longname, setLongname] = useState('')
-  const [suppementalguidance, setSuppementalguidance] = useState('')
+  const [supplementalguidance, setSupplementalguidance] = useState('')
   const [priority, setPriority] = useState('')
   const [status, setStatus] = useState('')
   const [controlNumber, setControlNumber] = useState('')
@@ -64,165 +67,102 @@ const Edit_control = () => {
   }
 
   const submitdetails = async () => {
-    const res = await fetch(`${auth.control_update}/${router.query.keyword}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        shortname: shortname,
-        number: controlNumber,
-        owner: owner,
-        priority: priority,
-        phase: phase,
-        family: family,
-        currentmaturity: currentMaturity,
-        desiredmaturity: desiredMaturity,
-        controltype: controlType,
-        class: class1,
-        status: status,
-        desc: desc,
-        supplementalguidance: suppementalguidance,
-        frameworkids: framework
-      })
-    })
-    const data = await res.json()
-    console.log('post data is', data)
-    toast.success('Control Edited Successfully')
-    router.push('/home/governance/controls')
+    let successCallback = (response) => {
+      toast.success('Control Edited Successfully');
+      router.push('/home/governance/controls');
+    }
+
+    let errorCallback = (response) => {
+      toast.error("Something went wrong");
+    }
+    let request_data = {
+      shortname: shortname,
+      number: controlNumber,
+      owner: owner,
+      priority: priority,
+      phase: phase,
+      family: family,
+      currentmaturity: currentMaturity,
+      desiredmaturity: desiredMaturity,
+      controltype: controlType,
+      class: class1,
+      status: status,
+      desc: desc,
+      supplementalguidance: supplementalguidance,
+      frameworkids: framework,
+      long_name: longname,
+      submission_date: new Date().toISOString(),
+      last_audit_date: new Date().toISOString(),
+      next_audit_date: new Date().toISOString(),
+      desired_frequency: 0,
+      mitigation_percent: 0,
+      deleted: 0,
+    };
+    updateControl(router.query.keyword, request_data, errorCallback, successCallback);
   }
 
   const fetch_control_data_by_id = async () => {
-    const res = await fetch(`${auth.control_by_id}/${router.query.keyword}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    // setControlList(data.data.controls);
-    console.log('edit control data is', data)
-    setClass1(data.data.class)
-    setControlType(data.data.controltype)
-    setPhase(data.data.phase)
-    setCurrentMaturity(data.data.currentmaturity)
-    setDesiredMaturity(data.data.desiredmaturity)
-    setPriority(data.data.priority)
-    setFamily(data.data.family)
-    setStatus(data.data.status)
-    setShortname(data.data.shortname)
-    setDesc(data.data.desc)
-    setSuppementalguidance(data.data.suppementalguidance)
-    setOwner(data.data.owner)
-    setFramework(data.data.frameworkids)
-    setControlNumber(data.data.number)
+    let successCallback = (response) => {
+      setClass1(response.data.class)
+      setControlType(response.data.controltype)
+      setPhase(response.data.phase)
+      setCurrentMaturity(response.data.currentmaturity)
+      setDesiredMaturity(response.data.desiredmaturity)
+      setPriority(response.data.priority)
+      setFamily(response.data.family)
+      setStatus(response.data.status)
+      setShortname(response.data.shortname)
+      setDesc(response.data.desc)
+      setSupplementalguidance(response.data.supplementalguidance)
+      setOwner(response.data.owner)
+      setFramework(response.data.frameworkids)
+      setControlNumber(response.data.number)
+      setLongname(response.data.long_name);
+    }
+
+    let errorCallback = (response) => {
+      toast.error("Something went wrong");
+    }
+
+    getControlById(router.query.keyword, errorCallback, successCallback);
   }
 
+  let commonErrorCallback = (response) => {
+    toast.error("Something went wrong");
+  }
   const fetch_classList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/2`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('class list is', data)
-    setClassList(data)
+    getCategoryData(2, commonErrorCallback, setClassList);
   }
 
   const fetch_phaseList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/3`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('phase list is', data)
-    setPhaseList(data)
+    getCategoryData(3, commonErrorCallback, setPhaseList);
   }
 
   const fetch_maturityList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/4`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('maturity list is', data)
-    setMaturityList(data)
+    getCategoryData(4, commonErrorCallback, setMaturityList);
   }
 
   const fetch_priorityList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/5`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('priority list is', data)
-    setPriorityList(data)
+    getCategoryData(5, commonErrorCallback, setPriorityList);
   }
 
   const fetch_typeList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/6`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('type list is', data)
-    setTypeList(data)
+    getCategoryData(6, commonErrorCallback, setTypeList);
   }
 
   const fetch_familyList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/7`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('family list is', data)
-    setFamilyList(data)
+    getCategoryData(7, commonErrorCallback, setFamilyList);
   }
 
   const fetch_statusList = async () => {
-    const res = await fetch(`${auth.control_dropdown}/8`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('status list is', data)
-    setStatusList(data)
+    getCategoryData(8, commonErrorCallback, setStatusList);
   }
 
   const fetch_ownerList = async () => {
-    const res = await fetch(`${auth.owner_list}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('owner list is', data)
-    setOwnerList(data.data.users)
-  }
-
-  const fetch_frameworkList = async () => {
-    const res = await fetch(`${auth.frameWorkAll}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    setFrameworkList(data)
+    let successCallback = (response) => {
+      setOwnerList(response.data.users)
+    }
+    getUsers(commonErrorCallback, successCallback);
   }
 
   useEffect(() => {
@@ -235,7 +175,7 @@ const Edit_control = () => {
     fetch_typeList()
     fetch_familyList()
     fetch_statusList()
-    fetch_frameworkList()
+    fwa(() => {}, setFrameworkList)
   }, [])
 
   return (
@@ -309,8 +249,8 @@ const Edit_control = () => {
               id='outlined-basic'
               label={t('Supplemental Guidance')}
               variant='outlined'
-              value={suppementalguidance}
-              onChange={e => setSuppementalguidance(e.target.value)}
+              value={supplementalguidance}
+              onChange={e => setSupplementalguidance(e.target.value)}
             />
           </FormControl>
         </div>

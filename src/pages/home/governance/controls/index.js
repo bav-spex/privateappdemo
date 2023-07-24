@@ -199,7 +199,7 @@ const ControlList = () => {
           // Redirect the user to the desired page
           router.push({
             pathname: '/home/governance/controls/edit_control/',
-            query: { keyword: id }
+            query: { keyword: 3 }
           })
         }
         return <div onClick={handleRowClick}>{params.value}</div>
@@ -322,7 +322,7 @@ const ControlList = () => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push({
       pathname: '/home/governance/controls/edit_control/',
-      query: { keyword: id }
+      query: { keyword: 3 }
     })
   }
 
@@ -393,7 +393,6 @@ const ControlList = () => {
           </CardContent>
         </div>
         <Divider />
-        controlList: {controlList.length}
         <DataGrid
           rows={controlList}
           getRowId={row => row.id}
