@@ -56,8 +56,9 @@ import { left } from '@popperjs/core'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
-import Swal from 'sweetalert2'
-import { deleteControl } from 'src/pages/home/governance/controls/controlService'
+import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify'
+import { deleteControl, getControlList } from 'src/pages/home/governance/controls/controlService'
 
 // ** Vars
 const userRoleObj = {
@@ -291,16 +292,13 @@ const ControlList = () => {
   const dispatch = useDispatch()
 
   const fetch_control_data = async () => {
-    const res = await fetch(`${auth.controlList}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('control data is', data)
-    setControlList(data.data.controls)
-    //setControlList(data);
+    let successCallback = (response) => {
+      setControlList(response.data.controls)
+    }
+    let errorCallback = (response) => {
+      toast.error('Something went wrong')
+    }
+    getControlList(errorCallback, successCallback);
   }
 
   // useEffect(() => {
@@ -395,11 +393,11 @@ const ControlList = () => {
           </CardContent>
         </div>
         <Divider />
-        {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
+        controlList: {controlList.length}
         <DataGrid
           rows={controlList}
           getRowId={row => row.id}
-          loading={false}
+          loading={true}
           columns={columns}
           // onRowClick={(rows)=>{gotoEditMode(rows.id)}}
           // checkboxSelection

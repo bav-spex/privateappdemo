@@ -94,13 +94,14 @@ const FrameWorkList = () => {
     }).then(result => {
       if (result.isConfirmed) {
         const successCallback = response => {
-          Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
+          Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+          fwa(() => {}, setAll);
         }
         const errorCallback = response => {
           Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
           // Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
         }
-        deleteFramework(frameworkId, errorCallback, successCallback)
+        deleteFramework(frameworkId, errorCallback, successCallback);
       }
     })
   }
