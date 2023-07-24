@@ -1,17 +1,16 @@
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '@material-ui/core/styles'
 
 const navigation = () => {
-
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
   return [
     {
       title: t('Home'),
       path: '/home/dashboard',
       icon: 'mdi:home-outline'
-    },    
+    },
     {
       title: t('Governance'),
       path: '/home/framework',
@@ -35,7 +34,7 @@ const navigation = () => {
           path: '/home/Document'
         }
       ]
-    },    
+    },
     {
       title: t('Risk Management'),
       path: '/home/risk',
@@ -80,7 +79,7 @@ const navigation = () => {
           path: '/users/roles'
         }
       ]
-    }   
+    }
   ]
 }
 

@@ -161,14 +161,14 @@ const UserViewSecurity = () => {
                       value={values.confirmNewPassword}
                       id='user-view-security-confirm-new-password'
                       type={values.showConfirmNewPassword ? 'text' : 'password'}
-                      onChange={()=> handleConfirmNewPasswordChange('confirmNewPassword')}
+                      onChange={() => handleConfirmNewPasswordChange('confirmNewPassword')}
                       endAdornment={
                         <InputAdornment position='end'>
                           <IconButton
                             edge='end'
                             aria-label='toggle password visibility'
-                            onClick={()=>handleClickShowConfirmNewPassword}
-                            onMouseDown={()=>handleMouseDownConfirmNewPassword}
+                            onClick={() => handleClickShowConfirmNewPassword}
+                            onMouseDown={() => handleMouseDownConfirmNewPassword}
                           >
                             <Icon icon={values.showConfirmNewPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} />
                           </IconButton>

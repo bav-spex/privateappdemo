@@ -9,92 +9,108 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
-import { createDocument, updateDocument, getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService';
-import { fwa } from 'src/pages/home/framework/frameworkService';
-import { getControlList } from 'src/pages/home/governance/controls/controlService';
-import { useRouter } from 'next/router';
-import moment from "moment";
+import {
+  createDocument,
+  updateDocument,
+  getCategoryData,
+  getTeams,
+  getUsers,
+  getDocumentById
+} from 'src/pages/home/Document/DocService'
+import { fwa } from 'src/pages/home/framework/frameworkService'
+import { getControlList } from 'src/pages/home/governance/controls/controlService'
+import { useRouter } from 'next/router'
+import moment from 'moment'
 
 //Third party imports
 import toast from 'react-hot-toast'
 
 const SaveDocument = () => {
   const data = useSelector(state => state.riskList)
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const router = useRouter()
+  const dispatch = useDispatch()
 
-  const [doc_id, setDocId] = useState(0);
-  const [document_object, setDocumentObject] = useState({});
+  const [doc_id, setDocId] = useState(0)
+  const [document_object, setDocumentObject] = useState({})
 
-  const [frameworkIds, setFrameworkIds] = useState([]);
-  const [frameworkList, setFrameworkList] = useState([]);
-  const [controlIds, setcontrolIds] = useState([]);
-  const [controlList, setControlList] = useState([]);
-  const [doc_name, setDocName] = useState('');
-  const [doc_type, setDocType] = useState('');
+  const [frameworkIds, setFrameworkIds] = useState([])
+  const [frameworkList, setFrameworkList] = useState([])
+  const [controlIds, setcontrolIds] = useState([])
+  const [controlList, setControlList] = useState([])
+  const [doc_name, setDocName] = useState('')
+  const [doc_type, setDocType] = useState('')
   const [docTypeList, setDocTypeList] = useState([])
   const [additional_stakeholders, setAdditionalStakeholders] = useState([])
   const [teams_id, setTeamIds] = useState([])
   const [teamList, setTeamList] = useState([])
   const [documentStatusList, setDocumentStatusList] = useState([])
   const [documentStatusIds, setDocumentStatusIds] = useState('')
-  const [document_approver, setDocumentApprover] = useState('');
-  const [user_list, setUserList] = useState([]);
-  const [creationDate, setCreationDate] = useState('');
-  const [lastReviewDate, setLastReviewDate] = useState('');
-  const [review_frequency, setReviewFrequency] = useState('');
-  const [next_review_date, setNextReviewDate] = useState('');
-  const [approval_date, setApprovalDate] = useState('');
+  const [document_approver, setDocumentApprover] = useState('')
+  const [user_list, setUserList] = useState([])
+  const [creationDate, setCreationDate] = useState('')
+  const [lastReviewDate, setLastReviewDate] = useState('')
+  const [review_frequency, setReviewFrequency] = useState('')
+  const [next_review_date, setNextReviewDate] = useState('')
+  const [approval_date, setApprovalDate] = useState('')
 
   const convertDateFormat = (date, date_format) => {
-    date_format = date_format || "YYYY-MM-DD";
-    try{
-      date = moment(date).format(date_format);
-    }catch(err){
-      console.log("MOMENT ERROR:", err);
+    date_format = date_format || 'YYYY-MM-DD'
+    try {
+      date = moment(date).format(date_format)
+    } catch (err) {
+      console.log('MOMENT ERROR:', err)
     }
-    return date;
+    return date
   }
   //!fetch Documents
   useEffect(() => {
     /* For Edit document start */
-    if(router.query.keyword != undefined){
-      setDocId(router.query.keyword);
-      getDocumentById(router.query.keyword,() => {}, (response) => {
-        const doc_obj = response.data;
-        console.log("doc_obj res:", doc_obj);
-        setDocumentObject(doc_obj);
-        setDocType(doc_obj.doc_type);
-        setDocName(doc_obj.doc_name);
-        setFrameworkIds(doc_obj.framework_ids);
-        setcontrolIds(doc_obj.control_ids);
-        setAdditionalStakeholders(doc_obj.additional_stakeholders);
-        setDocumentApprover(doc_obj.approver);
-        setTeamIds(doc_obj.teams_id);
-        setDocumentStatusIds(doc_obj.status);
-        setCreationDate(convertDateFormat(doc_obj.creation_date));
-        setLastReviewDate(convertDateFormat(doc_obj.last_review_date));
-        setReviewFrequency(doc_obj.review_frequency);
-        setNextReviewDate(convertDateFormat(doc_obj.next_review_date));
-        setApprovalDate(convertDateFormat(doc_obj.approval_date));
-      });
+    if (router.query.keyword != undefined) {
+      setDocId(router.query.keyword)
+      getDocumentById(
+        router.query.keyword,
+        () => {},
+        response => {
+          const doc_obj = response.data
+          console.log('doc_obj res:', doc_obj)
+          setDocumentObject(doc_obj)
+          setDocType(doc_obj.doc_type)
+          setDocName(doc_obj.doc_name)
+          setFrameworkIds(doc_obj.framework_ids)
+          setcontrolIds(doc_obj.control_ids)
+          setAdditionalStakeholders(doc_obj.additional_stakeholders)
+          setDocumentApprover(doc_obj.approver)
+          setTeamIds(doc_obj.teams_id)
+          setDocumentStatusIds(doc_obj.status)
+          setCreationDate(convertDateFormat(doc_obj.creation_date))
+          setLastReviewDate(convertDateFormat(doc_obj.last_review_date))
+          setReviewFrequency(doc_obj.review_frequency)
+          setNextReviewDate(convertDateFormat(doc_obj.next_review_date))
+          setApprovalDate(convertDateFormat(doc_obj.approval_date))
+        }
+      )
     }
     /* For Edit document end */
-    getCategoryData(9, () => {}, setDocTypeList);
-    getCategoryData(10, () => {}, setDocumentStatusList);
-    fwa(() => {}, setFrameworkList);
+    getCategoryData(9, () => {}, setDocTypeList)
+    getCategoryData(10, () => {}, setDocumentStatusList)
+    fwa(() => {}, setFrameworkList)
 
-    let controlSuccessCallback = (response) => {
-      setControlList(response.data.controls);
+    let controlSuccessCallback = response => {
+      setControlList(response.data.controls)
     }
-    getControlList(() => {}, controlSuccessCallback);
+    getControlList(() => {}, controlSuccessCallback)
 
-    let teamSuccessCallback = (response) => {
-      setTeamList(response.data.users);
+    let teamSuccessCallback = response => {
+      setTeamList(response.data.users)
     }
-    getTeams(() => {}, teamSuccessCallback);
-    getUsers(() => {}, (response) => { setUserList(response.data.users); });
-  }, []);
+    getTeams(() => {}, teamSuccessCallback)
+    getUsers(
+      () => {},
+      response => {
+        setUserList(response.data.users)
+      }
+    )
+  }, [])
 
   // ** Hooks
   const {
@@ -113,41 +129,41 @@ const SaveDocument = () => {
 
   const saveDocument = () => {
     let request_data = {
-      "doc_name": doc_name,
-      "doc_type": doc_type,
+      doc_name: doc_name,
+      doc_type: doc_type,
       // "framework_ids": frameworkIds,
-      "framework_ids": [],
-      "control_ids": controlIds,
-      "creation_date": creationDate,
-      "last_review_date": lastReviewDate,
-      "review_frequency": review_frequency,
-      "next_review_date": next_review_date,
-      "approval_date": approval_date,
-      "approver": document_approver,
-      "status": documentStatusIds,
-      "additional_stakeholders": additional_stakeholders,
-      "teams_id": teams_id
+      framework_ids: [],
+      control_ids: controlIds,
+      creation_date: creationDate,
+      last_review_date: lastReviewDate,
+      review_frequency: review_frequency,
+      next_review_date: next_review_date,
+      approval_date: approval_date,
+      approver: document_approver,
+      status: documentStatusIds,
+      additional_stakeholders: additional_stakeholders,
+      teams_id: teams_id
     }
-    console.log(JSON.stringify(request_data));
-    console.log("doc_id:", doc_id);
-    if(doc_id == 0){
-      let errorCallback = (response) => {
-        toast.error('Something went wrong.');
+    console.log(JSON.stringify(request_data))
+    console.log('doc_id:', doc_id)
+    if (doc_id == 0) {
+      let errorCallback = response => {
+        toast.error('Something went wrong.')
       }
-      let successCallback = (response) => {
-          toast.success('Document Added');
-          router.push(`/home/Document`);
+      let successCallback = response => {
+        toast.success('Document Added')
+        router.push(`/home/Document`)
       }
-      createDocument(JSON.stringify(request_data), errorCallback, successCallback);
-    }else if(doc_id > 0){
-      let errorCallback = (response) => {
-        toast.error('Something went wrong.');
+      createDocument(JSON.stringify(request_data), errorCallback, successCallback)
+    } else if (doc_id > 0) {
+      let errorCallback = response => {
+        toast.error('Something went wrong.')
       }
-      let successCallback = (response) => {
-          toast.success('Document updated');
-          router.push(`/home/Document`);
+      let successCallback = response => {
+        toast.success('Document updated')
+        router.push(`/home/Document`)
       }
-      updateDocument(doc_id, JSON.stringify(request_data), errorCallback, successCallback);
+      updateDocument(doc_id, JSON.stringify(request_data), errorCallback, successCallback)
     }
   }
 
@@ -220,28 +236,33 @@ const SaveDocument = () => {
                       value={doc_type}
                       fullWidth
                       label={'documenttype'}
-                      onChange={(e)=> setDocType(e.target.value)}
+                      onChange={e => setDocType(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {docTypeList.map((item) => (item !== null ?
-                        <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
-                      ))}
+                      {docTypeList.map(item =>
+                        item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                      )}
                     </Select>
                   )}
                 />
               </FormControl>
             </Grid>
             {/* end of Document Type  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 {/* <InputLabel
                   id='validation-basic-select'
                   error={Boolean(errors.msg)}
                   htmlFor='validation-basic-select'
                 >Document Name</InputLabel> */}
-                <TextField type='text' label='Document Name' value={doc_name} onChange={(e)=> setDocName(e.target.value)}/>
+                <TextField
+                  type='text'
+                  label='Document Name'
+                  value={doc_name}
+                  onChange={e => setDocName(e.target.value)}
+                />
               </FormControl>
             </Grid>
             {/* end of Documetname */}
@@ -278,7 +299,7 @@ const SaveDocument = () => {
               </FormControl>
             </Grid> */}
             {/* end of FrameWorks  */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -297,14 +318,14 @@ const SaveDocument = () => {
                       // defaultValue={'Management'}
                       fullWidth
                       label={'Controls'}
-                      onChange={(e)=> setcontrolIds(e.target.value)}
+                      onChange={e => setcontrolIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {controlList.map((item) => (item !== null ?
-                        <MenuItem value={item.id}>{item['control-number']}</MenuItem>: ""
-                      ))}
+                      {controlList.map(item =>
+                        item !== null ? <MenuItem value={item.id}>{item['control-number']}</MenuItem> : ''
+                      )}
                     </Select>
                   )}
                 />
@@ -312,7 +333,7 @@ const SaveDocument = () => {
             </Grid>
             {/* //end of controls  */}
 
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Additional Stakeholders:
@@ -328,21 +349,19 @@ const SaveDocument = () => {
                       value={additional_stakeholders}
                       fullWidth
                       label={'Additional StakeHolders'}
-                      onChange={(e)=> setAdditionalStakeholders(e.target.value)}
+                      onChange={e => setAdditionalStakeholders(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {user_list.map((item) => (item !== null ?
-                        <MenuItem value={item.id}>{item.name}</MenuItem>: ""
-                      ))}
+                      {user_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
                     </Select>
                   )}
                 />
               </FormControl>
             </Grid>
             {/* //end of AdditionalStakeHolders */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -358,21 +377,19 @@ const SaveDocument = () => {
                       value={document_approver}
                       fullWidth
                       label={'Document Approver'}
-                      onChange={(e)=> setDocumentApprover(e.target.value)}
+                      onChange={e => setDocumentApprover(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {user_list.map((item) => (item !== null ?
-                        <MenuItem value={item.id}>{item.name}</MenuItem>: ""
-                      ))}
+                      {user_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
                     </Select>
                   )}
                 />
               </FormControl>
             </Grid>
             {/* end of Document Approver*/}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Team
@@ -388,14 +405,12 @@ const SaveDocument = () => {
                       value={teams_id}
                       fullWidth
                       label={'Team'}
-                      onChange={(e)=> setTeamIds(e.target.value)}
+                      onChange={e => setTeamIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {teamList.map((item) => (item !== null ?
-                        <MenuItem value={item.id}>{item.name}</MenuItem>: ""
-                      ))}
+                      {teamList.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
                     </Select>
                   )}
                 />
@@ -403,25 +418,24 @@ const SaveDocument = () => {
               {/* end of Team  */}
             </Grid>
 
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
                 </InputLabel>
-                
 
-                <TextField 
+                <TextField
                   type='date'
                   label='Creation Date'
                   InputLabelProps={{ shrink: true }}
                   value={creationDate}
-                  onChange={(e)=> setCreationDate(e.target.value)}
+                  onChange={e => setCreationDate(e.target.value)}
                 />
               </FormControl>
               {/* end of creationDate  */}
             </Grid>
 
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <TextField
                   type='date'
@@ -429,28 +443,30 @@ const SaveDocument = () => {
                   label='Last Review'
                   InputLabelProps={{ shrink: true }}
                   value={lastReviewDate}
-                  onChange={(e)=> setLastReviewDate(e.target.value)}
+                  onChange={e => setLastReviewDate(e.target.value)}
                 />
               </FormControl>
             </Grid>
             {/* end of Last Review */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  
-                </InputLabel>
+                <InputLabel
+                  id='validation-basic-select'
+                  error={Boolean(errors.msg)}
+                  htmlFor='validation-basic-select'
+                ></InputLabel>
 
                 <TextField
                   type='number'
                   variant='outlined'
-                  label='Review Frequency in Days' 
+                  label='Review Frequency in Days'
                   value={review_frequency}
-                  onChange={(e)=> setReviewFrequency(e.target.value)}
+                  onChange={e => setReviewFrequency(e.target.value)}
                 />
               </FormControl>
             </Grid>
             {/* end of Review Frequency */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {' '}
@@ -462,29 +478,29 @@ const SaveDocument = () => {
                   label='Next Review Dates'
                   InputLabelProps={{ shrink: true }}
                   value={next_review_date}
-                  onChange={(e)=> setNextReviewDate(e.target.value)}
+                  onChange={e => setNextReviewDate(e.target.value)}
                 />
               </FormControl>
             </Grid>
             {/* end of next review Dates*/}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   {/* ApprovalDate  */}
                 </InputLabel>
 
                 <TextField
-                  type='date' 
-                  variant='outlined' 
-                  label='Approval Date' 
+                  type='date'
+                  variant='outlined'
+                  label='Approval Date'
                   InputLabelProps={{ shrink: true }}
                   value={approval_date}
-                  onChange={(e)=> setApprovalDate(e.target.value)}
+                  onChange={e => setApprovalDate(e.target.value)}
                 />
               </FormControl>
             </Grid>
             {/* // end of ApprovalDate */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%'}} style={{ marginLeft: 'auto' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }} style={{ marginLeft: 'auto' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   Document Status
@@ -499,21 +515,21 @@ const SaveDocument = () => {
                       value={documentStatusIds}
                       fullWidth
                       label={'DocumentStatus'}
-                      onChange={(e)=> setDocumentStatusIds(e.target.value)}
+                      onChange={e => setDocumentStatusIds(e.target.value)}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {documentStatusList.map((item) => (item !== null ?
-                        <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem>: ""
-                      ))}
+                      {documentStatusList.map(item =>
+                        item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                      )}
                     </Select>
                   )}
                 />
               </FormControl>
             </Grid>
             {/* end of Documen Status */}
-            <Grid item sx={{marginBottom: '3vh', width: '40%' }}>
+            <Grid item sx={{ marginBottom: '3vh', width: '40%' }}>
               <FormControl fullWidth>
                 <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
                   File

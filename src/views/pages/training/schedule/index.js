@@ -44,7 +44,7 @@ const Schedule = props => {
   // ** Hooks
   const auth = useAuth()
 
-  const data = useSelector(state => state.schedule);
+  const data = useSelector(state => state.schedule)
 
   // ** Hooks
   const dispatch = useDispatch()
@@ -102,18 +102,17 @@ const Schedule = props => {
   }
 
   const onSubmit = () => {
-    dispatch(updateBatch({ ...getValues()}))
+    dispatch(updateBatch({ ...getValues() }))
     handleNext()
   }
 
-  const handleSave = () =>{
-    if(!errors.length){
-      toast.success('Schedule information is saved.');
-      dispatch(updateBatch({ ...getValues()}));
-      dispatch(submitBatch({ ...getValues()}))
-    }
-    else{
-      toast.error('Fix Schedule information Errors.');
+  const handleSave = () => {
+    if (!errors.length) {
+      toast.success('Schedule information is saved.')
+      dispatch(updateBatch({ ...getValues() }))
+      dispatch(submitBatch({ ...getValues() }))
+    } else {
+      toast.error('Fix Schedule information Errors.')
     }
   }
 
@@ -164,10 +163,9 @@ const Schedule = props => {
               )}
             </FormControl>
           </Grid>
-          
+
           <Grid item xs={12} sm={4}>
             <FormControl fullWidth>
-              
               <Controller
                 name='batchName'
                 control={control}
@@ -175,11 +173,11 @@ const Schedule = props => {
                 defaultValue={data.batchName}
                 render={({ field: { value, onChange } }) => (
                   <TextField
-                      value={value}
-                      label={'Batch name'}
-                      onChange={onChange}
-                      error={Boolean(errors.batchName)}
-                      type={'text'}
+                    value={value}
+                    label={'Batch name'}
+                    onChange={onChange}
+                    error={Boolean(errors.batchName)}
+                    type={'text'}
                   />
                 )}
               />
@@ -191,10 +189,8 @@ const Schedule = props => {
             </FormControl>
           </Grid>
 
-
           <Grid item xs={12} sm={4}>
             <FormControl fullWidth>
-              
               <Controller
                 name='batchSize'
                 control={control}
@@ -202,11 +198,11 @@ const Schedule = props => {
                 defaultValue={data.batchSize}
                 render={({ field: { value, onChange } }) => (
                   <TextField
-                      value={value}
-                      label={'Batch Size'}
-                      onChange={onChange}
-                      error={Boolean(errors.batchSize)}
-                      type={'number'}
+                    value={value}
+                    label={'Batch Size'}
+                    onChange={onChange}
+                    error={Boolean(errors.batchSize)}
+                    type={'number'}
                   />
                 )}
               />
@@ -218,7 +214,6 @@ const Schedule = props => {
             </FormControl>
           </Grid>
 
-          
           <Grid item xs={12} sm={12}>
             <FormControl>
               <p>
@@ -322,7 +317,6 @@ const Schedule = props => {
                         <DatePicker
                           showTimeSelect
                           timeIntervals={15}
-                          
                           dateFormat='MM/dd/yyyy h:mm aa'
                           id='time-only-picker'
                           popperPlacement={'bottom-start'}
@@ -350,7 +344,6 @@ const Schedule = props => {
                         <DatePicker
                           showTimeSelect
                           timeIntervals={15}
-                          
                           dateFormat='MM/dd/yyyy h:mm aa'
                           id='time-only-picker'
                           popperPlacement={'bottom-start'}
@@ -383,15 +376,13 @@ const Schedule = props => {
               Back
             </Button>
             <div>
-            <Button size='large' onClick={handleSave} variant='contained' sx={{marginRight:'20px'}}>
-              Save
-            </Button>
-            <Button size='large' type='submit' variant='contained'>
-              Next
-            </Button>
-
+              <Button size='large' onClick={handleSave} variant='contained' sx={{ marginRight: '20px' }}>
+                Save
+              </Button>
+              <Button size='large' type='submit' variant='contained'>
+                Next
+              </Button>
             </div>
-            
           </Grid>
         </Grid>
       </form>

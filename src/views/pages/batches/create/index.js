@@ -37,7 +37,6 @@ const CreateBatch = props => {
   // ** States
   const [activeStep, setActiveStep] = useState(0)
 
-
   // Handle Stepper
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
@@ -63,22 +62,12 @@ const CreateBatch = props => {
       case 0:
         return <Schedule handleBack={handleBack} handleNext={handleNext} />
       case 1:
-        return (
-          <CoordinatorList
-            handleBack={handleBack}
-            handleNext={handleNext}
-          />
-        )
+        return <CoordinatorList handleBack={handleBack} handleNext={handleNext} />
       case 2:
-        return (
-          <FacilitatorList
-            handleBack={handleBack}
-            handleNext={handleNext}
-          />
-        )
+        return <FacilitatorList handleBack={handleBack} handleNext={handleNext} />
 
       case 3:
-        return <AttendeesList  handleBack={handleBack} handleNext={handleNext} />
+        return <AttendeesList handleBack={handleBack} handleNext={handleNext} />
       default:
         return 'Unknown Step'
     }
@@ -136,11 +125,11 @@ const CreateBatch = props => {
           })}
         </Stepper>
       </StepperWrapper>
-      <div sx={{ ml: 2, mt:4 }}>
+      <div sx={{ ml: 2, mt: 4 }}>
         <CardContent>{renderContent()}</CardContent>
       </div>
     </Fragment>
   )
 }
 
-export default CreateBatch;
+export default CreateBatch

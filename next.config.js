@@ -32,7 +32,8 @@
 const withTM = require('next-transpile-modules')(['react-d3-speedometer']);
  
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
+  reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true,
   },

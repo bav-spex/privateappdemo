@@ -5,17 +5,17 @@ import authConfig from 'src/configs/auth';
 import { siteCall } from 'src/util/web_call';
 
 export const deleteControl = (id, errorCallback, successCallback) => {
-  axios
-    .delete(authConfig.delete_control + '/' + id)
-    .then(res => {
-      if (res.data.error) {
-        console.log('deleteControl error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+  siteCall(authConfig.delete_control + '/' + id, "DELETE", {}, (res) => {
+      if (res?.data?.error) {
+          console.log('deleteControl error:', res.data)
+          if (errorCallback) errorCallback(res.data.error)
       } else {
-        successCallback(res.data);
+          console.log('deleteControl success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const getControlList = (errorCallback, successCallback) => {

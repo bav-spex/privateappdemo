@@ -31,12 +31,12 @@ import { fetchData } from 'src/store/apps/user'
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/roles/TableHeader'
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import withRoot from '../../home/withRoot'
-import { useTheme } from '@material-ui/core/styles';
-import axios from "axios"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useTheme } from '@material-ui/core/styles'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // ** Vars
 const userRoleObj = {
@@ -55,13 +55,12 @@ const userStatusObj = {
 
 // ** renders client column
 const renderClient = row => {
-
   if (row?.avatar?.length) {
-    return <CustomAvatar src={ row.avatar } sx={ { mr: 3, width: 30, height: 30 } } />
+    return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 30, height: 30 }} />
   } else {
     return (
-      <CustomAvatar skin='light' color={ row.avatarColor } sx={ { mr: 3, width: 30, height: 30, fontSize: '.875rem' } }>
-        { getInitials(row.fullName ? row.fullName : 'John Doe') }
+      <CustomAvatar skin='light' color={row.avatarColor} sx={{ mr: 3, width: 30, height: 30, fontSize: '.875rem' }}>
+        {getInitials(row.fullName ? row.fullName : 'John Doe')}
       </CustomAvatar>
     )
   }
@@ -73,9 +72,8 @@ const UserList = () => {
   const [value, setValue] = useState('')
   const [pageSize, setPageSize] = useState(10)
 
-  const { t, i18n } = useTranslation();
-  const theme = useTheme();
-
+  const { t, i18n } = useTranslation()
+  const theme = useTheme()
 
   const columns = [
     {
@@ -87,25 +85,25 @@ const UserList = () => {
         const { fullName, username } = row
 
         return (
-          <Box sx={ { display: 'flex', alignItems: 'center' } }>
-            { renderClient(row) }
-            <Box sx={ { display: 'flex', alignItems: 'flex-start', flexDirection: 'column' } }>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {renderClient(row)}
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography
                 noWrap
                 variant='body2'
-                component={ Link }
+                component={Link}
                 href='/users/overview/view/UserViewPage'
-                sx={ {
+                sx={{
                   fontWeight: 600,
                   color: 'text.primary',
                   textDecoration: 'none',
                   '&:hover': { color: theme => theme.palette.primary.main }
-                } }
+                }}
               >
-                { fullName }
+                {fullName}
               </Typography>
               <Typography noWrap variant='caption'>
-                { `@${username}` }
+                {`@${username}`}
               </Typography>
             </Box>
           </Box>
@@ -120,7 +118,7 @@ const UserList = () => {
       renderCell: ({ row }) => {
         return (
           <Typography variant='body2' noWrap>
-            { row.email }
+            {row.email}
           </Typography>
         )
       }
@@ -132,10 +130,10 @@ const UserList = () => {
       headerName: t('Role'),
       renderCell: ({ row }) => {
         return (
-          <Box sx={ { display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } } }>
-            <Icon icon={ userRoleObj[row.role].icon } fontSize={ 20 } />
-            <Typography noWrap sx={ { color: 'text.secondary', textTransform: 'capitalize' } }>
-              { row.role }
+          <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 3, color: userRoleObj[row.role].color } }}>
+            <Icon icon={userRoleObj[row.role].icon} fontSize={20} />
+            <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+              {row.role}
             </Typography>
           </Box>
         )
@@ -151,9 +149,9 @@ const UserList = () => {
           <CustomChip
             skin='light'
             size='small'
-            label={ row.status }
-            color={ userStatusObj[row.status] }
-            sx={ { textTransform: 'capitalize' } }
+            label={row.status}
+            color={userStatusObj[row.status]}
+            sx={{ textTransform: 'capitalize' }}
           />
         )
       }
@@ -165,7 +163,7 @@ const UserList = () => {
       field: 'actions',
       headerName: t('Action'),
       renderCell: () => (
-        <IconButton component={ Link } href='/apps/user/view/overview/'>
+        <IconButton component={Link} href='/apps/user/view/overview/'>
           <Icon icon='mdi:eye-outline' />
         </IconButton>
       )
@@ -175,7 +173,7 @@ const UserList = () => {
   // ** Hooks
   const dispatch = useDispatch()
   const store = useSelector(state => state.user)
-  const [userToggle, setUserToggle] = useState(false);
+  const [userToggle, setUserToggle] = useState(false)
 
   useEffect(() => {
     dispatch(
@@ -196,41 +194,53 @@ const UserList = () => {
     setPlan(e.target.value)
   }, [])
 
-  const saveUser = (data) => {
-    const url = "https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iac/users/register";
+  const saveUser = data => {
+    const url = 'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iac/users/register'
 
     const config = {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
       }
-    };
+    }
 
-    axios.post(url, {
-      ...data
-    }, config).then((data) => {
-      toast.success("User is Added.");
-      setUserToggle(!userToggle);
-    })
-      .catch((error) => {
+    axios
+      .post(
+        url,
+        {
+          ...data
+        },
+        config
+      )
+      .then(data => {
+        toast.success('User is Added.')
+        setUserToggle(!userToggle)
+      })
+      .catch(error => {
         toast.error(error.message)
       })
   }
 
   return (
-    <Grid container spacing={ 6 }>
+    <Grid container spacing={6}>
       <ToastContainer />
-      <Grid item xs={ 12 }>
+      <Grid item xs={12}>
         <Card>
-          <TableHeader plan={ plan } value={ value } saveUser={ saveUser } handleFilter={ handleFilter } handlePlanChange={ handlePlanChange } />
+          <TableHeader
+            plan={plan}
+            value={value}
+            saveUser={saveUser}
+            handleFilter={handleFilter}
+            handlePlanChange={handlePlanChange}
+          />
           <DataGrid
             autoHeight
-            rows={ store.data }
-            columns={ columns }
+            rows={store.data}
+            columns={columns}
             checkboxSelection
-            pageSize={ pageSize }
+            pageSize={pageSize}
             disableSelectionOnClick
-            rowsPerPageOptions={ [10, 25, 50] }
-            onPageSizeChange={ newPageSize => setPageSize(newPageSize) }
+            rowsPerPageOptions={[10, 25, 50]}
+            onPageSizeChange={newPageSize => setPageSize(newPageSize)}
           />
         </Card>
       </Grid>

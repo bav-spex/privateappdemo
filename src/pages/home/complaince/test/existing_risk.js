@@ -13,21 +13,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getExistingRisks, getRisks } from 'src/pages/home/complaince/test/complaince_service';
 
 function SimpleDialog(props) {
-    const { onClose, selectedValue, open, risk_list, audit_id } = props;
-  
-    const handleClose = () => {
-      onClose(selectedValue);
-    };
-  
-    const handleListItemClick = (value) => {
-      onClose(value);
-    };
+  const { onClose, selectedValue, open, risk_list, audit_id } = props
 
-    const [existing_risk_list, set_existing_risk_list]= useState([]);
-    const [available_risk_list, set_available_risk_list]= useState([]);
+  const [existing_risk_list, set_existing_risk_list]= useState([]);
+  const [available_risk_list, set_available_risk_list]= useState([]);
 
-    const save_existing_list= async()=>{
+  const handleClose = () => {
+    onClose(selectedValue)
+  }
 
+  const save_existing_list= async()=>{
         console.log("selected list is");
         console.log(existing_risk_list);
 
@@ -45,11 +40,9 @@ function SimpleDialog(props) {
     const data= await res.json();
     console.log(data);
         handleClose();
-    }
+  }
 
-
-
-    const fetch_existing_risk_list = () => {
+  const fetch_existing_risk_list = () => {
       let successCallback = (response) => {
         set_available_risk_list(response.data.risk);      
       }
@@ -58,13 +51,12 @@ function SimpleDialog(props) {
       }
 
       getExistingRisks(errorCallback, successCallback);
-    };
+  };
 
-    useEffect(() => {
-        fetch_existing_risk_list();
-      }, []);
+  useEffect(() => {
+      fetch_existing_risk_list();
+  }, []);
 
-  
     return (
       <Dialog onClose={handleClose} open={open}  sx={{
         "& .MuiDialog-container": {
@@ -131,13 +123,12 @@ function SimpleDialog(props) {
 
       </Dialog>
     );
-  }
-  
-  SimpleDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    selectedValue: PropTypes.string.isRequired,
-  };
+}
 
-  export default SimpleDialog
-  
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired
+}
+
+export default SimpleDialog

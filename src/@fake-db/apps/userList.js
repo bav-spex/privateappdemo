@@ -172,7 +172,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171176',
       username: 'Rajsharma',
       primaryEmail: 'rajsharma@gmail.com',
@@ -205,7 +206,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171177',
       username: 'ravi',
       primaryEmail: 'raviteja@gmail.com',
@@ -238,7 +240,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171178',
       username: 'anitha',
       primaryEmail: 'rajsharma@gmail.com',
@@ -271,7 +274,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171179',
       username: 'nalini',
       primaryEmail: 'nalini@gmail.com',
@@ -304,7 +308,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171180',
       username: 'vamsi',
       primaryEmail: 'vamsikrishna@gmail.com',
@@ -337,7 +342,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171181',
       username: 'ramarao',
       primaryEmail: 'ramarao@gmail.com',
@@ -370,7 +376,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171182',
       username: 'Pankajsharma',
       primaryEmail: 'rajsharma@gmail.com',
@@ -403,7 +410,8 @@ const data = {
       aadharNumber: '123456789911',
       subjects: [''],
       role: 'admin'
-    },{
+    },
+    {
       id: '20171183',
       username: 'Srini',
       primaryEmail: 'srini@gmail.com',
@@ -464,8 +472,7 @@ mock.onGet('/apps/users/list').reply(config => {
     user =>
       (user.username.toLowerCase().includes(queryLowered) ||
         user.fullName.toLowerCase().includes(queryLowered) ||
-        (user.primaryEmail.toLowerCase().includes(queryLowered) &&
-          user.status.toLowerCase().includes(queryLowered))) &&
+        (user.primaryEmail.toLowerCase().includes(queryLowered) && user.status.toLowerCase().includes(queryLowered))) &&
       user.role === (role || user.role) &&
       user.status === (status || user.status)
   )

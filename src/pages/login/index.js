@@ -43,6 +43,9 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import azureConfig from 'src/configs/azureConfig'
+import authConfig from 'src/configs/auth'
+import axios from 'axios'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)(({ theme }) => ({
@@ -100,7 +103,6 @@ const schema = yup.object().shape({
   password: yup.string().min(5).required()
 })
 
-
 const defaultValues = {
   password: 'admin',
   email: 'admin@materio.com'
@@ -108,7 +110,7 @@ const defaultValues = {
 
 const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(true)
-  const [showPassword, setShowPassword] = useState(false)  
+  const [showPassword, setShowPassword] = useState(false)
 
   // ** Hooks
   const auth = useAuth()
@@ -133,7 +135,12 @@ const LoginPage = () => {
 
   const onSubmit = data => {
     const { email, password } = data
-    const authParams = { email: data.email , password : data.password , rememberMe: event.target.children[2].children[0].children[0].children[0].checked}      
+
+    const authParams = {
+      email: data.email,
+      password: data.password,
+      rememberMe: event.target.children[2].children[0].children[0].children[0].checked
+    }
     auth.login(authParams, () => {
       setError('email', {
         type: 'manual',
@@ -142,6 +149,48 @@ const LoginPage = () => {
     })
   }
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
+
+  const handleLoginViaAzureAD = async e => {
+    e.preventDefault()
+
+    const client = new Msal.UserAgentApplication(azureConfig)
+
+    const request = {
+      scopes: ['user.read']
+    }
+
+    const loginResponse = await client.loginPopup(request)
+    console.log('loginResponse===>', loginResponse)
+
+    const tokenResponse = await client.acquireTokenSilent(request)
+    console.log('tokenResponse===>', tokenResponse)
+    if (tokenResponse) {
+      await axios
+        .get(authConfig.meEndpoint, {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.accesToken}`
+          }
+        })
+        .then(async response => {
+          console.log('response====>', response)
+          setLoading(false)
+          setUser({ ...response.data.userData })
+          router.replace('/home/dashboard')
+        })
+        .catch(() => {
+          localStorage.removeItem('userData')
+          localStorage.removeItem('refreshToken')
+          localStorage.removeItem('accessToken')
+          // setUser(null)
+          // setLoading(false)
+          if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
+            router.replace('/home/dashboard')
+          }
+        })
+    } else {
+      setLoading(false)
+    }
+  }
 
   return (
     <Box className='content-right'>
@@ -177,7 +226,7 @@ const LoginPage = () => {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-            >                         
+            >
               <Typography
                 variant='h6'
                 sx={{
@@ -194,7 +243,7 @@ const LoginPage = () => {
             <Box sx={{ mb: 6 }}>
               <TypographyStyled variant='h5'>Welcome to {themeConfig.templateName}! 👋🏻</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
-            </Box>            
+            </Box>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
@@ -275,10 +324,14 @@ const LoginPage = () => {
               </Box>
               <Divider sx={{ my: theme => `${theme.spacing(5)} !important` }}>or</Divider>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => e.preventDefault()}>
+                {/* <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => handleLoginViaAzureAD(e)}>
                   <Icon icon='mdi:facebook' />
+                </IconButton> */}
+                <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => handleLoginViaAzureAD(e)}>
+                  <img src='/images/AzureSmall.png' alt={'azure'} height='24' />
                 </IconButton>
-                <IconButton href='/' component={Link} sx={{ color: '#1da1f2' }} onClick={e => e.preventDefault()}>
+
+                {/* <IconButton href='/' component={Link} sx={{ color: '#1da1f2' }} onClick={e => e.preventDefault()}>
                   <Icon icon='mdi:twitter' />
                 </IconButton>
                 <IconButton
@@ -291,7 +344,7 @@ const LoginPage = () => {
                 </IconButton>
                 <IconButton href='/' component={Link} sx={{ color: '#db4437' }} onClick={e => e.preventDefault()}>
                   <Icon icon='mdi:google' />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </form>
           </BoxWrapper>

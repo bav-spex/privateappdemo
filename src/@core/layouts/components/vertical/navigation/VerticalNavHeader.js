@@ -78,7 +78,7 @@ const VerticalNavHeader = props => {
     },
     [theme.breakpoints.down('md')]: {
       height: 'auto',
-      width: 30,
+      width: 30
     },
     [theme.breakpoints.up('lg')]: {
       width: 40,

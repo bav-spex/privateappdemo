@@ -93,9 +93,9 @@ const Drawer = props => {
   return (
     <SwipeableDrawer
       className='layout-vertical-nav'
-      variant={ hidden ? 'temporary' : 'permanent' }
-      { ...(hidden ? { ...MobileDrawerProps } : { ...DesktopDrawerProps }) }
-      PaperProps={ {
+      variant={hidden ? 'temporary' : 'permanent'}
+      {...(hidden ? { ...MobileDrawerProps } : { ...DesktopDrawerProps })}
+      PaperProps={{
         sx: {
           ...drawerColors(),
           width: navCollapsed && !navHover ? collapsedNavWidth : navWidth,
@@ -104,14 +104,14 @@ const Drawer = props => {
           ...userNavMenuPaperStyle
         },
         ...navMenuProps?.PaperProps
-      } }
-      sx={ {
+      }}
+      sx={{
         width: navCollapsed ? collapsedNavWidth : navWidth,
         ...userNavMenuStyle
-      } }
-      { ...userNavMenuProps }
+      }}
+      {...userNavMenuProps}
     >
-      { children }
+      {children}
     </SwipeableDrawer>
   )
 }

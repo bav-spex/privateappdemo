@@ -35,4 +35,4 @@ export const SaveAllM = (params, errorCallback, successCallback) => {
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))
 }
-export default dummy;
+export default dummy
