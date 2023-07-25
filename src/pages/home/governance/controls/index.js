@@ -199,7 +199,7 @@ const ControlList = () => {
           // Redirect the user to the desired page
           router.push({
             pathname: '/home/governance/controls/edit_control/',
-            query: { keyword: 3 }
+            query: { keyword: id }
           })
         }
         return <div onClick={handleRowClick}>{params.value}</div>
@@ -322,7 +322,7 @@ const ControlList = () => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push({
       pathname: '/home/governance/controls/edit_control/',
-      query: { keyword: 3 }
+      query: { keyword: id }
     })
   }
 

@@ -159,3 +159,17 @@ export const getExistingRisks = (errorCallback, successCallback) => {
         errorCallback(error);
     });
 }
+
+export const saveExistingRisks = (params, errorCallback, successCallback) => {
+    siteCall(authConfig.save_existing_list, "POST", params, (res) => {
+        if (res?.data?.error?.msg) {
+            console.log('saveExistingRisks error:', res.data)
+            if (errorCallback) errorCallback(res.data.error.msg)
+        } else {
+            console.log('saveExistingRisks success:', res.data)
+            successCallback(res.data)
+        }
+    }, (error) => {
+        errorCallback(error);
+    });
+}

@@ -186,7 +186,7 @@ function Row(props) {
         <TableCell align="right">{row.approximatetime}</TableCell>
         <TableCell align="right">
         {
-            user_data.role=='admin'?
+            user_data.role=='admin'? (
             <>
               <IconButton onClick={() => handleEditTest(row.testid)} sx={{ color: 'green' }}>
                 <EditIcon titleAccess='Edit Test' />
@@ -198,9 +198,7 @@ function Row(props) {
                 <AddIcon titleAccess='Add Assesment' />
               </IconButton>
             </>
-          ) : (
-            ''
-          )}
+          ) : ('')}
         </TableCell>
       </TableRow>
       <TableRow>

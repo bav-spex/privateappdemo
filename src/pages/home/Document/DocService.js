@@ -2,134 +2,119 @@
 import axios from 'axios'
 //*config
 import authConfig from 'src/configs/auth'
-import moment from 'moment'
+import moment from 'moment';
+import { siteCall } from 'src/util/web_call';
 
 export const getDocument = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.Document)
-    .then(res => {
+  siteCall(authConfig.Document, "GET", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('error:', res.data.error)
-        if (errorCallback) errorCallback(res.data.error)
+          console.log('getDocument error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('success:', res.data)
-        successCallback(res.data)
+          console.log('getDocument success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const getDocumentById = (id, errorCallback, successCallback) => {
-  axios
-    .get(authConfig.documentById + id)
-    .then(res => {
+  siteCall(authConfig.documentById + id, "GET", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('error:', res.data.error)
-        if (errorCallback) errorCallback(res.data.error)
+          console.log('getDocumentById error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('success:', res.data)
-        successCallback(res.data)
+          console.log('getDocumentById success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const createDocument = (params, errorCallback, successCallback) => {
-  axios
-    .post(authConfig.create_document, params, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => {
+  siteCall(authConfig.create_document, "POST", params, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('createDocument error:', res.data)
-        if (errorCallback) errorCallback(res.data.error.msg)
+          console.log('createDocument error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('createDocument success:', res.data)
-        successCallback(res.data)
+          console.log('createDocument success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const updateDocument = (id, params, errorCallback, successCallback) => {
-  axios
-    .put(authConfig.update_document + id, params, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => {
+  siteCall(authConfig.update_document + id, "PUT", params, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('updateDocument error:', res.data)
-        if (errorCallback) errorCallback(res.data.error.msg)
+          console.log('updateDocument error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('updateDocument success:', res.data)
-        successCallback(res.data)
+          console.log('updateDocument success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const getCategoryData = (id, errorCallback, successCallback) => {
-  axios
-    .get(authConfig.display_lookup + '/' + id)
-    .then(res => {
+  siteCall(authConfig.display_lookup + '/' + id, "GET", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('getCategoryData error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+          console.log('getCategoryData error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('getCategoryData success:', res.data)
-        successCallback(res.data)
+          console.log('getCategoryData success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const getTeams = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.team_list)
-    .then(res => {
+  siteCall(authConfig.team_list, "GET", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('getTeams error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+          console.log('getTeams error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('getTeams success:', res.data)
-        successCallback(res.data)
+          console.log('getTeams success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const getUsers = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.owner_list)
-    .then(res => {
+  siteCall(authConfig.owner_list, "GET", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('getUsers error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+          console.log('getUsers error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('getUsers success:', res.data)
-        successCallback(res.data)
+          console.log('getUsers success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const deleteDocument = (id, errorCallback, successCallback) => {
-  axios
-    .delete(authConfig.delete_document + id)
-    .then(res => {
+  siteCall(authConfig.delete_document + id, "DELETE", {}, (res) => {
       if (res?.data?.error?.msg) {
-        console.log('deleteDocument error:', res.data)
-        if (errorCallback) errorCallback(res.data.error.msg)
+          console.log('deleteDocument error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('deleteDocument success:', res.data)
-        successCallback(res.data)
+          console.log('deleteDocument success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const convertDateFormat = (date, date_format) => {

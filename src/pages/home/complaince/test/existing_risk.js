@@ -10,10 +10,10 @@ import { useRouter } from 'next/router';
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getExistingRisks, getRisks } from 'src/pages/home/complaince/test/complaince_service';
+import { getExistingRisks, getRisks, saveExistingRisks } from 'src/pages/home/complaince/test/complaince_service';
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open, risk_list, audit_id } = props
+  const { onClose, selectedValue, open, test_assessment_id } = props
 
   const [existing_risk_list, set_existing_risk_list]= useState([]);
   const [available_risk_list, set_available_risk_list]= useState([]);
@@ -23,23 +23,17 @@ function SimpleDialog(props) {
   }
 
   const save_existing_list= async()=>{
-        console.log("selected list is");
-        console.log(existing_risk_list);
-
-        const res= await fetch(`${auth.save_existing_list}`, {
-        method:"POST",
-          headers:{
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            
-            test_audit_id: audit_id,
-            risk_ids : existing_risk_list  
-        })
-    })
-    const data= await res.json();
-    console.log(data);
+      let successCallback = (response) => {
         handleClose();
+      }
+      let errorCallback = (response) => {
+          toast.error("Something went wrong");
+      }
+      let request_data = {       
+        test_assessment_id: test_assessment_id,
+        risk_id : existing_risk_list  
+      }
+      saveExistingRisks(request_data, errorCallback, successCallback);
   }
 
   const fetch_existing_risk_list = () => {
@@ -74,7 +68,6 @@ function SimpleDialog(props) {
             <FormControl fullWidth>
       <InputLabel id="demo-simple-select-label">Available Risks</InputLabel>
         <Select
-        multiple
         value={existing_risk_list}
         onChange={(e)=> set_existing_risk_list(e.target.value)}
         labelId="demo-simple-select-label"
