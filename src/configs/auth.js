@@ -1,4 +1,5 @@
 // const governance_base_url = 'http://localhost:8080'
+const riskDevRakshitah_base_url = 'https://risk-dev-rakshitah.azurewebsites.net/rmf/v1/'
 const governance_base_url = 'https://governance-dev-rakshitah.azurewebsites.net'
 const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net'
 const common_base_url = 'https://common-dev-rakshitah.azurewebsites.net'
@@ -13,14 +14,16 @@ const current_Impact_url = `${common_base_url}/`
 const risk_scoring_url = `${common_base_url}/`
 const Affected_Assets_url = `${common_base_url}/`
 const technology_url = `${common_base_url}/`
-const owner_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users'
+const owner_url = 'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iam/users/getAll'
 const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
 const role_list_url = `${auth_base_url}/iam/roles`
 const add_update_role_list = `${auth_base_url}/iam/roles`
 const claim_list_url = `${auth_base_url}/iam/roles/claims`
+const additionalStokeHolders_list_url = `${auth_base_url}/iam/users/getAll`
 const risk_mapping_list_url = `${common_base_url}/lookup/v1/category/28`
 const threat_mapping_list_url = `${common_base_url}/lookup/v1/category/29`
 const regulation_dropdown_url = `${governance_base_url}/governance/v1/frameworks/getAll`
+const controls_dropdown_url = `${governance_base_url}/governance/v1/controls/get`
 const edit_risk_url = `${risk_base_url}/rmf/v1/risks/update`
 const mitigation_url = ` ${risk_base_url}/`
 const riskSave_url = `${risk_base_url}/`
@@ -66,6 +69,7 @@ const test_url = 'http://localhost:8091/compliance/v1/test'
 const adit_url = 'http://localhost:8091/compliance/v1/audit'
 
 export default {
+  riskDevRakshitah: riskDevRakshitah_base_url,
   meEndpoint: `${auth_base_url}/iam/authenticate/me`,
   loginEndpoint: `${auth_base_url}/iam/authenticate/login`,
   loginMockEndpoint: 'jwt/login',
@@ -79,6 +83,7 @@ export default {
   getAllTeachers: `${batch_base_url}/users/v1?role=Teacher`,
   submitBatch: `${batch_base_url}/cohorts/v1/cohorts/`,
   batchList: `${batch_base_url}/cohorts/v1/`,
+  additionalStokeHolders: `${additionalStokeHolders_list_url}`,
   // riskListEndPoint: `${risk_base_url}/rmf/v1/risks/id/`,
   riskListEndPoint: `${risk_base_url}/rmf/v1/risks`,
   riskCategory: `${risk_category_url}lookup/v1/category/12`,
@@ -98,6 +103,7 @@ export default {
   risk_mapping_list: `${risk_mapping_list_url}`,
   threat_mapping_list: `${threat_mapping_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
+  controls_dropdown: `${controls_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks/get`,
   auditAll: `${risk_base_url}/rmf/v1/audits`,
   frameWorkAll: `${governance_base_url}/governance/v1/frameworks/getAll`,

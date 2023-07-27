@@ -19,8 +19,6 @@ import {
   getCurrentImpactDropDown,
   getAffectedAssetsDropDown,
   getTechnologyDropDown,
-  getTeamDropDown,
-  getAdditionlStakeHoldersDropDown,
   updateRisk,
   addNewRisk
 } from 'src/store/apps/Risks/RiskService'
@@ -37,6 +35,7 @@ import { useTheme } from '@material-ui/core/styles'
 import toast from 'react-hot-toast'
 import FallbackSpinner from 'src/@core/components/spinner'
 import apiHelper from 'src/store/apiHelper'
+import { getAdditionlStakeHoldersDropDown, getTeamDropDown } from 'src/store/apps/common'
 
 const NewRisk = () => {
   const data = useSelector(state => state.riskList)
@@ -140,7 +139,7 @@ const NewRisk = () => {
   // Owner Manager
   // Tags
   const handleChange = (name, value) => {
-    console.log(name, value)
+    // console.log(name, value)
     setSingleRiskData({ ...singleRiskData, [name]: value })
   }
 
@@ -297,7 +296,7 @@ const NewRisk = () => {
 
       additionalstakeholdersMappingName.map(name => {
         additionalstakeholders_dropdown.find(stake => {
-          if (stake.name === name) {
+          if (stake.fullName === name) {
             stakeHolderIds.push(Number(stake.id))
           }
         })
@@ -353,7 +352,7 @@ const NewRisk = () => {
     return <FallbackSpinner />
   }
 
-  console.log('singleRiskData====>', singleRiskData)
+  // console.log('singleRiskData====>', singleRiskData)
   if (singleRiskData) {
     return (
       <CardContent>
@@ -658,7 +657,7 @@ const NewRisk = () => {
                     <Select
                       value={singleRiskData.externalreferenceid}
                       fullWidth
-                      label={t('Risk Score')}
+                      label={t('External Refrence id')}
                       onChange={e => {
                         handleChange('externalreferenceid', e.target.value)
                       }}
@@ -981,8 +980,8 @@ const NewRisk = () => {
                     >
                       {/* <MenuItem value=''>None</MenuItem> */}
                       {additionalstakeholders_dropdown.map(item => (
-                        <MenuItem key={item.id} value={item.name}>
-                          {item.name}
+                        <MenuItem key={item.id} value={item.fullName}>
+                          {item.fullName}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1021,7 +1020,7 @@ const NewRisk = () => {
                       {/* additionalstakeholders_dropdown & ownerlist is same */}
                       {additionalstakeholders_dropdown.map(item => (
                         <MenuItem key={item.id} value={Number(item.id)}>
-                          {item.name}
+                          {item.fullName}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1061,7 +1060,7 @@ const NewRisk = () => {
                       {/* additionalstakeholders_dropdown & ownermanagerList is same */}
                       {additionalstakeholders_dropdown.map(item => (
                         <MenuItem key={item.id} value={Number(item.id)}>
-                          {item.name}
+                          {item.fullName}
                         </MenuItem>
                       ))}
                     </Select>

@@ -1,5 +1,6 @@
 import authConfig from 'src/configs/auth'
 import apiHelper from 'src/store/apiHelper'
+// https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iam/teams
 
 export const getTeamDropDown = (successCallback, errorCallback) => {
   apiHelper(authConfig.team_list, 'get')
@@ -12,9 +13,9 @@ export const getTeamDropDown = (successCallback, errorCallback) => {
 }
 
 export const getAdditionlStakeHoldersDropDown = (successCallback, errorCallback) => {
-  apiHelper(authConfig.owner_list, 'get')
+  apiHelper(authConfig.additionalStokeHolders, 'get')
     .then(res => {
-      successCallback(res.data.data.users)
+      successCallback(res.data)
     })
     .catch(err => {
       console.log(err)

@@ -138,11 +138,16 @@ const RiskList = () => {
     router.push('/home/risk/newRisk-form')
   }
 
-  const openMitigation = id => {
-    router.push({
-      pathname: '/home/mitigation/mitigation',
-      query: { keyword: id }
-    })
+  const openMitigation = (id, mitigation) => {
+    if (mitigation) {
+      router.push({
+        pathname: `/home/risk/${id}/mitigation`
+      })
+    } else {
+      router.push({
+        pathname: `/home/risk/${id}/mitigation/new`
+      })
+    }
   }
 
   const openPreview = () => {
@@ -215,14 +220,21 @@ const RiskList = () => {
             <IconButton onClick={() => editRisk(row.id)} sx={{ color: 'blue' }}>
               <EditIcon titleAccess='Edit Risk' />
             </IconButton>
-            <IconButton onClick={() => openMitigation(row.id)} sx={{ color: 'green' }}>
+            <IconButton onClick={() => openMitigation(row.id, row.mitigation)} sx={{ color: 'green' }}>
               <VerifiedUserIcon titleAccess='Plan Mitigate' />
             </IconButton>
 
             {/* <IconButton onClick={openMitigation(r.id)} sx={{ color: 'green' }}>
               <ContactSupportIcon />
             </IconButton> */}
-            <IconButton onClick={openPreview} sx={{ color: 'blue' }}>
+            <IconButton
+              onClick={() =>
+                router.push({
+                  pathname: `/home/risk/${row.id}/reviews`
+                })
+              }
+              sx={{ color: 'blue' }}
+            >
               <AddCommentIcon titleAccess='Add Comment' />
             </IconButton>
           </>

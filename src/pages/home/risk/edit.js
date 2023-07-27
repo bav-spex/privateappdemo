@@ -33,7 +33,8 @@ import { useTheme } from '@material-ui/core/styles'
 //Third party imports
 import toast from 'react-hot-toast'
 import FallbackSpinner from 'src/@core/components/spinner'
-import { getAdditionlStakeHoldersDropDown, getTeamDropDown } from 'src/store/apps/common'
+import { getAdditionlStakeHoldersDropDown, getTeamDropDown, getUsersDropDown } from 'src/store/apps/common'
+import apiHelper from 'src/store/apiHelper'
 
 const EditRisk = () => {
   const data = useSelector(state => state.riskList)
@@ -79,7 +80,34 @@ const EditRisk = () => {
   const [additionalstakeholdersMappingName, setAdditionalstakeholdersMappingName] = useState([])
   const [additionalstakeholdersDropdownIds, setAdditionalstakeholdersDropdownIds] = useState([])
 
-  const [singleRiskData, setSingleRiskData] = useState()
+  const [singleRiskData, setSingleRiskData] = useState({
+    id: 0,
+    subject: '',
+    category: 0,
+    site: 0,
+    additionalstakeholders: [],
+    owner: 0,
+    tag: '',
+    location_ids: [],
+    submission_date: new Date(),
+    riskmapping: [],
+    threatmapping: [],
+    risksource: 0,
+    riskscoringmethod: 0,
+    externalreferenceid: '',
+    currentlikelihood: 0,
+    controlregulation: 0,
+    currentimpact: 0,
+    controlnumber: '',
+    riskassessment: '',
+    affectedassets: [],
+    affectedassetsnew: '',
+    additionalnotes: '',
+    technology: [],
+    supportingdocumentation: '',
+    team: [],
+    ownermanager: 0
+  })
 
   useEffect(() => {
     getSingleRisk(router.query.id, () => {}, setSingleRiskData)
@@ -101,6 +129,125 @@ const EditRisk = () => {
     getAdditionlStakeHoldersDropDown(set_additionalstakeholders_dropdown, () => {})
   }, [])
 
+  // Initially Update Risk DropdownUI and RiskMappingName and RiskDropdownIds
+  useEffect(() => {
+    if (singleRiskData.riskmapping.length > 0 && risk_dropdown.length > 0) {
+      const initialRiskName = []
+
+      singleRiskData.riskmapping.map(id => {
+        risk_dropdown.find(risk => {
+          if (risk.lookupId == id) {
+            initialRiskName.push(risk.lookupName)
+          }
+        })
+      })
+      setRiskMappingName(initialRiskName)
+      setRiskDropdownIds([...singleRiskData.riskmapping])
+    }
+  }, [risk_dropdown])
+
+  // Initially Update Threat DropdownUI and ThreatMappingName and ThreatDropdownIds
+  useEffect(() => {
+    if (singleRiskData.threatmapping.length > 0 && threat_dropdown.length > 0) {
+      const initialThreatName = []
+
+      singleRiskData.threatmapping.map(id => {
+        threat_dropdown.find(threat => {
+          if (threat.lookupId == id) {
+            initialThreatName.push(threat.lookupName)
+          }
+        })
+      })
+      setThreatMappingName(initialThreatName)
+      setThreatDropdownIds([...singleRiskData.threatmapping])
+    }
+  }, [threat_dropdown])
+
+  // Initially Update SiteLocation DropdownUI and SiteLocationMappingName and SiteLocationDropdownIds
+  useEffect(() => {
+    if (singleRiskData.location_ids.length > 0 && sitelocation_dropdown.length > 0) {
+      const initialSiteLocationName = []
+
+      singleRiskData.location_ids.map(id => {
+        sitelocation_dropdown.find(sitelocation => {
+          if (sitelocation.lookupId == id) {
+            initialSiteLocationName.push(sitelocation.lookupName)
+          }
+        })
+      })
+      setSitelocationMappingName(initialSiteLocationName)
+      setSitelocationDropdownIds([...singleRiskData.location_ids])
+    }
+  }, [sitelocation_dropdown])
+
+  // Initially Update AffectedAssets DropdownUI and AffectedAssetsMappingName and AffectedAssetsDropdownIds
+  useEffect(() => {
+    if (singleRiskData.affectedassets.length > 0 && affectedassets_dropdown.length > 0) {
+      const initialAssetsName = []
+
+      singleRiskData.affectedassets.map(id => {
+        affectedassets_dropdown.find(assets => {
+          if (assets.lookupId == id) {
+            initialAssetsName.push(assets.lookupName)
+          }
+        })
+      })
+      setAffectedassetsMappingName(initialAssetsName)
+      setAffectedassetsDropdownIds([...singleRiskData.affectedassets])
+    }
+  }, [affectedassets_dropdown])
+
+  // Initially Update Technology DropdownUI and TechnologyMappingName and TechnologyDropdownIds
+  useEffect(() => {
+    if (singleRiskData.technology.length > 0 && technology_dropdown.length > 0) {
+      const initialTechnologyName = []
+
+      singleRiskData.technology.map(id => {
+        technology_dropdown.find(tech => {
+          if (tech.lookupId == id) {
+            initialTechnologyName.push(tech.lookupName)
+          }
+        })
+      })
+      setTechnologyMappingName(initialTechnologyName)
+      setTechnologyDropdownIds([...singleRiskData.technology])
+    }
+  }, [technology_dropdown])
+
+  // Initially Update Technology DropdownUI and TechnologyMappingName and TechnologyDropdownIds
+  useEffect(() => {
+    if (singleRiskData.team.length > 0 && team_dropdown.length > 0) {
+      const initialTeamName = []
+
+      singleRiskData.team.map(id => {
+        team_dropdown.find(team => {
+          if (team.id == id) {
+            initialTeamName.push(team.name)
+          }
+        })
+      })
+      setTeamMappingName(initialTeamName)
+      setTeamDropdownIds([...singleRiskData.team])
+    }
+  }, [team_dropdown])
+
+  // Initially Update AdditionalStackHolders DropdownUI and AdditionalStackHoldersMappingName and AdditionalStackHoldersDropdownIds
+  useEffect(() => {
+    if (singleRiskData.additionalstakeholders.length > 0 && additionalstakeholders_dropdown.length > 0) {
+      const initialStackName = []
+
+      singleRiskData.additionalstakeholders.map(id => {
+        additionalstakeholders_dropdown.find(stack => {
+          if (stack.id == id) {
+            initialStackName.push(stack.fullName)
+          }
+        })
+      })
+      setAdditionalstakeholdersMappingName(initialStackName)
+      setAdditionalstakeholdersDropdownIds([...singleRiskData.additionalstakeholders])
+    }
+  }, [additionalstakeholders_dropdown])
+
   // Change Events for
   // Subject
   // Category
@@ -117,7 +264,7 @@ const EditRisk = () => {
   // Owner Manager
   // Tags
   const handleChange = (name, value) => {
-    console.log(name, value)
+    // console.log(name, value)
     setSingleRiskData({ ...singleRiskData, [name]: value })
   }
 
@@ -136,12 +283,14 @@ const EditRisk = () => {
       riskMappingName.map(name => {
         risk_dropdown.find(risk => {
           if (risk.lookupName === name) {
-            riskIds.push(risk.lookupId)
+            if (!singleRiskData.riskmapping.includes(risk.lookupId)) {
+              riskIds.push(risk.lookupId)
+            }
           }
         })
       })
 
-      setRiskDropdownIds([...singleRiskData.riskmapping, ...riskIds])
+      setRiskDropdownIds([...riskIds])
     }
   }, [riskMappingName])
 
@@ -164,7 +313,7 @@ const EditRisk = () => {
           }
         })
       })
-      setThreatDropdownIds([...singleRiskData.threatmapping, ...threatIds])
+      setThreatDropdownIds([...threatIds])
     }
   }, [threatMappingName])
 
@@ -187,7 +336,7 @@ const EditRisk = () => {
           }
         })
       })
-      setSitelocationDropdownIds([...singleRiskData.location_ids, ...sitelocationtIds])
+      setSitelocationDropdownIds([...sitelocationtIds])
     }
   }, [sitelocationMappingName])
 
@@ -210,7 +359,7 @@ const EditRisk = () => {
           }
         })
       })
-      setAffectedassetsDropdownIds([...singleRiskData.affectedassets, ...assetsIds])
+      setAffectedassetsDropdownIds([...assetsIds])
     }
   }, [affectedassetsMappingName])
 
@@ -233,7 +382,7 @@ const EditRisk = () => {
           }
         })
       })
-      setTechnologyDropdownIds([...singleRiskData.technology, ...technologyIds])
+      setTechnologyDropdownIds([...technologyIds])
     }
   }, [technologyMappingName])
 
@@ -256,7 +405,7 @@ const EditRisk = () => {
           }
         })
       })
-      setTeamDropdownIds([...singleRiskData.team, ...teamIds])
+      setTeamDropdownIds([...teamIds])
     }
   }, [teamMappingName])
 
@@ -274,12 +423,12 @@ const EditRisk = () => {
 
       additionalstakeholdersMappingName.map(name => {
         additionalstakeholders_dropdown.find(stake => {
-          if (stake.name === name) {
+          if (stake.fullName === name) {
             stakeHolderIds.push(Number(stake.id))
           }
         })
       })
-      setAdditionalstakeholdersDropdownIds([...singleRiskData.additionalstakeholders, ...stakeHolderIds])
+      setAdditionalstakeholdersDropdownIds([...stakeHolderIds])
     }
   }, [additionalstakeholdersMappingName])
 
@@ -316,16 +465,23 @@ const EditRisk = () => {
       team: teamDropdownIds,
       additionalstakeholders: additionalstakeholdersDropdownIds
     }
-    console.log(payload)
-    updateRisk(payload)
-    toast.success('Submitted Risk')
+
+    apiHelper(`${authConfig.edit_risk}/${payload.id}`, 'put', payload, {})
+      .then(res => {
+        // console.log(res.data)
+        toast.success(res.data.data.msg)
+        router.push('/home/risk')
+        // successCallback(res.data.data.risk)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   if (!singleRiskData) {
     return <FallbackSpinner />
   }
 
-  console.log('singleRiskData====>', singleRiskData)
   if (singleRiskData) {
     return (
       <CardContent>
@@ -627,7 +783,7 @@ const EditRisk = () => {
                     <Select
                       value={singleRiskData.externalreferenceid}
                       fullWidth
-                      label={t('Risk Score')}
+                      label={t('External Refrence id')}
                       onChange={e => {
                         handleChange('externalreferenceid', e.target.value)
                       }}
@@ -635,7 +791,7 @@ const EditRisk = () => {
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      <MenuItem value={singleRiskData.externalreferenceid}>{'String Data'}</MenuItem>
+                      <MenuItem value={'String Data'}>{'String Data'}</MenuItem>
                     </Select>
                   )}
                 />
@@ -950,8 +1106,8 @@ const EditRisk = () => {
                     >
                       {/* <MenuItem value=''>None</MenuItem> */}
                       {additionalstakeholders_dropdown.map(item => (
-                        <MenuItem key={item.id} value={item.name}>
-                          {item.name}
+                        <MenuItem key={item.id} value={item.fullName}>
+                          {item.fullName}
                         </MenuItem>
                       ))}
                     </Select>
@@ -990,7 +1146,7 @@ const EditRisk = () => {
                       {/* additionalstakeholders_dropdown & ownerlist is same */}
                       {additionalstakeholders_dropdown.map(item => (
                         <MenuItem key={item.id} value={Number(item.id)}>
-                          {item.name}
+                          {item.fullName}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1030,7 +1186,7 @@ const EditRisk = () => {
                       {/* additionalstakeholders_dropdown & ownermanagerList is same */}
                       {additionalstakeholders_dropdown.map(item => (
                         <MenuItem key={item.id} value={Number(item.id)}>
-                          {item.name}
+                          {item.fullName}
                         </MenuItem>
                       ))}
                     </Select>
