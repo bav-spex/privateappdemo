@@ -100,44 +100,6 @@ const RiskList = () => {
     }
   }, [risks])
 
-  const editRisk = id => {
-    router.push({
-      pathname: '/home/risk/edit',
-      query: { id: id }
-    })
-  }
-
-  const reviewSubmit = values => {
-    dispatch(reviewRisk(values))
-    console.log('values:', values)
-    // setRisk(console.log('data', risk))
-  }
-
-  const handleCreateClick = id => {
-    console.log('into handle create')
-    console.log('editing id is', id)
-    // router.push('/home/risk/EditRisk')
-    router.push({
-      pathname: '/home/risk/edit',
-      query: { id: id }
-    })
-    // dispatch(reviewRisk(data))
-  }
-
-  // function handleRowClick(params) {
-  //   // The `params` argument contains information about the clicked row
-  //   const id = params.id;
-  //   // Redirect the user to the desired page
-  //   router.push({
-  //     pathname: '/home/risk/Risk_info',
-  //     query: { keyword: id },
-  //   });
-  // }
-
-  const openNewForm = () => {
-    router.push('/home/risk/newRisk-form')
-  }
-
   const openMitigation = (id, mitigation) => {
     if (mitigation) {
       router.push({
@@ -150,33 +112,12 @@ const RiskList = () => {
     }
   }
 
-  const openPreview = () => {
-    router.push('/home/risk/LastReview')
-  }
-
-  const handleFilter = useCallback(val => {
-    setValue(val)
-  }, [])
-
   const columns = [
     {
       flex: 0.08,
       width: 50,
       field: 'id',
-      headerName: t('ID'),
-      renderCell: ({ row }) => {
-        const handleRowClick = () => {
-          const id = row.id
-
-          // Redirect the user to the desired page
-          // router.push({
-          //   pathname: '/home/risk/Risk_info',
-          //   query: { keyword: id }
-          // })
-        }
-
-        return <div onClick={handleRowClick}>{row.id}</div>
-      }
+      headerName: t('ID')
     },
     { flex: 0.15, width: 50, field: 'subject', headerName: t('Subject') },
     { flex: 0.08, minWidth: 25, field: 'inherentscore', headerName: t('Inherent Score') },
@@ -217,16 +158,12 @@ const RiskList = () => {
       renderCell: ({ row }) => {
         return (
           <>
-            <IconButton onClick={() => editRisk(row.id)} sx={{ color: 'blue' }}>
+            <IconButton onClick={() => router.push(`/home/risk/edit/${id}`)} sx={{ color: 'blue' }}>
               <EditIcon titleAccess='Edit Risk' />
             </IconButton>
             <IconButton onClick={() => openMitigation(row.id, row.mitigation)} sx={{ color: 'green' }}>
               <VerifiedUserIcon titleAccess='Plan Mitigate' />
             </IconButton>
-
-            {/* <IconButton onClick={openMitigation(r.id)} sx={{ color: 'green' }}>
-              <ContactSupportIcon />
-            </IconButton> */}
             <IconButton
               onClick={() =>
                 router.push({
@@ -258,7 +195,6 @@ const RiskList = () => {
           </Grid>
         </div>
         <Divider />
-        {/* <TableHeader value={value} handleFilter={handleFilter} sx={{ textAlign: 'center' }} /> */}
         <DataGrid
           rows={rows}
           columns={columns}

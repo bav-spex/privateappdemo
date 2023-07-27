@@ -21,3 +21,13 @@ export const getAdditionlStakeHoldersDropDown = (successCallback, errorCallback)
       console.log(err)
     })
 }
+
+export const getNextStepsDropDown = (successCallback, errorCallback) => {
+  apiHelper(authConfig.next_step_list, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}

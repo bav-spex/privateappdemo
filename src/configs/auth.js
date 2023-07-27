@@ -22,6 +22,7 @@ const claim_list_url = `${auth_base_url}/iam/roles/claims`
 const additionalStokeHolders_list_url = `${auth_base_url}/iam/users/getAll`
 const risk_mapping_list_url = `${common_base_url}/lookup/v1/category/28`
 const threat_mapping_list_url = `${common_base_url}/lookup/v1/category/29`
+const next_step_list_url = `${common_base_url}/lookup/v1/category/25`
 const regulation_dropdown_url = `${governance_base_url}/governance/v1/frameworks/getAll`
 const controls_dropdown_url = `${governance_base_url}/governance/v1/controls/get`
 const edit_risk_url = `${risk_base_url}/rmf/v1/risks/update`
@@ -102,6 +103,7 @@ export default {
   claim_list: `${claim_list_url}`,
   risk_mapping_list: `${risk_mapping_list_url}`,
   threat_mapping_list: `${threat_mapping_list_url}`,
+  next_step_list: `${next_step_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
   controls_dropdown: `${controls_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks/get`,

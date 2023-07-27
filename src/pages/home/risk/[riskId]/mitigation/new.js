@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
@@ -17,14 +19,12 @@ import {
 } from '@mui/material'
 import toast from 'react-hot-toast'
 import authConfig from 'src/configs/auth'
-import { comment } from 'stylis'
 
 import { useTranslation } from 'react-i18next'
 
 import {
   getControlDropDown,
   getEffortsDropDown,
-  getMitigations,
   getStrategyDropDown
 } from 'src/store/apps/Risks/mitigation/MitigationServices'
 import { getAdditionlStakeHoldersDropDown, getTeamDropDown } from 'src/store/apps/common'
@@ -34,7 +34,7 @@ import apiHelper from 'src/store/apiHelper'
 const NewMitigation = () => {
   const data = useSelector(state => state.mitList)
   const router = useRouter()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const currentDate = moment().format('YYYY-MM-DD')
 
   const [efforts_dropdown, set_efforts_dropdown] = useState([])
@@ -75,20 +75,6 @@ const NewMitigation = () => {
   })
 
   useEffect(() => {
-    apiHelper(`${authConfig.riskDevRakshitah}risks/${router.query.id}/mitigation`, 'get', null, {})
-      .then(res => {
-        setSingleMitigationData({
-          ...res.data.data,
-          mitigationsubmissiondate: moment(res.data.data.mitigationsubmissiondate).format('YYYY-MM-DD'),
-          plannedmitigationdate: moment(res.data.data.plannedmitigationdate).format('YYYY-MM-DD')
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [router.query.id])
-
-  useEffect(() => {
     getEffortsDropDown(set_efforts_dropdown, () => {})
     getStrategyDropDown(set_strategy_dropdown)
     getStrategyDropDown(set_control_dropdown)
@@ -98,6 +84,19 @@ const NewMitigation = () => {
   }, [])
 
   // Current Solution
+  // Security Requirments
+  // Planning Strategy
+  // Security Reccomendations
+  // Mitigations Efforts
+  // Mitigations Cost
+  // Mitigation Percent
+  // Mitigations Owner
+  // Owner
+  // Submitted By
+  // Comments
+  // Control Validation Details
+  // Upload Artifact
+  // Audit Trail
   const handleChange = (name, value) => {
     // console.log(name, value)
     setSingleMitigationData({ ...singleMitigationData, [name]: value })
@@ -183,16 +182,16 @@ const NewMitigation = () => {
       ...singleMitigationData,
       mitigationcontrols: controlDropdownIds,
       mitigationteam: teamDropdownIds,
-      riskId: Number(router.query.id),
-      mitigationsubmissiondate: moment(singleMitigationData.mitigationsubmission).format('MM/DD/YYYY'),
+      owner: Number(singleMitigationData.mitigationowner),
+      riskId: Number(router.query.riskId),
+      mitigationsubmissiondate: moment(singleMitigationData.mitigationsubmissiondate).format('MM/DD/YYYY'),
+      last_update: moment(singleMitigationData.mitigationsubmissiondate).format('MM/DD/YYYY'),
       plannedmitigationdate: moment(singleMitigationData.plannedmitigationdate).format('MM/DD/YYYY')
     }
-
-    apiHelper(`${authConfig.riskDevRakshitah}risks/mitigation/update/${singleMitigationData.id}`, 'put', payload, {})
+    apiHelper(`${authConfig.riskDevRakshitah}risks/${router.query.riskId}/mitigation/new`, 'post', payload, {})
       .then(res => {
-        // console.log(res.data)
-        toast.success(res.data.data.msg)
-        router.push(`/home/risk`)
+        toast.success('res.data.data.msg')
+        router.push(`/home/risk/${router.query.riskId}/mitigation`)
       })
       .catch(err => {
         console.log(err)
@@ -203,7 +202,7 @@ const NewMitigation = () => {
     <CardContent>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3>{t('Edit Mitigation')}</h3>
+          <h3>{t('New Mitigation')}</h3>
           <Grid
             item
             sx={{
@@ -221,7 +220,7 @@ const NewMitigation = () => {
               {t('Cancel')}
             </Button>
             <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }} onClick={onSubmit}>
-              {t('Update')}
+              {t('Save')}
             </Button>
           </Grid>
         </div>
