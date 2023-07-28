@@ -41,10 +41,11 @@ export const getRisks = (errorCallback, successCallback) => {
     })
 }
 
-export const getSingleRisk = (id, errorCallback, successCallback) => {
+export const getSingleRisk = (id, errorCallback, successCallback, setLoading) => {
   apiHelper(`${authConfig.riskListEndPoint}/${id}`, 'get')
     .then(res => {
       successCallback(res.data.data)
+      setLoading(false)
     })
     .catch(err => {
       if (res.data.error.msg != '') {
@@ -72,21 +73,6 @@ export const getRiskDropDown = (successCallback, errorCallback) => {
 
 export const getThreatDropDown = (successCallback, errorCallback) => {
   apiHelper(authConfig.threat_mapping_list, 'get')
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-      if (res.data.error.msg != '') {
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        errorCallback ? errorCallback(err) : null
-      }
-    })
-}
-
-export const getCategoryDropDown = (successCallback, errorCallback) => {
-  apiHelper(authConfig.riskCategory, 'get')
     .then(res => {
       successCallback(res.data)
     })

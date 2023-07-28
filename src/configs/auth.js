@@ -1,7 +1,7 @@
 // const governance_base_url = 'http://localhost:8080'
 const riskDevRakshitah_base_url = 'https://risk-dev-rakshitah.azurewebsites.net/rmf/v1/'
 const governance_base_url = 'https://governance-dev-rakshitah.azurewebsites.net'
-const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net'
+const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net/compliance/v1/'
 const common_base_url = 'https://common-dev-rakshitah.azurewebsites.net'
 const auth_base_url = 'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io'
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
@@ -23,6 +23,8 @@ const additionalStokeHolders_list_url = `${auth_base_url}/iam/users/getAll`
 const risk_mapping_list_url = `${common_base_url}/lookup/v1/category/28`
 const threat_mapping_list_url = `${common_base_url}/lookup/v1/category/29`
 const next_step_list_url = `${common_base_url}/lookup/v1/category/25`
+const category_list_url = `${common_base_url}/lookup/v1/category/12`
+const audit_status_list_url = `${common_base_url}/lookup/v1/category/26`
 const regulation_dropdown_url = `${governance_base_url}/governance/v1/frameworks/getAll`
 const controls_dropdown_url = `${governance_base_url}/governance/v1/controls/get`
 const edit_risk_url = `${risk_base_url}/rmf/v1/risks/update`
@@ -40,7 +42,7 @@ const control_update_url = `${governance_base_url}/governance/v1/controls/update
 const delete_control_url = `${governance_base_url}/governance/v1/controls/delete`
 const control_dropdown_url = `${common_base_url}/lookup/v1/category`
 const get_tests_url = `${compliance_base_url}/compliance/v1/test/get`
-const category_list_url = `${common_base_url}/categories/v1/get`
+const categories_list_url = `${common_base_url}/categories/v1/get`
 const display_lookup_url = `${common_base_url}/lookup/v1/category`
 const managmentReview_url = `${risk_base_url}/`
 const mitigation_effort_url = `${common_base_url}/lookup/v1/category/22`
@@ -71,6 +73,7 @@ const adit_url = 'http://localhost:8091/compliance/v1/audit'
 
 export default {
   riskDevRakshitah: riskDevRakshitah_base_url,
+  compliance: compliance_base_url,
   meEndpoint: `${auth_base_url}/iam/authenticate/me`,
   loginEndpoint: `${auth_base_url}/iam/authenticate/login`,
   loginMockEndpoint: 'jwt/login',
@@ -96,7 +99,7 @@ export default {
   currentImpact: `${current_Impact_url}lookup/v1/category/17`,
   affectedAssets: `${Affected_Assets_url}lookup/v1/category/18`,
   technlogy: `${technology_url}lookup/v1/category/19`,
-  owner_list: `${owner_url}`,
+  owner_list: `${additionalStokeHolders_list_url}`,
   team_list: `${team_list_url}`,
   role_list: `${role_list_url}`,
   add_update_role_list: `${add_update_role_list}`,
@@ -104,6 +107,8 @@ export default {
   risk_mapping_list: `${risk_mapping_list_url}`,
   threat_mapping_list: `${threat_mapping_list_url}`,
   next_step_list: `${next_step_list_url}`,
+  category_list: `${category_list_url}`,
+  audit_status_list: `${audit_status_list_url}`,
   regulation_dropdown: `${regulation_dropdown_url}`,
   controls_dropdown: `${controls_dropdown_url}`,
   riskAll: `${risk_base_url}/rmf/v1/risks/get`,
@@ -127,7 +132,7 @@ export default {
   control_by_id: `${control_by_id_url}`,
   control_dropdown: `${control_dropdown_url}`,
   get_tests: `${get_tests_url}`,
-  category_list: category_list_url,
+  categories_list: categories_list_url,
   display_lookup: display_lookup_url,
   SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
   getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`,

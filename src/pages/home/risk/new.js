@@ -10,7 +10,6 @@ import {
   getSingleRisk,
   getRiskDropDown,
   getThreatDropDown,
-  getCategoryDropDown,
   getSiteLocationDropDown,
   getRiskScoreDropDown,
   getRiskSourceDropDown,
@@ -35,7 +34,7 @@ import { useTheme } from '@material-ui/core/styles'
 import toast from 'react-hot-toast'
 import FallbackSpinner from 'src/@core/components/spinner'
 import apiHelper from 'src/store/apiHelper'
-import { getAdditionlStakeHoldersDropDown, getTeamDropDown } from 'src/store/apps/common'
+import { getAdditionlStakeHoldersDropDown, getCategoryDropDown, getTeamDropDown } from 'src/store/apps/common'
 
 const NewRisk = () => {
   const data = useSelector(state => state.riskList)
@@ -618,15 +617,17 @@ const NewRisk = () => {
                   rules={{ required: true }}
                   render={({ field: { value, onChange } }) => (
                     <Select
-                      value={singleRiskData.riskscoringmethod}
+                      // here 50 calue is for option "Classic" needs to be hard coded
+                      value={50}
                       fullWidth
                       label={t('Risk Score')}
-                      onChange={e => {
-                        handleChange('riskscoringmethod', e.target.value)
-                      }}
+                      // onChange={e => {
+                      //   handleChange('riskscoringmethod', e.target.value)
+                      // }}
                       error={Boolean(errors?.msg)}
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
+                      disabled={true}
                     >
                       {riskscore_dropdown.map(c => (
                         <MenuItem key={c.id} value={c.lookupId}>

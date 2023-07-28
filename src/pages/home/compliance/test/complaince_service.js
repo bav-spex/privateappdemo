@@ -2,6 +2,7 @@
 import axios from 'axios'
 //*config
 import authConfig from 'src/configs/auth'
+import apiHelper from 'src/store/apiHelper'
 
 export const createAssessment = (params, errorCallback, successCallback) => {
   console.log(params)
@@ -74,15 +75,14 @@ export const getAssessmentById = (id, action, errorCallback, successCallback) =>
 }
 
 export const getTests = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.get_tests)
+  apiHelper(authConfig.get_tests)
     .then(res => {
       if (res?.data?.error?.msg) {
         console.log('getTests error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
         console.log('getTests success:', res.data)
-        successCallback(res.data)
+        successCallback(res.data.data)
       }
     })
     .catch(err => (errorCallback ? errorCallback(err) : null))

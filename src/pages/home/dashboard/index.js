@@ -161,7 +161,7 @@ const Dashboard = () => {
                 size='small'
                 onClick={() => {
                   router.push({
-                    pathname: `/home/complaince/test`
+                    pathname: `/home/compliance/test`
                   })
                 }}
               >

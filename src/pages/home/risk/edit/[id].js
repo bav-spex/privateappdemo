@@ -10,7 +10,6 @@ import {
   getSingleRisk,
   getRiskDropDown,
   getThreatDropDown,
-  getCategoryDropDown,
   getSiteLocationDropDown,
   getRiskScoreDropDown,
   getRiskSourceDropDown,
@@ -24,7 +23,7 @@ import {
 
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
-import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
+import { CardContent, CircularProgress, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 
 import { useTranslation } from 'react-i18next'
@@ -33,16 +32,20 @@ import { useTheme } from '@material-ui/core/styles'
 //Third party imports
 import toast from 'react-hot-toast'
 import FallbackSpinner from 'src/@core/components/spinner'
-import { getAdditionlStakeHoldersDropDown, getTeamDropDown, getUsersDropDown } from 'src/store/apps/common'
+import {
+  getAdditionlStakeHoldersDropDown,
+  getCategoryDropDown,
+  getTeamDropDown,
+  getUsersDropDown
+} from 'src/store/apps/common'
 import apiHelper from 'src/store/apiHelper'
 
 const EditRisk = () => {
   const data = useSelector(state => state.riskList)
   const router = useRouter()
-  const { t, i18n } = useTranslation()
-  const theme = useTheme()
+  const { t } = useTranslation()
 
-  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
   const [risk_dropdown, set_risk_dropdown] = useState([])
   const [riskMappingName, setRiskMappingName] = useState([])
@@ -110,10 +113,6 @@ const EditRisk = () => {
   })
 
   useEffect(() => {
-    getSingleRisk(router.query.id, () => {}, setSingleRiskData)
-  }, [router.query.id])
-
-  useEffect(() => {
     getRiskDropDown(set_risk_dropdown, () => {})
     getThreatDropDown(set_threat_dropdown, () => {})
     getCategoryDropDown(set_cat_dropdown, () => {})
@@ -128,6 +127,10 @@ const EditRisk = () => {
     getTeamDropDown(set_team_dropdown, () => {})
     getAdditionlStakeHoldersDropDown(set_additionalstakeholders_dropdown, () => {})
   }, [])
+
+  useEffect(() => {
+    getSingleRisk(router.query.id, () => {}, setSingleRiskData, setLoading)
+  }, [router.query.id])
 
   // Initially Update Risk DropdownUI and RiskMappingName and RiskDropdownIds
   useEffect(() => {
@@ -511,708 +514,787 @@ const EditRisk = () => {
               </Button>
             </Grid>
           </div>
-
-          <Grid container spacing={2}>
-            {/* Subject  */}
-            <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel
-                  id='validation-basic-select'
-                  error={Boolean(errors.msg)}
-                  htmlFor='validation-basic-select'
-                ></InputLabel>
-
-                <TextField
-                  id='outlined-basic'
-                  type='text'
-                  variant='outlined'
-                  label={t('Subject')}
-                  name='subject'
-                  value={singleRiskData.subject}
-                  onChange={e => handleChange('subject', e.target.value)}
-                  placeholder='select a subject or start typing search ...'
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    subject is required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Risk mapping  */}
-            <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  Select a Risk Mapping or start typing to search
-                </InputLabel>
-                <Controller
-                  name='riskmapping'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      multiple
-                      fullWidth
-                      value={riskMappingName}
-                      label={'Select a Risk mapping or start typing to search'}
-                      onChange={handleRiskChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {risk_dropdown.map((item, i) => (
-                        <MenuItem value={item.lookupName} key={i}>
-                          {item.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Risk mapping is required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Threat mapping  */}
-            <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  Select a Threat Mapping or start typing to search
-                </InputLabel>
-                <Controller
-                  name='threatMapping'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={threatMappingName}
-                      multiple
-                      fullWidth
-                      label={'Select a Threat Mapping or start typing to search'}
-                      onChange={handleThreatChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      <MenuItem value=''>None</MenuItem>
-                      {threat_dropdown.map((item, i) => (
-                        <MenuItem value={item.lookupName} key={i}>
-                          {item.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Threat mapping is required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Catrgory  */}
-            <Grid
-              item
+          {loading ? (
+            <Box
               sx={{
-                width: '40%',
-                marginBottom: '3vh',
-                '@media screen and (max-width:600px)': {
-                  flexDirection: 'column',
-                  marginLeft: 0
-                }
+                height: '50vh',
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                justifyContent: 'center'
               }}
             >
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Category')}
-                </InputLabel>
-                <Controller
-                  name='category'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.category}
-                      fullWidth
-                      label={t('Category')}
-                      onChange={e => {
-                        handleChange('category', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {cat_dropdown.map(c => (
-                        <MenuItem key={c.id} value={c.lookupId}>
-                          {c.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    category
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Risk Source  */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Risk Source')}
-                </InputLabel>
-                <Controller
-                  name='risksource'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.risksource}
-                      fullWidth
-                      label={t('Risk Source')}
-                      onChange={e => {
-                        handleChange('risksource', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {risksource_dropdown.map(r => (
-                        <MenuItem key={r.id} value={r.lookupId}>
-                          {r.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Risk Source
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Site Location  */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Site location')}
-                </InputLabel>
-                <Controller
-                  name='sitelocation'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      multiple
-                      fullWidth
-                      value={sitelocationMappingName}
-                      label={'Select location'}
-                      onChange={handleSiteLocationChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {sitelocation_dropdown.map(item => (
-                        <MenuItem value={item.lookupName} key={item.id}>
-                          {item.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Site location must be selected
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Risk Score  */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Risk Score')}
-                </InputLabel>
-                <Controller
-                  name='riskscoringmethod'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.riskscoringmethod}
-                      fullWidth
-                      label={t('Risk Score')}
-                      onChange={e => {
-                        handleChange('riskscoringmethod', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {riskscore_dropdown.map(c => (
-                        <MenuItem key={c.id} value={c.lookupId}>
-                          {c.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Risk Scoring is Required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* External Reference Id  */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('External Refrence id')}:
-                </InputLabel>
-                <Controller
-                  name='externalreferenceid'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.externalreferenceid}
-                      fullWidth
-                      label={t('External Refrence id')}
-                      onChange={e => {
-                        handleChange('externalreferenceid', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      <MenuItem value={'String Data'}>{'String Data'}</MenuItem>
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    {' '}
-                    External Refrence Id is must
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Current Likely Hood  */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Current likelihood')}
-                </InputLabel>
+              <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
+            </Box>
+          ) : (
+            <Grid container spacing={2}>
+              {/* Subject  */}
+              <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  ></InputLabel>
 
-                <Controller
-                  name='currentlikelihood'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.currentlikelihood}
-                      fullWidth
-                      label={t('Current likelihood')}
-                      onChange={e => {
-                        handleChange('currentlikelihood', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {currentlikelyhood_dropdown.map(c => (
-                        <MenuItem key={c.id} value={c.lookupId}>
-                          {c.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                  <TextField
+                    id='outlined-basic'
+                    type='text'
+                    variant='outlined'
+                    label={t('Subject')}
+                    name='subject'
+                    value={singleRiskData.subject}
+                    onChange={e => handleChange('subject', e.target.value)}
+                    placeholder='select a subject or start typing search ...'
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      subject is required
+                    </FormHelperText>
                   )}
-                />
+                </FormControl>
+              </Grid>
+              {/* Risk mapping  */}
+              <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    Select a Risk Mapping or start typing to search
+                  </InputLabel>
+                  <Controller
+                    name='riskmapping'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        multiple
+                        fullWidth
+                        value={riskMappingName}
+                        label={'Select a Risk mapping or start typing to search'}
+                        onChange={handleRiskChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {risk_dropdown.map((item, i) => (
+                          <MenuItem value={item.lookupName} key={i}>
+                            {item.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Risk mapping is required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Threat mapping  */}
+              <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    Select a Threat Mapping or start typing to search
+                  </InputLabel>
+                  <Controller
+                    name='threatMapping'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={threatMappingName}
+                        multiple
+                        fullWidth
+                        label={'Select a Threat Mapping or start typing to search'}
+                        onChange={handleThreatChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        <MenuItem value=''>None</MenuItem>
+                        {threat_dropdown.map((item, i) => (
+                          <MenuItem value={item.lookupName} key={i}>
+                            {item.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Threat mapping is required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Catrgory  */}
+              <Grid
+                item
+                sx={{
+                  width: '40%',
+                  marginBottom: '3vh',
+                  '@media screen and (max-width:600px)': {
+                    flexDirection: 'column',
+                    marginLeft: 0
+                  }
+                }}
+              >
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Category')}
+                  </InputLabel>
+                  <Controller
+                    name='category'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.category}
+                        fullWidth
+                        label={t('Category')}
+                        onChange={e => {
+                          handleChange('category', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {cat_dropdown.map(c => (
+                          <MenuItem key={c.id} value={c.lookupId}>
+                            {c.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      category
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Risk Source  */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Risk Source')}
+                  </InputLabel>
+                  <Controller
+                    name='risksource'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.risksource}
+                        fullWidth
+                        label={t('Risk Source')}
+                        onChange={e => {
+                          handleChange('risksource', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {risksource_dropdown.map(r => (
+                          <MenuItem key={r.id} value={r.lookupId}>
+                            {r.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Risk Source
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Site Location  */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Site location')}
+                  </InputLabel>
+                  <Controller
+                    name='sitelocation'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        multiple
+                        fullWidth
+                        value={sitelocationMappingName}
+                        label={'Select location'}
+                        onChange={handleSiteLocationChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {sitelocation_dropdown.map(item => (
+                          <MenuItem value={item.lookupName} key={item.id}>
+                            {item.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Site location must be selected
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Risk Score  */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Risk Score')}
+                  </InputLabel>
+                  <Controller
+                    name='riskscoringmethod'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        // here 50 calue is for option "Classic" needs to be hard coded
+                        value={50}
+                        fullWidth
+                        label={t('Risk Score')}
+                        // onChange={e => {
+                        //   handleChange('riskscoringmethod', e.target.value)
+                        // }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                        disabled={true}
+                      >
+                        {riskscore_dropdown.map(c => (
+                          <MenuItem key={c.id} value={c.lookupId}>
+                            {c.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Risk Scoring is Required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* External Reference Id  */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('External Refrence id')}:
+                  </InputLabel>
+                  <Controller
+                    name='externalreferenceid'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.externalreferenceid}
+                        fullWidth
+                        label={t('External Refrence id')}
+                        onChange={e => {
+                          handleChange('externalreferenceid', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        <MenuItem value={'String Data'}>{'String Data'}</MenuItem>
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      {' '}
+                      External Refrence Id is must
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Current Likely Hood  */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Current likelihood')}
+                  </InputLabel>
 
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Current Likelihood must
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Control Regulation  */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Control Regulation')}
-                </InputLabel>
-                <Controller
-                  name='controlregulation'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.controlregulation}
-                      fullWidth
-                      label={t('Control regulation')}
-                      onChange={e => {
-                        handleChange('controlregulation', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {controlregulation_dropdown.map((c, i) => (
-                        <MenuItem key={c.id} value={c.id}>
-                          {c.framework_Name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Control Regulation
-                  </FormHelperText>
-                )}
-              </FormControl>
-              {/* end of Control Regulation  */}
-            </Grid>
-            {/* Current Impact */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Current Impact')}
-                </InputLabel>
-                <Controller
-                  name='currentimpact'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.currentimpact}
-                      fullWidth
-                      label={t('Current Impact')}
-                      onChange={e => {
-                        handleChange('currentimpact', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {currentimpact_dropdown.map(c => (
-                        <MenuItem key={c.id} value={c.lookupId}>
-                          {c.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
+                  <Controller
+                    name='currentlikelihood'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.currentlikelihood}
+                        fullWidth
+                        label={t('Current likelihood')}
+                        onChange={e => {
+                          handleChange('currentlikelihood', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {currentlikelyhood_dropdown.map(c => (
+                          <MenuItem key={c.id} value={c.lookupId}>
+                            {c.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
 
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    current Impact
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Control Number */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Current Likelihood must
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Control Regulation  */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Control Regulation')}
+                  </InputLabel>
+                  <Controller
+                    name='controlregulation'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.controlregulation}
+                        fullWidth
+                        label={t('Control regulation')}
+                        onChange={e => {
+                          handleChange('controlregulation', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {controlregulation_dropdown.map((c, i) => (
+                          <MenuItem key={c.id} value={c.id}>
+                            {c.framework_Name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Control Regulation
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                {/* end of Control Regulation  */}
+              </Grid>
+              {/* Current Impact */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Current Impact')}
+                  </InputLabel>
+                  <Controller
+                    name='currentimpact'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.currentimpact}
+                        fullWidth
+                        label={t('Current Impact')}
+                        onChange={e => {
+                          handleChange('currentimpact', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {currentimpact_dropdown.map(c => (
+                          <MenuItem key={c.id} value={c.lookupId}>
+                            {c.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      current Impact
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Control Number */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <TextField
+                    type='text'
+                    variant='outlined'
+                    label={t('Control Number')}
+                    name='controlnumber'
+                    value={singleRiskData.controlnumber}
+                    onChange={e => handleChange('controlnumber', e.target.value)}
+                  />
+                </FormControl>
+              </Grid>
+              {/* Risk Assessment */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <TextField
+                    type='text'
+                    variant='outlined'
+                    label={t('Risk Assessment')}
+                    name='riskassessment'
+                    value={singleRiskData.riskassessment}
+                    onChange={e => handleChange('riskassessment', e.target.value)}
+                  />
+                </FormControl>
+              </Grid>
+              {/* Affected Assets */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Affected Assets')}
+                  </InputLabel>
+                  <Controller
+                    name='affectedAssets'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        multiple
+                        fullWidth
+                        label={t('Affected Assets')}
+                        value={affectedassetsMappingName}
+                        onChange={handleAffectedAssetsChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {affectedassets_dropdown.map(c => (
+                          <MenuItem key={c.id} value={c.lookupName}>
+                            {c.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Aasets are required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              {/* Additional Notes */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <TextField
+                    type='text'
+                    variant='outlined'
+                    label={t('Additional Notes')}
+                    name='additionalnotes'
+                    value={singleRiskData.additionalnotes}
+                    onChange={e => handleChange('additionalnotes', e.target.value)}
+                  />
+                </FormControl>
+              </Grid>
+
+              {/* Technology */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Technology')}
+                  </InputLabel>
+                  <Controller
+                    name='technology'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        multiple
+                        fullWidth
+                        label={t('Technology')}
+                        value={technologyMappingName}
+                        onChange={handleTechnologyChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {technology_dropdown.map(c => (
+                          <MenuItem key={c.id} value={c.lookupName}>
+                            {c.lookupName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      please select Technology
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
+              {/* File Upload */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <TextField
+                    type='file'
+                    bg-color='primary'
+                    onChange={e => handleFileChange(e)}
+                    name='img'
+                    variant='outlined'
+                  />
+                </FormControl>
+              </Grid>
+
+              {/* Team */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Team')}
+                  </InputLabel>
+                  <Controller
+                    name='team'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        multiple
+                        value={teamMappingName}
+                        fullWidth
+                        label={t('Team')}
+                        onChange={handleTeamChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {team_dropdown.map((item, i) => (
+                          <MenuItem key={item.id} value={item.name}>
+                            {item.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      please select Team
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
+              {/* Additional Stakeholders */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Additional Stakeholders')}
+                  </InputLabel>
+                  <Controller
+                    name='additionalstakeholders'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        multiple
+                        // value={value}
+                        value={additionalstakeholdersMappingName}
+                        fullWidth
+                        label={t('Additional Stakeholders')}
+                        onChange={handleAdditionalStakeHoldersChange}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {/* <MenuItem value=''>None</MenuItem> */}
+                        {additionalstakeholders_dropdown.map(item => (
+                          <MenuItem key={item.id} value={item.fullName}>
+                            {item.fullName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      please select additionalstakeholders
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
+              {/* Owner */}
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Owner')}
+                  </InputLabel>
+                  <Controller
+                    name='owner'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        value={singleRiskData.owner}
+                        fullWidth
+                        label={t('Owner')}
+                        onChange={e => {
+                          handleChange('owner', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {/* additionalstakeholders_dropdown & ownerlist is same */}
+                        {additionalstakeholders_dropdown.map(item => (
+                          <MenuItem key={item.id} value={Number(item.id)}>
+                            {item.fullName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Owner is required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
+              {/* Owner Manager  */}
+              <Grid container xs={12} />
+              <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    id='validation-basic-select'
+                    error={Boolean(errors.msg)}
+                    htmlFor='validation-basic-select'
+                  >
+                    {t('Owner Manager')}:
+                  </InputLabel>
+                  <Controller
+                    name='ownermanager'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        fullWidth
+                        label={t('Owners Manager')}
+                        value={singleRiskData.ownermanager}
+                        onChange={e => {
+                          handleChange('ownermanager', e.target.value)
+                        }}
+                        error={Boolean(errors?.msg)}
+                        labelId='validation-basic-select'
+                        aria-describedby='validation-basic-select'
+                      >
+                        {/* additionalstakeholders_dropdown & ownermanagerList is same */}
+                        {additionalstakeholders_dropdown.map(item => (
+                          <MenuItem key={item.id} value={Number(item.id)}>
+                            {item.fullName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.msg && (
+                    <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
+                      Owner's Manger is required
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
+              {/* Tags */}
+              <Grid container xs={12}>
+                <h3>{t('Tags')}</h3>
                 <TextField
                   type='text'
-                  variant='outlined'
-                  label={t('Control Number')}
-                  name='controlnumber'
-                  value={singleRiskData.controlnumber}
-                  onChange={e => handleChange('controlnumber', e.target.value)}
+                  fullWidth
+                  placeholder={t('Select/AddTag')}
+                  name='tag'
+                  value={singleRiskData.tag}
+                  onChange={e => handleChange('tag', e.target.value)}
                 />
-              </FormControl>
+              </Grid>
             </Grid>
-            {/* Risk Assessment */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <TextField
-                  type='text'
-                  variant='outlined'
-                  label={t('Risk Assessment')}
-                  name='riskassessment'
-                  value={singleRiskData.riskassessment}
-                  onChange={e => handleChange('riskassessment', e.target.value)}
-                />
-              </FormControl>
-            </Grid>
-            {/* Affected Assets */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Affected Assets')}
-                </InputLabel>
-                <Controller
-                  name='affectedAssets'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      multiple
-                      fullWidth
-                      label={t('Affected Assets')}
-                      value={affectedassetsMappingName}
-                      onChange={handleAffectedAssetsChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {affectedassets_dropdown.map(c => (
-                        <MenuItem key={c.id} value={c.lookupName}>
-                          {c.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Aasets are required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            {/* Additional Notes */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <TextField
-                  type='text'
-                  variant='outlined'
-                  label={t('Additional Notes')}
-                  name='additionalnotes'
-                  value={singleRiskData.additionalnotes}
-                  onChange={e => handleChange('additionalnotes', e.target.value)}
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Technology */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Technology')}
-                </InputLabel>
-                <Controller
-                  name='technology'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      multiple
-                      fullWidth
-                      label={t('Technology')}
-                      value={technologyMappingName}
-                      onChange={handleTechnologyChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {technology_dropdown.map(c => (
-                        <MenuItem key={c.id} value={c.lookupName}>
-                          {c.lookupName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    please select Technology
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-
-            {/* File Upload */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <TextField
-                  type='file'
-                  bg-color='primary'
-                  onChange={e => handleFileChange(e)}
-                  name='img'
-                  variant='outlined'
-                />
-              </FormControl>
-            </Grid>
-
-            {/* Team */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Team')}
-                </InputLabel>
-                <Controller
-                  name='team'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      multiple
-                      value={teamMappingName}
-                      fullWidth
-                      label={t('Team')}
-                      onChange={handleTeamChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {team_dropdown.map((item, i) => (
-                        <MenuItem key={item.id} value={item.name}>
-                          {item.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    please select Team
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-
-            {/* Additional Stakeholders */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }} style={{ marginLeft: 'auto' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Additional Stakeholders')}
-                </InputLabel>
-                <Controller
-                  name='additionalstakeholders'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      multiple
-                      // value={value}
-                      value={additionalstakeholdersMappingName}
-                      fullWidth
-                      label={t('Additional Stakeholders')}
-                      onChange={handleAdditionalStakeHoldersChange}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {/* <MenuItem value=''>None</MenuItem> */}
-                      {additionalstakeholders_dropdown.map(item => (
-                        <MenuItem key={item.id} value={item.fullName}>
-                          {item.fullName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    please select additionalstakeholders
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-
-            {/* Owner */}
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Owner')}
-                </InputLabel>
-                <Controller
-                  name='owner'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      value={singleRiskData.owner}
-                      fullWidth
-                      label={t('Owner')}
-                      onChange={e => {
-                        handleChange('owner', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {/* additionalstakeholders_dropdown & ownerlist is same */}
-                      {additionalstakeholders_dropdown.map(item => (
-                        <MenuItem key={item.id} value={Number(item.id)}>
-                          {item.fullName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Owner is required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-
-            {/* Owner Manager  */}
-            <Grid container xs={12} />
-            <Grid item sx={{ width: '40%', marginBottom: '3vh' }}>
-              <FormControl fullWidth>
-                <InputLabel id='validation-basic-select' error={Boolean(errors.msg)} htmlFor='validation-basic-select'>
-                  {t('Owner Manager')}:
-                </InputLabel>
-                <Controller
-                  name='ownermanager'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      fullWidth
-                      label={t('Owners Manager')}
-                      value={singleRiskData.ownermanager}
-                      onChange={e => {
-                        handleChange('ownermanager', e.target.value)
-                      }}
-                      error={Boolean(errors?.msg)}
-                      labelId='validation-basic-select'
-                      aria-describedby='validation-basic-select'
-                    >
-                      {/* additionalstakeholders_dropdown & ownermanagerList is same */}
-                      {additionalstakeholders_dropdown.map(item => (
-                        <MenuItem key={item.id} value={Number(item.id)}>
-                          {item.fullName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-                />
-                {errors.msg && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-select'>
-                    Owner's Manger is required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-
-            {/* Tags */}
-            <Grid container xs={12}>
-              <h3>{t('Tags')}</h3>
-              <TextField
-                type='text'
-                fullWidth
-                placeholder={t('Select/AddTag')}
-                name='tag'
-                value={singleRiskData.tag}
-                onChange={e => handleChange('tag', e.target.value)}
-              />
-            </Grid>
-          </Grid>
+          )}
         </form>
       </CardContent>
     )

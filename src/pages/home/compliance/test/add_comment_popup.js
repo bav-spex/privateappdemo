@@ -11,7 +11,7 @@ import authConfig from 'src/configs/auth'
 import { ToastContainer, toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@material-ui/core/styles'
-import { addComment, getAssessmentById } from 'src/pages/home/complaince/test/complaince_service'
+import { addComment, getAssessmentById } from 'src/pages/home/compliance/test/complaince_service'
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open, assessment_id, set_comment_list_state } = props

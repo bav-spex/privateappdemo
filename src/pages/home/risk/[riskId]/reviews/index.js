@@ -53,7 +53,7 @@ const Reviews = () => {
             >
               <EditIcon titleAccess='edit' />
             </IconButton>
-            <IconButton sx={{ color: 'green' }}>
+            <IconButton sx={{ color: 'red' }}>
               <DeleteIcon
                 onClick={() => deleteSingleReview(row.id, router.query.riskId, setReviews)}
                 titleAccess='Delete Review'
@@ -65,10 +65,15 @@ const Reviews = () => {
     }
   ]
 
+  const handleRowClick = id => {
+    router.push(`/home/risk/${router.query.riskId}/reviews/preview/${id}`)
+  }
+
   return (
     <>
-      <div style={{ height: 600 }}>
-        <CardContent>
+      <div style={{ height: 500 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2>{t('Reviews')}</h2>
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}></Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
@@ -85,13 +90,14 @@ const Reviews = () => {
               </Button>
             </Grid>
           </Grid>
-        </CardContent>
+        </div>
         <Divider />
         <DataGrid
           rows={reviews}
           columns={columns}
           rowsPerPageOptions={[10, 25, 50]}
           getRowId={row => row.id + row.comment}
+          // onRowClick={data => handleRowClick(data.row.id)}
         />
       </div>
     </>

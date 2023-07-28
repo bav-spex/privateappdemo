@@ -126,7 +126,7 @@ const AddRisk = () => {
 
   const new_risk = () => {
     router.push({
-      pathname: '/home/complaince/test/new_risk',
+      pathname: '/home/compliance/test/new_risk',
       query: { keyword: audit_id }
     })
   }

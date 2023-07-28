@@ -1,56 +1,28 @@
 // // ** React Imports
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
-// ** Next Imports
-import Link from 'next/link'
 
 // // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import { DataGrid } from '@mui/x-data-grid'
-import { styled } from '@mui/material/styles'
-import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import CardContent from '@mui/material/CardContent'
-import Select from '@mui/material/Select'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import ContactSupportIcon from '@mui/icons-material/ContactSupport'
-import PreviewIcon from '@mui/icons-material/Preview'
 import EditIcon from '@mui/icons-material/Edit'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import { makeStyles } from '@material-ui/core/styles'
 
-//  ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 //  ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import TableHeader from 'src/views/apps/user/list/TableHeader'
-import { Button, ToggleButtonGroup } from '@mui/material'
+import { Button } from '@mui/material'
 
 //  ** Next Import
 import { useRouter } from 'next/router'
 
-// //*axios import
-
 // import { allRisk } from 'src/pages/home/risk/RiskService'
-import { allRisk, getRisks } from 'src/store/apps/Risks/RiskService'
+import { getRisks } from 'src/store/apps/Risks/RiskService'
 
 import { useTranslation } from 'react-i18next'
-import withRoot from '../withRoot'
-import { useTheme } from '@material-ui/core/styles'
-
-import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
-import { date } from 'yup/lib/locale'
 
 const useStyles = makeStyles({
   customBackground: {
@@ -62,16 +34,8 @@ const RiskList = () => {
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
   const router = useRouter()
-  // const theme = useTheme()
-  // document.body.dir = i18n.dir();
 
   const classes = useStyles()
-
-  const changeLanguage = lng => {
-    i18n.changeLanguage(lng)
-    //   document.body.dir = i18n.dir();
-    //   theme.direction = i18n.dir();
-  }
 
   const [risks, setRisks] = useState([])
   const [rows, setRows] = useState([])
@@ -158,7 +122,7 @@ const RiskList = () => {
       renderCell: ({ row }) => {
         return (
           <>
-            <IconButton onClick={() => router.push(`/home/risk/edit/${id}`)} sx={{ color: 'blue' }}>
+            <IconButton onClick={() => router.push(`/home/risk/edit/${row.id}`)} sx={{ color: 'blue' }}>
               <EditIcon titleAccess='Edit Risk' />
             </IconButton>
             <IconButton onClick={() => openMitigation(row.id, row.mitigation)} sx={{ color: 'green' }}>

@@ -17,16 +17,8 @@ import {
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { useTranslation } from 'react-i18next'
-import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles'
-import { getControlList } from 'src/pages/home/governance/controls/controlService'
-
-const AddTest = () => {
+const Test_info = () => {
   const router = useRouter()
-
-  const { t, i18n } = useTranslation()
-  const theme = useTheme()
 
   const [additional_stakeholders, set_additional_stakeholders] = useState([])
   const [testers, set_testers] = useState([])
@@ -42,13 +34,6 @@ const AddTest = () => {
 
   const [tester_list, set_tester_list] = useState([])
   const [teams_list, set_teams_list] = useState([])
-  const [controls_list, set_controls_list] = useState([])
-  const [frameworkControlId, set_frameworkControlId] = useState('')
-
-  const add_framework_control = e => {
-    set_frameworkControlId(e.target.value)
-    console.log('frameworkControlId:', frameworkControlId)
-  }
 
   const add_stakeholders = e => {
     set_additional_stakeholders(e.target.value)
@@ -64,7 +49,7 @@ const AddTest = () => {
   }
 
   const submitcancel = () => {
-    router.push('/home/complaince/test')
+    router.push('/home/compliance/test')
   }
 
   const submit_test = async () => {
@@ -80,9 +65,8 @@ const AddTest = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        additionalstakeholders: additional_stakeholders,
         testname: test_name,
-        tester: testers,
+        teser: testers,
         teams: teams,
         testfrequency: test_frequency,
         lasttestdate: last_test_date,
@@ -95,8 +79,20 @@ const AddTest = () => {
     })
     const data = await res.json()
     console.log('add test is', data)
-    toast.success('Test added successfully')
-    // router.push('/home/complaince/test');
+    toast('Test edited successfully')
+    // router.push('/home/compliance/test');
+  }
+
+  const fetch_test_details = async () => {
+    // const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users`, {
+    // method:"GET",
+    //   headers:{
+    //       "Content-Type": "application/json"
+    //   }
+    // })
+    // const data= await res.json();
+    // set_tester_list(data.data.users)
+    // console.log("dropdown data is", data);
   }
 
   const fetch_testers = async () => {
@@ -123,16 +119,8 @@ const AddTest = () => {
     console.log('teams data is', data)
   }
 
-  const fetchControlList = async () => {
-    console.log('Fetching control list')
-    let successCallback = response => {
-      set_controls_list(response.data.controls)
-    }
-    getControlList(() => {}, successCallback)
-  }
-
   useEffect(() => {
-    fetchControlList()
+    fetch_test_details()
     fetch_testers()
     fetch_teams()
   }, [])
@@ -140,63 +128,50 @@ const AddTest = () => {
   return (
     <>
       <div style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>{t('Add Test')}</h1>
-
-          <ToastContainer />
-          <Grid
-            item
-            sx={{
-              marginLeft: 'auto',
-              '@media screen and (max-width:600px)': {
-                flexDirection: 'row',
-                marginLeft: 0
-              }
-            }}
-            xs={12}
-            md={4}
-            style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
-          >
-            <Button xs={2} variant='contained' size='medium' onClick={submitcancel}>
-              {t('Cancel')}
-            </Button>
-            <Button
-              type='submit '
-              size='medium'
-              variant='contained'
-              onClick={submit_test}
-              style={{ marginLeft: '10px' }}
-            >
-              {t('Save')}
-            </Button>
-          </Grid>
+        <div>
+          <h1>Test Information</h1>
         </div>
+        <ToastContainer />
+        <Grid
+          item
+          sx={{
+            marginLeft: 'auto',
+            '@media screen and (max-width:600px)': {
+              flexDirection: 'row',
+              marginLeft: 0
+            }
+          }}
+          xs={12}
+          md={4}
+          style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
+        ></Grid>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
           <div style={{ width: '40%' }}>
             <FormControl fullWidth>
               <TextField
                 id='outlined-basic'
-                label={t('Test Name')}
+                label='Test Name'
                 variant='outlined'
                 value={test_name}
                 onChange={e => set_test_name(e.target.value)}
+                disabled={true}
               />
             </FormControl>
           </div>
           <div style={{ width: '40%' }}>
             <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>{t('Tester')}</InputLabel>
+              <InputLabel id='demo-simple-select-label'>Tester</InputLabel>
               <Select
                 multiple
                 value={testers}
                 onChange={add_testers}
-                labelId='demo-simple-select-label'
-                label={t('Tester')}
+                label='Tester'
                 inputProps={{
                   name: 'selectedValues',
                   id: 'selected-values'
                 }}
+                disabled={true}
               >
                 {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
               </Select>
@@ -207,17 +182,17 @@ const AddTest = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
           <div style={{ width: '40%' }}>
             <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>{t('Additional Stakeholders')}</InputLabel>
+              <InputLabel id='demo-simple-select-label'>Additional Stakeholders</InputLabel>
               <Select
                 multiple
                 value={additional_stakeholders}
+                label='Additional Stakeholders'
                 onChange={add_stakeholders}
-                labelId='demo-simple-select-label'
-                label={t('Additional Stakeholders')}
                 inputProps={{
                   name: 'selectedValues',
                   id: 'selected-values'
                 }}
+                disabled={true}
               >
                 {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
               </Select>
@@ -225,17 +200,17 @@ const AddTest = () => {
           </div>
           <div style={{ width: '40%' }}>
             <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>{t('Teams')}</InputLabel>
+              <InputLabel id='demo-simple-select-label'>Teams</InputLabel>
               <Select
                 multiple
                 value={teams}
+                label='Teams'
                 onChange={add_teams}
-                labelId='demo-simple-select-label'
-                label={t('Teams')}
                 inputProps={{
                   name: 'selectedValues',
                   id: 'selected-values'
                 }}
+                disabled={true}
               >
                 {teams_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
               </Select>
@@ -248,69 +223,11 @@ const AddTest = () => {
             <FormControl fullWidth>
               <TextField
                 id='outlined-basic'
-                label={t('Test Frequency')}
+                label='Test Frequency'
                 variant='outlined'
-                type='number'
                 value={test_frequency}
                 onChange={e => set_test_frequency(e.target.value)}
-              />
-            </FormControl>
-          </div>
-          <div style={{ width: '40%' }}>
-            <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>{t('Framework Control Id')}</InputLabel>
-              <Select
-                value={frameworkControlId}
-                onChange={add_framework_control}
-                labelId='demo-simple-select-label'
-                label={t('Framework Control Id')}
-                inputProps={{
-                  name: 'selectedValues',
-                  id: 'selected-values'
-                }}
-              >
-                {controls_list.map(item =>
-                  item !== null ? <MenuItem value={item.id}>{item['control-number']}</MenuItem> : ''
-                )}
-              </Select>
-            </FormControl>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
-          <FormControl fullWidth>
-            <TextField
-              id='outlined-basic'
-              label={t('Objective')}
-              variant='outlined'
-              value={objective}
-              onChange={e => set_objective(e.target.value)}
-            />
-          </FormControl>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
-          <FormControl fullWidth>
-            <TextField
-              id='outlined-basic'
-              label={t('Test Steps')}
-              variant='outlined'
-              value={test_steps}
-              onChange={e => set_test_steps(e.target.value)}
-            />
-          </FormControl>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
-          <div style={{ width: '40%' }}>
-            <FormControl fullWidth>
-              <TextField
-                id='outlined-basic'
-                label={t('Approximate Time')}
-                variant='outlined'
-                type='number'
-                value={approximate_time}
-                onChange={e => set_approximate_time(e.target.value)}
+                disabled={true}
               />
             </FormControl>
           </div>
@@ -320,9 +237,9 @@ const AddTest = () => {
                 id='outlined-basic'
                 variant='outlined'
                 type='date'
-                label='date'
                 value={last_test_date}
                 onChange={e => set_last_test_date(e.target.value)}
+                disabled={true}
               />
             </FormControl>
           </div>
@@ -332,10 +249,11 @@ const AddTest = () => {
           <FormControl fullWidth>
             <TextField
               id='outlined-basic'
-              label={t('Expected Results')}
+              label='Objective'
               variant='outlined'
-              value={expected_results}
-              onChange={e => set_expected_results(e.target.value)}
+              value={objective}
+              onChange={e => set_objective(e.target.value)}
+              disabled={true}
             />
           </FormControl>
         </div>
@@ -344,10 +262,53 @@ const AddTest = () => {
           <FormControl fullWidth>
             <TextField
               id='outlined-basic'
-              label={t('Tags')}
+              label='Test Steps'
+              variant='outlined'
+              value={test_steps}
+              onChange={e => set_test_steps(e.target.value)}
+              disabled={true}
+            />
+          </FormControl>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
+          <div style={{ width: '40%' }}>
+            <FormControl fullWidth>
+              <TextField
+                id='outlined-basic'
+                label='Approximate Time'
+                variant='outlined'
+                type='number'
+                value={approximate_time}
+                onChange={e => set_approximate_time(e.target.value)}
+                disabled={true}
+              />
+            </FormControl>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
+          <FormControl fullWidth>
+            <TextField
+              id='outlined-basic'
+              label='Expected Results'
+              variant='outlined'
+              value={expected_results}
+              onChange={e => set_expected_results(e.target.value)}
+              disabled={true}
+            />
+          </FormControl>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
+          <FormControl fullWidth>
+            <TextField
+              id='outlined-basic'
+              label='Tags'
               variant='outlined'
               value={tags}
               onChange={e => set_tags(e.target.value)}
+              disabled={true}
             />
           </FormControl>
         </div>
@@ -356,4 +317,4 @@ const AddTest = () => {
   )
 }
 
-export default AddTest
+export default Test_info

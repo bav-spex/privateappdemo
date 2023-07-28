@@ -11,87 +11,91 @@ import { allReview } from 'src/store/apps/Risks/RiskService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
-import { getAdditionlStakeHoldersDropDown, getNextStepsDropDown } from 'src/store/apps/common'
+import {
+  getAdditionlStakeHoldersDropDown,
+  getAuditStatusDropDown,
+  getCategoryDropDown,
+  getNextStepsDropDown
+} from 'src/store/apps/common'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import apiHelper from 'src/store/apiHelper'
 import { toast } from 'react-hot-toast'
 import { getSingleReview } from 'src/store/apps/Risks/reviews/ReviewsServices'
 
-const EditReview = () => {
+const EditAudit = () => {
   const router = useRouter()
   const { t, i18n } = useTranslation()
   const currentDate = moment().format('YYYY-MM-DD')
-  const nextDayDate = moment(moment(new Date().getTime() + 24 * 60 * 60 * 1000)).format('YYYY-MM-DD')
 
   const [loading, setLoading] = useState(true)
 
   const [additionalstakeholders_dropdown, set_additionalstakeholders_dropdown] = useState([])
-  const [nextstep_dropdown, set_nextstep_dropdown] = useState([])
+  const [framework_dropdown, set_framework_dropdown] = useState([])
+  const [category_dropdown, set_category_dropdown] = useState([])
+  const [audit_status_dropdown, set_audit_status_dropdown] = useState([])
 
-  const [singleReviewData, setSingleReviewData] = useState({
-    id: 0,
-    review: 0,
-    reviewer: 0,
-    next_step: 0,
-    reviewdate: currentDate,
-    comment: 'string',
-    nextreviewdate: nextDayDate
+  const [singleAuditData, setSingleAuditData] = useState({
+    auditDate: '07/04/2025',
+    auditName: 'string',
+    categoryId: 0,
+    frameworkId: 0,
+    ownerId: 0,
+    statusId: 0
   })
 
   useEffect(() => {
-    getNextStepsDropDown(set_nextstep_dropdown, () => {})
+    // getFrameworkDropDown(set_framework_dropdown, () => {})
+    getCategoryDropDown(set_category_dropdown, () => {})
+    getAuditStatusDropDown(set_audit_status_dropdown, () => {})
     getAdditionlStakeHoldersDropDown(set_additionalstakeholders_dropdown, () => {})
   }, [])
 
   useEffect(() => {
-    apiHelper(`${authConfig.riskDevRakshitah}get/${router.query.reviewId}`, 'get', null, {})
+    apiHelper(`${authConfig.compliance}audit/${router.query.auditId}`, 'get', null, {})
       .then(res => {
-        setSingleReviewData({
-          ...res.data,
-          reviewdate: moment(res.data.reviewdate).format('YYYY-MM-DD'),
-          nextreviewdate: moment(res.data.nextreviewdate).format('YYYY-MM-DD')
+        setSingleAuditData({
+          ...res.data.data,
+          auditDate: moment(res.data.data.auditDate).format('YYYY-MM-DD')
         })
         setLoading(false)
       })
       .catch(err => {
         console.log(err)
       })
-  }, [router.query.reviewId])
+  }, [router.query.auditId])
 
-  // Review
-  // Reviewer
-  // next Step
-  // Comments
+  // auditName
+  // categoryId
+  // frameworkId
+  // ownerId
+  // statusId
   const handleChange = (name, value) => {
     // console.log(name, value)
-    setSingleReviewData({ ...singleReviewData, [name]: value })
+    setSingleAuditData({ ...singleAuditData, [name]: value })
   }
 
-  // nextreviewdate
-  const handleDateChange = (name, value) => {
-    // console.log(name, value)
-    setSingleReviewData({ ...singleReviewData, [name]: value })
-  }
+  // const handleDateChange = (name, value) => {
+  //   // console.log(name, value)
+  //   setSingleAuditData({ ...singleAuditData, [name]: value })
+  // }
 
   //api to save the details of the mitigation
   const onSubmit = async values => {
     const payload = {
-      ...singleReviewData,
-      reviewdate: moment(singleReviewData.reviewdate).format('MM/DD/YYYY'),
-      nextreviewdate: moment(singleReviewData.nextreviewdate).format('MM/DD/YYYY')
+      ...singleAuditData,
+      auditDate: moment(singleAuditData.auditDate).format('MM/DD/YYYY')
     }
-    apiHelper(`${authConfig.riskDevRakshitah}update/${router.query.riskId}`, 'put', payload, {})
+    apiHelper(`${authConfig.compliance}audit/${router.query.auditId}`, 'put', payload, {})
       .then(res => {
-        toast.success('Review Created')
-        router.push(`/home/risk/${router.query.riskId}/reviews`)
-        setSingleReviewData({
+        toast.success('Audit Updated')
+        router.push(`/home/compliance/audits`)
+        setSingleAuditData({
           review: '',
           reviewer: 0,
           next_step: 0,
           reviewdate: currentDate,
-          comment: '',
-          nextreviewdate: nextDayDate
+          comment: ''
         })
       })
       .catch(err => {
@@ -102,7 +106,7 @@ const EditReview = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
-        <h3>Edit Review</h3>
+        <h3>Edit Audit</h3>
         <Grid
           item
           sx={{
@@ -116,16 +120,11 @@ const EditReview = () => {
           md={4}
           style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
         >
-          <Button
-            xs={2}
-            variant='contained'
-            size='medium'
-            onClick={() => router.push(`/home/risk/${router.query.riskId}/reviews`)}
-          >
+          <Button xs={2} variant='contained' size='medium' onClick={() => router.push(`/home/compliance/audits`)}>
             Cancel
           </Button>
           <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }} onClick={onSubmit}>
-            Save Review
+            Save Audit
           </Button>
         </Grid>
       </div>
@@ -150,25 +149,86 @@ const EditReview = () => {
               <TextField
                 type='date'
                 variant='outlined'
-                label={t('Review Date')}
-                name='reviewdate'
-                value={singleReviewData.reviewdate}
-                // onChange={e => handleDateChange('reviewdate', e.target.value)}
+                label={t('Audit Date')}
+                name='auditDate'
+                value={singleAuditData.auditDate}
+                // onChange={e => handleDateChange('auditDate', e.target.value)}
                 disabled={true}
               />
             </FormControl>
           </Grid>
           <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
             <FormControl fullWidth>
+              <TextField
+                type='text'
+                style={{ width: '100%' }}
+                label={t('Audit Name')}
+                name='auditName'
+                value={singleAuditData.auditName}
+                onChange={e => handleChange('auditName', e.target.value)}
+                required
+              />
+            </FormControl>
+          </Grid>
+          <Grid item sx={{ width: '40%' }}>
+            <FormControl fullWidth>
               <InputLabel id='validation-basic-select' htmlFor='validation-basic-select'>
-                {t('Reviewer')}
+                {t('Category')}
               </InputLabel>
               <Select
-                value={singleReviewData.reviewer}
+                value={singleAuditData.categoryId}
                 fullWidth
-                label={t('Reviewer')}
+                label={t('Category')}
                 onChange={e => {
-                  handleChange('reviewer', e.target.value)
+                  handleChange('categoryId', e.target.value)
+                }}
+                labelId='validation-basic-select'
+                aria-describedby='validation-basic-select'
+                required
+              >
+                {category_dropdown.map(c => (
+                  <MenuItem key={c.lookupId} value={Number(c.lookupId)}>
+                    {c.lookupName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
+            <FormControl fullWidth>
+              <InputLabel id='validation-basic-select' htmlFor='validation-basic-select'>
+                {t('Framework')}
+              </InputLabel>
+              <Select
+                value={singleAuditData.frameworkId}
+                fullWidth
+                label={t('Framework')}
+                onChange={e => {
+                  handleChange('frameworkId', e.target.value)
+                }}
+                labelId='validation-basic-select'
+                aria-describedby='validation-basic-select'
+                required
+              >
+                {framework_dropdown.map(c => (
+                  <MenuItem key={c.lookupId} value={Number(c.lookupId)}>
+                    {c.lookupName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item sx={{ width: '40%' }}>
+            <FormControl fullWidth>
+              <InputLabel id='validation-basic-select' htmlFor='validation-basic-select'>
+                {t('Owner')}
+              </InputLabel>
+              <Select
+                value={singleAuditData.ownerId}
+                fullWidth
+                label={t('Owner')}
+                onChange={e => {
+                  handleChange('ownerId', e.target.value)
                 }}
                 labelId='validation-basic-select'
                 aria-describedby='validation-basic-select'
@@ -182,66 +242,28 @@ const EditReview = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item sx={{ width: '40%' }}>
-            <FormControl fullWidth>
-              <TextField
-                type='number'
-                style={{ width: '100%' }}
-                label={t('Review')}
-                name='review'
-                value={singleReviewData.review}
-                onChange={e => handleChange('review', e.target.value)}
-                required
-              />
-            </FormControl>
-          </Grid>
           <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
             <FormControl fullWidth>
               <InputLabel id='validation-basic-select' htmlFor='validation-basic-select'>
-                {t('Next Step')}
+                {t('Audit Status')}
               </InputLabel>
               <Select
-                value={singleReviewData.next_step}
+                value={singleAuditData.statusId}
                 fullWidth
-                label={t('Next Step')}
+                label={t('Audit Status')}
                 onChange={e => {
-                  handleChange('next_step', e.target.value)
+                  handleChange('statusId', e.target.value)
                 }}
                 labelId='validation-basic-select'
                 aria-describedby='validation-basic-select'
                 required
               >
-                {nextstep_dropdown.map(c => (
+                {audit_status_dropdown.map(c => (
                   <MenuItem key={c.lookupId} value={Number(c.lookupId)}>
                     {c.lookupName}
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
-          </Grid>
-          <Grid item sx={{ width: '40%' }}>
-            <FormControl fullWidth>
-              <TextField
-                type='date'
-                variant='outlined'
-                label={t('Next Review Date')}
-                name='reviewdate'
-                value={singleReviewData.nextreviewdate}
-                onChange={e => handleDateChange('nextreviewdate', e.target.value)}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item sx={{ width: '40%', marginLeft: 'auto' }}>
-            <FormControl fullWidth>
-              <TextField
-                type='text'
-                style={{ width: '100%' }}
-                label={t('Comments')}
-                name='comment'
-                value={singleReviewData.comment}
-                onChange={e => handleChange('comment', e.target.value)}
-                required
-              />
             </FormControl>
           </Grid>
         </Grid>
@@ -250,4 +272,4 @@ const EditReview = () => {
   )
 }
 
-export default EditReview
+export default EditAudit

@@ -26,7 +26,7 @@ export const deleteSingleReview = (id, riskId, successCallback) => {
   apiHelper(`${authConfig.riskDevRakshitah}delete/${id}`, 'delete', null, {})
     .then(res => {
       getReviews(riskId, successCallback)
-      toast.success(res.data)
+      toast.error(res.data)
     })
     .catch(err => {
       console.log(err)

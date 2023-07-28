@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 // ** Axios Imports
 import axios from 'axios'
+import auth from 'src/configs/auth'
 
 // ** Fetch Users
 export const fetchData = createAsyncThunk('appUsers/fetchData', async params => {
@@ -12,7 +13,7 @@ export const fetchData = createAsyncThunk('appUsers/fetchData', async params => 
   }
 
   const response = await axios.get(
-    'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iac/users/getAll',
+    auth.owner_list,
     { ...config },
     {
       params

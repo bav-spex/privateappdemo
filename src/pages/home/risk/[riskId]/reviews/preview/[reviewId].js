@@ -18,11 +18,9 @@ import apiHelper from 'src/store/apiHelper'
 import { toast } from 'react-hot-toast'
 import { getSingleReview } from 'src/store/apps/Risks/reviews/ReviewsServices'
 
-const EditReview = () => {
+const PreviewReview = () => {
   const router = useRouter()
-  const { t, i18n } = useTranslation()
-  const currentDate = moment().format('YYYY-MM-DD')
-  const nextDayDate = moment(moment(new Date().getTime() + 24 * 60 * 60 * 1000)).format('YYYY-MM-DD')
+  const { t } = useTranslation()
 
   const [loading, setLoading] = useState(true)
 
@@ -34,9 +32,9 @@ const EditReview = () => {
     review: 0,
     reviewer: 0,
     next_step: 0,
-    reviewdate: currentDate,
-    comment: 'string',
-    nextreviewdate: nextDayDate
+    reviewdate: '',
+    comment: '',
+    nextreviewdate: ''
   })
 
   useEffect(() => {
@@ -59,50 +57,10 @@ const EditReview = () => {
       })
   }, [router.query.reviewId])
 
-  // Review
-  // Reviewer
-  // next Step
-  // Comments
-  const handleChange = (name, value) => {
-    // console.log(name, value)
-    setSingleReviewData({ ...singleReviewData, [name]: value })
-  }
-
-  // nextreviewdate
-  const handleDateChange = (name, value) => {
-    // console.log(name, value)
-    setSingleReviewData({ ...singleReviewData, [name]: value })
-  }
-
-  //api to save the details of the mitigation
-  const onSubmit = async values => {
-    const payload = {
-      ...singleReviewData,
-      reviewdate: moment(singleReviewData.reviewdate).format('MM/DD/YYYY'),
-      nextreviewdate: moment(singleReviewData.nextreviewdate).format('MM/DD/YYYY')
-    }
-    apiHelper(`${authConfig.riskDevRakshitah}update/${router.query.riskId}`, 'put', payload, {})
-      .then(res => {
-        toast.success('Review Created')
-        router.push(`/home/risk/${router.query.riskId}/reviews`)
-        setSingleReviewData({
-          review: '',
-          reviewer: 0,
-          next_step: 0,
-          reviewdate: currentDate,
-          comment: '',
-          nextreviewdate: nextDayDate
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
-        <h3>Edit Review</h3>
+        <h3>Review Preview</h3>
         <Grid
           item
           sx={{
@@ -122,10 +80,7 @@ const EditReview = () => {
             size='medium'
             onClick={() => router.push(`/home/risk/${router.query.riskId}/reviews`)}
           >
-            Cancel
-          </Button>
-          <Button type='submit ' size='medium' variant='contained' style={{ marginLeft: '10px' }} onClick={onSubmit}>
-            Save Review
+            Back
           </Button>
         </Grid>
       </div>
@@ -167,12 +122,13 @@ const EditReview = () => {
                 value={singleReviewData.reviewer}
                 fullWidth
                 label={t('Reviewer')}
-                onChange={e => {
-                  handleChange('reviewer', e.target.value)
-                }}
+                //   onChange={e => {
+                //     handleChange('reviewer', e.target.value)
+                //   }}
                 labelId='validation-basic-select'
                 aria-describedby='validation-basic-select'
                 required
+                disabled={true}
               >
                 {additionalstakeholders_dropdown.map(c => (
                   <MenuItem key={c.id} value={Number(c.id)}>
@@ -190,8 +146,9 @@ const EditReview = () => {
                 label={t('Review')}
                 name='review'
                 value={singleReviewData.review}
-                onChange={e => handleChange('review', e.target.value)}
+                //   onChange={e => handleChange('review', e.target.value)}
                 required
+                disabled={true}
               />
             </FormControl>
           </Grid>
@@ -204,12 +161,13 @@ const EditReview = () => {
                 value={singleReviewData.next_step}
                 fullWidth
                 label={t('Next Step')}
-                onChange={e => {
-                  handleChange('next_step', e.target.value)
-                }}
+                //   onChange={e => {
+                //     handleChange('next_step', e.target.value)
+                //   }}
                 labelId='validation-basic-select'
                 aria-describedby='validation-basic-select'
                 required
+                disabled={true}
               >
                 {nextstep_dropdown.map(c => (
                   <MenuItem key={c.lookupId} value={Number(c.lookupId)}>
@@ -227,7 +185,7 @@ const EditReview = () => {
                 label={t('Next Review Date')}
                 name='reviewdate'
                 value={singleReviewData.nextreviewdate}
-                onChange={e => handleDateChange('nextreviewdate', e.target.value)}
+                disabled={true}
               />
             </FormControl>
           </Grid>
@@ -239,8 +197,8 @@ const EditReview = () => {
                 label={t('Comments')}
                 name='comment'
                 value={singleReviewData.comment}
-                onChange={e => handleChange('comment', e.target.value)}
                 required
+                disabled={true}
               />
             </FormControl>
           </Grid>
@@ -250,4 +208,4 @@ const EditReview = () => {
   )
 }
 
-export default EditReview
+export default PreviewReview

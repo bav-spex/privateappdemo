@@ -38,7 +38,7 @@ const Tab_one = props => {
           className={styles.chart_div3}
           onClick={() => {
             router.push({
-              pathname: `/home/complaince/test`,
+              pathname: `/home/compliance/test`,
               query: { keyword: props.framework_id }
             })
           }}

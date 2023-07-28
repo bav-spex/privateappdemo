@@ -97,7 +97,7 @@ const LookUps = () => {
   }))
 
   const fetch_look_up_list = async () => {
-    const res = await fetch(`${auth.category_list}`, {
+    const res = await fetch(`${auth.categories_list}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

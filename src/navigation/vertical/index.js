@@ -48,16 +48,16 @@ const navigation = () => {
     },
     {
       title: t('Compliance'),
-      path: '/home/complaince',
+      path: '/home/compliance',
       icon: 'mdi:license',
       children: [
         {
           title: t('Tests & Assesments'),
-          path: '/home/complaince/test'
+          path: '/home/compliance/test'
         },
         {
           title: t('Audits'),
-          path: '/home/risk/audit'
+          path: '/home/compliance/audits'
         }
       ]
     },

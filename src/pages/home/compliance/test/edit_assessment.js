@@ -21,7 +21,7 @@ import authConfig from 'src/configs/auth'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
-import { getAssessmentById, updateAssessment } from 'src/pages/home/complaince/test/complaince_service'
+import { getAssessmentById, updateAssessment } from 'src/pages/home/compliance/test/complaince_service'
 import { getCategoryData, convertDateFormat, getTeams, getUsers } from 'src/pages/home/Document/DocService'
 
 const EditAssessment = () => {
