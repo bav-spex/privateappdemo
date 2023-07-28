@@ -5,8 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-// import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { allFrameWorks, fwa } from './frameworkService'
+import { allFrameWorks, fwa, createFramework } from './frameworkService'
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import authConfig from 'src/configs/auth'
@@ -43,23 +42,22 @@ const AddFrame = () => {
   const [fwList, setFwList] = useState([])
 
   const CreateFrames = async () => {
-    const res = await fetch(`${authConfig.new_framework}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: null,
-        framework_Name: name,
-        framework_Details: description,
-        framework_Parent: parent,
-        framework_Status: 'active'
-      })
-    })
-    const data = await res.json()
-    console.log('save framework is', data)
-    toast.success('Created FrameWork')
-    router.push(`/home/framework`)
+    let successCallback = response => {
+      toast.success('Created FrameWork')
+      router.push(`/home/framework`)
+    }
+
+    let errorCallback = response => {
+      toast.error('Something went wrong')
+    }
+    let request_data = {
+      id: null,
+      framework_Name: name,
+      framework_Details: description,
+      framework_Parent: parent,
+      framework_Status: 'active'
+    }
+    createFramework(request_data, errorCallback, successCallback)
   }
 
   // ** Hooks

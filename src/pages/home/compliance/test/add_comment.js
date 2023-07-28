@@ -22,7 +22,8 @@ import SimpleDialog from './add_comment_popup'
 
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@material-ui/core/styles'
-import { getAssessmentById } from 'src/pages/home/compliance/test/complaince_service'
+import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service'
+import { convertDateFormat } from 'src/util/common'
 
 const AddComment = () => {
   const router = useRouter()
@@ -66,7 +67,7 @@ const AddComment = () => {
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
-    getAssessmentById(id, 'comments', errorCallback, successCallback)
+    getAssessmentInfoById(id, 'comments', errorCallback, successCallback)
   }
 
   useEffect(() => {
@@ -120,8 +121,10 @@ const AddComment = () => {
               {comment_list.map(row => (
                 <StyledTableRow>
                   <StyledTableCell>{row.comment}</StyledTableCell>
-                  <StyledTableCell align='right'>-</StyledTableCell>
-                  <StyledTableCell align='right'>-</StyledTableCell>
+                  <StyledTableCell align='right'>
+                    {row.commentDate ? convertDateFormat(row.commentDate) : '-'}
+                  </StyledTableCell>
+                  <StyledTableCell align='right'>{row.userId}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

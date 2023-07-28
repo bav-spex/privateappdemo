@@ -7,7 +7,7 @@ import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
 // import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { freameworkDetails, fwa } from './frameworkService'
+import { getFrameworkById, fwa, updateFramework } from './frameworkService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
@@ -30,38 +30,34 @@ const EditFrame = () => {
   const [description, set_description] = useState('')
 
   const fetch_framework_details = async () => {
-    const res = await fetch(`${authConfig.frameWorkbyId}/${router.query.keyword}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('framework is', data)
-    setFwDetails(data)
-    set_name(data.framework_Name)
-    set_parent(data.framework_Parent)
-    set_description(data.framework_Details)
+    let successCallback = response => {
+      setFwDetails(response)
+      set_name(response.framework_Name)
+      set_parent(response.framework_Parent)
+      set_description(response.framework_Details)
+    }
+    let errorCallback = response => {
+      toast.error('Something went wrong')
+    }
+    getFrameworkById(router.query.keyword, errorCallback, successCallback)
   }
 
   const edit_framework = async () => {
-    const res = await fetch(`${authConfig.edit_framework}/${router.query.keyword}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: router.query.keyword,
-        framework_Name: name,
-        framework_Details: description,
-        framework_Parent: parent,
-        framework_Status: 'active'
-      })
-    })
-    const data = await res.json()
-    console.log('edited framework is', data)
-    toast.success('FrameWork Edited')
-    router.push(`/home/framework`)
+    let successCallback = response => {
+      toast.success('FrameWork Edited')
+      router.push(`/home/framework`)
+    }
+    let errorCallback = response => {
+      toast.error('Something went wrong')
+    }
+    let request_data = {
+      id: router.query.keyword,
+      framework_Name: name,
+      framework_Details: description,
+      framework_Parent: parent,
+      framework_Status: 'active'
+    }
+    updateFramework(router.query.keyword, request_data, errorCallback, successCallback)
   }
 
   useEffect(() => {
@@ -69,7 +65,7 @@ const EditFrame = () => {
   }, [])
 
   // useEffect(() => {
-  //   freameworkDetails(() => {}, setFwDetails)
+  //   getFrameworkById(() => {}, setFwDetails)
   //   console.log('fwDetails:', fwDetails)
   // }, [])
 

@@ -57,7 +57,8 @@ import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
 import Swal from 'sweetalert2'
-import { deleteControl } from 'src/pages/home/governance/controls/controlService'
+import { ToastContainer, toast } from 'react-toastify'
+import { deleteControl, getControlList } from 'src/pages/home/governance/controls/controlService'
 
 // ** Vars
 const userRoleObj = {
@@ -197,7 +198,7 @@ const ControlList = () => {
           // Redirect the user to the desired page
           router.push({
             pathname: '/home/governance/controls/edit_control/',
-            query: { keyword: id }
+            query: { keyword: 3 }
           })
         }
         return <div onClick={handleRowClick}>{params.value}</div>
@@ -290,16 +291,13 @@ const ControlList = () => {
   const dispatch = useDispatch()
 
   const fetch_control_data = async () => {
-    const res = await fetch(`${auth.controlList}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('control data is', data)
-    setControlList(data.data.controls)
-    //setControlList(data);
+    let successCallback = response => {
+      setControlList(response.data.controls)
+    }
+    let errorCallback = response => {
+      toast.error('Something went wrong')
+    }
+    getControlList(errorCallback, successCallback)
   }
 
   // useEffect(() => {
@@ -323,7 +321,7 @@ const ControlList = () => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push({
       pathname: '/home/governance/controls/edit_control/',
-      query: { keyword: id }
+      query: { keyword: 3 }
     })
   }
 
@@ -394,11 +392,10 @@ const ControlList = () => {
           </CardContent>
         </div>
         <Divider />
-        {/* <TableHeader value={value} handleFilter={handleFilter} /> */}
         <DataGrid
           rows={controlList}
           getRowId={row => row.id}
-          loading={false}
+          loading={true}
           columns={columns}
           // onRowClick={(rows)=>{gotoEditMode(rows.id)}}
           // checkboxSelection

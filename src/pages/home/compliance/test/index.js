@@ -114,10 +114,12 @@ function Row(props) {
     let request_data = JSON.stringify({
       test_id: id
     })
+
     let successCallback = response => {
       open_assessments(id)
       toast.success('Audit added successfully')
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong.')
     }
@@ -223,7 +225,7 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {audit_data.map(item => (
-                    <TableRow>
+                    <TableRow key={item.assessmentid}>
                       <TableCell
                         component='th'
                         scope='row'
@@ -317,6 +319,7 @@ export default function CollapsibleTable() {
     let successCallback = response => {
       set_test_list(response)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong.')
     }
@@ -356,7 +359,7 @@ export default function CollapsibleTable() {
           {user_data.role == 'admin' ? (
             <Button
               variant='contained'
-              onClick={addTest}
+              onClick={saveTest}
               sx={{ display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px' }}
             >
               {t('Add Test')}
@@ -468,8 +471,8 @@ export default function CollapsibleTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {test_list.map(row => (
-              <Row row={row} team_dict={team_dict} user_dict={user_dict} />
+            {test_list.map((row, i) => (
+              <Row key={i} row={row} team_dict={team_dict} user_dict={user_dict} />
             ))}
           </TableBody>
         </Table>

@@ -59,9 +59,10 @@ const add_assessment_comment_url = `${compliance_base_url}/compliance/v1/assessm
 const comment_list_url = 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
 const risk_list_url = 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit'
 const add_test_url = `${compliance_base_url}/compliance/v1/test/new`
+const update_test_url = `${compliance_base_url}/compliance/v1/test/update/`
 const save_existing_list_url =
   'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/complince/v1/audit/23/testresult/risks'
-const fetch_existing_list_url = `${risk_base_url}/rmf/v1/risks`
+const fetch_existing_list_url = `${risk_base_url}/rmf/v1/risks/get`
 // const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks'
 const get_test_data_by_id_url = `${compliance_base_url}/compliance/v1/test/`
 const add_assessment_url = `${compliance_base_url}/compliance/v1/assessment/new`
@@ -150,6 +151,7 @@ export default {
   comment_list: comment_list_url,
   risk_list: `${risk_list_url}`,
   add_test: `${add_test_url}`,
+  update_test: update_test_url,
   save_existing_list: `${save_existing_list_url}`,
   fetch_existing_list: `${fetch_existing_list_url}`,
   get_test_data_by_id: `${get_test_data_by_id_url}`,

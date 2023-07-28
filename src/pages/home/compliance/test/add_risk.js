@@ -79,6 +79,7 @@ import SimpleDialog from './existing_risk'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
+import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service'
 
 const emails = ['username@gmail.com', 'user02@gmail.com']
 
@@ -108,10 +109,6 @@ const AddRisk = () => {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover
     }
-    // hide last border
-    // '&:last-child td, &:last-child th': {
-    //   border: 0,
-    // },
   }))
 
   const [open, setOpen] = useState(false)
@@ -132,19 +129,18 @@ const AddRisk = () => {
   }
 
   const fetch_risk_list = async () => {
-    const res = await fetch(`${authConfig.risk_list}/${router.query.keyword}/testresult/risks`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
+    let successCallback = response => {
+      let risks = response.data.risks || []
+      console.log('RISK_LIST:', risks)
+      set_risk_list(risks)
+      for (let i = 0; i < risks.length; i++) {
+        risk_list_id.push(data.data.risks[i].id)
       }
-    })
-    const data = await res.json()
-    set_risk_list(data.data.risks)
-    console.log('risk list is')
-    console.log(data)
-    for (let i = 0; i < data.data.risks.length; i++) {
-      risk_list_id.push(data.data.risks[i].id)
     }
+    let errorCallback = response => {
+      toast.error('Something went wrong')
+    }
+    getAssessmentInfoById(router.query.keyword, 'risks', errorCallback, successCallback)
   }
 
   useEffect(() => {

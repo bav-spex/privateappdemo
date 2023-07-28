@@ -7,7 +7,7 @@ import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
 // import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { freameworkDetails, fwa } from './frameworkService'
+import { getFrameworkById, fwa } from './frameworkService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
@@ -49,7 +49,7 @@ const Framework_info = () => {
   }, [])
 
   // useEffect(() => {
-  //   freameworkDetails(() => {}, setFwDetails)
+  //   getFrameworkById(() => {}, setFwDetails)
   //   console.log('fwDetails:', fwDetails)
   // }, [])
 
