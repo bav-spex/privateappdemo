@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-import { allReview } from 'src/store/apps/Risks/RiskService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
@@ -52,7 +51,7 @@ const EditAudit = () => {
   }, [])
 
   useEffect(() => {
-    apiHelper(`${authConfig.compliance}audit/${router.query.auditId}`, 'get', null, {})
+    apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit/${router.query.auditId}`, 'get', null, {})
       .then(res => {
         setSingleAuditData({
           ...res.data.data,
@@ -86,7 +85,7 @@ const EditAudit = () => {
       ...singleAuditData,
       auditDate: moment(singleAuditData.auditDate).format('MM/DD/YYYY')
     }
-    apiHelper(`${authConfig.compliance}audit/${router.query.auditId}`, 'put', payload, {})
+    apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit/${router.query.auditId}`, 'put', payload, {})
       .then(res => {
         toast.success('Audit Updated')
         router.push(`/home/compliance/audits`)

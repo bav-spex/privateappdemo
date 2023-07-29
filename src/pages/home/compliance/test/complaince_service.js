@@ -115,8 +115,8 @@ export const getTests = (errorCallback, successCallback) => {
         console.log('getTests error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('getTests success:', res.data)
-        successCallback(res.data)
+        console.log('getTests success:', res.data.data)
+        successCallback(res.data.data)
       }
     },
     error => {

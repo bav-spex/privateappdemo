@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider'
 import { DataGrid } from '@mui/x-data-grid'
 import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -20,7 +21,7 @@ import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
 
 // import { allRisk } from 'src/pages/home/risk/RiskService'
-import { getRisks } from 'src/store/apps/Risks/RiskService'
+import { deleteSingleRisk, getRisks } from 'src/store/apps/Risks/RiskService'
 
 import { useTranslation } from 'react-i18next'
 
@@ -83,7 +84,19 @@ const RiskList = () => {
       field: 'id',
       headerName: t('ID')
     },
-    { flex: 0.15, width: 50, field: 'subject', headerName: t('Subject') },
+    {
+      flex: 0.15,
+      width: 50,
+      field: 'subject',
+      headerName: t('Subject')
+      // renderCell: ({ row }) => {
+      //   return (
+      //     <p style={{ width: '100%', cursor: 'pointer' }} onClick={() => handleRowClick(row.id)}>
+      //       {row.subject}
+      //     </p>
+      //   )
+      // }
+    },
     { flex: 0.08, minWidth: 25, field: 'inherentscore', headerName: t('Inherent Score') },
     { flex: 0.08, minWidth: 10, field: 'status', headerName: t('Status') },
     {
@@ -137,6 +150,9 @@ const RiskList = () => {
               sx={{ color: 'blue' }}
             >
               <AddCommentIcon titleAccess='Add Comment' />
+            </IconButton>
+            <IconButton sx={{ color: 'red' }}>
+              <DeleteIcon onClick={() => deleteSingleRisk(row.id, setRisks)} titleAccess='Delete Review' />
             </IconButton>
           </>
         )

@@ -3,7 +3,7 @@ import authConfig from 'src/configs/auth'
 import { toast } from 'react-hot-toast'
 
 export const getAudits = (successCallback, errorCallback) => {
-  apiHelper(`${authConfig.compliance}audit`, 'get', null, {})
+  apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit`, 'get', null, {})
     .then(res => {
       successCallback(res.data.data.audits)
     })
@@ -13,7 +13,7 @@ export const getAudits = (successCallback, errorCallback) => {
 }
 
 export const deleteSingleAudit = (id, successCallback) => {
-  apiHelper(`${authConfig.compliance}audit/${id}`, 'delete', null, {})
+  apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit/${id}`, 'delete', null, {})
     .then(res => {
       getAudits(successCallback)
       toast.error(res.data.data.result)

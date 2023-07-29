@@ -6,21 +6,24 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import { useRouter } from 'next/router'
 import authConfig from 'src/configs/auth'
+
+import { getSingleRisk } from 'src/store/apps/Risks/RiskService'
 import {
-  getSingleRisk,
-  getRiskDropDown,
-  getThreatDropDown,
-  getSiteLocationDropDown,
-  getRiskScoreDropDown,
-  getRiskSourceDropDown,
-  getCurrentLikelyHoodDropDown,
+  getAdditionlStakeHoldersDropDown,
+  getAffectedAssetsDropDown,
+  getCategoryDropDown,
   getControlRegulationDropDown,
   getCurrentImpactDropDown,
-  getAffectedAssetsDropDown,
+  getCurrentLikelyHoodDropDown,
+  getRiskDropDown,
+  getRiskScoreDropDown,
+  getRiskSourceDropDown,
+  getSiteLocationDropDown,
+  getTeamDropDown,
   getTechnologyDropDown,
-  updateRisk,
-  addNewRisk
-} from 'src/store/apps/Risks/RiskService'
+  getThreatDropDown,
+  getUsersDropDown
+} from 'src/store/apps/common'
 
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
@@ -34,7 +37,6 @@ import { useTheme } from '@material-ui/core/styles'
 import toast from 'react-hot-toast'
 import FallbackSpinner from 'src/@core/components/spinner'
 import apiHelper from 'src/store/apiHelper'
-import { getAdditionlStakeHoldersDropDown, getCategoryDropDown, getTeamDropDown } from 'src/store/apps/common'
 
 const NewRisk = () => {
   const data = useSelector(state => state.riskList)
@@ -337,7 +339,7 @@ const NewRisk = () => {
       team: teamDropdownIds,
       additionalstakeholders: additionalstakeholdersDropdownIds
     }
-    apiHelper(`${authConfig.saveAllRisk}`, 'post', payload, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}risks/new`, 'post', payload, {})
       .then(res => {
         toast.success(res.data.data.msg)
         router.push('/home/risk')

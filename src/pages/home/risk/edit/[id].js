@@ -6,20 +6,7 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import { useRouter } from 'next/router'
 import authConfig from 'src/configs/auth'
-import {
-  getSingleRisk,
-  getRiskDropDown,
-  getThreatDropDown,
-  getSiteLocationDropDown,
-  getRiskScoreDropDown,
-  getRiskSourceDropDown,
-  getCurrentLikelyHoodDropDown,
-  getControlRegulationDropDown,
-  getCurrentImpactDropDown,
-  getAffectedAssetsDropDown,
-  getTechnologyDropDown,
-  updateRisk
-} from 'src/store/apps/Risks/RiskService'
+import { getSingleRisk, updateRisk } from 'src/store/apps/Risks/RiskService'
 
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
@@ -34,8 +21,18 @@ import toast from 'react-hot-toast'
 import FallbackSpinner from 'src/@core/components/spinner'
 import {
   getAdditionlStakeHoldersDropDown,
+  getAffectedAssetsDropDown,
   getCategoryDropDown,
+  getControlRegulationDropDown,
+  getCurrentImpactDropDown,
+  getCurrentLikelyHoodDropDown,
+  getRiskDropDown,
+  getRiskScoreDropDown,
+  getRiskSourceDropDown,
+  getSiteLocationDropDown,
   getTeamDropDown,
+  getTechnologyDropDown,
+  getThreatDropDown,
   getUsersDropDown
 } from 'src/store/apps/common'
 import apiHelper from 'src/store/apiHelper'
@@ -469,7 +466,7 @@ const EditRisk = () => {
       additionalstakeholders: additionalstakeholdersDropdownIds
     }
 
-    apiHelper(`${authConfig.edit_risk}/${payload.id}`, 'put', payload, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}risks/update/${payload.id}`, 'put', payload, {})
       .then(res => {
         // console.log(res.data)
         toast.success(res.data.data.msg)

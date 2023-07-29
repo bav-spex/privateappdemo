@@ -22,12 +22,13 @@ import authConfig from 'src/configs/auth'
 import { useTranslation } from 'react-i18next'
 
 import {
+  getAdditionlStakeHoldersDropDown,
+  getTeamDropDown,
   getControlDropDown,
-  getEffortsDropDown,
-  getMitigations,
-  getStrategyDropDown
-} from 'src/store/apps/Risks/mitigation/MitigationServices'
-import { getAdditionlStakeHoldersDropDown, getTeamDropDown } from 'src/store/apps/common'
+  getStrategyDropDown,
+  getEffortsDropDown
+} from 'src/store/apps/common'
+
 import moment from 'moment'
 import apiHelper from 'src/store/apiHelper'
 
@@ -86,7 +87,7 @@ const NewMitigation = () => {
   }, [])
 
   useEffect(() => {
-    apiHelper(`${authConfig.riskDevRakshitah}risks/${router.query.riskId}/mitigation`, 'get', null, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}risks/${router.query.riskId}/mitigation`, 'get', null, {})
       .then(res => {
         setSingleMitigationData({
           ...res.data.data,
@@ -194,7 +195,7 @@ const NewMitigation = () => {
   })
 
   //api to save the details of the mitigation
-  const onSubmit = async values => {
+  const onSubmit = async => {
     const payload = {
       ...singleMitigationData,
       mitigationcontrols: controlDropdownIds,
@@ -204,7 +205,12 @@ const NewMitigation = () => {
       plannedmitigationdate: moment(singleMitigationData.plannedmitigationdate).format('MM/DD/YYYY')
     }
 
-    apiHelper(`${authConfig.riskDevRakshitah}risks/mitigation/update/${singleMitigationData.id}`, 'put', payload, {})
+    apiHelper(
+      `${authConfig.riskDevRakshitah_base_url}risks/mitigation/update/${singleMitigationData.id}`,
+      'put',
+      payload,
+      {}
+    )
       .then(res => {
         toast.success(res.data.data.msg)
         router.push(`/home/risk`)

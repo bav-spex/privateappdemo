@@ -76,7 +76,7 @@ function Row(props) {
 
   const router = useRouter()
 
-  const user_data = JSON.parse(localStorage.getItem('userData'))
+  // const user_data = JSON.parse(localStorage.getItem('userData'))
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -187,21 +187,17 @@ function Row(props) {
         <TableCell align='right'>{row.next_test_date}</TableCell>
         <TableCell align='right'>{row.approximatetime}</TableCell>
         <TableCell align='right'>
-          {user_data.role == 'admin' ? (
-            <>
-              <IconButton onClick={() => handleEditTest(row.testid)} sx={{ color: 'green' }}>
-                <EditIcon titleAccess='Edit Test' />
-              </IconButton>
-              <IconButton onClick={() => handleEditClick(r.testid)} sx={{ color: 'red' }}>
-                <DeleteIcon titleAccess='Delete Test' />
-              </IconButton>
-              <IconButton onClick={() => createAudit(row.testid)} sx={{ color: 'blue' }}>
-                <AddIcon titleAccess='Add Assesment' />
-              </IconButton>
-            </>
-          ) : (
-            ''
-          )}
+          <>
+            <IconButton onClick={() => handleEditTest(row.testid)} sx={{ color: 'green' }}>
+              <EditIcon titleAccess='Edit Test' />
+            </IconButton>
+            <IconButton onClick={() => handleEditClick(r.testid)} sx={{ color: 'red' }}>
+              <DeleteIcon titleAccess='Delete Test' />
+            </IconButton>
+            <IconButton onClick={() => createAudit(row.testid)} sx={{ color: 'blue' }}>
+              <AddIcon titleAccess='Add Assesment' />
+            </IconButton>
+          </>
         </TableCell>
       </TableRow>
       <TableRow>

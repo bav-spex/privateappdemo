@@ -5,18 +5,12 @@ import MenuItem from '@mui/material/MenuItem'
 import { CircularProgress, FormControl, InputLabel } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
-import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-import { allReview } from 'src/store/apps/Risks/RiskService'
-import { Controller, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 import { getAdditionlStakeHoldersDropDown, getNextStepsDropDown } from 'src/store/apps/common'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import apiHelper from 'src/store/apiHelper'
-import { toast } from 'react-hot-toast'
-import { getSingleReview } from 'src/store/apps/Risks/reviews/ReviewsServices'
 
 const PreviewReview = () => {
   const router = useRouter()
@@ -43,7 +37,7 @@ const PreviewReview = () => {
   }, [])
 
   useEffect(() => {
-    apiHelper(`${authConfig.riskDevRakshitah}get/${router.query.reviewId}`, 'get', null, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}get/${router.query.reviewId}`, 'get', null, {})
       .then(res => {
         setSingleReviewData({
           ...res.data,

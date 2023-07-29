@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton'
 
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import TopicRoundedIcon from '@mui/icons-material/TopicRounded'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -24,19 +23,16 @@ import { Button } from '@mui/material'
 const useStyles = makeStyles({
   customBackground: {
     backgroundColor: 'white' // Replace with your desired background color
-  },
-  hover: {
-    cursor: 'pointer'
   }
 })
 
-const Audits = () => {
-  const user_data = JSON.parse(localStorage.getItem('userData'))
+const FindingsAudits = () => {
   const { t } = useTranslation()
   const router = useRouter()
 
   const classes = useStyles()
   const [audits, setAudits] = useState([])
+
   useEffect(() => {
     getAudits(setAudits)
   }, [])
@@ -48,19 +44,7 @@ const Audits = () => {
       field: 'id',
       headerName: t('ID')
     },
-    {
-      flex: 0.17,
-      width: 50,
-      field: 'auditName',
-      headerName: t('Name'),
-      renderCell: ({ row }) => {
-        return (
-          <p style={{ width: '100%', cursor: 'pointer' }} onClick={() => handleRowClick(row.id)}>
-            {row.auditName}
-          </p>
-        )
-      }
-    },
+    { flex: 0.17, width: 50, field: 'auditName', headerName: t('Name') },
     { flex: 0.06, minWidth: 25, field: 'categoryId', headerName: t('Type') },
     { flex: 0.08, minWidth: 10, field: 'statusId', headerName: t('Status') },
     { flex: 0.08, minWidth: 10, field: 'ownerId', headerName: t('owner') },
@@ -99,21 +83,19 @@ const Audits = () => {
       renderCell: ({ row }) => {
         return (
           <>
-            <IconButton sx={{ color: 'blue' }} onClick={() => router.push(`/home/compliance/audits/edit/${row.id}`)}>
+            {/* <IconButton
+              sx={{ color: 'blue' }}
+              onClick={() =>
+                router.push({
+                  pathname: `/home/compliance/audits/edit/${row.id}`
+                })
+              }
+            >
               <EditIcon titleAccess='Edit Audit' />
             </IconButton>
-            <IconButton
-              sx={{ color: '#ffae00' }}
-              onClick={() => router.push(`/home/compliance/audits/${row.id}/findings`)}
-            >
-              <TopicRoundedIcon titleAccess='Findings' />
-            </IconButton>
-            <IconButton
-              sx={{ color: 'green' }}
-              // onClick={() => router.push(`/home/compliance/audits/${row.id}/findings`)}
-            >
+            <IconButton sx={{ color: 'green' }}>
               <ImportExportIcon titleAccess='Import/Export Audit' />
-            </IconButton>
+            </IconButton> */}
             <IconButton sx={{ color: 'red' }}>
               <DeleteIcon onClick={() => deleteSingleAudit(row.id, setAudits)} titleAccess='Delete Review' />
             </IconButton>
@@ -135,8 +117,15 @@ const Audits = () => {
           <Grid container spacing={6}>
             <Grid item sm={4} xs={12}></Grid>
             <Grid item sm={8} xs={12} sx={{ display: 'flex', allignItems: 'end', justifyContent: 'end' }}>
-              <Button size='medium' variant='contained' onClick={() => router.push('/home/compliance/audits/new')}>
-                {t('Add Audit')}
+              <Button size='medium' variant='contained' onClick={() => router.push('/home/compliance/audits')}>
+                {t('Back')}
+              </Button>
+              <Button
+                size='medium'
+                variant='contained'
+                onClick={() => router.push(`/home/compliance/audits/${router.query.auditId}/findings/new`)}
+              >
+                {t('Add Findings')}
               </Button>
             </Grid>
           </Grid>
@@ -154,4 +143,4 @@ const Audits = () => {
   )
 }
 
-export default Audits
+export default FindingsAudits

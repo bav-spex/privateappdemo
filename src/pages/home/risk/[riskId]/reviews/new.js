@@ -1,15 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem'
 import { FormControl, InputLabel } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
-import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-import { allReview } from 'src/store/apps/Risks/RiskService'
-import { Controller, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 import { getAdditionlStakeHoldersDropDown, getNextStepsDropDown } from 'src/store/apps/common'
 import { useTranslation } from 'react-i18next'
@@ -62,7 +57,7 @@ const NewReview = () => {
       reviewdate: moment(singleReviewData.reviewdate).format('MM/DD/YYYY'),
       nextreviewdate: moment(singleReviewData.nextreviewdate).format('MM/DD/YYYY')
     }
-    apiHelper(`${authConfig.riskDevRakshitah}risk/${router.query.riskId}/reviews/submit`, 'post', payload, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}risk/${router.query.riskId}/reviews/submit`, 'post', payload, {})
       .then(res => {
         toast.success('Review Created')
         router.push(`/home/risk/${router.query.riskId}/reviews`)

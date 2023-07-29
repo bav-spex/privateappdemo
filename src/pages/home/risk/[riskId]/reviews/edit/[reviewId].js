@@ -5,18 +5,13 @@ import MenuItem from '@mui/material/MenuItem'
 import { CircularProgress, FormControl, InputLabel } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
-import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-import { allReview } from 'src/store/apps/Risks/RiskService'
-import { Controller, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 import { getAdditionlStakeHoldersDropDown, getNextStepsDropDown } from 'src/store/apps/common'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import apiHelper from 'src/store/apiHelper'
 import { toast } from 'react-hot-toast'
-import { getSingleReview } from 'src/store/apps/Risks/reviews/ReviewsServices'
 
 const EditReview = () => {
   const router = useRouter()
@@ -45,7 +40,7 @@ const EditReview = () => {
   }, [])
 
   useEffect(() => {
-    apiHelper(`${authConfig.riskDevRakshitah}get/${router.query.reviewId}`, 'get', null, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}get/${router.query.reviewId}`, 'get', null, {})
       .then(res => {
         setSingleReviewData({
           ...res.data,
@@ -81,7 +76,7 @@ const EditReview = () => {
       reviewdate: moment(singleReviewData.reviewdate).format('MM/DD/YYYY'),
       nextreviewdate: moment(singleReviewData.nextreviewdate).format('MM/DD/YYYY')
     }
-    apiHelper(`${authConfig.riskDevRakshitah}update/${router.query.riskId}`, 'put', payload, {})
+    apiHelper(`${authConfig.riskDevRakshitah_base_url}update/${router.query.riskId}`, 'put', payload, {})
       .then(res => {
         toast.success('Review Created')
         router.push(`/home/risk/${router.query.riskId}/reviews`)

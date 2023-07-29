@@ -28,11 +28,22 @@ const Reviews = () => {
   const columns = [
     // { flex: 0.05, field: 'id', headerName: 'ID' },
     { flex: 0.15, field: 'reviewdate', headerName: 'ReviewDate' },
+    {
+      flex: 0.15,
+      field: 'comment',
+      headerName: 'Comment',
+      renderCell: ({ row }) => {
+        return (
+          <p style={{ width: '100%', cursor: 'pointer' }} onClick={() => handleRowClick(row.id)}>
+            {row.comment}
+          </p>
+        )
+      }
+    },
     { flex: 0.15, field: 'reviewer', headerName: 'Reviewer' },
     { flex: 0.15, field: 'review', headerName: 'Review' },
     { flex: 0.15, field: 'next_step', headerName: 'NextStep' },
     { flex: 0.15, field: 'nextreviewdate', headerName: 'NextReviewDate' },
-    { flex: 0.15, field: 'comment', headerName: 'Comment' },
     {
       field: 'action',
       headerName: t('Action'),

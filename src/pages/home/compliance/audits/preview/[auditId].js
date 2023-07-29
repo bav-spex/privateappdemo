@@ -41,7 +41,7 @@ const PreviewAudit = () => {
   }, [])
 
   useEffect(() => {
-    apiHelper(`${authConfig.compliance}audit/${router.query.auditId}`, 'get', null, {})
+    apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit/${router.query.auditId}`, 'get', null, {})
       .then(res => {
         setSingleAuditData({
           ...res.data.data,
