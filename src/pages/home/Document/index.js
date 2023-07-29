@@ -150,7 +150,7 @@ const DocumentList = () => {
                 <IconButton sx={{ color: 'blue' }} onClick={() => goToEdit(params.row.doc_id)}>
                   <ModeEditIcon />
                 </IconButton>
-                <IconButton sx={{ color: 'red' }} onClick={() => fdelete(params.row.doc_id)}>
+                <IconButton sx={{ color: '#ed3700' }} onClick={() => fdelete(params.row.doc_id)}>
                   <DeleteIcon />
                 </IconButton>
               </>

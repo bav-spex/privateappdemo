@@ -384,7 +384,7 @@ const NewRisk = () => {
             </Grid>
           </div>
 
-          <Grid container spacing={2}>
+          <Grid container spacing={2} marginTop={'10px'}>
             {/* Subject  */}
             <Grid item sx={{ width: '100%', marginBottom: '3vh' }}>
               <FormControl fullWidth>

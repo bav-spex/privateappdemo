@@ -2,20 +2,11 @@ import apiHelper from 'src/store/apiHelper'
 import authConfig from 'src/configs/auth'
 import { toast } from 'react-hot-toast'
 
-export const getReviews = (riskId, successCallback, errorCallback) => {
+export const getReviews = (riskId, successCallback, setLoading) => {
   apiHelper(`${authConfig.riskDevRakshitah_base_url}risk/${riskId}/reviews`, 'get', null, {})
     .then(res => {
       successCallback(res.data.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-}
-
-export const getSingleReview = (id, successCallback, errorCallback) => {
-  apiHelper(`${authConfig.riskDevRakshitah_base_url}get/${id}`, 'get', null, {})
-    .then(res => {
-      successCallback(res.data)
+      setLoading(false)
     })
     .catch(err => {
       console.log(err)

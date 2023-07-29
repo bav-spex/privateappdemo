@@ -1,5 +1,5 @@
 // // ** React Imports
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 //  ** Next Import
 import { useRouter } from 'next/router'
 
@@ -10,71 +10,75 @@ import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { Button } from '@mui/material'
+import { Box, Button, CircularProgress } from '@mui/material'
 
 // //*axios import
 import { deleteSingleReview, getReviews } from 'src/store/apps/Risks/reviews/ReviewsServices'
 import { useTranslation } from 'react-i18next'
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([])
   const router = useRouter()
   const { t, i18n } = useTranslation()
 
+  const [loading, setLoading] = useState(true)
+  const [reviews, setReviews] = useState([])
+
   useEffect(() => {
-    getReviews(router.query.riskId, setReviews)
+    getReviews(router.query.riskId, setReviews, setLoading)
   }, [router.query.riskId])
 
-  const columns = [
-    // { flex: 0.05, field: 'id', headerName: 'ID' },
-    { flex: 0.15, field: 'reviewdate', headerName: 'ReviewDate' },
-    {
-      flex: 0.15,
-      field: 'comment',
-      headerName: 'Comment',
-      renderCell: ({ row }) => {
-        return (
-          <p style={{ width: '100%', cursor: 'pointer' }} onClick={() => handleRowClick(row.id)}>
-            {row.comment}
-          </p>
-        )
+  const columns = useMemo(() => {
+    return [
+      // { flex: 0.05, field: 'id', headerName: 'ID' },
+      { flex: 0.15, field: 'reviewdate', headerName: 'ReviewDate' },
+      {
+        flex: 0.15,
+        field: 'comment',
+        headerName: 'Comment',
+        renderCell: ({ row }) => {
+          return (
+            <p style={{ width: '100%', cursor: 'pointer' }} onClick={() => handleRowClick(row.id)}>
+              {row.comment}
+            </p>
+          )
+        }
+      },
+      { flex: 0.15, field: 'reviewer', headerName: 'Reviewer' },
+      { flex: 0.15, field: 'review', headerName: 'Review' },
+      { flex: 0.15, field: 'next_step', headerName: 'NextStep' },
+      { flex: 0.15, field: 'nextreviewdate', headerName: 'NextReviewDate' },
+      {
+        field: 'action',
+        headerName: t('Action'),
+        description: 'This column has a value getter and is not sortable.',
+        sortable: false,
+        flex: 0.15,
+        valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+        renderCell: ({ row }) => {
+          return (
+            <>
+              <IconButton
+                onClick={() =>
+                  router.push({
+                    pathname: `/home/risk/${router.query.riskId}/reviews/edit/${row.id}`
+                  })
+                }
+                sx={{ color: 'blue' }}
+              >
+                <EditIcon titleAccess='edit' />
+              </IconButton>
+              <IconButton sx={{ color: '#ed3700' }}>
+                <DeleteIcon
+                  onClick={() => deleteSingleReview(row.id, router.query.riskId, setReviews)}
+                  titleAccess='Delete Review'
+                />
+              </IconButton>
+            </>
+          )
+        }
       }
-    },
-    { flex: 0.15, field: 'reviewer', headerName: 'Reviewer' },
-    { flex: 0.15, field: 'review', headerName: 'Review' },
-    { flex: 0.15, field: 'next_step', headerName: 'NextStep' },
-    { flex: 0.15, field: 'nextreviewdate', headerName: 'NextReviewDate' },
-    {
-      field: 'action',
-      headerName: t('Action'),
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      flex: 0.15,
-      valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-      renderCell: ({ row }) => {
-        return (
-          <>
-            <IconButton
-              onClick={() =>
-                router.push({
-                  pathname: `/home/risk/${router.query.riskId}/reviews/edit/${row.id}`
-                })
-              }
-              sx={{ color: 'blue' }}
-            >
-              <EditIcon titleAccess='edit' />
-            </IconButton>
-            <IconButton sx={{ color: 'red' }}>
-              <DeleteIcon
-                onClick={() => deleteSingleReview(row.id, router.query.riskId, setReviews)}
-                titleAccess='Delete Review'
-              />
-            </IconButton>
-          </>
-        )
-      }
-    }
-  ]
+    ]
+  }, [])
 
   const handleRowClick = id => {
     router.push(`/home/risk/${router.query.riskId}/reviews/preview/${id}`)
@@ -103,13 +107,27 @@ const Reviews = () => {
           </Grid>
         </div>
         <Divider />
-        <DataGrid
-          rows={reviews}
-          columns={columns}
-          rowsPerPageOptions={[10, 25, 50]}
-          getRowId={row => row.id + row.comment}
-          // onRowClick={data => handleRowClick(data.row.id)}
-        />
+        {loading ? (
+          <Box
+            sx={{
+              height: '20vh',
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              justifyContent: 'center'
+            }}
+          >
+            <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
+          </Box>
+        ) : (
+          <DataGrid
+            rows={reviews}
+            columns={columns}
+            rowsPerPageOptions={[10, 25, 50]}
+            getRowId={row => row.id + row.comment}
+            // onRowClick={data => handleRowClick(data.row.id)}
+          />
+        )}
       </div>
     </>
   )

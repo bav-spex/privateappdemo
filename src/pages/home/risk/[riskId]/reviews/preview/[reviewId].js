@@ -93,7 +93,7 @@ const PreviewReview = () => {
           <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
         </Box>
       ) : (
-        <Grid container spacing={4}>
+        <Grid container spacing={4} marginTop={'10px'}>
           <Grid item sx={{ width: '40%' }}>
             <FormControl fullWidth>
               <TextField

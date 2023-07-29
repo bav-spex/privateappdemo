@@ -242,6 +242,7 @@ const ControlList = () => {
       valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
       renderCell: params => {
         const id = params.row.id
+
         return (
           <>
             {user_data.role == 'admin' ? (
@@ -250,7 +251,7 @@ const ControlList = () => {
                   <EditIcon titleAccess='Edit Control' />
                 </IconButton>
 
-                <IconButton onClick={() => deleteControlId(id)} sx={{ color: 'red' }}>
+                <IconButton onClick={() => deleteControlId(id)} sx={{ color: '#ed3700' }}>
                   <DeleteIcon titleAccess='Delete Control' />
                 </IconButton>
               </>
@@ -269,7 +270,7 @@ const ControlList = () => {
         //             <EditIcon />
         //           </IconButton>
 
-        //           <IconButton  sx={{ color: 'red' }}>
+        //           <IconButton  sx={{ color: '#ed3700' }}>
         //             <DeleteIcon />
         //           </IconButton>
         //           </>
@@ -278,7 +279,7 @@ const ControlList = () => {
         //     {/* <IconButton onClick={openMitigation} sx={{ color: 'green' }}>
         //       <ContactSupportIcon />
         //     </IconButton>
-        //     <IconButton onClick={handleCreateClick} sx={{ color: 'red' }}>
+        //     <IconButton onClick={handleCreateClick} sx={{ color: '#ed3700' }}>
         //       <PreviewIcon />
         //     </IconButton> */}
         //   </>

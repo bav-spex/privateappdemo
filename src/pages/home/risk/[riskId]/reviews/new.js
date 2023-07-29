@@ -107,7 +107,7 @@ const NewReview = () => {
       </div>
 
       <Divider />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} marginTop={'10px'}>
         <Grid item sx={{ width: '40%' }}>
           <FormControl fullWidth>
             <TextField

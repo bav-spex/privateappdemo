@@ -227,7 +227,7 @@ const NewMitigation = () => {
           </Grid>
         </div>
         <Divider />
-        <Grid container spacing={2}>
+        <Grid container spacing={2} marginTop={'10px'}>
           {/* Submisiion Date */}
           <Grid
             item

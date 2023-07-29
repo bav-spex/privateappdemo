@@ -191,7 +191,7 @@ function Row(props) {
             <IconButton onClick={() => handleEditTest(row.testid)} sx={{ color: 'green' }}>
               <EditIcon titleAccess='Edit Test' />
             </IconButton>
-            <IconButton onClick={() => handleEditClick(r.testid)} sx={{ color: 'red' }}>
+            <IconButton onClick={() => handleEditClick(r.testid)} sx={{ color: '#ed3700' }}>
               <DeleteIcon titleAccess='Delete Test' />
             </IconButton>
             <IconButton onClick={() => createAudit(row.testid)} sx={{ color: 'blue' }}>

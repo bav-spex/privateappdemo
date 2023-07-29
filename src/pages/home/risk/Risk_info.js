@@ -1090,7 +1090,7 @@
 //                   Aasets are required
 //                 </FormHelperText>
 //               )}
-//               <h6 style={{ color: 'red' }}>
+//               <h6 style={{ color: '#ed3700' }}>
 //                 select an assets or assets Group you can create a new Assets by adding its name to the list
 //                 <br />
 //               </h6> */}

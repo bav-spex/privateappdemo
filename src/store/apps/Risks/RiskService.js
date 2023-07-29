@@ -8,7 +8,6 @@ import apiHelper from 'src/store/apiHelper'
 export const deleteSingleRisk = (id, setRisks) => {
   apiHelper(`${authConfig.riskDevRakshitah_base_url}delete/${id}`, 'delete', null, {})
     .then(res => {
-      console.log(res.data)
       toast.error(res.data.data.msg)
       getRisks(() => {}, setRisks)
     })
@@ -17,17 +16,14 @@ export const deleteSingleRisk = (id, setRisks) => {
     })
 }
 
-export const getRisks = (errorCallback, successCallback) => {
+export const getRisks = (successCallback, setLoading) => {
   apiHelper(`${authConfig.riskDevRakshitah_base_url}risks/get`, 'get', null, {})
     .then(res => {
       successCallback(res.data.data.risk)
+      setLoading && setLoading(false)
     })
     .catch(err => {
-      if (res.data.error.msg != '') {
-        if (errorCallback) errorCallback(res.data.error)
-      } else {
-        errorCallback ? errorCallback(err) : null
-      }
+      console.log(err)
     })
 }
 

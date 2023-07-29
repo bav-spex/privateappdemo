@@ -196,7 +196,7 @@ const LookUps = () => {
                           row={row}
                           fun={display_look_up}
                         />
-                        <IconButton sx={{ color: 'red' }}>
+                        <IconButton sx={{ color: '#ed3700' }}>
                           <DeleteIcon titleAccess='Delete Control' />
                         </IconButton>
                       </>

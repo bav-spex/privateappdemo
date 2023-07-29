@@ -8,6 +8,8 @@ const authDevRakshitah_base_url =
 const complianceDevRakshitah_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net/compliance/v1/'
 const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
 
+const mock_finidings_url = 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/compliance/v1/'
+
 // Need to refactor below urls
 const governance_base_url = 'https://governance-dev-rakshitah.azurewebsites.net'
 const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net/compliance/v1/'
@@ -57,6 +59,8 @@ export default {
   complianceDevRakshitah_base_url: complianceDevRakshitah_base_url,
 
   team_list_url: team_list_url,
+
+  mock_finidings_url: mock_finidings_url,
 
   meEndpoint: `${authDevRakshitah_base_url}authenticate/me`,
   loginEndpoint: `${authDevRakshitah_base_url}authenticate/login`,

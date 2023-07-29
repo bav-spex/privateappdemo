@@ -2,10 +2,11 @@ import apiHelper from 'src/store/apiHelper'
 import authConfig from 'src/configs/auth'
 import { toast } from 'react-hot-toast'
 
-export const getAudits = (successCallback, errorCallback) => {
+export const getAudits = (successCallback, setLoading) => {
   apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit`, 'get', null, {})
     .then(res => {
       successCallback(res.data.data.audits)
+      setLoading(false)
     })
     .catch(err => {
       console.log(err)

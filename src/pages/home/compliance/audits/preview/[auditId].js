@@ -7,7 +7,12 @@ import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
 import { useRouter } from 'next/router'
 import authConfig from 'src/configs/auth'
-import { getAdditionlStakeHoldersDropDown, getAuditStatusDropDown, getCategoryDropDown } from 'src/store/apps/common'
+import {
+  getAdditionlStakeHoldersDropDown,
+  getAuditStatusDropDown,
+  getCategoryDropDown,
+  getFrameworkDropDown
+} from 'src/store/apps/common'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import apiHelper from 'src/store/apiHelper'
@@ -34,7 +39,7 @@ const PreviewAudit = () => {
   })
 
   useEffect(() => {
-    // getFrameworkDropDown(set_framework_dropdown, () => {})
+    getFrameworkDropDown(set_framework_dropdown, () => {})
     getCategoryDropDown(set_category_dropdown, () => {})
     getAuditStatusDropDown(set_audit_status_dropdown, () => {})
     getAdditionlStakeHoldersDropDown(set_additionalstakeholders_dropdown, () => {})
@@ -106,7 +111,7 @@ const PreviewAudit = () => {
           <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
         </Box>
       ) : (
-        <Grid container spacing={4}>
+        <Grid container spacing={4} marginTop={'10px'}>
           <Grid item sx={{ width: '40%' }}>
             <FormControl fullWidth>
               <TextField
@@ -177,8 +182,8 @@ const PreviewAudit = () => {
                 disabled={true}
               >
                 {framework_dropdown.map(c => (
-                  <MenuItem key={c.lookupId} value={Number(c.lookupId)}>
-                    {c.lookupName}
+                  <MenuItem key={c.lookupId} value={Number(c.id)}>
+                    {c.framework_Name}
                   </MenuItem>
                 ))}
               </Select>

@@ -1,26 +1,23 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem'
 import { CircularProgress, FormControl, InputLabel } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
-import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-import { Controller, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+
 import authConfig from 'src/configs/auth'
 import {
   getAdditionlStakeHoldersDropDown,
   getAuditStatusDropDown,
   getCategoryDropDown,
-  getNextStepsDropDown
+  getFrameworkDropDown
 } from 'src/store/apps/common'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import apiHelper from 'src/store/apiHelper'
 import { toast } from 'react-hot-toast'
-import { getSingleReview } from 'src/store/apps/Risks/reviews/ReviewsServices'
 
 const EditAudit = () => {
   const router = useRouter()
@@ -44,7 +41,7 @@ const EditAudit = () => {
   })
 
   useEffect(() => {
-    // getFrameworkDropDown(set_framework_dropdown, () => {})
+    getFrameworkDropDown(set_framework_dropdown, () => {})
     getCategoryDropDown(set_category_dropdown, () => {})
     getAuditStatusDropDown(set_audit_status_dropdown, () => {})
     getAdditionlStakeHoldersDropDown(set_additionalstakeholders_dropdown, () => {})
@@ -142,7 +139,7 @@ const EditAudit = () => {
           <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
         </Box>
       ) : (
-        <Grid container spacing={4}>
+        <Grid container spacing={4} marginTop={'10px'}>
           <Grid item sx={{ width: '40%' }}>
             <FormControl fullWidth>
               <TextField
@@ -210,8 +207,8 @@ const EditAudit = () => {
                 required
               >
                 {framework_dropdown.map(c => (
-                  <MenuItem key={c.lookupId} value={Number(c.lookupId)}>
-                    {c.lookupName}
+                  <MenuItem key={c.lookupId} value={Number(c.id)}>
+                    {c.framework_Name}
                   </MenuItem>
                 ))}
               </Select>

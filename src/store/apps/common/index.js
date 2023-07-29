@@ -24,7 +24,7 @@ export const getAdditionlStakeHoldersDropDown = (successCallback, errorCallback)
 }
 
 export const getNextStepsDropDown = (successCallback, errorCallback) => {
-  apiHelper(authConfig.next_step_list, 'get')
+  apiHelper(`${authConfig.commonDevRakshitah_base_url}category/25`, 'get')
     .then(res => {
       successCallback(res.data)
     })
@@ -34,7 +34,7 @@ export const getNextStepsDropDown = (successCallback, errorCallback) => {
 }
 
 export const getCategoryDropDown = (successCallback, errorCallback) => {
-  apiHelper(authConfig.category_list, 'get')
+  apiHelper(`${authConfig.commonDevRakshitah_base_url}category/12`, 'get')
     .then(res => {
       successCallback(res.data)
     })
@@ -44,7 +44,7 @@ export const getCategoryDropDown = (successCallback, errorCallback) => {
 }
 
 export const getAuditStatusDropDown = (successCallback, errorCallback) => {
-  apiHelper(authConfig.audit_status_list, 'get')
+  apiHelper(`${authConfig.commonDevRakshitah_base_url}category/26`, 'get')
     .then(res => {
       successCallback(res.data)
     })
@@ -179,6 +179,16 @@ export const getControlDropDown = (successCallback, errorCallback) => {
 }
 
 export const getControlRegulationDropDown = (successCallback, errorCallback) => {
+  apiHelper(`${authConfig.governanceDevRakshitah_base_url}frameworks/getAll`, 'get')
+    .then(res => {
+      successCallback(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const getFrameworkDropDown = (successCallback, errorCallback) => {
   apiHelper(`${authConfig.governanceDevRakshitah_base_url}frameworks/getAll`, 'get')
     .then(res => {
       successCallback(res.data)

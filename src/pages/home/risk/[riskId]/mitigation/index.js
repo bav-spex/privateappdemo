@@ -260,7 +260,7 @@ const NewMitigation = () => {
             <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
           </Box>
         ) : (
-          <Grid container spacing={2}>
+          <Grid container spacing={2} marginTop={'10px'}>
             {/* Submisiion Date */}
             <Grid
               item

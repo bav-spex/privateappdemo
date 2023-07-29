@@ -3,58 +3,37 @@ import { useState, useEffect, useCallback, Fragment } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
-
 // // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Menu from '@mui/material/Menu'
+
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import { DataGrid } from '@mui/x-data-grid'
-import { styled } from '@mui/material/styles'
-import MenuItem from '@mui/material/MenuItem'
+
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import CardContent from '@mui/material/CardContent'
-import Select from '@mui/material/Select'
+
 import Swal from 'sweetalert2'
-import axios from 'axios'
-//!list import
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import Collapse from '@mui/material/Collapse'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemButton from '@mui/material/ListItemButton'
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 import { useTranslation } from 'react-i18next'
-import withRoot from '../withRoot'
 import { useTheme } from '@material-ui/core/styles'
 
 //  ** Icon Imports
-import Icon from 'src/@core/components/icon'
 
 //  ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import TableHeader from 'src/views/apps/user/list/TableHeader'
-import { Button, ToggleButtonGroup } from '@mui/material'
+import { Button } from '@mui/material'
 
 //  ** Next Import
 import { useRouter } from 'next/router'
 
 // //*axios import
 // import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { allFrameWorks, fwa, deleteFramework } from './frameworkService'
+import { fwa, deleteFramework } from './frameworkService'
 // console.log('allFrameworks:', allFrameWorks)
 
-import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
 import AddEditFrameWorks from './AddEditFramework'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -178,6 +157,7 @@ const FrameWorkList = () => {
       flex: 0.15,
       renderCell: params => {
         const id = params.row.id
+
         return (
           <>
             {user_data.role == 'admin' ? (
@@ -185,7 +165,7 @@ const FrameWorkList = () => {
                 <IconButton sx={{ color: 'blue' }} onClick={() => handleCreateClick(id)}>
                   <ModeEditIcon titleAccess='Edit Framework' />
                 </IconButton>
-                <IconButton sx={{ color: 'red' }} onClick={() => fdelete(id)}>
+                <IconButton sx={{ color: '#ed3700' }} onClick={() => fdelete(id)}>
                   <DeleteIcon titleAccess='Delete Framework' />
                 </IconButton>
               </>
@@ -207,7 +187,7 @@ const FrameWorkList = () => {
         //           </>
         //         ) : null
         //       )}
-        //     <IconButton sx={{ color: 'red' }} onClick={fdelete}>
+        //     <IconButton sx={{ color: '#ed3700' }} onClick={fdelete}>
         //       <DeleteIcon />
         //     </IconButton>
         //   </>
