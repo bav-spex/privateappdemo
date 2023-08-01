@@ -15,7 +15,7 @@ import {
   Button
 } from '@mui/material'
 import toast from 'react-hot-toast'
-import { fwa } from 'src/pages/home/framework/frameworkService'
+import { getFrameworks } from 'src/pages/home/framework/frameworkService'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
@@ -203,7 +203,7 @@ const New_control = () => {
     fetch_typeList()
     fetch_familyList()
     fetch_statusList()
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
   }, [])
 
   return (

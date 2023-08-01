@@ -10,7 +10,7 @@ import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select 
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
 import { getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService'
-import { fwa } from 'src/pages/home/framework/frameworkService'
+import { getFrameworks } from 'src/pages/home/framework/frameworkService'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 
@@ -69,7 +69,7 @@ const EditDocument = () => {
 
     getCategoryData(9, () => {}, setDocTypeList)
     getCategoryData(10, () => {}, setDocumentStatusList)
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
 
     let controlSuccessCallback = response => {
       setControlList(response.data.controls)

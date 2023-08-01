@@ -17,7 +17,7 @@ import {
   getUsers,
   getDocumentById
 } from 'src/pages/home/Document/DocService'
-import { fwa } from 'src/pages/home/framework/frameworkService'
+import { getFrameworks } from 'src/pages/home/framework/frameworkService'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 import moment from 'moment'
@@ -93,7 +93,7 @@ const SaveDocument = () => {
     /* For Edit document end */
     getCategoryData(9, () => {}, setDocTypeList)
     getCategoryData(10, () => {}, setDocumentStatusList)
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
 
     let controlSuccessCallback = response => {
       setControlList(response.data.controls)

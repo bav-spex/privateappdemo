@@ -132,34 +132,6 @@ export const updateTest = (id, params, errorCallback, successCallback) => {
     });
 }
 
-export const getRisks = (errorCallback, successCallback) => {
-    siteCall(authConfig.fetch_existing_list, "GET", {}, (res) => {
-        if (res?.data?.error?.msg) {
-            console.log('getRisks error:', res.data)
-            if (errorCallback) errorCallback(res.data.error.msg)
-        } else {
-            console.log('getRisks success:', res.data)
-            successCallback(res.data)
-        }
-    }, (error) => {
-        errorCallback(error);
-    });
-}
-
-export const getExistingRisks = (errorCallback, successCallback) => {
-    siteCall(authConfig.fetch_existing_list, "GET", {}, (res) => {
-        if (res?.data?.error?.msg) {
-            console.log('getExistingRisks error:', res.data)
-            if (errorCallback) errorCallback(res.data.error.msg)
-        } else {
-            console.log('getExistingRisks success:', res.data)
-            successCallback(res.data)
-        }
-    }, (error) => {
-        errorCallback(error);
-    });
-}
-
 export const saveExistingRisks = (params, errorCallback, successCallback) => {
     siteCall(authConfig.save_existing_list, "POST", params, (res) => {
         if (res?.data?.error?.msg) {

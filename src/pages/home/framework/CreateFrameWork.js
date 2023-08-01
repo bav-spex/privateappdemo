@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-import { allFrameWorks, fwa, createFramework } from './frameworkService'
+import { allFrameWorks, getFrameworks, createFramework } from './frameworkService'
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import authConfig from 'src/configs/auth'
@@ -29,7 +29,7 @@ const AddFrame = () => {
   const [description, set_description] = useState('')
 
   useEffect(() => {
-    fwa(() => {}, setAll)
+    getFrameworks(() => {}, setAll)
   }, [])
   const [all, setAll] = useState([])
   console.log('allf:', all)

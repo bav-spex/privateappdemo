@@ -17,9 +17,10 @@ import {
   currentImpacts,
   fetchAssets,
   fetchTechnology,
-  fetchOwner
+  updateRisk
 } from 'src/store/apps/Risks/RiskService'
-// } from 'src/pages/home/risk/RiskService'
+import { getCategoryData, getTeams, getUsers } from 'src/pages/home/Document/DocService';
+import { getFrameworks } from '/src/pages/home/framework/frameworkService';
 
 import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
@@ -43,15 +44,10 @@ const EditRisk = () => {
   const dispatch = useDispatch()
 
   const fetch_owner_list = async () => {
-    const res = await fetch(`${authConfig.owner_list}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('owner dropdown list is', data)
-    setOwnerList(data.data.users)
+    let userSuccessCallback = response => {
+      setOwnerList(response.data.users)
+    }
+    getUsers(() => {}, userSuccessCallback)
   }
 
   const fetch_team_list = async () => {
@@ -91,90 +87,82 @@ const EditRisk = () => {
   }
 
   const fetch_regulation_dropdown = async () => {
-    const res = await fetch(`${authConfig.regulation_dropdown}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('regulation dropdown list is', data)
-    set_regulation_dropdown(data)
+    getFrameworks(() => {}, set_regulation_dropdown)
   }
 
   const submit_risk = async () => {
-    const res = await fetch(`${authConfig.edit_risk}/${router.query.keyword}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        subject: subject,
-        riskmapping: risk_mapping,
-        threatmapping: threat_mapping,
-        reference_id: reference_id,
-        regulation: regulation,
-        control_number: control_number,
-        source: rs,
-        category: category_,
-        owner: owner,
-        manager: manager,
-        assessment: assessment,
-        additionalnotes: additional_notes,
-        location: location,
-        riskscoringmethod: score,
-        currentlikelihood: current_likelihood,
-        currentimpact: current_impact,
-        affectedassets: aassets,
-        technology: tech,
-        supportingdocumentation: 'yes',
-        team: team,
-        additionalstakeholders: additional_stakeholders,
-        tag: tag
-      })
-    })
-    const data = await res.json()
-    console.log('edited risk is', data)
-    toast.success('Submitted Risk')
-    router.push(`/home/risk`)
+    let request_data = {
+      subject: subject,
+      riskmapping: risk_mapping,
+      threatmapping: threat_mapping,
+      reference_id: reference_id,
+      regulation: regulation,
+      control_number: control_number,
+      source: rs,
+      category: category_,
+      owner: owner,
+      manager: manager,
+      assessment: assessment,
+      additionalnotes: additional_notes,
+      location: location,
+      riskscoringmethod: score,
+      currentlikelihood: current_likelihood,
+      currentimpact: current_impact,
+      affectedassets: aassets,
+      technology: tech,
+      supportingdocumentation: 'yes',
+      team: team,
+      additionalstakeholders: additional_stakeholders,
+      tag: tag
+    }
+
+    let errorCallback = response => {
+      toast.error('Something went wrong.')
+    }
+    let successCallback = response => {
+      toast.success('Submitted Risk')
+      router.push(`/home/risk`)
+    }
+    updateRisk(router.query.keyword, request_data, errorCallback, successCallback);
   }
 
   const fetch_risk_by_id = async () => {
-    const res = await fetch(`${authConfig.riskListEndPoint}/${router.query.keyword}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('specified risk data is', data)
-    set_subject(data.data.subject)
-    set_risk_mapping(data.data.riskmapping)
-    set_threat_mapping(data.data.threatmapping)
-    set_category(data.data.category)
-    setRs(data.data.risksource)
-    setlocation(data.data.site)
-    setScore(data.data.riskscoringmethod)
-    set_refernce_id(data.data.externalreferenceid)
-    set_current_likelihood(data.data.currentlikelihood)
-    set_regulation(data.data.controlregulation)
-    set_current_impact(data.data.currentimpact)
-    set_control_number(data.data.controlnumber)
-    set_assessment(data.data.riskassessment)
-    setAssets(data.data.affectedassets)
-    set_additional_notes(data.data.additionalnotes)
-    setTech(data.data.technology)
-    setTeam(data.data.team)
-    set_additional_stakeholders(data.data.additionalstakeholders)
-    setOwner(data.data.owner)
-    setManager(data.data.ownermanager)
-    setTag(data.data.tag)
+    let errorCallback = response => {
+      toast.error('Something went wrong.')
+    }
+    let successCallback = response => {
+      console.log('specified risk data is', response)
+      let data = response.data;
+      setAllRisk(response)
+      set_subject(data.subject)
+      set_risk_mapping(data.riskmapping)
+      set_threat_mapping(data.threatmapping)
+      set_category(data.category)
+      setRs(data.risksource)
+      setlocation(data.site)
+      setScore(data.riskscoringmethod)
+      set_refernce_id(data.externalreferenceid)
+      set_current_likelihood(data.currentlikelihood)
+      set_regulation(data.controlregulation)
+      set_current_impact(data.currentimpact)
+      set_control_number(data.controlnumber)
+      set_assessment(data.riskassessment)
+      setAssets(data.affectedassets)
+      set_additional_notes(data.additionalnotes)
+      setTech(data.technology)
+      setTeam(data.team)
+      set_additional_stakeholders(data.additionalstakeholders)
+      setOwner(data.owner)
+      setManager(data.ownermanager)
+      setTag(data.tag)
+    }
+    fetchRisk(router.query.keyword, errorCallback, successCallback)
   }
 
   //!for selecting Risk
-  useEffect(() => {
-    fetchRisk(1234, () => {}, setAllRisk)
-  }, [])
+  // useEffect(() => {
+  //   fetchRisk(1234, () => {}, setAllRisk)
+  // }, [])
 
   useEffect(() => {
     fetch_risk_by_id()
@@ -353,22 +341,6 @@ const EditRisk = () => {
 
   const [regulation_dropdown, set_regulation_dropdown] = useState([])
 
-  const fetchRisk = (params, errorCallback, successCallback) => {
-    axios
-      .get(authConfig.riskListEndPoint, `${params}`)
-      .then(res => {
-        if (res.data.error.msg != '') {
-          console.log('error : ', res.data.error)
-          if (errorCallback) errorCallback(res.data.error)
-        } else {
-          console.log('successing : ', res.data)
-          successCallback(res.data)
-        }
-      })
-      .catch(err => (errorCallback ? errorCallback(err) : null))
-  }
-
-  // console.log('allrisk :', allRisk)
   const setSelectedRisk = value => {
     let riskArray = allRisk.data?.riskmapping?.filter(item => item.id == value)
     if (riskArray.length) {

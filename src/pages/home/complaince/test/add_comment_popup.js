@@ -38,22 +38,12 @@ function SimpleDialog(props) {
       let request_data = {
         test_assessment_id: assessment_id,
         comment : new_comment,
-        user_id: 0,//user_data.id,
+        user_id: user_data.id,
         comment_date: new Date().toISOString()
       };
       addComment(request_data, errorCallback, successCallback);
       set_new_comment('');
     }
-    let errorCallback = response => {
-      toast.error('Something went wrong.')
-    }
-    let request_data = JSON.stringify({
-      test_assessment_id: assessment_id,
-      comments: [new_comment]
-    })
-    addComment(request_data, errorCallback, successCallback)
-    set_new_comment('')
-  }
 
   return (
     <Dialog

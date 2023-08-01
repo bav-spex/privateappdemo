@@ -25,10 +25,6 @@ const edit_risk_url = `${risk_base_url}/rmf/v1/risks/update`
 const mitigation_url = ` ${risk_base_url}/`
 const riskSave_url = `${risk_base_url}/`
 const savemitigation_url = `${risk_base_url}/`
-const frameWork_src_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
-const getDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
-const saveDocument_url = `https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/`
-const editDocument_url = 'https://b0f31c82-ba4a-473d-ae5c-62ede1b98c27.mock.pstmn.io/'
 const control_url = `${governance_base_url}/governance/v1/controls/get`
 const control_by_id_url = `${governance_base_url}/governance/v1/controls/id`
 const control_new_url = `${governance_base_url}/governance/v1/controls/new`
@@ -62,8 +58,6 @@ const add_assessment_url = `${compliance_base_url}/compliance/v1/assessment/new`
 const get_assessment_url = `${compliance_base_url}/compliance/v1/assessment/`
 const add_lookup_url = `${common_base_url}/lookup/v1/category`
 const edit_lookup_url = `${common_base_url}/lookup/v1/update`
-const test_url = 'http://localhost:8091/compliance/v1/test'
-const adit_url = 'http://localhost:8091/compliance/v1/audit'
 
 export default {
   meEndpoint: `${auth_base_url}/iam/authenticate/me`,
@@ -79,7 +73,6 @@ export default {
   getAllTeachers: `${batch_base_url}/users/v1?role=Teacher`,
   submitBatch: `${batch_base_url}/cohorts/v1/cohorts/`,
   batchList: `${batch_base_url}/cohorts/v1/`,
-  // riskListEndPoint: `${risk_base_url}/rmf/v1/risks/id/`,
   riskListEndPoint: `${risk_base_url}/rmf/v1/risks`,
   riskCategory: `${risk_category_url}lookup/v1/category/12`,
   riskSource: `${risk_source_url}lookup/v1/category/13`,
@@ -145,6 +138,4 @@ export default {
   control_update: `${control_update_url}`,
   add_lookup: `${add_lookup_url}`,
   edit_lookup: `${edit_lookup_url}`,
-  audit_url: `${test_url}`,
-  test_url: `${adit_url}`
 }

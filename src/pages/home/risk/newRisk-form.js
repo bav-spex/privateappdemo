@@ -31,6 +31,7 @@ import select from 'src/@core/theme/overrides/select'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../withRoot'
 import { useTheme } from '@material-ui/core/styles'
+import { getFrameworks } from '/src/pages/home/framework/frameworkService';
 
 const RiskList = () => {
   const data = useSelector(state => state.riskList)
@@ -89,24 +90,11 @@ const RiskList = () => {
   }
 
   const fetch_regulation_dropdown = async () => {
-    const res = await fetch(`${authConfig.regulation_dropdown}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await res.json()
-    console.log('regulation dropdown list is', data)
-    set_regulation_dropdown(data)
+    getFrameworks(() => {}, set_regulation_dropdown)
   }
 
   const submit_risk = async () => {
-    const res = await fetch(`${authConfig.saveAllRisk}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    let request_data = {
         subject: subject,
         riskmapping: risk_mapping,
         threatmapping: threat_mapping,
@@ -129,23 +117,26 @@ const RiskList = () => {
         team: team,
         additionalstakeholders: additional_stakeholders,
         tag: tag
-      })
-    })
-    const data = await res.json()
-    console.log('save risk is', data)
-    toast.success('Submitted Risk')
-
-    console.log('file is', file)
-    const formData = new FormData()
-    formData.append('file', file)
-    for (var key of formData.entries()) {
-      console.log(key[0] + ', ' + key[1])
     }
-    // const res2= await fetch(``, {
-    //   method:"POST",
-    //     body: formData
-    //   });
-    // const data2= await res2.json();
+
+    let errorCallback = response => {
+      toast.error('Something went wrong.')
+    }
+    let successCallback = response => {
+      toast.success('Risk Added.')
+      const formData = new FormData()
+      formData.append('file', file)
+      for (var key of formData.entries()) {
+        console.log(key[0] + ', ' + key[1])
+      }
+      // const res2= await fetch(``, {
+      //   method:"POST",
+      //     body: formData
+      //   });
+      // const data2= await res2.json();
+      // router.push(`/home/Document`)
+    }
+    saveRisk(request_data, errorCallback, successCallback)
   }
 
   useEffect(() => {

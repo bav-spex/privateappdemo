@@ -50,9 +50,7 @@ import { Button, ToggleButtonGroup } from '@mui/material'
 import { useRouter } from 'next/router'
 
 // //*axios import
-// import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { allFrameWorks, fwa, deleteFramework } from './frameworkService'
-// console.log('allFrameworks:', allFrameWorks)
+import { getFrameworks, deleteFramework } from './frameworkService'
 
 import { addRisk, getriskList, reviewRisk } from 'src/store/apps/Risks'
 import AddEditFrameWorks from './AddEditFramework'
@@ -95,7 +93,7 @@ const FrameWorkList = () => {
       if (result.isConfirmed) {
         const successCallback = response => {
           Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
-          fwa(() => {}, setAll);
+          getFrameworks(() => {}, setAll);
         }
         const errorCallback = response => {
           Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
@@ -110,7 +108,7 @@ const FrameWorkList = () => {
   console.log('userdata is', user_data)
 
   useEffect(() => {
-    fwa(() => {}, setAll)
+    getFrameworks(() => {}, setAll)
   }, [])
 
   const router = useRouter()

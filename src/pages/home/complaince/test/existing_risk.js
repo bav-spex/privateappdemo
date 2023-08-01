@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 import { CardContent, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Grid } from '@mui/material'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getExistingRisks, getRisks, saveExistingRisks } from 'src/pages/home/complaince/test/complaince_service';
+import { allRisk } from 'src/store/apps/Risks/RiskService'
+import { saveExistingRisks } from 'src/pages/home/complaince/test/complaince_service';
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open, test_assessment_id } = props
@@ -44,7 +45,7 @@ function SimpleDialog(props) {
           toast.error("Something went wrong");
       }
 
-      getExistingRisks(errorCallback, successCallback);
+      allRisk(errorCallback, successCallback);
   };
 
   useEffect(() => {

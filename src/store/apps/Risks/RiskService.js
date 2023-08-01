@@ -1,21 +1,21 @@
 //*Axios
 import axios from 'axios'
 //.config
-import authConfig from 'src/configs/auth'
+import authConfig from 'src/configs/auth';
+import { siteCall } from 'src/util/web_call';
 
-export const fetchRisk = (params, errorCallback, successCallback) => {
-  axios
-    .get(authConfig.riskListEndPoint, `${params}`)
-    .then(res => {
-      if (res.data.error.msg != '') {
-        console.log('error : ', res.data.error)
-        if (errorCallback) errorCallback(res.data.error)
+export const fetchRisk = (id, errorCallback, successCallback) => {
+  siteCall(authConfig.riskListEndPoint +"/"+ id, "GET", {}, (res) => {
+      if (res?.data?.error?.msg) {
+          console.log('fetchRisk error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('successing : ', res.data)
-        successCallback(res.data)
+          console.log('fetchRisk success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const category = (errorCallback, successCallback) => {
@@ -153,34 +153,47 @@ export const fetchOwner = (errorCallback, successCallback) => {
 }
 
 export const saveRisk = (params, errorCallback, successCallback) => {
-  console.log('params:', params)
-  axios
-    .post(authConfig.saveAllRisk, params)
-    .then(res => {
-      if (res.data.error.msg != '') {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+    console.log('params:', params)
+    siteCall(authConfig.saveAllRisk, "POST", params, (res) => {
+        if (res?.data?.error?.msg) {
+            console.log('saveRisk error:', res.data)
+            if (errorCallback) errorCallback(res.data.error.msg)
+        } else {
+            console.log('saveRisk success:', res.data)
+            successCallback(res.data)
+        }
+    }, (error) => {
+        errorCallback(error);
+    });
+}
+
+export const updateRisk = (id, params, errorCallback, successCallback) => {
+  console.log("ID:", id, 'params:', params)
+  siteCall(authConfig.edit_risk + "/" + id, "PUT", params, (res) => {
+      if (res?.data?.error?.msg) {
+          console.log('updateRisk error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('allSave:', res.data)
-        successCallback(res.body.data)
+          console.log('updateRisk success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const allRisk = (errorCallback, successCallback) => {
-  axios
-    .get(authConfig.riskAll)
-    .then(res => {
-      if (res.data.error.msg != '') {
-        console.log('error:', res.data)
-        if (errorCallback) errorCallback(res.data.error)
+  siteCall(authConfig.riskAll, "GET", {}, (res) => {
+      if (res?.data?.error?.msg) {
+          console.log('getRisks error:', res.data)
+          if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        // console.log('allrisk:', res.data)
-        successCallback(res.data)
+          console.log('getRisks success:', res.data)
+          successCallback(res.data)
       }
-    })
-    .catch(err => (errorCallback ? errorCallback(err) : null))
+  }, (error) => {
+      errorCallback(error);
+  });
 }
 
 export const allAudits = (errorCallback, successCallback) => {

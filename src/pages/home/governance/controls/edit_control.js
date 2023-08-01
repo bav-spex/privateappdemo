@@ -17,7 +17,7 @@ import {
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 import { getControlById, updateControl } from 'src/pages/home/governance/controls/controlService';
-import { fwa } from 'src/pages/home/framework/frameworkService';
+import { getFrameworks } from 'src/pages/home/framework/frameworkService';
 import { getCategoryData, getUsers } from 'src/pages/home/Document/DocService';
 
 const Edit_control = () => {
@@ -175,7 +175,7 @@ const Edit_control = () => {
     fetch_typeList()
     fetch_familyList()
     fetch_statusList()
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
   }, [])
 
   return (
