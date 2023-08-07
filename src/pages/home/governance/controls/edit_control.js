@@ -67,13 +67,13 @@ const Edit_control = () => {
   }
 
   const submitdetails = async () => {
-    let successCallback = (response) => {
-      toast.success('Control Edited Successfully');
-      router.push('/home/governance/controls');
+    let successCallback = response => {
+      toast.success('Control Edited Successfully')
+      router.push('/home/governance/controls')
     }
 
-    let errorCallback = (response) => {
-      toast.error("Something went wrong");
+    let errorCallback = response => {
+      toast.error('Something went wrong')
     }
     let request_data = {
       shortname: shortname,
@@ -96,13 +96,13 @@ const Edit_control = () => {
       next_audit_date: new Date().toISOString(),
       desired_frequency: 0,
       mitigation_percent: 0,
-      deleted: 0,
-    };
-    updateControl(router.query.keyword, request_data, errorCallback, successCallback);
+      deleted: 0
+    }
+    updateControl(router.query.keyword, request_data, errorCallback, successCallback)
   }
 
   const fetch_control_data_by_id = async () => {
-    let successCallback = (response) => {
+    let successCallback = response => {
       setClass1(response.data.class)
       setControlType(response.data.controltype)
       setPhase(response.data.phase)
@@ -117,52 +117,52 @@ const Edit_control = () => {
       setOwner(response.data.owner)
       setFramework(response.data.frameworkids)
       setControlNumber(response.data.number)
-      setLongname(response.data.long_name);
+      setLongname(response.data.long_name)
     }
 
-    let errorCallback = (response) => {
-      toast.error("Something went wrong");
+    let errorCallback = response => {
+      toast.error('Something went wrong')
     }
 
-    getControlById(router.query.keyword, errorCallback, successCallback);
+    getControlById(router.query.keyword, errorCallback, successCallback)
   }
 
-  let commonErrorCallback = (response) => {
-    toast.error("Something went wrong");
+  let commonErrorCallback = response => {
+    toast.error('Something went wrong')
   }
   const fetch_classList = async () => {
-    getCategoryData(2, commonErrorCallback, setClassList);
+    getCategoryData(2, commonErrorCallback, setClassList)
   }
 
   const fetch_phaseList = async () => {
-    getCategoryData(3, commonErrorCallback, setPhaseList);
+    getCategoryData(3, commonErrorCallback, setPhaseList)
   }
 
   const fetch_maturityList = async () => {
-    getCategoryData(4, commonErrorCallback, setMaturityList);
+    getCategoryData(4, commonErrorCallback, setMaturityList)
   }
 
   const fetch_priorityList = async () => {
-    getCategoryData(5, commonErrorCallback, setPriorityList);
+    getCategoryData(5, commonErrorCallback, setPriorityList)
   }
 
   const fetch_typeList = async () => {
-    getCategoryData(6, commonErrorCallback, setTypeList);
+    getCategoryData(6, commonErrorCallback, setTypeList)
   }
 
   const fetch_familyList = async () => {
-    getCategoryData(7, commonErrorCallback, setFamilyList);
+    getCategoryData(7, commonErrorCallback, setFamilyList)
   }
 
   const fetch_statusList = async () => {
-    getCategoryData(8, commonErrorCallback, setStatusList);
+    getCategoryData(8, commonErrorCallback, setStatusList)
   }
 
   const fetch_ownerList = async () => {
-    let successCallback = (response) => {
+    let successCallback = response => {
       setOwnerList(response.data.users)
     }
-    getUsers(commonErrorCallback, successCallback);
+    getUsers(commonErrorCallback, successCallback)
   }
 
   useEffect(() => {

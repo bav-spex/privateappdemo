@@ -56,7 +56,7 @@ import { left } from '@popperjs/core'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 import { ToastContainer, toast } from 'react-toastify'
 import { deleteControl, getControlList } from 'src/pages/home/governance/controls/controlService'
 
@@ -170,7 +170,6 @@ const ControlList = () => {
   const [controlList, setControlList] = useState([])
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const router = useRouter()
 
@@ -243,6 +242,7 @@ const ControlList = () => {
       valueGetter: params => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
       renderCell: params => {
         const id = params.row.id
+
         return (
           <>
             {user_data.role == 'admin' ? (
@@ -251,7 +251,7 @@ const ControlList = () => {
                   <EditIcon titleAccess='Edit Control' />
                 </IconButton>
 
-                <IconButton onClick={() => deleteControlId(id)} sx={{ color: 'red' }}>
+                <IconButton onClick={() => deleteControlId(id)} sx={{ color: '#ed3700' }}>
                   <DeleteIcon titleAccess='Delete Control' />
                 </IconButton>
               </>
@@ -270,7 +270,7 @@ const ControlList = () => {
         //             <EditIcon />
         //           </IconButton>
 
-        //           <IconButton  sx={{ color: 'red' }}>
+        //           <IconButton  sx={{ color: '#ed3700' }}>
         //             <DeleteIcon />
         //           </IconButton>
         //           </>
@@ -279,7 +279,7 @@ const ControlList = () => {
         //     {/* <IconButton onClick={openMitigation} sx={{ color: 'green' }}>
         //       <ContactSupportIcon />
         //     </IconButton>
-        //     <IconButton onClick={handleCreateClick} sx={{ color: 'red' }}>
+        //     <IconButton onClick={handleCreateClick} sx={{ color: '#ed3700' }}>
         //       <PreviewIcon />
         //     </IconButton> */}
         //   </>
@@ -292,13 +292,13 @@ const ControlList = () => {
   const dispatch = useDispatch()
 
   const fetch_control_data = async () => {
-    let successCallback = (response) => {
+    let successCallback = response => {
       setControlList(response.data.controls)
     }
-    let errorCallback = (response) => {
+    let errorCallback = response => {
       toast.error('Something went wrong')
     }
-    getControlList(errorCallback, successCallback);
+    getControlList(errorCallback, successCallback)
   }
 
   // useEffect(() => {

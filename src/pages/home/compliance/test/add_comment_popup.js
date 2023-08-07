@@ -8,11 +8,10 @@ import Dialog from '@mui/material/Dialog'
 import { FormControl, TextField, Grid } from '@mui/material'
 import 'react-toastify/dist/ReactToastify.css'
 import authConfig from 'src/configs/auth'
-import { ToastContainer, toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '@material-ui/core/styles';
-import { addComment, getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service';
-
+import { ToastContainer, toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '@material-ui/core/styles'
+import { addComment, getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service'
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open, assessment_id, set_comment_list_state } = props
@@ -43,7 +42,7 @@ function SimpleDialog(props) {
       };
       addComment(request_data, errorCallback, successCallback);
       set_new_comment('');
-    }
+  }
 
   return (
     <Dialog

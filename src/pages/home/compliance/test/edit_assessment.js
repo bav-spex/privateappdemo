@@ -20,10 +20,9 @@ import authConfig from 'src/configs/auth'
 
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles';
-import { getAssessmentInfoById, updateAssessment } from 'src/pages/home/complaince/test/complaince_service';
-import { getCategoryData, convertDateFormat, getTeams, getUsers } from 'src/pages/home/Document/DocService';
-
+import { useTheme } from '@material-ui/core/styles'
+import { getAssessmentInfoById, updateAssessment } from 'src/pages/home/complaince/test/complaince_service'
+import { getCategoryData, convertDateFormat, getTeams, getUsers } from 'src/pages/home/Document/DocService'
 
 const EditAssessment = () => {
   const router = useRouter()
@@ -47,33 +46,32 @@ const EditAssessment = () => {
   const [expected_results, set_expected_results] = useState('')
   const [approximate_time, set_approximate_time] = useState('')
 
-  const [assessment_status_list, set_assessment_status_list]= useState([]);
-  const [test_result_list, set_test_result_list]= useState([]);
-  const [tester_list, set_tester_list]= useState([]);
-  const [teams_list, set_teams_list]= useState([]);
-  const [user, set_user]= useState({});
+  const [assessment_status_list, set_assessment_status_list] = useState([])
+  const [test_result_list, set_test_result_list] = useState([])
+  const [tester_list, set_tester_list] = useState([])
+  const [teams_list, set_teams_list] = useState([])
+  const [user, set_user] = useState({})
 
-  const fetch_assessment_by_id= (id)=>{
-
-      let successCallback = (response) => {
-        if(Object.keys(response).length > 0){
-          set_assessment_status(response.data.assessment_status);
-          set_test_results(response.data.test_result);
-          set_test_date(convertDateFormat(response.data.test_date));
-          set_objective(response.data.objective);
-          set_test_steps(response.data.teststeps);
-          set_summary(response.data.summary);
-          set_additional_stakeholders(response.data.additionalstakeholders);
-          set_control_owner(response.data.control_owner);
-          set_expected_results(response.data.expectedresults);
-          set_approximate_time(response.data.approximatetime);
-          set_teams(response.data.teams);
-        }
+  const fetch_assessment_by_id = id => {
+    let successCallback = response => {
+      if (Object.keys(response).length > 0) {
+        set_assessment_status(response.data.assessment_status)
+        set_test_results(response.data.test_result)
+        set_test_date(convertDateFormat(response.data.test_date))
+        set_objective(response.data.objective)
+        set_test_steps(response.data.teststeps)
+        set_summary(response.data.summary)
+        set_additional_stakeholders(response.data.additionalstakeholders)
+        set_control_owner(response.data.control_owner)
+        set_expected_results(response.data.expectedresults)
+        set_approximate_time(response.data.approximatetime)
+        set_teams(response.data.teams)
       }
-      let errorCallback = (response) => {
-        toast.error("Something went wrong");
-      }
-      getAssessmentInfoById(id, 'get', errorCallback, successCallback);
+    }
+    let errorCallback = response => {
+      toast.error('Something went wrong')
+    }
+    getAssessmentInfoById(id, 'get', errorCallback, successCallback)
   }
 
   const fetch_assessment_status_list = async () => {
@@ -98,35 +96,35 @@ const EditAssessment = () => {
     getTeams(() => {}, teamSuccessCallback)
   }
 
-  const update_assessment= async()=>{
-      let successCallback = (response) => {
-        toast.success("Assesment Edited Successfully");
-      }
-      let errorCallback = (response) => {
-        toast.error("Something went wrong.");
-      }
-      let request_data = {
-          test_assessment_id: router.query.keyword,
-          assessment_status : assessment_status,
-          test_result: test_results,
-          test_date: test_date,
-          summary: summary,
-          submitted_by: 0,//user.id,
-          submission_date: new Date().toISOString()
-      }
-      updateAssessment(request_data, errorCallback, successCallback);
+  const update_assessment = async () => {
+    let successCallback = response => {
+      toast.success('Assesment Edited Successfully')
+    }
+    let errorCallback = response => {
+      toast.error('Something went wrong.')
+    }
+    let request_data = {
+      test_assessment_id: router.query.keyword,
+      assessment_status: assessment_status,
+      test_result: test_results,
+      test_date: test_date,
+      summary: summary,
+      submitted_by: 0, //user.id,
+      submission_date: new Date().toISOString()
+    }
+    updateAssessment(request_data, errorCallback, successCallback)
   }
-  
+
   useEffect(() => {
-    setAssessmentId(router.query.keyword);
-    fetch_assessment_by_id(router.query.keyword);
-    fetch_assessment_status_list();
-    fetch_test_result_list();
-    fetch_tester_list();
-    fetch_teams_list();
-    
-    const user_data=JSON.parse(localStorage.getItem('userData'));
-    set_user(user_data);
+    setAssessmentId(router.query.keyword)
+    fetch_assessment_by_id(router.query.keyword)
+    fetch_assessment_status_list()
+    fetch_test_result_list()
+    fetch_tester_list()
+    fetch_teams_list()
+
+    const user_data = JSON.parse(localStorage.getItem('userData'))
+    set_user(user_data)
   }, [])
 
   return (

@@ -20,8 +20,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
+import { getControlList } from 'src/pages/home/governance/controls/controlService'
 
-const EditTest = () => {
+const AddTest = () => {
   const router = useRouter()
 
   const { t, i18n } = useTranslation()
@@ -41,6 +42,13 @@ const EditTest = () => {
 
   const [tester_list, set_tester_list] = useState([])
   const [teams_list, set_teams_list] = useState([])
+  const [controls_list, set_controls_list] = useState([])
+  const [frameworkControlId, set_frameworkControlId] = useState('')
+
+  const add_framework_control = e => {
+    set_frameworkControlId(e.target.value)
+    console.log('frameworkControlId:', frameworkControlId)
+  }
 
   const add_stakeholders = e => {
     set_additional_stakeholders(e.target.value)
@@ -56,7 +64,7 @@ const EditTest = () => {
   }
 
   const submitcancel = () => {
-    router.push('/home/complaince/test')
+    router.push('/home/compliance/test')
   }
 
   const submit_test = async () => {
@@ -72,8 +80,9 @@ const EditTest = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        additionalstakeholders: additional_stakeholders,
         testname: test_name,
-        teser: testers,
+        tester: testers,
         teams: teams,
         testfrequency: test_frequency,
         lasttestdate: last_test_date,
@@ -86,24 +95,12 @@ const EditTest = () => {
     })
     const data = await res.json()
     console.log('add test is', data)
-    toast('Test edited successfully')
-    // router.push('/home/complaince/test');
-  }
-
-  const fetch_test_details = async () => {
-    // const res= await fetch(`https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users`, {
-    // method:"GET",
-    //   headers:{
-    //       "Content-Type": "application/json"
-    //   }
-    // })
-    // const data= await res.json();
-    // set_tester_list(data.data.users)
-    // console.log("dropdown data is", data);
+    toast.success('Test added successfully')
+    // router.push('/home/compliance/test');
   }
 
   const fetch_testers = async () => {
-    const res = await fetch(`${auth.owner_list}`, {
+    const res = await fetch(`${auth.addi}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -126,8 +123,16 @@ const EditTest = () => {
     console.log('teams data is', data)
   }
 
+  const fetchControlList = async () => {
+    console.log('Fetching control list')
+    let successCallback = response => {
+      set_controls_list(response.data.controls)
+    }
+    getControlList(() => {}, successCallback)
+  }
+
   useEffect(() => {
-    fetch_test_details()
+    fetchControlList()
     fetch_testers()
     fetch_teams()
   }, [])
@@ -135,30 +140,37 @@ const EditTest = () => {
   return (
     <>
       <div style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-        <div>
-          <h1>{t('Edit Test')}</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1>{t('Add Test')}</h1>
+
+          <ToastContainer />
+          <Grid
+            item
+            sx={{
+              marginLeft: 'auto',
+              '@media screen and (max-width:600px)': {
+                flexDirection: 'row',
+                marginLeft: 0
+              }
+            }}
+            xs={12}
+            md={4}
+            style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
+          >
+            <Button xs={2} variant='contained' size='medium' onClick={submitcancel}>
+              {t('Cancel')}
+            </Button>
+            <Button
+              type='submit '
+              size='medium'
+              variant='contained'
+              onClick={submit_test}
+              style={{ marginLeft: '10px' }}
+            >
+              {t('Save')}
+            </Button>
+          </Grid>
         </div>
-        <ToastContainer />
-        <Grid
-          item
-          sx={{
-            marginLeft: 'auto',
-            '@media screen and (max-width:600px)': {
-              flexDirection: 'row',
-              marginLeft: 0
-            }
-          }}
-          xs={12}
-          md={4}
-          style={{ display: 'flex', justifyContent: 'right', marginBottom: 20 }}
-        >
-          <Button xs={2} variant='contained' size='medium' onClick={submitcancel}>
-            {t('Cancel')}
-          </Button>
-          <Button type='submit ' size='medium' variant='contained' onClick={submit_test} style={{ marginLeft: '10px' }}>
-            {t('Save')}
-          </Button>
-        </Grid>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
           <div style={{ width: '40%' }}>
@@ -179,6 +191,7 @@ const EditTest = () => {
                 multiple
                 value={testers}
                 onChange={add_testers}
+                labelId='demo-simple-select-label'
                 label={t('Tester')}
                 inputProps={{
                   name: 'selectedValues',
@@ -198,8 +211,9 @@ const EditTest = () => {
               <Select
                 multiple
                 value={additional_stakeholders}
-                label={t('Additional Stakeholders')}
                 onChange={add_stakeholders}
+                labelId='demo-simple-select-label'
+                label={t('Additional Stakeholders')}
                 inputProps={{
                   name: 'selectedValues',
                   id: 'selected-values'
@@ -215,8 +229,9 @@ const EditTest = () => {
               <Select
                 multiple
                 value={teams}
-                label={t('Teams')}
                 onChange={add_teams}
+                labelId='demo-simple-select-label'
+                label={t('Teams')}
                 inputProps={{
                   name: 'selectedValues',
                   id: 'selected-values'
@@ -235,6 +250,7 @@ const EditTest = () => {
                 id='outlined-basic'
                 label={t('Test Frequency')}
                 variant='outlined'
+                type='number'
                 value={test_frequency}
                 onChange={e => set_test_frequency(e.target.value)}
               />
@@ -242,13 +258,21 @@ const EditTest = () => {
           </div>
           <div style={{ width: '40%' }}>
             <FormControl fullWidth>
-              <TextField
-                id='outlined-basic'
-                variant='outlined'
-                type='date'
-                value={last_test_date}
-                onChange={e => set_last_test_date(e.target.value)}
-              />
+              <InputLabel id='demo-simple-select-label'>{t('Framework Control Id')}</InputLabel>
+              <Select
+                value={frameworkControlId}
+                onChange={add_framework_control}
+                labelId='demo-simple-select-label'
+                label={t('Framework Control Id')}
+                inputProps={{
+                  name: 'selectedValues',
+                  id: 'selected-values'
+                }}
+              >
+                {controls_list.map(item =>
+                  item !== null ? <MenuItem value={item.id}>{item['control-number']}</MenuItem> : ''
+                )}
+              </Select>
             </FormControl>
           </div>
         </div>
@@ -290,6 +314,18 @@ const EditTest = () => {
               />
             </FormControl>
           </div>
+          <div style={{ width: '40%' }}>
+            <FormControl fullWidth>
+              <TextField
+                id='outlined-basic'
+                variant='outlined'
+                type='date'
+                label='date'
+                value={last_test_date}
+                onChange={e => set_last_test_date(e.target.value)}
+              />
+            </FormControl>
+          </div>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
@@ -320,4 +356,4 @@ const EditTest = () => {
   )
 }
 
-export default EditTest
+export default AddTest

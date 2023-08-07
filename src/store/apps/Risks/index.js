@@ -3,7 +3,7 @@ import axios from 'axios'
 import { category } from 'src/store/apps/Risks/RiskService'
 
 export const getriskList = createAsyncThunk('appRisks/getriskList', async params => {
-  const response = await axios.get(authConfig.riskListEndPoint, {
+  const response = await axios.get(`${authConfig.riskDevRakshitah_base_url}risks`, {
     ...params
   })
   console.log('Risk-List - ', response.data)

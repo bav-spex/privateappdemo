@@ -317,52 +317,6 @@ const RolesCards = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {selectedRolePermission &&
-                    claimsData.map(claim => {
-                      const foundClaim = selectedRolePermission.find(roleClaim => roleClaim.type === claim.value)
-                      if (foundClaim) {
-                        return (
-                          <TableRow
-                            key={claim.value}
-                            sx={{
-                              borderBottom: '1px solid #eeeeee',
-                              '& .MuiTableCell-root:first-of-type': { pl: '0 !important' }
-                            }}
-                          >
-                            <TableCell
-                              sx={{
-                                fontWeight: 600,
-                                whiteSpace: 'nowrap',
-                                color: theme => `${theme.palette.text.primary} !important`,
-                                border: 'none'
-                              }}
-                              colSpan={6}
-                            >
-                              {claim.name.toUpperCase()}
-                            </TableCell>
-                            <RadioGroup
-                              aria-labelledby='demo-radio-buttons-group-label'
-                              defaultValue='female'
-                              name='radio-buttons-group'
-                              sx={{ display: 'flex', flexDirection: 'row', width: '100%' }}
-                              value={foundClaim.value}
-                            >
-                              <TableCell sx={{ border: 'none', width: '33%' }}>
-                                <FormControlLabel value='read' control={<Radio />} label='Read' />
-                              </TableCell>
-                              <TableCell sx={{ border: 'none', width: '33%' }}>
-                                <FormControlLabel value='write' control={<Radio />} label='Write' />
-                              </TableCell>
-                              <TableCell sx={{ border: 'none', width: '33%' }}>
-                                <FormControlLabel value='create' control={<Radio />} label='Create' />
-                              </TableCell>
-                            </RadioGroup>
-                          </TableRow>
-                        )
-                      }
-                    })} */}
-
-                  {/* // Simple One */}
                   {selectedRolePermission &&
                     selectedRolePermission.map(claim => {
                       return (

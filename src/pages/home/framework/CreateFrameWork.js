@@ -42,13 +42,13 @@ const AddFrame = () => {
   const [fwList, setFwList] = useState([])
 
   const CreateFrames = async () => {
-    let successCallback = (response) => {
+    let successCallback = response => {
       toast.success('Created FrameWork')
-      router.push(`/home/framework`);
+      router.push(`/home/framework`)
     }
 
-    let errorCallback = (response) => {
-      toast.error("Something went wrong");
+    let errorCallback = response => {
+      toast.error('Something went wrong')
     }
     let request_data = {
       id: null,
@@ -56,8 +56,8 @@ const AddFrame = () => {
       framework_Details: description,
       framework_Parent: parent,
       framework_Status: 'active'
-    };
-    createFramework(request_data, errorCallback, successCallback);
+    }
+    createFramework(request_data, errorCallback, successCallback)
   }
 
   // ** Hooks

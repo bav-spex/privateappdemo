@@ -78,8 +78,8 @@ import SimpleDialog from './existing_risk'
 
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles';
-import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service';
+import { useTheme } from '@material-ui/core/styles'
+import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service'
 
 const emails = ['username@gmail.com', 'user02@gmail.com']
 
@@ -122,22 +122,25 @@ const AddRisk = () => {
       query: { keyword: test_assessment_id }
     })
   }
-   
+
   const fetch_risk_list = async () => {
     let successCallback = (response) => {
       let risks = response.data || [];
       console.log("RISK_LIST:", risks);
       set_risk_list(risks);
+      for (let i = 0; i < risks.length; i++) {
+        risk_list_id.push(data.data.risks[i].id)
+      }
     }
-    let errorCallback = (response) => {
-        toast.error("Something went wrong");
+    let errorCallback = response => {
+      toast.error('Something went wrong')
     }
-    getAssessmentInfoById(router.query.keyword, 'risks', errorCallback, successCallback);
-  };
+    getAssessmentInfoById(router.query.keyword, 'risks', errorCallback, successCallback)
+  }
 
   useEffect(() => {
-    fetch_risk_list();
-  }, []);
+    fetch_risk_list()
+  }, [])
 
   return (
     <>

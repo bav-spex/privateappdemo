@@ -58,7 +58,6 @@ const LookUps = () => {
   const [open2, setOpen2] = useState(false)
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -98,7 +97,7 @@ const LookUps = () => {
   }))
 
   const fetch_look_up_list = async () => {
-    const res = await fetch(`${auth.category_list}`, {
+    const res = await fetch(`${auth.categories_list}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -111,6 +110,7 @@ const LookUps = () => {
 
   const display_look_up = async e => {
     set_look_ups(e)
+
     const res = await fetch(`${auth.display_lookup}/${e}`, {
       method: 'GET',
       headers: {
@@ -196,7 +196,7 @@ const LookUps = () => {
                           row={row}
                           fun={display_look_up}
                         />
-                        <IconButton sx={{ color: 'red' }}>
+                        <IconButton sx={{ color: '#ed3700' }}>
                           <DeleteIcon titleAccess='Delete Control' />
                         </IconButton>
                       </>

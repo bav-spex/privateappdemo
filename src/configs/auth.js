@@ -1,6 +1,18 @@
 // const governance_base_url = 'http://localhost:8080'
+const riskDevRakshitah_base_url = 'https://risk-dev-rakshitah.azurewebsites.net/rmf/v1/'
+const commonDevRakshitah_base_url = 'https://common-dev-rakshitah.azurewebsites.net/lookup/v1/'
+const governanceDevRakshitah_base_url = 'https://governance-dev-rakshitah.azurewebsites.net/governance/v1/'
+
+const authDevRakshitah_base_url =
+  'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io/iam/'
+const complianceDevRakshitah_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net/compliance/v1/'
+const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
+
+const mock_finidings_url = 'https://f525f519-f643-4c90-bd0d-bbc4eb466021.mock.pstmn.io/compliance/v1/'
+
+// Need to refactor below urls
 const governance_base_url = 'https://governance-dev-rakshitah.azurewebsites.net'
-const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net'
+const compliance_base_url = 'https://compliance-dev-rakshitah.azurewebsites.net/compliance/v1/'
 const common_base_url = 'https://common-dev-rakshitah.azurewebsites.net'
 const auth_base_url = 'https://iac-rakshitah-dev.politeforest-c2818b6a.southeastasia.azurecontainerapps.io'
 const batch_base_url = 'https://ttmsbatchapi.azurewebsites.net:443'
@@ -14,7 +26,6 @@ const risk_scoring_url = `${common_base_url}/`
 const Affected_Assets_url = `${common_base_url}/`
 const technology_url = `${common_base_url}/`
 const owner_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/users'
-const team_list_url = 'https://d042f483-7812-483b-a81b-c78979b9cb7e.mock.pstmn.io/iac/v1/teams'
 const role_list_url = `${auth_base_url}/iam/roles`
 const add_update_role_list = `${auth_base_url}/iam/roles`
 const claim_list_url = `${auth_base_url}/iam/roles/claims`
@@ -31,12 +42,9 @@ const control_new_url = `${governance_base_url}/governance/v1/controls/new`
 const control_update_url = `${governance_base_url}/governance/v1/controls/update`
 const delete_control_url = `${governance_base_url}/governance/v1/controls/delete`
 const control_dropdown_url = `${common_base_url}/lookup/v1/category`
-const get_tests_url = `${compliance_base_url}/compliance/v1/test/get`
-const category_list_url = `${common_base_url}/categories/v1/get`
+const get_tests_url = `${compliance_base_url}test/get`
+const categories_list_url = `${common_base_url}/categories/v1/get`
 const display_lookup_url = `${common_base_url}/lookup/v1/category`
-const managmentReview_url = `${risk_base_url}/`
-const mitigation_effort_url = `${common_base_url}/lookup/v1/category/22`
-const planning_strategy_url = `${common_base_url}/lookup/v1/category/21`
 const mitigation_update_url = `${risk_base_url}/rmf/risk/1/mitigation/update`
 const speedometer_url = 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/avgscore'
 const open_risk_url = 'https://93acb311-efd1-41f4-a1d7-ca1854fb1c71.mock.pstmn.io/rmf/v1/risks/bystatus'
@@ -53,15 +61,28 @@ const update_test_url= `${compliance_base_url}/compliance/v1/test/update/`
 const save_existing_list_url= `${compliance_base_url}/compliance/v1/assessment/testresult/risks`
 const fetch_existing_list_url= `${risk_base_url}/rmf/v1/risks/get`
 // const fetch_existing_list_url= 'https://9d9560c9-7f96-4865-9747-d5a8232c9a70.mock.pstmn.io/rmf/v1/risks'
-const get_test_data_by_id_url = `${compliance_base_url}/compliance/v1/test/`
+const get_test_data_by_id_url = `${compliance_base_url}test/`
 const add_assessment_url = `${compliance_base_url}/compliance/v1/assessment/new`
 const get_assessment_url = `${compliance_base_url}/compliance/v1/assessment/`
 const add_lookup_url = `${common_base_url}/lookup/v1/category`
 const edit_lookup_url = `${common_base_url}/lookup/v1/update`
 
 export default {
-  meEndpoint: `${auth_base_url}/iam/authenticate/me`,
-  loginEndpoint: `${auth_base_url}/iam/authenticate/login`,
+  riskDevRakshitah_base_url: riskDevRakshitah_base_url,
+  commonDevRakshitah_base_url: commonDevRakshitah_base_url,
+  governanceDevRakshitah_base_url: governanceDevRakshitah_base_url,
+  authDevRakshitah_base_url: authDevRakshitah_base_url,
+  complianceDevRakshitah_base_url: complianceDevRakshitah_base_url,
+
+  team_list_url: team_list_url,
+
+  mock_finidings_url: mock_finidings_url,
+
+  meEndpoint: `${authDevRakshitah_base_url}authenticate/me`,
+  loginEndpoint: `${authDevRakshitah_base_url}authenticate/login`,
+
+  // Need to refactor below  variable
+  compliance: compliance_base_url,
   loginMockEndpoint: 'jwt/login',
   otpEndpoint: `${auth_base_url}/users/v1/user/validateOTP`,
   registerEndpoint: `${auth_base_url}/iam/authenticate/register`,
@@ -102,20 +123,13 @@ export default {
   create_document: `${governance_base_url}/governance/v1/documents/new`,
   update_document: `${governance_base_url}/governance/v1/documents/update/`,
   delete_document: `${governance_base_url}/governance/v1/documents/delete/`,
-  mitigation: `${mitigation_url}rmf/v1/risks/`,
-  mitigation_effort: `${mitigation_effort_url}`,
-  planning_strategy: `${planning_strategy_url}`,
   mitigation_update: `${mitigation_update_url}`,
-  saveAllRisk: `${riskSave_url}rmf/v1/risks/new`,
-  saveAllMitigation: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
   controlList: `${control_url}`,
   control_by_id: `${control_by_id_url}`,
   control_dropdown: `${control_dropdown_url}`,
   get_tests: `${get_tests_url}`,
-  category_list: category_list_url,
+  categories_list: categories_list_url,
   display_lookup: display_lookup_url,
-  SaveAllMiti: `${savemitigation_url}rmf/risk/1/mitigation/update/51`,
-  getmanagmentReview: `${managmentReview_url}rmf/v1/risk/1/reviews/last`,
   speedometer: `${speedometer_url}`,
   open_risk: `${open_risk_url}`,
   control_new: `${control_new_url}`,

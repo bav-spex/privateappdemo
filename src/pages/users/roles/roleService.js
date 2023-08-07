@@ -7,7 +7,7 @@ import authConfig from 'src/configs/auth'
 export const getClaimsData = (errorCallback, successCallback) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   axios
-    .get(authConfig.claim_list, {
+    .get(`${authConfig.authDevRakshitah_base_url}roles/claims`, {
       headers: {
         Authorization: `Bearer ${storedToken}`
       }
@@ -26,7 +26,7 @@ export const getClaimsData = (errorCallback, successCallback) => {
 export const getRolesData = (errorCallback, successCallback) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   axios
-    .get(authConfig.role_list, {
+    .get(`${authConfig.authDevRakshitah_base_url}roles`, {
       headers: {
         Authorization: `Bearer ${storedToken}`
       }
@@ -45,7 +45,7 @@ export const getRolesData = (errorCallback, successCallback) => {
 export const addRoleData = payload => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   axios
-    .post(authConfig.add_update_role_list, payload, {
+    .post(`${authConfig.authDevRakshitah_base_url}roles`, payload, {
       headers: {
         Authorization: `Bearer ${storedToken}`
       }

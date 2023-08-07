@@ -29,25 +29,25 @@ const EditFrame = () => {
   const [description, set_description] = useState('')
 
   const fetch_framework_details = async () => {
-    let successCallback = (response) => {
+    let successCallback = response => {
       setFwDetails(response)
       set_name(response.framework_Name)
       set_parent(response.framework_Parent)
       set_description(response.framework_Details)
     }
     let errorCallback = response => {
-      toast.error('Something went wrong');
+      toast.error('Something went wrong')
     }
-    getFrameworkById(router.query.keyword, errorCallback, successCallback); 
+    getFrameworkById(router.query.keyword, errorCallback, successCallback)
   }
 
   const edit_framework = async () => {
-    let successCallback = (response) => {
+    let successCallback = response => {
       toast.success('FrameWork Edited')
-      router.push(`/home/framework`)      
+      router.push(`/home/framework`)
     }
     let errorCallback = response => {
-      toast.error('Something went wrong');
+      toast.error('Something went wrong')
     }
     let request_data = {
       id: router.query.keyword,
@@ -56,8 +56,8 @@ const EditFrame = () => {
       framework_Parent: parent,
       framework_Status: 'active'
     }
-    updateFramework(router.query.keyword, request_data, errorCallback, successCallback);
-}
+    updateFramework(router.query.keyword, request_data, errorCallback, successCallback)
+  }
 
   useEffect(() => {
     fetch_framework_details()

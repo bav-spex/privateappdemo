@@ -33,7 +33,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
-import { createAssessment, getTestAssessments, getTests } from 'src/pages/home/complaince/test/complaince_service'
+import { createAssessment, getTestAssessments, getTests } from 'src/pages/home/compliance/test/complaince_service'
 import { getUsers, getTeams } from 'src/pages/home/Document/DocService'
 
 function createData(
@@ -77,7 +77,6 @@ function Row(props) {
   const router = useRouter()
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -95,6 +94,7 @@ function Row(props) {
       let successCallback = response => {
         set_audit_data(response.data)
       }
+
       let errorCallback = response => {
         toast.error('Something went wrong')
       }
@@ -103,21 +103,23 @@ function Row(props) {
     setOpen(!open)
   }
 
-  const handleEditTest= (id)=>{
+  const handleEditTest = id => {
     router.push({
-      pathname: '/home/complaince/test/save_test',
-      query: { keyword: id },
-  });
+      pathname: '/home/compliance/test/save_test',
+      query: { keyword: id }
+    })
   }
 
   const createAudit = id => {
     let request_data = JSON.stringify({
       test_id: id
     })
+
     let successCallback = response => {
       open_assessments(id)
       toast.success('Audit added successfully')
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong.')
     }
@@ -126,21 +128,21 @@ function Row(props) {
 
   const handleEditAudit = async id => {
     router.push({
-      pathname: '/home/complaince/test/edit_assessment',
+      pathname: '/home/compliance/test/edit_assessment',
       query: { keyword: id }
     })
   }
 
   const handleAddRisk = async id => {
     router.push({
-      pathname: '/home/complaince/test/add_risk',
+      pathname: '/home/compliance/test/add_risk',
       query: { keyword: id }
     })
   }
 
   const handleAddComments = async id => {
     router.push({
-      pathname: '/home/complaince/test/add_comment',
+      pathname: '/home/compliance/test/add_comment',
       query: { keyword: id }
     })
   }
@@ -148,7 +150,7 @@ function Row(props) {
   function handleRowClick(id) {
     // Redirect the user to the desired page
     router.push({
-      pathname: '/home/complaince/test/Audit_info',
+      pathname: '/home/compliance/test/Audit_info',
       query: { keyword: id }
     })
   }
@@ -156,7 +158,7 @@ function Row(props) {
   function handleRowClick2(id) {
     // Redirect the user to the desired page
     router.push({
-      pathname: '/home/complaince/test/Test_info',
+      pathname: '/home/compliance/test/Test_info',
       query: { keyword: id }
     })
   }
@@ -222,7 +224,7 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {audit_data.map(item => (
-                    <TableRow>
+                    <TableRow key={item.assessmentid}>
                       <TableCell
                         component='th'
                         scope='row'
@@ -296,7 +298,6 @@ export default function CollapsibleTable() {
   const router = useRouter()
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -314,8 +315,9 @@ export default function CollapsibleTable() {
 
   const fetch_test_list = () => {
     let successCallback = response => {
-      set_test_list(response.data)
+      set_test_list(response)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong.')
     }
@@ -352,81 +354,127 @@ export default function CollapsibleTable() {
         </Typography>
         <div>
           <ToastContainer />
-          {
-            user_data.role=='admin'?
-          <Button variant='contained' onClick={saveTest} sx={{display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px'}}>
-          {t('Add Test')}
-          </Button>
-          : ''
-          }
-          </div>
-          </div>
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}/>
-            <TableCell sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('ID')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Test Name')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Tester')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Additional Stakeholders')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Tags')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Test Frequency')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Last Test Date')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Next Test Date')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Approximate Time')}</TableCell>
-            <TableCell align="right"
-            sx={{
-              borderLeft: '0px solid black',
-              borderRight: '0px solid black'
-            }}>{t('Action')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {test_list.map((row) => (
-            <Row row={row} team_dict={team_dict} user_dict={user_dict}/>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          {user_data.role == 'admin' ? (
+            <Button
+              variant='contained'
+              onClick={saveTest}
+              sx={{ display: 'inline', float: 'right', marginTop: '10px', marginBottom: '10px' }}
+            >
+              {t('Add Test')}
+            </Button>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+      <TableContainer component={Paper}>
+        <Table aria-label='collapsible table'>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              />
+              <TableCell
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('ID')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Test Name')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Tester')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Additional Stakeholders')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Tags')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Test Frequency')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Last Test Date')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Next Test Date')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Approximate Time')}
+              </TableCell>
+              <TableCell
+                align='right'
+                sx={{
+                  borderLeft: '0px solid black',
+                  borderRight: '0px solid black'
+                }}
+              >
+                {t('Action')}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {test_list.map((row, i) => (
+              <Row key={i} row={row} team_dict={team_dict} user_dict={user_dict} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   )
 }

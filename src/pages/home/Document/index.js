@@ -54,7 +54,6 @@ const DocumentList = () => {
   const dispatch = useDispatch()
 
   const user_data = JSON.parse(localStorage.getItem('userData'))
-  console.log('userdata is', user_data)
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -151,7 +150,7 @@ const DocumentList = () => {
                 <IconButton sx={{ color: 'blue' }} onClick={() => goToEdit(params.row.doc_id)}>
                   <ModeEditIcon />
                 </IconButton>
-                <IconButton sx={{ color: 'red' }} onClick={() => fdelete(params.row.doc_id)}>
+                <IconButton sx={{ color: '#ed3700' }} onClick={() => fdelete(params.row.doc_id)}>
                   <DeleteIcon />
                 </IconButton>
               </>

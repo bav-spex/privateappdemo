@@ -21,8 +21,10 @@ import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
+import { createTest, updateTest, getTestById } from 'src/pages/home/complaince/test/complaince_service'
+import { convertDateFormat } from 'src/util/common'
 
-const AddTest = () => {
+const SaveTest = () => {
   const router = useRouter()
 
   const { t, i18n } = useTranslation()
@@ -33,17 +35,20 @@ const AddTest = () => {
   const [teams, set_teams] = useState([])
   const [test_name, set_test_name] = useState('')
   const [test_frequency, set_test_frequency] = useState('')
-  const [last_test_date, set_last_test_date] = useState('')
+  const [lastassessmentdate, set_lastassessmentdate] = useState('')
   const [objective, set_objective] = useState('')
-  const [test_steps, set_test_steps] = useState('')
+  const [teststeps, set_teststeps] = useState('')
   const [approximate_time, set_approximate_time] = useState('')
-  const [expected_results, set_expected_results] = useState('')
+  const [expectedresults, set_expectedresults] = useState('')
   const [tags, set_tags] = useState('')
 
   const [tester_list, set_tester_list] = useState([])
   const [teams_list, set_teams_list] = useState([])
   const [controls_list, set_controls_list] = useState([])
+  const [controls_dict, set_controls_dict] = useState({})
   const [frameworkControlId, set_frameworkControlId] = useState('')
+  const [mode, setMode] = useState('create')
+  const [id, setId] = useState(null)
 
   const add_framework_control = e => {
     set_frameworkControlId(e.target.value)
@@ -67,36 +72,36 @@ const AddTest = () => {
     router.push('/home/complaince/test')
   }
 
-  const submit_test = async () => {
-    console.log('Submit test data is')
-    console.log(test_name)
-    console.log(testers)
-    console.log(teams)
-    console.log(additional_stakeholders)
+  const save_test = async () => {
+    let request_data = {
+      additionalstakeholders: additional_stakeholders,
+      testname: test_name,
+      testers: testers,
+      teams: teams,
+      testfrequency: test_frequency,
+      lastassessmentdate: lastassessmentdate,
+      lasttestdate: lastassessmentdate,
+      objective: objective,
+      teststeps: teststeps,
+      approximatetime: approximate_time,
+      expectedresults: expectedresults,
+      tags: tags,
+      frameworkControlId: frameworkControlId
+    }
 
-    const res = await fetch(`${auth.add_test}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        additionalstakeholders: additional_stakeholders,
-        testname: test_name,
-        tester: testers,
-        teams: teams,
-        testfrequency: test_frequency,
-        lasttestdate: last_test_date,
-        objective: objective,
-        teststeps: test_steps,
-        approximatetime: approximate_time,
-        expectedresults: expected_results,
-        tags: tags
-      })
-    })
-    const data = await res.json()
-    console.log('add test is', data)
-    toast.success('Test added successfully')
-    // router.push('/home/complaince/test');
+    let successCallback = response => {
+      toast.success('Test saved successfully.')
+      router.push('/home/complaince/test')
+    }
+    let errorCallback = response => {
+      console.log('ERROR:', response)
+      toast.error('Something went wrong')
+    }
+    if (mode == 'create') {
+      createTest(request_data, errorCallback, successCallback)
+    } else {
+      updateTest(router.query.keyword, request_data, errorCallback, successCallback)
+    }
   }
 
   const fetch_testers = async () => {
@@ -108,7 +113,6 @@ const AddTest = () => {
     })
     const data = await res.json()
     set_tester_list(data.data.users)
-    console.log('dropdown data is', data)
   }
 
   const fetch_teams = async () => {
@@ -120,28 +124,72 @@ const AddTest = () => {
     })
     const data = await res.json()
     set_teams_list(data.data.users)
-    console.log('teams data is', data)
   }
 
   const fetchControlList = async () => {
     console.log('Fetching control list')
     let successCallback = response => {
-      set_controls_list(response.data.controls)
+      let d = {}
+      let controls = response.data.controls
+      controls.map(row => {
+        d[row['control-number']] = row.id
+      })
+      set_controls_dict(d)
+      set_controls_list(controls)
     }
     getControlList(() => {}, successCallback)
+  }
+
+  const setTestById = async id => {
+    let successCallback = response => {
+      let data = response.data
+      set_test_name(data.testname)
+      set_testers(data.testers)
+      set_additional_stakeholders(data.additionalstakeholders)
+      set_teams(data.teams)
+      set_test_frequency(data.testfrequency)
+      set_approximate_time(data.approximatetime)
+      set_tags(data.tags)
+      let control_id = controls_dict[data.controlnumber] || null
+      // set_frameworkControlId(control_id);
+      set_objective(0)
+      set_teststeps(0)
+      set_expectedresults(0)
+      let last_assessment_date = data.lastassessmentdate || null
+      if (last_assessment_date) {
+        last_assessment_date = convertDateFormat(data.lastassessmentdate)
+        console.log('lastassessmentdate1:', last_assessment_date)
+        set_lastassessmentdate(last_assessment_date)
+      }
+      // control id, objective, test setps, expected_results, lastassessmentdate todo
+    }
+    let errorCallback = response => {
+      console.log('ERROR:', response)
+      toast.error('Something went wrong')
+    }
+    getTestById(id, errorCallback, successCallback)
   }
 
   useEffect(() => {
     fetchControlList()
     fetch_testers()
     fetch_teams()
+
+    let keyword = router.query.keyword || null
+    if (keyword) {
+      setMode('update')
+      setId(keyword)
+      setTestById(keyword)
+    } else {
+      setMode('create')
+    }
   }, [])
 
   return (
     <>
       <div style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>{t('Add Test')}</h1>
+          <h1 style={{ textTransform: 'capitalize' }}>{t(`${mode} Test`)}</h1>
 
           <ToastContainer />
           <Grid
@@ -160,13 +208,7 @@ const AddTest = () => {
             <Button xs={2} variant='contained' size='medium' onClick={submitcancel}>
               {t('Cancel')}
             </Button>
-            <Button
-              type='submit '
-              size='medium'
-              variant='contained'
-              onClick={submit_test}
-              style={{ marginLeft: '10px' }}
-            >
+            <Button type='submit ' size='medium' variant='contained' onClick={save_test} style={{ marginLeft: '10px' }}>
               {t('Save')}
             </Button>
           </Grid>
@@ -258,7 +300,7 @@ const AddTest = () => {
           </div>
           <div style={{ width: '40%' }}>
             <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>{t('Framework Control Id')}</InputLabel>
+              <InputLabel id='demo-simple-select-label'>{t('Control ')}</InputLabel>
               <Select
                 value={frameworkControlId}
                 onChange={add_framework_control}
@@ -295,8 +337,8 @@ const AddTest = () => {
               id='outlined-basic'
               label={t('Test Steps')}
               variant='outlined'
-              value={test_steps}
-              onChange={e => set_test_steps(e.target.value)}
+              value={teststeps}
+              onChange={e => set_teststeps(e.target.value)}
             />
           </FormControl>
         </div>
@@ -320,9 +362,9 @@ const AddTest = () => {
                 id='outlined-basic'
                 variant='outlined'
                 type='date'
-                label='date'
-                value={last_test_date}
-                onChange={e => set_last_test_date(e.target.value)}
+                label='Last AssessmentDate'
+                value={lastassessmentdate}
+                onChange={e => set_lastassessmentdate(e.target.value)}
               />
             </FormControl>
           </div>
@@ -334,8 +376,8 @@ const AddTest = () => {
               id='outlined-basic'
               label={t('Expected Results')}
               variant='outlined'
-              value={expected_results}
-              onChange={e => set_expected_results(e.target.value)}
+              value={expectedresults}
+              onChange={e => set_expectedresults(e.target.value)}
             />
           </FormControl>
         </div>
@@ -356,4 +398,4 @@ const AddTest = () => {
   )
 }
 
-export default AddTest
+export default SaveTest

@@ -20,10 +20,10 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import SimpleDialog from './add_comment_popup'
 
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '@material-ui/core/styles';
-import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service';
-import { convertDateFormat } from 'src/util/common';
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '@material-ui/core/styles'
+import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service'
+import { convertDateFormat } from 'src/util/common'
 
 const AddComment = () => {
   const router = useRouter()
@@ -67,8 +67,8 @@ const AddComment = () => {
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
-    getAssessmentInfoById(id, 'comments', errorCallback, successCallback);
-  };
+    getAssessmentInfoById(id, 'comments', errorCallback, successCallback)
+  }
 
   useEffect(() => {
     let assessment_id = router.query.keyword
@@ -109,27 +109,27 @@ const AddComment = () => {
         </div>
 
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <Table sx={{ minWidth: 700 }} aria-label='customized table'>
             <TableHead>
               <TableRow>
                 <StyledTableCell>{t('Comment')}</StyledTableCell>
-                <StyledTableCell align="right">{t('Comment Date')}</StyledTableCell>
-                <StyledTableCell align="right">{t('Comment User')}</StyledTableCell>
+                <StyledTableCell align='right'>{t('Comment Date')}</StyledTableCell>
+                <StyledTableCell align='right'>{t('Comment User')}</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-                {comment_list.map((row) => (
+              {comment_list.map(row => (
                 <StyledTableRow>
-                  <StyledTableCell>
-                    {row.comment}
+                  <StyledTableCell>{row.comment}</StyledTableCell>
+                  <StyledTableCell align='right'>
+                    {row.commentDate ? convertDateFormat(row.commentDate) : '-'}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{ (row.commentDate) ? convertDateFormat(row.commentDate) : '-' }</StyledTableCell>
-                  <StyledTableCell align="right">{ row.userId }</StyledTableCell>
+                  <StyledTableCell align='right'>{row.userId}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer>   
+        </TableContainer>
       </div>
     </>
   )
