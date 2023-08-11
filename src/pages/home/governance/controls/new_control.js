@@ -15,7 +15,7 @@ import {
   Button
 } from '@mui/material'
 import toast from 'react-hot-toast'
-import { fwa } from 'src/pages/home/framework/frameworkService'
+import { fwa } from 'src/pages/home/governance/framework/frameworkService'
 import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'

@@ -39,6 +39,7 @@ const NewMitigation = () => {
   const currentDate = moment().format('YYYY-MM-DD')
 
   const [loading, setLoading] = useState(true)
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   const [efforts_dropdown, set_efforts_dropdown] = useState([])
   const [strategy_dropdown, set_strategy_dropdown] = useState([])
@@ -94,12 +95,24 @@ const NewMitigation = () => {
           mitigationsubmissiondate: moment(res.data.data.mitigationsubmissiondate).format('YYYY-MM-DD'),
           plannedmitigationdate: moment(res.data.data.plannedmitigationdate).format('YYYY-MM-DD')
         })
-        setLoading(false)
+        setDataLoaded(true)
       })
       .catch(err => {
         console.log(err)
       })
   }, [router.query.riskId])
+
+  useEffect(() => {
+    if (
+      efforts_dropdown.length > 0 &&
+      strategy_dropdown.length > 0 &&
+      additionalstakeholders_dropdown.length > 0 &&
+      control_dropdown.length > 0 &&
+      dataLoaded
+    ) {
+      setLoading(false)
+    }
+  }, [efforts_dropdown, strategy_dropdown, additionalstakeholders_dropdown, control_dropdown, dataLoaded])
 
   // Current Solution
   // Security Requirments

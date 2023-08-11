@@ -18,7 +18,7 @@ import {
   getDocumentById,
   convertDateFormat
 } from 'src/pages/home/Document/DocService'
-import { fwa } from 'src/pages/home/framework/frameworkService'
+import { fwa } from 'src/pages/home/governance/framework/frameworkService'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 

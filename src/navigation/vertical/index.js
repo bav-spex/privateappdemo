@@ -23,7 +23,7 @@ const navigation = () => {
         // },
         {
           title: t('Frameworks'),
-          path: '/home/framework'
+          path: '/home/governance/framework'
         },
         {
           title: t('Controls'),

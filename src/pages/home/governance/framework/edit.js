@@ -14,7 +14,7 @@ import authConfig from 'src/configs/auth'
 import toast from 'react-hot-toast'
 
 import { useTranslation } from 'react-i18next'
-import withRoot from '../withRoot'
+import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
 
 const EditFrame = () => {

@@ -10,7 +10,7 @@ import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select 
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
 import { getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService'
-import { fwa } from 'src/pages/home/framework/frameworkService'
+import { fwa } from 'src/pages/home/governance/framework/frameworkService'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 
@@ -136,6 +136,7 @@ const EditDocument = () => {
     saveRisk(values, () => {}, setSaveRisk)
     console.log('values:', values)
   }
+
   const AddDocument = () => {
     toast.success('Document edited')
   }
@@ -143,9 +144,11 @@ const EditDocument = () => {
   const upload = e => {
     console.log(e.target.files)
   }
+
   const gotoCancel = () => {
     router.push(`/home/Document`)
   }
+
   return (
     <>
       {/* <Grid

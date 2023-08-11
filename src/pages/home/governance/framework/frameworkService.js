@@ -12,10 +12,8 @@ export const getFrameworkById = (id, errorCallback, successCallback) => {
     {},
     res => {
       if (res?.data?.error?.msg) {
-        console.log('getFrameworkById error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('getFrameworkById success:', res.data)
         successCallback(res.data)
       }
     },
@@ -32,10 +30,8 @@ export const fwa = (errorCallback, successCallback) => {
     {},
     res => {
       if (res?.data?.error?.msg) {
-        console.log('fwa error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('fwa success:', res.data)
         successCallback(res.data)
       }
     },
@@ -52,10 +48,8 @@ export const deleteFramework = (frameworkId, errorCallback, successCallback) => 
     {},
     res => {
       if (res?.data?.error?.msg) {
-        console.log('deleteFramework error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('deleteFramework success:', res.data)
         successCallback(res.data)
       }
     },
@@ -72,10 +66,8 @@ export const createFramework = (params, errorCallback, successCallback) => {
     params,
     res => {
       if (res?.data?.error?.msg) {
-        console.log('createFramework error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('createFramework success:', res.data)
         successCallback(res.data)
       }
     },
@@ -92,10 +84,8 @@ export const updateFramework = (id, params, errorCallback, successCallback) => {
     params,
     res => {
       if (res?.data?.error?.msg) {
-        console.log('updateFramework error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
-        console.log('updateFramework success:', res.data)
         successCallback(res.data)
       }
     },

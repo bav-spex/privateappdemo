@@ -168,10 +168,13 @@ export const getThreatDropDown = (successCallback, errorCallback) => {
     })
 }
 
-export const getControlDropDown = (successCallback, errorCallback) => {
+export const getControlDropDown = (successCallback, setLoading) => {
   apiHelper(`${authConfig.governanceDevRakshitah_base_url}controls/get`, 'get')
     .then(res => {
       successCallback(res.data.data.controls)
+      if (setLoading) {
+        setLoading(false)
+      }
     })
     .catch(err => {
       console.log(err)
@@ -188,10 +191,11 @@ export const getControlRegulationDropDown = (successCallback, errorCallback) => 
     })
 }
 
-export const getFrameworkDropDown = (successCallback, errorCallback) => {
+export const getFrameworkDropDown = (successCallback, setLoading) => {
   apiHelper(`${authConfig.governanceDevRakshitah_base_url}frameworks/getAll`, 'get')
     .then(res => {
       successCallback(res.data)
+      setLoading(false)
     })
     .catch(err => {
       console.log(err)
