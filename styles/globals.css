@@ -204,6 +204,28 @@ th {
 .layout-page-content .MuiTableCell-root svg[data-testid='AddCommentIcon'] {
   color: #060056;
 }
+
+body {
+  scroll-behavior: smooth;
+}
+body::-webkit-scrollbar {
+  width: 3px !important;
+}
+/* Track */
+body::-webkit-scrollbar-track {
+  background: #eeeeee !important;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #a7a6e7;
+  border-radius: 5px;
+}
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
+
 .scrollDiv {
   scroll-behavior: smooth;
 }
@@ -217,10 +239,31 @@ th {
 
 /* Handle */
 .scrollDiv::-webkit-scrollbar-thumb {
-  background: #060056;
+  background: #a7a6e7;
   border-radius: 5px;
 }
 /* Handle on hover */
 .scrollDiv::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
+
+.MuiDataGrid-virtualScroller {
+  scroll-behavior: smooth;
+}
+.MuiDataGrid-virtualScroller::-webkit-scrollbar {
+  width: 3px !important;
+}
+/* Track */
+.MuiDataGrid-virtualScroller::-webkit-scrollbar-track {
+  background: #eeeeee !important;
+}
+
+/* Handle */
+.MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb {
+  background: #a7a6e7;
+  border-radius: 5px;
+}
+/* Handle on hover */
+.MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }

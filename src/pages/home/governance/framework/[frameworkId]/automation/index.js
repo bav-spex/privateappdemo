@@ -5,22 +5,13 @@ import { useRouter } from 'next/router'
 
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
-import { DataGrid } from '@mui/x-data-grid'
 import { Box, Button, CircularProgress, IconButton, Typography } from '@mui/material'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { getFrameworkDropDown } from 'src/store/apps/common'
-import {
-  createRequirenmentSections,
-  getAllControls,
-  getAllRequirenment,
-  getAllRequirenmentSections,
-  getControlsByRequirenmentId,
-  getRequirenmentSectionsByFrameworkId,
-  getSingleRequirenment
-} from 'src/store/apps/governance/framework/requirenmentsSections/RequirenmentsServices'
+
+import { getRequirenmentSectionsByFrameworkId } from 'src/store/apps/governance/framework/requirenmentsSections/RequirementsSectionServices'
 
 const useStyles = makeStyles({
   customBackground: {
