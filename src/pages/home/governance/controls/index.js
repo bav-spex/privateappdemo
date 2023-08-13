@@ -396,7 +396,7 @@ const ControlList = () => {
         <DataGrid
           rows={controlList}
           getRowId={row => row.id}
-          loading={true}
+          loading={false}
           columns={columns}
           // onRowClick={(rows)=>{gotoEditMode(rows.id)}}
           // checkboxSelection
