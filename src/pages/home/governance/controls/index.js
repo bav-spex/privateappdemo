@@ -198,7 +198,7 @@ const ControlList = () => {
           // Redirect the user to the desired page
           router.push({
             pathname: '/home/governance/controls/edit_control/',
-            query: { keyword: 3 }
+            query: { keyword: id }
           })
         }
         return <div onClick={handleRowClick}>{params.value}</div>
@@ -322,7 +322,7 @@ const ControlList = () => {
     // router.push(`/home/governance/controls/edit_control/${id}`);
     router.push({
       pathname: '/home/governance/controls/edit_control/',
-      query: { keyword: 3 }
+      query: { keyword: id }
     })
   }
 
@@ -356,6 +356,7 @@ const ControlList = () => {
         const successCallback = response => {
           Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
         }
+
         const errorCallback = response => {
           Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
           // Swal.fire('Deleted!', 'Your file has not been deleted.', 'error');
@@ -396,7 +397,7 @@ const ControlList = () => {
         <DataGrid
           rows={controlList}
           getRowId={row => row.id}
-          loading={true}
+          loading={false}
           columns={columns}
           // onRowClick={(rows)=>{gotoEditMode(rows.id)}}
           // checkboxSelection

@@ -17,7 +17,7 @@ import {
   getUsers,
   getDocumentById
 } from 'src/pages/home/Document/DocService'
-import { fwa } from 'src/pages/home/governance/framework/frameworkService'
+import { getFrameworks } from '../governance/framework/frameworkService'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 import moment from 'moment'
@@ -60,11 +60,12 @@ const SaveDocument = () => {
     } catch (err) {
       console.log('MOMENT ERROR:', err)
     }
+
     return date
   }
   //!fetch Documents
+  /* For Edit document start */
   useEffect(() => {
-    /* For Edit document start */
     if (router.query.keyword != undefined) {
       setDocId(router.query.keyword)
       getDocumentById(
@@ -90,10 +91,11 @@ const SaveDocument = () => {
         }
       )
     }
+
     /* For Edit document end */
     getCategoryData(9, () => {}, setDocTypeList)
     getCategoryData(10, () => {}, setDocumentStatusList)
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
 
     let controlSuccessCallback = response => {
       setControlList(response.data.controls)
@@ -150,6 +152,7 @@ const SaveDocument = () => {
       let errorCallback = response => {
         toast.error('Something went wrong.')
       }
+
       let successCallback = response => {
         toast.success('Document Added')
         router.push(`/home/Document`)
@@ -159,6 +162,7 @@ const SaveDocument = () => {
       let errorCallback = response => {
         toast.error('Something went wrong.')
       }
+
       let successCallback = response => {
         toast.success('Document updated')
         router.push(`/home/Document`)
@@ -242,7 +246,13 @@ const SaveDocument = () => {
                       aria-describedby='validation-basic-select'
                     >
                       {docTypeList.map(item =>
-                        item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                        item !== null ? (
+                          <MenuItem key={item.lookupId} value={item.lookupId}>
+                            {item.lookupName}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
                       )}
                     </Select>
                   )}
@@ -324,7 +334,13 @@ const SaveDocument = () => {
                       aria-describedby='validation-basic-select'
                     >
                       {controlList.map(item =>
-                        item !== null ? <MenuItem value={item.id}>{item['control-number']}</MenuItem> : ''
+                        item !== null ? (
+                          <MenuItem key={item.id} value={item.id}>
+                            {item['control-number']}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
                       )}
                     </Select>
                   )}
@@ -354,7 +370,15 @@ const SaveDocument = () => {
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {user_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                      {user_list.map(item =>
+                        item !== null ? (
+                          <MenuItem key={item.id} value={item.id}>
+                            {item.name}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
+                      )}
                     </Select>
                   )}
                 />
@@ -382,7 +406,15 @@ const SaveDocument = () => {
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {user_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                      {user_list.map(item =>
+                        item !== null ? (
+                          <MenuItem key={item.id} value={item.id}>
+                            {item.name}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
+                      )}
                     </Select>
                   )}
                 />
@@ -410,7 +442,15 @@ const SaveDocument = () => {
                       labelId='validation-basic-select'
                       aria-describedby='validation-basic-select'
                     >
-                      {teamList.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                      {teamList.map(item =>
+                        item !== null ? (
+                          <MenuItem key={item.id} value={item.id}>
+                            {item.name}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
+                      )}
                     </Select>
                   )}
                 />
@@ -521,7 +561,13 @@ const SaveDocument = () => {
                       aria-describedby='validation-basic-select'
                     >
                       {documentStatusList.map(item =>
-                        item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                        item !== null ? (
+                          <MenuItem key={item.lookupId} value={item.lookupId}>
+                            {item.lookupName}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
                       )}
                     </Select>
                   )}

@@ -9,8 +9,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addRisk } from 'src/store/apps/Risks/index'
+import { getFrameworks } from '../governance/framework/frameworkService'
 import { getCategoryData, getTeams, getUsers, getDocumentById } from 'src/pages/home/Document/DocService'
-import { fwa } from 'src/pages/home/governance/framework/frameworkService'
 import { getControlList } from 'src/pages/home/governance/controls/controlService'
 import { useRouter } from 'next/router'
 
@@ -69,7 +69,7 @@ const EditDocument = () => {
 
     getCategoryData(9, () => {}, setDocTypeList)
     getCategoryData(10, () => {}, setDocumentStatusList)
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
 
     let controlSuccessCallback = response => {
       setControlList(response.data.controls)
@@ -232,7 +232,13 @@ const EditDocument = () => {
                       aria-describedby='validation-basic-select'
                     >
                       {docTypeList.map(item =>
-                        item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                        item !== null ? (
+                          <MenuItem key={item.id} value={item.lookupId}>
+                            {item.lookupName}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
                       )}
                     </Select>
                   )}
@@ -275,7 +281,13 @@ const EditDocument = () => {
                       aria-describedby='validation-basic-select'
                     >
                       {frameworkList.map(item =>
-                        item !== null ? <MenuItem value={item.id}>{item.framework_Name}</MenuItem> : ''
+                        item !== null ? (
+                          <MenuItem key={item.id} value={item.id}>
+                            {item.framework_Name}
+                          </MenuItem>
+                        ) : (
+                          ''
+                        )
                       )}
                     </Select>
                   )}
@@ -343,7 +355,11 @@ const EditDocument = () => {
                       {/* <MenuItem value={allRisk.data?.externalreferenceid}>{allRisk.data?.externalreferenceid}</MenuItem> */}
                       {Array.isArray(ed?.data?.additional_stackholder) &&
                         ed?.data?.additional_stackholder.map((e, i) => {
-                          return <MenuItem value={e}>{e}</MenuItem>
+                          return (
+                            <MenuItem key={i} value={e}>
+                              {e}
+                            </MenuItem>
+                          )
                         })}
                     </Select>
                   )}
@@ -410,7 +426,11 @@ const EditDocument = () => {
                       <MenuItem value=''>None </MenuItem>
                       {Array.isArray(ed?.data?.teams) &&
                         ed?.data?.teams.map((e, i) => {
-                          return <MenuItem value={e}>{e}</MenuItem>
+                          return (
+                            <MenuItem key={e} value={e}>
+                              {e}
+                            </MenuItem>
+                          )
                         })}
                     </Select>
                   )}

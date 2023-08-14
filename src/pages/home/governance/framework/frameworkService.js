@@ -23,15 +23,17 @@ export const getFrameworkById = (id, errorCallback, successCallback) => {
   )
 }
 
-export const fwa = (errorCallback, successCallback) => {
+export const getFrameworks = (errorCallback, successCallback) => {
   siteCall(
     authConfig.frameWorkAll,
     'GET',
     {},
     res => {
       if (res?.data?.error?.msg) {
+        console.log('getFrameworks error:', res.data)
         if (errorCallback) errorCallback(res.data.error.msg)
       } else {
+        console.log('getFrameworks success:', res.data)
         successCallback(res.data)
       }
     },

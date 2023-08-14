@@ -85,15 +85,10 @@ const emails = ['username@gmail.com', 'user02@gmail.com']
 
 const AddRisk = () => {
   const router = useRouter()
-
   const { t, i18n } = useTranslation()
   const theme = useTheme()
-
-  const audit_id = router.query.keyword
-
+  const test_assessment_id = router.query.keyword
   const [risk_list, set_risk_list] = useState([])
-
-  var risk_list_id = []
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -123,14 +118,14 @@ const AddRisk = () => {
 
   const new_risk = () => {
     router.push({
-      pathname: '/home/compliance/test/new_risk',
-      query: { keyword: audit_id }
+      pathname: '/home/complaince/test/new_risk',
+      query: { keyword: test_assessment_id }
     })
   }
 
   const fetch_risk_list = async () => {
     let successCallback = response => {
-      let risks = response.data.risks || []
+      let risks = response.data || []
       console.log('RISK_LIST:', risks)
       set_risk_list(risks)
       for (let i = 0; i < risks.length; i++) {
@@ -179,7 +174,7 @@ const AddRisk = () => {
             >
               {t('Existing risk')}
             </Button>
-            <SimpleDialog open={open} onClose={handleClose} risk_list={risk_list_id} audit_id={router.query.keyword} />
+            <SimpleDialog open={open} onClose={handleClose} test_assessment_id={router.query.keyword} />
           </Grid>
         </div>
 

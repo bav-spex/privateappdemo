@@ -6,8 +6,7 @@ import Grid from '@mui/material/Grid'
 import { Button, Divider, Select } from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import { useRouter } from 'next/router'
-// import { allFrameWorks, fwa } from 'src/pages/home/frameworks/frameworkService'
-import { getFrameworkById, fwa, updateFramework } from './frameworkService'
+import { getFrameworkById, getFrameworks, updateFramework } from './frameworkService'
 import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
@@ -72,7 +71,7 @@ const EditFrame = () => {
   const [fwList, setFwList] = useState([])
   //!  to feth Parent fw
   useEffect(() => {
-    fwa(() => {}, setFwList)
+    getFrameworks(() => {}, setFwList)
     console.log('allframeaworks:', fwList)
   }, [])
 

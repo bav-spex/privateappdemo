@@ -17,8 +17,8 @@ import {
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import { getControlById, updateControl } from 'src/pages/home/governance/controls/controlService'
-import { fwa } from 'src/pages/home/governance/framework/frameworkService'
 import { getCategoryData, getUsers } from 'src/pages/home/Document/DocService'
+import { getFrameworks } from '../framework/frameworkService'
 
 const Edit_control = () => {
   const [class1, setClass1] = useState('')
@@ -75,6 +75,7 @@ const Edit_control = () => {
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
+
     let request_data = {
       shortname: shortname,
       number: controlNumber,
@@ -130,6 +131,7 @@ const Edit_control = () => {
   let commonErrorCallback = response => {
     toast.error('Something went wrong')
   }
+
   const fetch_classList = async () => {
     getCategoryData(2, commonErrorCallback, setClassList)
   }
@@ -175,7 +177,7 @@ const Edit_control = () => {
     fetch_typeList()
     fetch_familyList()
     fetch_statusList()
-    fwa(() => {}, setFrameworkList)
+    getFrameworks(() => {}, setFrameworkList)
   }, [])
 
   return (
@@ -267,7 +269,13 @@ const Edit_control = () => {
                 onChange={e => setClass1(e.target.value)}
               >
                 {classList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -283,7 +291,13 @@ const Edit_control = () => {
                 onChange={e => setPhase(e.target.value)}
               >
                 {phaseList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -316,7 +330,13 @@ const Edit_control = () => {
                 onChange={e => setCurrentMaturity(e.target.value)}
               >
                 {maturityList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -332,7 +352,13 @@ const Edit_control = () => {
                 onChange={e => setDesiredMaturity(e.target.value)}
               >
                 {maturityList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -351,7 +377,13 @@ const Edit_control = () => {
                 onChange={e => setPriority(e.target.value)}
               >
                 {priorityList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -367,7 +399,13 @@ const Edit_control = () => {
                 onChange={e => setFamily(e.target.value)}
               >
                 {familyList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -386,7 +424,13 @@ const Edit_control = () => {
                 onChange={e => setControlType(e.target.value)}
               >
                 {typeList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -402,7 +446,13 @@ const Edit_control = () => {
                 onChange={e => setStatus(e.target.value)}
               >
                 {statusList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -420,7 +470,15 @@ const Edit_control = () => {
                 label={t('Control Owner')}
                 onChange={e => setOwner(e.target.value)}
               >
-                {ownerList.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {ownerList.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -429,14 +487,20 @@ const Edit_control = () => {
               <InputLabel id='demo-simple-select-label'>{t('Control Framework')}</InputLabel>
               <Select
                 labelId='demo-simple-select-label'
-                multiple
+                // multiple
                 id='demo-simple-select'
                 value={framework}
                 label={t('Control Framework')}
                 onChange={e => setFramework(e.target.value)}
               >
                 {frameworkList.map(item =>
-                  item !== null ? <MenuItem value={item.id}>{item.framework_Name}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.framework_Name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>

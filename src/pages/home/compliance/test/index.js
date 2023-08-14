@@ -76,7 +76,7 @@ function Row(props) {
 
   const router = useRouter()
 
-  // const user_data = JSON.parse(localStorage.getItem('userData'))
+  const user_data = JSON.parse(localStorage.getItem('userData'))
 
   const { t, i18n } = useTranslation()
   const theme = useTheme()
@@ -105,7 +105,7 @@ function Row(props) {
 
   const handleEditTest = id => {
     router.push({
-      pathname: '/home/compliance/test/edit_test',
+      pathname: '/home/compliance/test/save_test',
       query: { keyword: id }
     })
   }
@@ -179,25 +179,29 @@ function Row(props) {
           {row.testid}
         </TableCell>
         <TableCell align='right'>{row.testname}</TableCell>
-        <TableCell align='right'>{row.testers[0]}</TableCell>
-        <TableCell align='right'>{row.additionalstakeholders[0]}</TableCell>
+        <TableCell align='right'>{row.testers.map(row => user_dict[row])}</TableCell>
+        <TableCell align='right'>{row.additionalstakeholders.map(row => user_dict[row])}</TableCell>
         <TableCell align='right'>{row.tags}</TableCell>
         <TableCell align='right'>{row.testfrequency}</TableCell>
         <TableCell align='right'>{row.lasttestdate}</TableCell>
         <TableCell align='right'>{row.next_test_date}</TableCell>
         <TableCell align='right'>{row.approximatetime}</TableCell>
         <TableCell align='right'>
-          <>
-            <IconButton onClick={() => handleEditTest(row.testid)} sx={{ color: 'green' }}>
-              <EditIcon titleAccess='Edit Test' />
-            </IconButton>
-            <IconButton onClick={() => handleEditClick(r.testid)} sx={{ color: '#ed3700' }}>
-              <DeleteIcon titleAccess='Delete Test' />
-            </IconButton>
-            <IconButton onClick={() => createAudit(row.testid)} sx={{ color: 'blue' }}>
-              <AddIcon titleAccess='Add Assesment' />
-            </IconButton>
-          </>
+          {user_data.role == 'admin' ? (
+            <>
+              <IconButton onClick={() => handleEditTest(row.testid)} sx={{ color: 'green' }}>
+                <EditIcon titleAccess='Edit Test' />
+              </IconButton>
+              <IconButton onClick={() => handleEditClick(r.testid)} sx={{ color: 'red' }}>
+                <DeleteIcon titleAccess='Delete Test' />
+              </IconButton>
+              <IconButton onClick={() => createAudit(row.testid)} sx={{ color: 'blue' }}>
+                <AddIcon titleAccess='Add Assesment' />
+              </IconButton>
+            </>
+          ) : (
+            ''
+          )}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -306,9 +310,8 @@ export default function CollapsibleTable() {
     //   theme.direction = i18n.dir();
   }
 
-  const addTest = id => {
-    // router.push(`/home/governance/controls/edit_control/${id}`);
-    router.push('/home/compliance/test/add_test')
+  const saveTest = () => {
+    router.push('/home/complaince/test/save_test')
   }
 
   const fetch_test_list = () => {
