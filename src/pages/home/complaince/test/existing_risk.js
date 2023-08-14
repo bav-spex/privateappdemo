@@ -37,9 +37,11 @@ function SimpleDialog(props) {
     let successCallback = response => {
       handleClose()
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
+
     let request_data = {
       test_assessment_id: test_assessment_id,
       risk_id: existing_risk_list
@@ -51,6 +53,7 @@ function SimpleDialog(props) {
     let successCallback = response => {
       set_available_risk_list(response.data.risk)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }

@@ -55,6 +55,7 @@ function SimpleDialog(props) {
     let successCallback = response => {
       set_available_risk_list(response.data.risk)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }

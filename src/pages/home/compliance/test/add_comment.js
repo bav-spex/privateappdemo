@@ -64,6 +64,7 @@ const AddComment = () => {
     let successCallback = response => {
       set_comment_list(response.data)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }

@@ -49,6 +49,7 @@ const AddFrame = () => {
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
+
     let request_data = {
       id: null,
       framework_Name: name,
@@ -76,6 +77,7 @@ const AddFrame = () => {
 
   const frameWorksArray = all
   console.log('Frameworks:', frameWorksArray)
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

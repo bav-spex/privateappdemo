@@ -17,6 +17,7 @@ const defineRulesFor = (role, subject) => {
   //   can(['read', 'create', 'update', 'delete'], subject)
   // }
   can('manage', 'all')
+
   return rules
 }
 

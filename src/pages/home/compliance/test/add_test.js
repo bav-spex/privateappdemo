@@ -125,6 +125,7 @@ const AddTest = () => {
 
   const fetchControlList = async () => {
     console.log('Fetching control list')
+
     let successCallback = response => {
       set_controls_list(response.data.controls)
     }

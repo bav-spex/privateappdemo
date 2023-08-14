@@ -23,14 +23,9 @@ module.exports = {
     '@next/next/no-img-element': 'off',
     'react/no-unescaped-entities': 'off',
     'import/no-anonymous-default-export': 'off',
-
+    'import/named': 'error',
     // add new line above comment
-    'lines-around-comment': [
-      'error',
-      {
-        
-      }
-    ],
+    'lines-around-comment': ['error', {}],
 
     // add new line above return
     'newline-before-return': 'error',

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { PieChart, Pie, Cell, Tooltip } from 'recharts'
 import Box from '@mui/material/Box'
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 
 const RADIAN = Math.PI / 180
+
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5
   const x = cx + radius * Math.cos(-midAngle * RADIAN)
@@ -17,8 +19,10 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     </text>
   )
 }
+
 const PieCharts = () => {
   const [status, setStaus] = useState([])
+
   // useEffect(() => {
   //   const getStatus = []
   //   const getRisk = async () => {
@@ -54,6 +58,7 @@ const PieCharts = () => {
     { name: 'Active', value: 1 },
     { name: 'Inactive', value: 0 }
   ]
+
   return (
     <>
       <PieChart width={200} height={200}>

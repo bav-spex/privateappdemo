@@ -132,6 +132,7 @@ const AddRisk = () => {
         risk_list_id.push(data.data.risks[i].id)
       }
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }

@@ -16,6 +16,7 @@ import Container from '@mui/material/Container'
 import Card from '@mui/material/Card'
 import PieCharts from './TotalRisk'
 import Category from './cat'
+
 const TotakRisk = () => {
   return (
     <>

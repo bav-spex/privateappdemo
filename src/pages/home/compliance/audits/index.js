@@ -82,6 +82,7 @@ const Audits = () => {
           if (timestamp1 > timestamp2) {
             return 1
           }
+
           return 0
         }
       },

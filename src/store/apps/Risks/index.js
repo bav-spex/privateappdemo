@@ -36,7 +36,9 @@ const riskSlice = createSlice({
 // export default riskSlice.reducer
 
 export const { addRisk, reviewRisk } = riskSlice.actions
+
 export const selectRisks = state => state.risks
+
 export const selectReviewRisks = state => state.risks
 
 export const getCatList = createAsyncThunk('appRisks/getCatList', async params => {
@@ -44,8 +46,10 @@ export const getCatList = createAsyncThunk('appRisks/getCatList', async params =
     ...params
   })
   console.log('cat-List-', response.data)
+
   return response.data
 })
+
 const catSlice = createSlice({
   name: 'category',
   initialState: [],
@@ -55,5 +59,7 @@ const catSlice = createSlice({
     }
   }
 })
+
 export const { addCat } = catSlice.actions
+
 export const selectCat = state => state.category

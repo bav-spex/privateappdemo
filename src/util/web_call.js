@@ -8,6 +8,7 @@ const addToken = headers => {
     headers['Authorization'] = `Bearer ${accessToken}`
   }
   console.log('headers:', headers)
+
   return headers
 }
 
@@ -15,6 +16,7 @@ const addContentType = (headers, value) => {
   if (!('Content-Type' in headers)) {
     headers['Content-Type'] = value
   }
+
   return headers
 }
 

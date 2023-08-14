@@ -68,6 +68,7 @@ const EditAssessment = () => {
         set_teams(response.data.teams)
       }
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
@@ -100,9 +101,11 @@ const EditAssessment = () => {
     let successCallback = response => {
       toast.success('Assesment Edited Successfully')
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong.')
     }
+
     let request_data = {
       test_assessment_id: router.query.keyword,
       assessment_status: assessment_status,

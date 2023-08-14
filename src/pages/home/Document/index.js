@@ -82,6 +82,7 @@ const DocumentList = () => {
           Swal.fire('Deleted!', 'Your record has been deleted.', 'success')
           getDocument(() => {}, setAll)
         }
+
         const errorCallback = response => {
           Swal.fire('Deleted!', 'Your file has not been deleted.', 'error')
         }
@@ -208,4 +209,5 @@ const DocumentList = () => {
     </>
   )
 }
+
 export default DocumentList

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 
 const RADIAN = Math.PI / 180
+
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5
   const x = cx + radius * Math.cos(-midAngle * RADIAN)
@@ -18,6 +19,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     </text>
   )
 }
+
 const Category = () => {
   const data = [
     { name: 'Group A', value: 400 },
@@ -25,6 +27,7 @@ const Category = () => {
     { name: 'Group C', value: 300 },
     { name: 'Group D', value: 200 }
   ]
+
   return (
     <>
       <PieChart width={200} height={200}>

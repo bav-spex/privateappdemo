@@ -80,6 +80,7 @@ const Document_info = () => {
     saveRisk(values, () => {}, setSaveRisk)
     console.log('values:', values)
   }
+
   const AddDocument = () => {
     toast.success('Document edited')
   }
@@ -87,9 +88,11 @@ const Document_info = () => {
   const upload = e => {
     console.log(e.target.files)
   }
+
   const gotoCancel = () => {
     router.push(`/home/Document`)
   }
+
   return (
     <>
       {/* <Grid

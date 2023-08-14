@@ -201,6 +201,7 @@ const ControlList = () => {
             query: { keyword: id }
           })
         }
+
         return <div onClick={handleRowClick}>{params.value}</div>
       }
     },
@@ -295,6 +296,7 @@ const ControlList = () => {
     let successCallback = response => {
       setControlList(response.data.controls)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }

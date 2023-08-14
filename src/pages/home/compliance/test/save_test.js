@@ -93,6 +93,7 @@ const SaveTest = () => {
       toast.success('Test saved successfully.')
       router.push('/home/complaince/test')
     }
+
     let errorCallback = response => {
       console.log('ERROR:', response)
       toast.error('Something went wrong')
@@ -128,6 +129,7 @@ const SaveTest = () => {
 
   const fetchControlList = async () => {
     console.log('Fetching control list')
+
     let successCallback = response => {
       let d = {}
       let controls = response.data.controls
@@ -163,6 +165,7 @@ const SaveTest = () => {
       }
       // control id, objective, test setps, expected_results, lastassessmentdate todo
     }
+
     let errorCallback = response => {
       console.log('ERROR:', response)
       toast.error('Something went wrong')

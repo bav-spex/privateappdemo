@@ -172,6 +172,7 @@ export const convertDateFormat = (date, date_format) => {
   } catch (err) {
     console.log('MOMENT ERROR:', err)
   }
+
   return date
 }
 

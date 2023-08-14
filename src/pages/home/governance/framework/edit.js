@@ -35,6 +35,7 @@ const EditFrame = () => {
       set_parent(response.framework_Parent)
       set_description(response.framework_Details)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
@@ -46,9 +47,11 @@ const EditFrame = () => {
       toast.success('FrameWork Edited')
       router.push(`/home/framework`)
     }
+
     let errorCallback = response => {
       toast.error('Something went wrong')
     }
+
     let request_data = {
       id: router.query.keyword,
       framework_Name: name,
