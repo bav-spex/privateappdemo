@@ -54,8 +54,8 @@ const AddDocument = () => {
   const [approval_date, setApprovalDate] = useState('')
 
   //!fetch Documents
+  /* For Edit document start */
   useEffect(() => {
-    /* For Edit document start */
     if (router.query.keyword != undefined) {
       setDocId(router.query.keyword)
       getDocumentById(
