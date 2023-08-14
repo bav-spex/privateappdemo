@@ -1,7 +1,6 @@
 // ** MUI Imports
-import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
-
+import { styled } from '@mui/material/styles'
 // ** AppBar Imports
 import AppBar from 'src/@core/layouts/components/blank-layout-with-appBar'
 

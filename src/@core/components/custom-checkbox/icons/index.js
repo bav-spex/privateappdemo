@@ -1,9 +1,8 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
 import Checkbox from '@mui/material/Checkbox'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 

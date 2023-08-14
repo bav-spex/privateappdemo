@@ -5,16 +5,11 @@ import { useRef, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
-
+import Icon from 'src/@core/components/icon'
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
-
 // ** Utils Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 

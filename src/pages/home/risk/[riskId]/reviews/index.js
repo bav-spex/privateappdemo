@@ -1,20 +1,20 @@
 // // ** React Imports
 import { useState, useEffect, useMemo } from 'react'
+
 //  ** Next Import
-import { useRouter } from 'next/router'
 
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
-import { DataGrid } from '@mui/x-data-grid'
-import IconButton from '@mui/material/IconButton'
-import CardContent from '@mui/material/CardContent'
-import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, CircularProgress } from '@mui/material'
-
+import CardContent from '@mui/material/CardContent'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import { DataGrid } from '@mui/x-data-grid'
+import { useRouter } from 'next/router'
 // //*axios import
-import { deleteSingleReview, getReviews } from 'src/store/apps/Risks/reviews/ReviewsServices'
 import { useTranslation } from 'react-i18next'
+import { deleteSingleReview, getReviews } from 'src/store/apps/Risks/reviews/ReviewsServices'
 
 const Reviews = () => {
   const router = useRouter()

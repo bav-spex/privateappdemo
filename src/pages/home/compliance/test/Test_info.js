@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import auth from 'src/configs/auth'
-// import './edit_control.css'
+
 import {
   CardContent,
   Divider,
@@ -14,7 +12,10 @@ import {
   Grid,
   Button
 } from '@mui/material'
+import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
+import auth from 'src/configs/auth'
+// import './edit_control.css'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Test_info = () => {
@@ -173,7 +174,15 @@ const Test_info = () => {
                 }}
                 disabled={true}
               >
-                {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {tester_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -194,7 +203,15 @@ const Test_info = () => {
                 }}
                 disabled={true}
               >
-                {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {tester_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -212,7 +229,15 @@ const Test_info = () => {
                 }}
                 disabled={true}
               >
-                {teams_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {teams_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>

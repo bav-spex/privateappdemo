@@ -4,33 +4,24 @@ import { useState } from 'react'
 // ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
 import FormHelperText from '@mui/material/FormHelperText'
-
+import { styled, useTheme } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 // ** Third Party Imports
 import Cleave from 'cleave.js/react'
 import { useForm, Controller } from 'react-hook-form'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Demo Imports
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
-
 // ** Custom Styled Component
 import CleaveWrapper from 'src/@core/styles/libs/react-cleave'
-
 // ** Util Import
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
-
+import themeConfig from 'src/configs/themeConfig'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
+import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 
 // ** Styles
 import 'cleave.js/dist/addons/cleave-phone.us'

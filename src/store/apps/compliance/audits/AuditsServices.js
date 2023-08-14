@@ -1,6 +1,6 @@
-import apiHelper from 'src/store/apiHelper'
-import authConfig from 'src/configs/auth'
 import { toast } from 'react-hot-toast'
+import authConfig from 'src/configs/auth'
+import apiHelper from 'src/store/apiHelper'
 
 export const getAudits = (successCallback, setLoading) => {
   apiHelper(`${authConfig.complianceDevRakshitah_base_url}audit`, 'get', null, {})

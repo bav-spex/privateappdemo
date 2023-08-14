@@ -1,6 +1,5 @@
 // ** MUI Imports
 import MuiBadge from '@mui/material/Badge'
-
 // ** Hooks Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 

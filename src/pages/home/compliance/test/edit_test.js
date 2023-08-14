@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import auth from 'src/configs/auth'
-// import './edit_control.css'
+
+import { useTheme } from '@material-ui/core/styles'
 import {
   CardContent,
   Divider,
@@ -14,12 +13,14 @@ import {
   Grid,
   Button
 } from '@mui/material'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
+import auth from 'src/configs/auth'
+// import './edit_control.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { useTranslation } from 'react-i18next'
 import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles'
 
 const EditTest = () => {
   const router = useRouter()
@@ -185,7 +186,15 @@ const EditTest = () => {
                   id: 'selected-values'
                 }}
               >
-                {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {tester_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -205,7 +214,15 @@ const EditTest = () => {
                   id: 'selected-values'
                 }}
               >
-                {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {tester_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -222,7 +239,15 @@ const EditTest = () => {
                   id: 'selected-values'
                 }}
               >
-                {teams_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {teams_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>

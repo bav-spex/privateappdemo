@@ -2,8 +2,8 @@
 import { useEffect, useRef } from 'react'
 
 // ** Layout Components
-import VerticalLayout from './VerticalLayout'
 import HorizontalLayout from './HorizontalLayout'
+import VerticalLayout from './VerticalLayout'
 
 const Layout = props => {
   // ** Props

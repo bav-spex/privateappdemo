@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { PieChart, Pie, Cell, Tooltip } from 'recharts'
+
 import Box from '@mui/material/Box'
+import { PieChart, Pie, Cell, Tooltip } from 'recharts'
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 

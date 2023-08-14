@@ -2,32 +2,25 @@
 import { useState } from 'react'
 
 // ** MUI Imports
-import Drawer from '@mui/material/Drawer'
-import Select from '@mui/material/Select'
-import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
-import { styled } from '@mui/material/styles'
-import TextField from '@mui/material/TextField'
-import IconButton from '@mui/material/IconButton'
-import InputLabel from '@mui/material/InputLabel'
-import Typography from '@mui/material/Typography'
+import { yupResolver } from '@hookform/resolvers/yup'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Drawer from '@mui/material/Drawer'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-
+import IconButton from '@mui/material/IconButton'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import { styled } from '@mui/material/styles'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 // ** Third Party Imports
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, Controller } from 'react-hook-form'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Store Imports
 import { useDispatch } from 'react-redux'
-
-// ** Actions Imports
+import Icon from 'src/@core/components/icon'
 import { addUser } from 'src/store/apps/user'
+import * as yup from 'yup'
 
 const showErrors = (field, valueLen, min) => {
   if (valueLen === 0) {

@@ -1,28 +1,20 @@
-// ** Next Imports
-import Link from 'next/link'
-
 // ** MUI Components
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import Button from '@mui/material/Button'
+import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import { styled, useTheme } from '@mui/material/styles'
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import MuiCard from '@mui/material/Card'
-
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Link from 'next/link'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
 // ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
-
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+// ** Hooks
+import themeConfig from 'src/configs/themeConfig'
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 

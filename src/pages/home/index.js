@@ -2,49 +2,40 @@
 import { useState, useEffect, useCallback } from 'react'
 
 // ** Next Imports
-import Link from 'next/link'
-
-// ** MUI Imports
+import { Button } from '@mui/material'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Menu from '@mui/material/Menu'
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
-import { DataGrid } from '@mui/x-data-grid'
-import { styled } from '@mui/material/styles'
-import MenuItem from '@mui/material/MenuItem'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import Divider from '@mui/material/Divider'
+import FormControl from '@mui/material/FormControl'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import InputLabel from '@mui/material/InputLabel'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Actions Imports
-import { deleteUser } from 'src/store/apps/user'
-
-// ** Custom Table Components Imports
-import TableHeader from 'src/views/apps/user/list/TableHeader'
-import { Button } from '@mui/material'
-
-// ** Next Import
-import { useRouter } from 'next/router'
-import { getBatchList } from 'src/store/apps/batches'
-
+import { styled } from '@mui/material/styles'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
-import { updateBatch } from 'src/store/apps/schedule'
+import Typography from '@mui/material/Typography'
+import { DataGrid } from '@mui/x-data-grid'
 import { left } from '@popperjs/core'
+import Link from 'next/link'
+// ** Icon Imports
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import Icon from 'src/@core/components/icon'
+// ** Custom Components Imports
+import CustomChip from 'src/@core/components/mui/chip'
+// ** Actions Imports
+import { getBatchList } from 'src/store/apps/batches'
+import { updateBatch } from 'src/store/apps/schedule'
+import { deleteUser } from 'src/store/apps/user'
+// ** Custom Table Components Imports
+import TableHeader from 'src/views/apps/user/list/TableHeader'
+
+// ** Next Import
 
 // ** Vars
 const userRoleObj = {
@@ -300,7 +291,7 @@ const BatchList = () => {
                 </ToggleButtonGroup> */}
                   {statusList.map(item =>
                     item !== null ? (
-                      <ToggleButton value={item} aria-label='left aligned'>
+                      <ToggleButton key={item} value={item} aria-label='left aligned'>
                         <Typography sx={{ fontSize: '12px', lineHeight: '18px', fontWeight: 500 }}>{item}</Typography>
                       </ToggleButton>
                     ) : (

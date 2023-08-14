@@ -1,28 +1,24 @@
 // ** React Imports
 import { useState, useEffect } from 'react'
 
-// ** Next Import
-import { useRouter } from 'next/router'
-
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Tab from '@mui/material/Tab'
-import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
 import MuiTabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
+import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
-
+import { styled } from '@mui/material/styles'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
+import { useRouter } from 'next/router'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
 // ** Demo Components Imports
 import UserViewBilling from 'src/views/apps/user/view/UserViewBilling'
-import UserViewOverview from 'src/views/apps/user/view/UserViewOverview'
-import UserViewSecurity from 'src/views/apps/user/view/UserViewSecurity'
 import UserViewConnection from 'src/views/apps/user/view/UserViewConnection'
 import UserViewNotification from 'src/views/apps/user/view/UserViewNotification'
+import UserViewOverview from 'src/views/apps/user/view/UserViewOverview'
+import UserViewSecurity from 'src/views/apps/user/view/UserViewSecurity'
 
 // ** Styled Tab component
 const TabList = styled(MuiTabList)(({ theme }) => ({

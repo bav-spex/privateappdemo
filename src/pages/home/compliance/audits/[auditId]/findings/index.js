@@ -2,19 +2,15 @@
 import { useState, useEffect, useMemo } from 'react'
 
 // // ** MUI Imports
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
-import { DataGrid } from '@mui/x-data-grid'
-
-import IconButton from '@mui/material/IconButton'
-
-import EditIcon from '@mui/icons-material/Edit'
-
 import { makeStyles } from '@material-ui/core/styles'
-
+import EditIcon from '@mui/icons-material/Edit'
+import { Box, Button, CircularProgress } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
-import { Box, Button, CircularProgress } from '@mui/material'
 import { getFindings } from 'src/store/apps/compliance/audits/FindingsServices'
 
 const useStyles = makeStyles({

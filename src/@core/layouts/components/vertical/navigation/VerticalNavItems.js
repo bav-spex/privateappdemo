@@ -1,6 +1,6 @@
 // ** Custom Menu Components
-import VerticalNavLink from './VerticalNavLink'
 import VerticalNavGroup from './VerticalNavGroup'
+import VerticalNavLink from './VerticalNavLink'
 import VerticalNavSectionTitle from './VerticalNavSectionTitle'
 
 const resolveNavItemComponent = item => {

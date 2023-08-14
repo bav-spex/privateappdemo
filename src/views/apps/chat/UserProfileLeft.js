@@ -2,28 +2,24 @@
 import { Fragment } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import Badge from '@mui/material/Badge'
-import Radio from '@mui/material/Radio'
 import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import ListItem from '@mui/material/ListItem'
-import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import RadioGroup from '@mui/material/RadioGroup'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import ListItemButton from '@mui/material/ListItemButton'
-import FormControlLabel from '@mui/material/FormControlLabel'
-
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
+import Icon from 'src/@core/components/icon'
 // ** Custom Component Imports
 import Sidebar from 'src/@core/components/sidebar'
 

@@ -1,8 +1,8 @@
 import React from 'react'
-import { create } from 'jss'
-import rtl from 'jss-rtl'
 
 import { MuiThemeProvider, StylesProvider, createMuiTheme, jssPreset } from '@material-ui/core/styles'
+import { create } from 'jss'
+import rtl from 'jss-rtl'
 // import i18n from "../../i18n/i18n";
 import i18n from 'src/i18n/_i18n'
 

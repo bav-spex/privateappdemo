@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 // ** Emotion Imports
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-
 // ** RTL Plugin
 import stylisRTLPlugin from 'stylis-plugin-rtl'
 

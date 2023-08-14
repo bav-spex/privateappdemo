@@ -1,7 +1,9 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import withRoot from './withRoot'
+
 import { useTheme } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
+
+import withRoot from './withRoot'
 
 function Localization() {
   const { t, i18n } = useTranslation()

@@ -1,8 +1,8 @@
 // *Axios
 import axios from 'axios'
 //*config
-import authConfig from 'src/configs/auth'
 import moment from 'moment'
+import authConfig from 'src/configs/auth'
 import { siteCall } from 'src/util/web_call'
 
 export const getDocument = (errorCallback, successCallback) => {

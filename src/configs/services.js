@@ -1,6 +1,5 @@
 // ** Axios
 import axios from 'axios'
-
 // ** Config
 import authConfig from 'src/configs/auth'
 

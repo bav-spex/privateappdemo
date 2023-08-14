@@ -3,8 +3,8 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 //.config
 import authConfig from 'src/configs/auth'
-import { siteCall } from 'src/util/web_call'
 import apiHelper from 'src/store/apiHelper'
+import { siteCall } from 'src/util/web_call'
 
 export const fetchRisk = (id, errorCallback, successCallback) => {
   siteCall(

@@ -1,6 +1,5 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
-
 // ** Config Import
 import themeConfig from 'src/configs/themeConfig'
 

@@ -2,51 +2,47 @@
 import { useState } from 'react'
 
 // ** Next Imports
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-
-// ** MUI Components
+import { yupResolver } from '@hookform/resolvers/yup'
 import Alert from '@mui/material/Alert'
-import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
-import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Checkbox from '@mui/material/Checkbox'
+import Divider from '@mui/material/Divider'
 import FormControl from '@mui/material/FormControl'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import FormHelperText from '@mui/material/FormHelperText'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import { styled, useTheme } from '@mui/material/styles'
-import FormHelperText from '@mui/material/FormHelperText'
-import InputAdornment from '@mui/material/InputAdornment'
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import MuiFormControlLabel from '@mui/material/FormControlLabel'
-
+import useMediaQuery from '@mui/material/useMediaQuery'
+import axios from 'axios'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
-import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
+import Icon from 'src/@core/components/icon'
+// ** Third Party Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+import authConfig from 'src/configs/auth'
+import azureConfig from 'src/configs/azureConfig'
+import themeConfig from 'src/configs/themeConfig'
+import { useAuth } from 'src/hooks/useAuth'
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import * as yup from 'yup'
+
+// ** Hooks
 
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
 
 // ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-import azureConfig from 'src/configs/azureConfig'
-import authConfig from 'src/configs/auth'
-import axios from 'axios'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)(({ theme }) => ({

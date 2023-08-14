@@ -1,15 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
 
-import Grid from '@mui/material/Grid'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
-import authConfig from 'src/configs/auth'
+import { useTheme } from '@material-ui/core/styles'
 import { Button } from '@mui/material'
-
-// ** Next Import
-import { useRouter } from 'next/router'
-
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -17,13 +11,15 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import SimpleDialog from './add_comment_popup'
-
+import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '@material-ui/core/styles'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import authConfig from 'src/configs/auth'
 import { getAssessmentInfoById } from 'src/pages/home/complaince/test/complaince_service'
 import { convertDateFormat } from 'src/util/common'
+
+import SimpleDialog from './add_comment_popup'
 
 const AddComment = () => {
   const router = useRouter()
@@ -120,7 +116,7 @@ const AddComment = () => {
             </TableHead>
             <TableBody>
               {comment_list.map(row => (
-                <StyledTableRow>
+                <StyledTableRow key={row.userId}>
                   <StyledTableCell>{row.comment}</StyledTableCell>
                   <StyledTableCell align='right'>
                     {row.commentDate ? convertDateFormat(row.commentDate) : '-'}

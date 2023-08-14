@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import auth from 'src/configs/auth'
-// import './edit_control.css'
+
+import { useTheme } from '@material-ui/core/styles'
 import {
   CardContent,
   Divider,
@@ -14,15 +13,17 @@ import {
   Grid,
   Button
 } from '@mui/material'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'react-i18next'
 import { ToastContainer, toast } from 'react-toastify'
+import auth from 'src/configs/auth'
+// import './edit_control.css'
 import 'react-toastify/dist/ReactToastify.css'
 import authConfig from 'src/configs/auth'
-
-import { useTranslation } from 'react-i18next'
-import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles'
 import { getAssessmentInfoById, updateAssessment } from 'src/pages/home/complaince/test/complaince_service'
 import { getCategoryData, convertDateFormat, getTeams, getUsers } from 'src/pages/home/Document/DocService'
+
+import withRoot from '../../withRoot'
 
 const EditAssessment = () => {
   const router = useRouter()
@@ -180,7 +181,13 @@ const EditAssessment = () => {
                 }}
               >
                 {assessment_status_list.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -199,7 +206,13 @@ const EditAssessment = () => {
                 }}
               >
                 {test_result_list.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -220,7 +233,15 @@ const EditAssessment = () => {
                   id: 'selected-values'
                 }}
               >
-                {tester_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {tester_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -252,7 +273,15 @@ const EditAssessment = () => {
                   id: 'selected-values'
                 }}
               >
-                {teams_list.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {teams_list.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>

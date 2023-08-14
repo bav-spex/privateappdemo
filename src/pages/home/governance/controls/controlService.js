@@ -4,7 +4,7 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 import { siteCall } from 'src/util/web_call'
 
-export const deleteControl = (id, errorCallback, successCallback) => {
+const deleteControl = (id, errorCallback, successCallback) => {
   siteCall(
     authConfig.delete_control + '/' + id,
     'DELETE',
@@ -104,3 +104,5 @@ export const updateControl = (id, params, errorCallback, successCallback) => {
     }
   )
 }
+
+export default deleteControl

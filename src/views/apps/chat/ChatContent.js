@@ -2,22 +2,21 @@
 import { Fragment } from 'react'
 
 // ** MUI Imports
-import Badge from '@mui/material/Badge'
 import MuiAvatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import Box from '@mui/material/Box'
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
 // ** Custom Components Import
-import ChatLog from './ChatLog'
-import SendMsgForm from 'src/views/apps/chat/SendMsgForm'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
+import SendMsgForm from 'src/views/apps/chat/SendMsgForm'
 import UserProfileRight from 'src/views/apps/chat/UserProfileRight'
+
+import ChatLog from './ChatLog'
 
 // ** Styled Components
 const ChatWrapperStartChat = styled(Box)(({ theme }) => ({

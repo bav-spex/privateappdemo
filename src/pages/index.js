@@ -4,11 +4,9 @@ import { useEffect } from 'react'
 // ** Next Imports
 import { useRouter } from 'next/router'
 import { Router } from 'next/router'
-
 // ** Spinner Import
 import Spinner from 'src/@core/components/spinner'
 import themeConfig from 'src/configs/themeConfig'
-
 // ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 

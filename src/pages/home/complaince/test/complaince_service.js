@@ -4,7 +4,7 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 import { siteCall } from 'src/util/web_call'
 
-export const createAssessment = (params, errorCallback, successCallback) => {
+const createAssessment = (params, errorCallback, successCallback) => {
   siteCall(
     authConfig.add_assessment,
     'POST',
@@ -205,3 +205,5 @@ export const saveExistingRisks = (params, errorCallback, successCallback) => {
     }
   )
 }
+
+export default createAssessment

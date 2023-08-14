@@ -1,19 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react'
+
+import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import { useSelector } from 'react-redux'
-import { Controller, useForm } from 'react-hook-form'
-import { CardContent, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { addRisk } from 'src/store/apps/Risks/index'
-import { getDocument, edit } from 'src/pages/home/Document/DocService'
+import TextField from '@mui/material/TextField'
 import { useRouter } from 'next/router'
+import { Controller, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { getDocument, edit } from 'src/pages/home/Document/DocService'
+import { addRisk } from 'src/store/apps/Risks/index'
 
 //Third party imports
-import toast from 'react-hot-toast'
 
 const Document_info = () => {
   const data = useSelector(state => state.riskList)
@@ -27,9 +28,9 @@ const Document_info = () => {
   }, [])
 
   //!editDocuments
-  useEffect(() => {
-    edit(() => {}, setEd)
-  }, [])
+  // useEffect(() => {
+  //   edit(() => {}, setEd)
+  // }, [])
 
   // ! to select docs
   const setGd = value => {
@@ -288,7 +289,11 @@ const Document_info = () => {
                       {/* <MenuItem value={allRisk.data?.externalreferenceid}>{allRisk.data?.externalreferenceid}</MenuItem> */}
                       {Array.isArray(ed?.data?.additional_stackholder) &&
                         ed?.data?.additional_stackholder.map((e, i) => {
-                          return <MenuItem value={e}>{e}</MenuItem>
+                          return (
+                            <MenuItem key={i} value={e}>
+                              {e}
+                            </MenuItem>
+                          )
                         })}
                     </Select>
                   )}
@@ -357,7 +362,11 @@ const Document_info = () => {
                       <MenuItem value=''>None </MenuItem>
                       {Array.isArray(ed?.data?.teams) &&
                         ed?.data?.teams.map((e, i) => {
-                          return <MenuItem value={e}>{e}</MenuItem>
+                          return (
+                            <MenuItem key={i} value={e}>
+                              {e}
+                            </MenuItem>
+                          )
                         })}
                     </Select>
                   )}

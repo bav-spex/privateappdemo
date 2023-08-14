@@ -1,8 +1,8 @@
 // ** Mock Adapter
+import { getDateRange } from 'src/@core/utils/get-daterange'
 import mock from 'src/@fake-db/mock'
 
 // ** Utils Import
-import { getDateRange } from 'src/@core/utils/get-daterange'
 
 const now = new Date()
 const currentMonth = now.toLocaleString('default', { month: 'short' })

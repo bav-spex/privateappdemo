@@ -60,3 +60,5 @@ export const addRoleData = payload => {
     })
     .catch(err => console.log('error', err))
 }
+
+export default addRoleData

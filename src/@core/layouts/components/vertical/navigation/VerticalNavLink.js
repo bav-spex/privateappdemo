@@ -1,26 +1,22 @@
 // ** Next Imports
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-
-// ** MUI Imports
+import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import ListItem from '@mui/material/ListItem'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { styled, useTheme } from '@mui/material/styles'
-import ListItemButton from '@mui/material/ListItemButton'
-
+import Typography from '@mui/material/Typography'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 // ** Configs Import
+import { handleURLQueries } from 'src/@core/layouts/utils'
 import themeConfig from 'src/configs/themeConfig'
-
 // ** Custom Components Imports
-import UserIcon from 'src/layouts/components/UserIcon'
-import Translations from 'src/layouts/components/Translations'
 import CanViewNavLink from 'src/layouts/components/acl/CanViewNavLink'
+import Translations from 'src/layouts/components/Translations'
+import UserIcon from 'src/layouts/components/UserIcon'
 
 // ** Util Import
-import { handleURLQueries } from 'src/@core/layouts/utils'
 
 // ** Styled Components
 const MenuNavLink = styled(ListItemButton)(({ theme }) => ({

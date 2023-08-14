@@ -1,6 +1,6 @@
 // ** MUI imports
-import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
 
 const DropzoneWrapper = styled(Box)(({ theme }) => ({
   '&.dropzone, & .dropzone': {

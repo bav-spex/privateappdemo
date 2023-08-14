@@ -1,10 +1,12 @@
 import React from 'react'
+
+import { useRouter } from 'next/router'
+
+import styles from '../../../../styles/dashboard.module.css'
 import Speedometer from '../charts/speedometer'
 import Policies from './Policies'
-import Tests from './Tests'
 import Tasks from './Tasks'
-import { useRouter } from 'next/router'
-import styles from '../../../../styles/dashboard.module.css'
+import Tests from './Tests'
 
 const Tab_one = props => {
   const router = useRouter()

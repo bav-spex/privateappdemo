@@ -2,28 +2,27 @@
 import { useState, Fragment } from 'react'
 
 // ** Next Import
-import { useRouter } from 'next/router'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-import Menu from '@mui/material/Menu'
-import Badge from '@mui/material/Badge'
+import { useTheme } from '@material-ui/core/styles'
+import TranslateIcon from '@mui/icons-material/Translate'
 import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
+import Box from '@mui/material/Box'
+// ** MUI Imports
 import Divider from '@mui/material/Divider'
+import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import TranslateIcon from '@mui/icons-material/Translate'
-
+import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
+import Icon from 'src/@core/components/icon'
+import { useAuth } from 'src/hooks/useAuth'
+
 import withRoot from '../../../../pages/home/withRoot'
-import { useTheme } from '@material-ui/core/styles'
 
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
 
 // ** Context
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({

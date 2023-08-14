@@ -1,10 +1,8 @@
 // ** MUI Imports
-import { useTheme } from '@mui/material/styles'
 import MuiTimelineDot from '@mui/lab/TimelineDot'
-
+import { useTheme } from '@mui/material/styles'
 // ** Hooks Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
-
 // ** Util Import
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 

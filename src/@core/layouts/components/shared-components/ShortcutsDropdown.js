@@ -2,26 +2,22 @@
 import { useState, Fragment } from 'react'
 
 // ** Next Imports
-import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
-import Tooltip from '@mui/material/Tooltip'
+import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import MuiMenu from '@mui/material/Menu'
 import MuiMenuItem from '@mui/material/MenuItem'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
+import { styled } from '@mui/material/styles'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Link from 'next/link'
 // ** Third Party Components
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
-
+import Icon from 'src/@core/components/icon'
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 

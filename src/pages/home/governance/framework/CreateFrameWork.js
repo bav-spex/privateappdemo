@@ -1,20 +1,21 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import TextField from '@mui/material/TextField'
+
+import { useTheme } from '@material-ui/core/styles'
+import TextareaAutosize from '@mui/base/TextareaAutosize'
+import { Button, Divider, Select } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import MenuItem from '@mui/material/MenuItem'
-import { Button, Divider, Select } from '@mui/material'
-import TextareaAutosize from '@mui/base/TextareaAutosize'
+import TextField from '@mui/material/TextField'
 import { useRouter } from 'next/router'
-import { allFrameWorks, getFrameworks, createFramework } from './frameworkService'
-import { useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import authConfig from 'src/configs/auth'
 
-import { useTranslation } from 'react-i18next'
-import { useTheme } from '@material-ui/core/styles'
+import { getFrameworks, createFramework } from './frameworkService'
 
 //third part imports
-import toast from 'react-hot-toast'
 
 const AddFrame = () => {
   const router = useRouter()
@@ -143,7 +144,11 @@ const AddFrame = () => {
                 {/* <MenuItem value={frameWorksArray?.framework_Name}>{frameWorksArray?.framework_Name}</MenuItem> */}
                 {Array.isArray(frameWorksArray) &&
                   frameWorksArray.map((f, i) => {
-                    return <MenuItem value={f.id}>{f.framework_Name}</MenuItem>
+                    return (
+                      <MenuItem key={f.id} value={f.id}>
+                        {f.framework_Name}
+                      </MenuItem>
+                    )
                   })}
               </Select>
             )}

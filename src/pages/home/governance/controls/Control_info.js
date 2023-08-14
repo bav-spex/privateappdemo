@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import auth from 'src/configs/auth'
-// import './edit_control.css'
+
 import {
   CardContent,
   Divider,
@@ -14,7 +12,10 @@ import {
   Grid,
   Button
 } from '@mui/material'
+import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
+import auth from 'src/configs/auth'
+// import './edit_control.css'
 
 const Control_info = () => {
   const [class1, setClass1] = useState('')
@@ -277,7 +278,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {classList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -294,7 +301,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {phaseList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -329,7 +342,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {maturityList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -346,7 +365,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {maturityList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -366,7 +391,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {priorityList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -383,7 +414,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {familyList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -403,7 +440,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {typeList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -420,7 +463,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {statusList.map(item =>
-                  item !== null ? <MenuItem value={item.lookupId}>{item.lookupName}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.lookupId} value={item.lookupId}>
+                      {item.lookupName}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>
@@ -439,7 +488,15 @@ const Control_info = () => {
                 onChange={e => setOwner(e.target.value)}
                 disabled={true}
               >
-                {ownerList.map(item => (item !== null ? <MenuItem value={item.id}>{item.name}</MenuItem> : ''))}
+                {ownerList.map(item =>
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
+                )}
               </Select>
             </FormControl>
           </div>
@@ -456,7 +513,13 @@ const Control_info = () => {
                 disabled={true}
               >
                 {frameworkList.map(item =>
-                  item !== null ? <MenuItem value={item.id}>{item.framework_Name}</MenuItem> : ''
+                  item !== null ? (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.framework_Name}
+                    </MenuItem>
+                  ) : (
+                    ''
+                  )
                 )}
               </Select>
             </FormControl>

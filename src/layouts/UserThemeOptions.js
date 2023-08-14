@@ -10,6 +10,7 @@ const UserThemeOptions = () => {
   // ** To use core palette, uncomment the below line
   // const palette = corePalette(mode, skin, themeColor)
   return {
+
     /*
     palette:{
       primary: {

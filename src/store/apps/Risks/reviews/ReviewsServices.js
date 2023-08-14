@@ -1,6 +1,6 @@
-import apiHelper from 'src/store/apiHelper'
-import authConfig from 'src/configs/auth'
 import { toast } from 'react-hot-toast'
+import authConfig from 'src/configs/auth'
+import apiHelper from 'src/store/apiHelper'
 
 export const getReviews = (riskId, successCallback, setLoading) => {
   apiHelper(`${authConfig.riskDevRakshitah_base_url}risk/${riskId}/reviews`, 'get', null, {})

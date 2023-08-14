@@ -2,40 +2,34 @@
 import { useState, useEffect } from 'react'
 
 // ** Next Import
-import { useRouter } from 'next/router'
-
-// ** MUI Imports
-import Tab from '@mui/material/Tab'
-import TabPanel from '@mui/lab/TabPanel'
+import MailIcon from '@mui/icons-material/Mail'
+import InboxIcon from '@mui/icons-material/MoveToInbox'
 import TabContext from '@mui/lab/TabContext'
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
 import MuiTabList from '@mui/lab/TabList'
-import CircularProgress from '@mui/material/CircularProgress'
-
-import Overview_tab from './overview_tab'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Demo Components Imports
-import UserViewBilling from './UserViewBilling'
-import UserViewOverview from './UserViewOverview'
-import UserViewSecurity from './UserViewSecurity'
-import UserViewConnection from './UserViewConnection'
-import UserViewNotification from './UserViewNotification'
-
+import TabPanel from '@mui/lab/TabPanel'
+import { Icon } from '@mui/material'
 import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
 import Button from '@mui/material/Button'
-import List from '@mui/material/List'
+import CircularProgress from '@mui/material/CircularProgress'
 import Divider from '@mui/material/Divider'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+import { styled } from '@mui/material/styles'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
+import { useRouter } from 'next/router'
+
+import Overview_tab from './overview_tab'
+// ** Demo Components Imports
+import UserViewBilling from './UserViewBilling'
+import UserViewConnection from './UserViewConnection'
+import UserViewNotification from './UserViewNotification'
+import UserViewOverview from './UserViewOverview'
+import UserViewSecurity from './UserViewSecurity'
 
 // ** Styled Tab component
 const TabList = styled(MuiTabList)(({ theme }) => ({

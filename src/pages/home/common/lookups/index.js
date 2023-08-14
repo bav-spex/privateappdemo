@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import auth from 'src/configs/auth'
-// import './edit_control.css'
+
+import { useTheme } from '@material-ui/core/styles'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import {
   CardContent,
   Divider,
@@ -14,9 +15,8 @@ import {
   Grid,
   Button
 } from '@mui/material'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
+import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -24,16 +24,16 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
-import DeleteIcon from '@mui/icons-material/Delete'
-import SimpleDialog from './add_lookup'
-import EditIcon from '@mui/icons-material/Edit'
-import SimpleDialog2 from './edit_lookup'
-
+import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify'
+import auth from 'src/configs/auth'
+// import './edit_control.css'
+import 'react-toastify/dist/ReactToastify.css'
+
 import withRoot from '../../withRoot'
-import { useTheme } from '@material-ui/core/styles'
+import SimpleDialog from './add_lookup'
+import SimpleDialog2 from './edit_lookup'
 
 const LookUps = () => {
   const router = useRouter()
@@ -148,7 +148,13 @@ const LookUps = () => {
               }}
             >
               {look_ups_dropdown.map(item =>
-                item !== null ? <MenuItem value={item.id}>{item.lookupCategoryName}</MenuItem> : ''
+                item !== null ? (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.lookupCategoryName}
+                  </MenuItem>
+                ) : (
+                  ''
+                )
               )}
             </Select>
           </FormControl>

@@ -1,11 +1,9 @@
 // ** MUI imports
-import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
-
+import { styled } from '@mui/material/styles'
 // ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings' // ** Hooks Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
-
+import { useSettings } from 'src/@core/hooks/useSettings' // ** Hooks Imports
 // ** Util Import
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 

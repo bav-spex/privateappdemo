@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
 // ** Axios Imports
 import axios from 'axios'
 import auth from 'src/configs/auth'

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { category } from 'src/store/apps/Risks/RiskService'
 
 export const getriskList = createAsyncThunk('appRisks/getriskList', async params => {
   const response = await axios.get(`${authConfig.riskDevRakshitah_base_url}risks`, {

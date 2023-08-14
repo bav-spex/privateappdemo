@@ -1,9 +1,9 @@
 // ** MUI Imports
 import Button from '@mui/material/Button'
-import Drawer from '@mui/material/Drawer'
 import Checkbox from '@mui/material/Checkbox'
-import Typography from '@mui/material/Typography'
+import Drawer from '@mui/material/Drawer'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import Typography from '@mui/material/Typography'
 
 const SidebarLeft = props => {
   const {

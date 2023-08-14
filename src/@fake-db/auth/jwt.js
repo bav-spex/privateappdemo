@@ -1,9 +1,7 @@
 // ** JWT import
 import jwt from 'jsonwebtoken'
-
 // ** Mock Adapter
 import mock from 'src/@fake-db/mock'
-
 // ** Default AuthConfig
 import defaultAuthConfig from 'src/configs/auth'
 

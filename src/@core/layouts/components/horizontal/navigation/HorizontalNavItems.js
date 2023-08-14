@@ -1,6 +1,6 @@
 // ** Custom Navigation Components
-import HorizontalNavLink from './HorizontalNavLink'
 import HorizontalNavGroup from './HorizontalNavGroup'
+import HorizontalNavLink from './HorizontalNavLink'
 
 const resolveComponent = item => {
   if (item.children) return HorizontalNavGroup

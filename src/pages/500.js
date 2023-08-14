@@ -1,15 +1,12 @@
 // ** Next Import
-import Link from 'next/link'
-
-// ** MUI Components
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+// ** MUI Components
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-
+import Link from 'next/link'
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
-
 // ** Demo Imports
 import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 

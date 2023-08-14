@@ -1,33 +1,30 @@
 // ** React Imports
+import { setTimeout } from 'timers'
+
 import { Fragment, useState } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import Input from '@mui/material/Input'
 import Avatar from '@mui/material/Avatar'
-import Divider from '@mui/material/Divider'
-import Tooltip from '@mui/material/Tooltip'
 import Backdrop from '@mui/material/Backdrop'
+import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
-import { styled } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import InputAdornment from '@mui/material/InputAdornment'
 import CircularProgress from '@mui/material/CircularProgress'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Input from '@mui/material/Input'
+import InputAdornment from '@mui/material/InputAdornment'
+import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
+import { styled } from '@mui/material/styles'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 // ** Third Party Imports
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
+import Icon from 'src/@core/components/icon'
 // ** Custom Components Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Email App Component Imports
-import { setTimeout } from 'timers'
 import MailDetails from './MailDetails'
 
 const MailItem = styled(ListItem)(({ theme }) => ({

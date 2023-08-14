@@ -4,7 +4,6 @@ import { forwardRef } from 'react'
 // ** MUI Imports
 import MuiAvatar from '@mui/material/Avatar'
 import { lighten, useTheme } from '@mui/material/styles'
-
 // ** Hooks Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 

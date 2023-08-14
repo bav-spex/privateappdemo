@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 
 import Chart from 'react-google-charts'
 import authConfig from 'src/configs/auth'
+
 import styles from '../../../../styles/pie_chart.module.css'
 
 const Google_Chart = () => {

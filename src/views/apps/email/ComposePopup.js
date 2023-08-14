@@ -2,36 +2,30 @@
 import { useState, useRef } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Chip from '@mui/material/Chip'
-import List from '@mui/material/List'
-import Menu from '@mui/material/Menu'
-import Input from '@mui/material/Input'
-import Button from '@mui/material/Button'
-import Drawer from '@mui/material/Drawer'
-import MenuItem from '@mui/material/MenuItem'
-import ListItem from '@mui/material/ListItem'
-import TextField from '@mui/material/TextField'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import InputLabel from '@mui/material/InputLabel'
-import ButtonGroup from '@mui/material/ButtonGroup'
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
-
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import Chip from '@mui/material/Chip'
+import Drawer from '@mui/material/Drawer'
+import IconButton from '@mui/material/IconButton'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
 import { EditorState } from 'draft-js'
-
+import Icon from 'src/@core/components/icon'
 // ** Custom Components Imports
-import OptionsMenu from 'src/@core/components/option-menu'
 import CustomAvatar from 'src/@core/components/mui/avatar'
+import OptionsMenu from 'src/@core/components/option-menu'
 import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
-
 // ** Styled Component Imports
 import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
-
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
 

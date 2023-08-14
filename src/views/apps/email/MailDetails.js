@@ -2,29 +2,25 @@
 import { Fragment, useState } from 'react'
 
 // ** MUI Imports
-import List from '@mui/material/List'
 import Avatar from '@mui/material/Avatar'
-import Divider from '@mui/material/Divider'
-import ListItem from '@mui/material/ListItem'
-import { styled } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-
+import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
+import Icon from 'src/@core/components/icon'
 // ** Hooks
+import CustomChip from 'src/@core/components/mui/chip'
+import OptionsMenu from 'src/@core/components/option-menu'
+import Sidebar from 'src/@core/components/sidebar'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Custom Components Imports
-import Sidebar from 'src/@core/components/sidebar'
-import CustomChip from 'src/@core/components/mui/chip'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 const HiddenReplyBack = styled(Box)(({ theme }) => ({
   height: 11,

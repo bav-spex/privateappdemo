@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import auth from 'src/configs/auth'
+
 // import './edit_control.css'
 import {
   CardContent,
@@ -14,10 +13,13 @@ import {
   Grid,
   Button
 } from '@mui/material'
+import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
-import { getControlById, updateControl } from 'src/pages/home/governance/controls/controlService'
+import auth from 'src/configs/auth'
 import { getCategoryData, getUsers } from 'src/pages/home/Document/DocService'
+import { getControlById, updateControl } from 'src/pages/home/governance/controls/controlService'
+
 import { getFrameworks } from '../framework/frameworkService'
 
 const Edit_control = () => {

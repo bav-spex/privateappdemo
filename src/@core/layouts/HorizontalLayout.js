@@ -1,25 +1,23 @@
 // ** MUI Imports
-import Fab from '@mui/material/Fab'
 import AppBar from '@mui/material/AppBar'
-import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Fab from '@mui/material/Fab'
+import { styled } from '@mui/material/styles'
 import MuiToolbar from '@mui/material/Toolbar'
-
 // ** Icon Imports
+import Customizer from 'src/@core/components/customizer'
 import Icon from 'src/@core/components/icon'
-
 // ** Theme Config Import
+import ScrollToTop from 'src/@core/components/scroll-to-top'
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Components
-import Customizer from 'src/@core/components/customizer'
-import Footer from './components/shared-components/footer'
-import Navigation from './components/horizontal/navigation'
-import ScrollToTop from 'src/@core/components/scroll-to-top'
 import AppBarContent from './components/horizontal/app-bar-content'
+import Navigation from './components/horizontal/navigation'
+import Footer from './components/shared-components/footer'
 
 // ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 const HorizontalLayoutWrapper = styled('div')({
   height: '100%',

@@ -1,11 +1,8 @@
-// ** Next Import
-import Link from 'next/link'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
-
+import Typography from '@mui/material/Typography'
+import Link from 'next/link'
 // ** Theme Config Import
 import themeConfig from 'src/configs/themeConfig'
 

@@ -1,24 +1,21 @@
 // // ** React Imports
 import { useState, useEffect, useMemo } from 'react'
+
+import { makeStyles } from '@material-ui/core/styles'
+import AddCommentIcon from '@mui/icons-material/AddComment'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
 // // ** MUI Imports
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
-import { DataGrid } from '@mui/x-data-grid'
-import IconButton from '@mui/material/IconButton'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import AddCommentIcon from '@mui/icons-material/AddComment'
-import { makeStyles } from '@material-ui/core/styles'
 import { Box, Button, CircularProgress } from '@mui/material'
-
-//  ** Next Import
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
-
 // import { allRisk } from 'src/pages/home/risk/RiskService'
-import { deleteSingleRisk, getRisks } from 'src/store/apps/Risks/RiskService'
-
 import { useTranslation } from 'react-i18next'
+import { deleteSingleRisk, getRisks } from 'src/store/apps/Risks/RiskService'
 
 const useStyles = makeStyles({
   customBackground: {

@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
-
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 

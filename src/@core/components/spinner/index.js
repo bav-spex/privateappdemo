@@ -1,7 +1,7 @@
 // ** MUI Import
-import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useTheme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 
 const Img = styled('img')(({ theme }) => ({
@@ -39,7 +39,7 @@ const FallbackSpinner = ({ sx }) => {
       }}
     >
       <Img alt='loader image' src='/images/apple-touch-icon.png' />
-      <CircularProgress disableShrink sx={{ mt: 6 }} sx={{ color: '#060056' }} />
+      <CircularProgress disableShrink sx={{ mt: 6, color: '#060056' }} />
     </Box>
   )
 }

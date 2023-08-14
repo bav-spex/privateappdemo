@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next'
 import { useTheme } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
-const navigation = () => {
+const Navigation = () => {
   const { t, i18n } = useTranslation()
   const theme = useTheme()
 
@@ -83,4 +83,4 @@ const navigation = () => {
   ]
 }
 
-export default navigation
+export default Navigation

@@ -2,40 +2,32 @@
 import { useEffect, useCallback, useState } from 'react'
 
 // ** Next Import
-import Link from 'next/link'
-
-// ** MUI Imports
+import { useTheme } from '@material-ui/core/styles'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import { DataGrid } from '@mui/x-data-grid'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-
+import { DataGrid } from '@mui/x-data-grid'
+import axios from 'axios'
+import Link from 'next/link'
 // ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Store Imports
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { ToastContainer, toast } from 'react-toastify'
+import Icon from 'src/@core/components/icon'
 // ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-
+import CustomChip from 'src/@core/components/mui/chip'
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
-
 // ** Actions Imports
 import { fetchData } from 'src/store/apps/user'
-
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/roles/TableHeader'
 
-import { useTranslation } from 'react-i18next'
 import withRoot from '../../home/withRoot'
-import { useTheme } from '@material-ui/core/styles'
-import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify'
+
 import 'react-toastify/dist/ReactToastify.css'
 
 // ** Vars

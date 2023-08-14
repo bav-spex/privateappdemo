@@ -1,13 +1,8 @@
-/* eslint-disable @next/next/no-sync-scripts */
-// ** React Import
 import { Children } from 'react'
 
 // ** Next Import
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-
-// ** Emotion Imports
 import createEmotionServer from '@emotion/server/create-instance'
-
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 // ** Utils Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
@@ -25,6 +20,7 @@ class CustomDocument extends Document {
           <link rel='apple-touch-icon' sizes='180x180' href='/images/apple-touch-icon.png' />
           <link rel='shortcut icon' href='/images/favicon.png' />
 
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script type='text/javascript' src='https://alcdn.msauth.net/lib/1.4.17/js/msal.min.js'></script>
         </Head>
         <body>

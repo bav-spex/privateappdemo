@@ -1,12 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import Button from '@mui/material/Button'
-import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from '@mui/material/Dialog'
-import auth from 'src/configs/auth'
 
-import { useRouter } from 'next/router'
 import {
   CardContent,
   Divider,
@@ -18,10 +12,16 @@ import {
   TextField,
   Grid
 } from '@mui/material'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
+import auth from 'src/configs/auth'
 import 'react-toastify/dist/ReactToastify.css'
-import { allRisk } from 'src/store/apps/Risks/RiskService'
 import { saveExistingRisks } from 'src/pages/home/complaince/test/complaince_service'
+import { allRisk } from 'src/store/apps/Risks/RiskService'
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open, test_assessment_id } = props
@@ -95,7 +95,13 @@ function SimpleDialog(props) {
             }}
           >
             {available_risk_list.map(item =>
-              item !== null ? <MenuItem value={item.id}>{item.subject}</MenuItem> : ''
+              item !== null ? (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.subject}
+                </MenuItem>
+              ) : (
+                ''
+              )
             )}
           </Select>
         </FormControl>

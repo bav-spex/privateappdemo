@@ -96,3 +96,5 @@ export const updateFramework = (id, params, errorCallback, successCallback) => {
     }
   )
 }
+
+export default deleteFramework

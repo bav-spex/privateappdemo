@@ -1,12 +1,11 @@
 // ** MUI Imports
 import Divider from '@mui/material/Divider'
+import MuiListSubheader from '@mui/material/ListSubheader'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import MuiListSubheader from '@mui/material/ListSubheader'
-
 // ** Custom Components Imports
-import Translations from 'src/layouts/components/Translations'
 import CanViewNavSectionTitle from 'src/layouts/components/acl/CanViewNavSectionTitle'
+import Translations from 'src/layouts/components/Translations'
 
 // ** Styled Components
 const ListSubheader = styled(props => <MuiListSubheader component='li' {...props} />)(({ theme }) => ({

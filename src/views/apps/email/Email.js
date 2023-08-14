@@ -1,23 +1,14 @@
 // ** React Imports
 import { useState, useEffect } from 'react'
 
-// ** Redux Imports
-import { useDispatch, useSelector } from 'react-redux'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-
+import { useDispatch, useSelector } from 'react-redux'
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
-
 // ** Email App Component Imports
-import MailLog from 'src/views/apps/email/MailLog'
-import SidebarLeft from 'src/views/apps/email/SidebarLeft'
-import ComposePopup from 'src/views/apps/email/ComposePopup'
-
-// ** Actions
 import {
   fetchMails,
   updateMail,
@@ -27,6 +18,10 @@ import {
   handleSelectMail,
   handleSelectAllMail
 } from 'src/store/apps/email'
+import ComposePopup from 'src/views/apps/email/ComposePopup'
+// ** Actions
+import MailLog from 'src/views/apps/email/MailLog'
+import SidebarLeft from 'src/views/apps/email/SidebarLeft'
 
 // ** Variables
 const labelColors = {

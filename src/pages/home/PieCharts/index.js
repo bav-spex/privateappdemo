@@ -1,21 +1,16 @@
 // // ** React Imports
 import { useState, useEffect, useCallback } from 'react'
 
-// ** Next Imports
-import Link from 'next/link'
-
-// // ** MUI Imports
-// import Box from '@mui/material/Box'
-// import Card from '@mui/material/Card'
-import Menu from '@mui/material/Menu'
-// import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
-import Card from '@mui/material/Card'
-import PieCharts from './TotalRisk'
+import Menu from '@mui/material/Menu'
+import Link from 'next/link'
+
 import Category from './cat'
+import PieCharts from './TotalRisk'
 
 const TotakRisk = () => {
   return (

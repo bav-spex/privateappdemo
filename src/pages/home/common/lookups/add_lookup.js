@@ -1,40 +1,15 @@
-import * as React from 'react'
-import { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import Button from '@mui/material/Button'
-import Avatar from '@mui/material/Avatar'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from '@mui/material/Dialog'
-import PersonIcon from '@mui/icons-material/Person'
-import AddIcon from '@mui/icons-material/Add'
-import Typography from '@mui/material/Typography'
-import { blue } from '@mui/material/colors'
-import auth from 'src/configs/auth'
+import { useState } from 'react'
 
-import { useRouter } from 'next/router'
-import {
-  CardContent,
-  Divider,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Grid
-} from '@mui/material'
-import { ToastContainer } from 'react-toastify'
-import toast from 'react-hot-toast'
-import 'react-toastify/dist/ReactToastify.css'
-
-import { useTranslation } from 'react-i18next'
-import withRoot from '../../withRoot'
 import { useTheme } from '@material-ui/core/styles'
+import { FormControl, TextField, Grid } from '@mui/material'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import PropTypes from 'prop-types'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
+import auth from 'src/configs/auth'
+import 'react-toastify/dist/ReactToastify.css'
 
 function SimpleDialog(props) {
   const { onClose, open, category_id } = props

@@ -1,48 +1,23 @@
-// // ** React Imports
 import { useState, useEffect, useCallback } from 'react'
 
-// ** Next Imports
-import Link from 'next/link'
-
 // // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Menu from '@mui/material/Menu'
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
-import { DataGrid } from '@mui/x-data-grid'
-import { styled } from '@mui/material/styles'
-import MenuItem from '@mui/material/MenuItem'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import CardContent from '@mui/material/CardContent'
-import Select from '@mui/material/Select'
-import ModeEditIcon from '@mui/icons-material/ModeEdit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Swal from 'sweetalert2'
 import { makeStyles } from '@material-ui/core/styles'
-
-import { useTranslation } from 'react-i18next'
-import withRoot from '../withRoot'
 import { useTheme } from '@material-ui/core/styles'
-
-//  ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-//  ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-import { Button, ToggleButtonGroup } from '@mui/material'
-
-//  ** Next Import
+import DeleteIcon from '@mui/icons-material/Delete'
+import ModeEditIcon from '@mui/icons-material/ModeEdit'
+import { Button } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
-
-// //*axios import
-
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import Icon from 'src/@core/components/icon'
 import { getDocument, deleteDocument } from 'src/pages/home/Document/DocService'
+import Swal from 'sweetalert2'
+
+import withRoot from '../withRoot'
 
 const useStyles = makeStyles({
   customBackground: {

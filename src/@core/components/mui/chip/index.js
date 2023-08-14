@@ -1,9 +1,7 @@
 // ** MUI Imports
 import MuiChip from '@mui/material/Chip'
-
 // ** Third Party Imports
 import clsx from 'clsx'
-
 // ** Hooks Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 
